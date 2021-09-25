@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class ScoreDisplayer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    ScoringManager scoringManager;
 
     // Update is called once per frame
     void Update()
