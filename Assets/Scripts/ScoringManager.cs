@@ -19,7 +19,7 @@ public class ScoringManager : MonoBehaviour
     {
         // should detect which player last thrown ball is from
         // currently always set to player one
-        currentPlayer = PlayerData.PlayerNumber.PlayerOne;
+        //currentPlayer = PlayerData.PlayerNumber.PlayerOne;
     }
 
     private int GetPlayerNumber(PlayerData.PlayerNumber player) {
