@@ -38,6 +38,12 @@ public class PlayerThrowBall : MonoBehaviour
     {
         if (ball)
         {
+            if (ball.GetComponent<PlayerData>().playerNumber != playerNumber)
+            {
+                ball = null;
+                return;
+            }
+
             bool throwInput = false;
             switch (playerNumber)
             {
