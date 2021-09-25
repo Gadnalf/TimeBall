@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoringManager : MonoBehaviour
 {
@@ -8,10 +9,22 @@ public class ScoringManager : MonoBehaviour
 
     private PlayerData.PlayerNumber currentPlayer;
 
+    [SerializeField]
+    private Text p1Score;
+
+    [SerializeField]
+    private Text p2Score;
+
     // Start is called before the first frame update
     void Start()
     {
         playerScores = new int[] { 0, 0 };
+    }
+
+    void Update()
+    {
+        p1Score.text = playerScores[0].ToString();
+        p2Score.text = playerScores[1].ToString();
     }
 
     public void setCurrentPlayer(PlayerData.PlayerNumber player)
