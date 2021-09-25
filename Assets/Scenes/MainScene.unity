@@ -488,6 +488,18 @@ PrefabInstance:
       value: 38.9232
       objectReference: {fileID: 0}
     - target: {fileID: 6930803245070238895, guid: 30a74dd92c3c13949adcb251a8aad04b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6930803245070238895, guid: 30a74dd92c3c13949adcb251a8aad04b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6930803245070238895, guid: 30a74dd92c3c13949adcb251a8aad04b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6930803245070238895, guid: 30a74dd92c3c13949adcb251a8aad04b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -517,11 +529,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6930803245070238895, guid: 30a74dd92c3c13949adcb251a8aad04b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -581.7509
+      value: 328
       objectReference: {fileID: 0}
     - target: {fileID: 6930803245070238895, guid: 30a74dd92c3c13949adcb251a8aad04b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -360.33838
+      value: 166
       objectReference: {fileID: 0}
     - target: {fileID: 6930803245070238895, guid: 30a74dd92c3c13949adcb251a8aad04b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -710,7 +722,7 @@ RectTransform:
   m_GameObject: {fileID: 781636586}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 867747466}
   m_Father: {fileID: 878139471}
@@ -718,7 +730,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 616, y: 350}
+  m_AnchoredPosition: {x: -277, y: 164}
   m_SizeDelta: {x: 149.762, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &781636588
@@ -1731,23 +1743,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2488c89a1a92a7d49aaad3e1c0ca7169, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.7063
+      value: 1.7766477
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2488c89a1a92a7d49aaad3e1c0ca7169, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4.9663
+      value: 5.332849
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2488c89a1a92a7d49aaad3e1c0ca7169, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.5474734e-15
+      value: 5e-15
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2488c89a1a92a7d49aaad3e1c0ca7169, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 25.2
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2488c89a1a92a7d49aaad3e1c0ca7169, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.046363e-14
+      value: -2.2e-14
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2488c89a1a92a7d49aaad3e1c0ca7169, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1804,8 +1816,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1f1beaadb512989428835413f1ace82f, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
+  m_Volume: 0.222
+  m_Pitch: 0.89
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -2427,7 +2439,7 @@ RectTransform:
   m_GameObject: {fileID: 1878357448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 1268892171}
   m_Father: {fileID: 878139471}
@@ -2435,7 +2447,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -688.119, y: 350}
+  m_AnchoredPosition: {x: -384, y: 164}
   m_SizeDelta: {x: 149.762, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1878357450
