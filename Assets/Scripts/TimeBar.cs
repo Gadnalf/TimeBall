@@ -8,7 +8,7 @@ public class TimeBar : MonoBehaviour
     private Slider slider;
     private float targetProgress;
 
-    public float FillSpeed = 0.01f;
+    public float FillSpeed;
 
     private void Awake() {
         slider = gameObject.GetComponent<Slider>();
