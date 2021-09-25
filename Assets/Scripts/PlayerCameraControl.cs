@@ -4,7 +4,6 @@ using UnityEngine;
 public class PlayerCameraControl : MonoBehaviour
 {
     // Config
-    public float mouseSensitivity = 90f;
     private PlayerData.PlayerNumber playerNumber;
 
     // State info
@@ -35,7 +34,7 @@ public class PlayerCameraControl : MonoBehaviour
                 break;
         }
 
-        rotationOnX -= rotationInput * Time.deltaTime * mouseSensitivity;
+        rotationOnX -= rotationInput * Time.deltaTime;
 
         transform.localEulerAngles = new Vector3(0, rotationOnX, 0);
     }
