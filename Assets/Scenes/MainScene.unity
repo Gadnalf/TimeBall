@@ -767,7 +767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   p1Score: {fileID: 499574366}
-  p2Score: {fileID: 0}
+  p2Score: {fileID: 1450177749}
 --- !u!81 &743372951
 AudioListener:
   m_ObjectHideFlags: 0
