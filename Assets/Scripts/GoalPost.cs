@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GoalPost : MonoBehaviour
 {
+    ScoringManager scoringManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,7 @@ public class GoalPost : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision) {
         if(collision.collider.tag == "Ball") {
-            
+            scoringManager.PlayerGoal();
         }
     }
 }
