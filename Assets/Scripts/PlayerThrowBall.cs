@@ -13,6 +13,8 @@ public class PlayerThrowBall : MonoBehaviour
     private bool throwBall = false;
     private GameObject ball;
 
+    public ScoringManager scoringManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +75,7 @@ public class PlayerThrowBall : MonoBehaviour
             {
                 Debug.Log("gotcha");
                 ballData.playerNumber = playerNumber;
+                scoringManager.setCurrentPlayer(playerNumber);
 
                 ball = collision.gameObject;
                 ball.GetComponent<Renderer>().material.color = GetComponent<Renderer>().material.color;

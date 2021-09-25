@@ -6,7 +6,7 @@ public class ScoringManager : MonoBehaviour
 {
     private int[] playerScores;
 
-    [SerializeField] private PlayerData.PlayerNumber currentPlayer;
+    private PlayerData.PlayerNumber currentPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -14,12 +14,9 @@ public class ScoringManager : MonoBehaviour
         playerScores = new int[] { 0, 0 };
     }
 
-    // Update is called once per frame
-    void Update()
+    public void setCurrentPlayer(PlayerData.PlayerNumber player)
     {
-        // should detect which player last thrown ball is from
-        // currently always set to player one
-        //currentPlayer = PlayerData.PlayerNumber.PlayerOne;
+        currentPlayer = player;
     }
 
     private int GetPlayerNumber(PlayerData.PlayerNumber player) {
@@ -51,6 +48,11 @@ public class ScoringManager : MonoBehaviour
         int playerNum = GetPlayerNumber(player);
 
         playerScores[playerNum]++;
+
+        for (int i = 0; i < playerScores.Length; i++)
+        {
+            print(playerScores[i]);
+        }
     }
 
     public void PlayerGoal() {
