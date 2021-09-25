@@ -7,8 +7,6 @@ public class PlayerCameraControl : MonoBehaviour
     private PlayerData.PlayerNumber playerNumber;
 
     // State info
-    private float rotationOnX = 0;
-    
     private Vector3 lastRotation;
 
     // Start is called before the first frame update
