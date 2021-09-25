@@ -25,10 +25,10 @@ public class PlayerCameraControl : MonoBehaviour
         switch (playerNumber)
         {
             case PlayerData.PlayerNumber.PlayerOne:
-                rotationInput = Input.GetAxis("P1Rotate");
+                rotationInput = Input.GetAxis("P1Camera");
                 break;
             case PlayerData.PlayerNumber.PlayerTwo:
-                rotationInput = Input.GetAxis("P2Rotate");
+                rotationInput = Input.GetAxis("P2Camera");
                 break;
             default:
                 Debug.LogError("Player object not assigned type.");
