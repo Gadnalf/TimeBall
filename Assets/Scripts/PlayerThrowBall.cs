@@ -6,7 +6,7 @@ public class PlayerThrowBall : MonoBehaviour
     [SerializeField]
     private float ballDistance = 2f;
     [SerializeField]
-    private float throwingForce = 5f;
+    private float throwingForce = 1000f;
     private PlayerData.PlayerNumber playerNumber;
 
     // State info
