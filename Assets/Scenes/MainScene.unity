@@ -358,7 +358,6 @@ GameObject:
   m_Component:
   - component: {fileID: 186593617}
   - component: {fileID: 186593616}
-  - component: {fileID: 186593615}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -366,25 +365,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &186593615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 186593614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!114 &186593616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,6 +690,7 @@ GameObject:
   m_Component:
   - component: {fileID: 743372949}
   - component: {fileID: 743372950}
+  - component: {fileID: 743372951}
   m_Layer: 0
   m_Name: ScoringManager
   m_TagString: Untagged
@@ -743,8 +724,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7383ebd402bdd84449414900a809243a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerScores: 
   currentPlayer: 1
+--- !u!81 &743372951
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743372948}
+  m_Enabled: 1
 --- !u!1 &873281949
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,6 +936,7 @@ GameObject:
   - component: {fileID: 1154118607}
   - component: {fileID: 1154118606}
   - component: {fileID: 1154118609}
+  - component: {fileID: 1154118610}
   m_Layer: 0
   m_Name: GoalGround1
   m_TagString: Untagged
@@ -1046,6 +1035,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74762c3fa143a1a41a0b629cde588966, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &1154118610
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154118604}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1160520754
 GameObject:
   m_ObjectHideFlags: 0
@@ -1576,6 +1578,7 @@ GameObject:
   - component: {fileID: 1792390968}
   - component: {fileID: 1792390967}
   - component: {fileID: 1792390970}
+  - component: {fileID: 1792390971}
   m_Layer: 0
   m_Name: GoalGround2
   m_TagString: Untagged
@@ -1674,6 +1677,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74762c3fa143a1a41a0b629cde588966, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &1792390971
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792390965}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2011509578
 GameObject:
   m_ObjectHideFlags: 0
