@@ -75,7 +75,7 @@ public class PlayerThrowBall : MonoBehaviour
                 ballData.playerNumber = playerNumber;
 
                 ball = collision.gameObject;
-                ball.GetComponent<Material>().color = gameObject.GetComponent<Material>().color;
+                ball.GetComponent<Renderer>().material.color = GetComponent<Renderer>().material.color;
                 ball.transform.parent = transform;
                 ball.transform.localPosition = new Vector3(0, 0, ballDistance);
                 ball.GetComponent<Rigidbody>().isKinematic = true;
