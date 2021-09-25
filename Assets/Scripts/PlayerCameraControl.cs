@@ -8,6 +8,8 @@ public class PlayerCameraControl : MonoBehaviour
 
     // State info
     private float rotationOnX = 0;
+    
+    private Vector3 lastRotation;
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +17,7 @@ public class PlayerCameraControl : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         playerNumber = GetComponent<PlayerData>().playerNumber;
+        lastRotation = transform.eulerAngles;
     }
 
     // Update is called once per frame
@@ -27,15 +30,16 @@ public class PlayerCameraControl : MonoBehaviour
                 rotationInput = Input.GetAxis("P1Camera");
                 break;
             case PlayerData.PlayerNumber.PlayerTwo:
-                rotationInput = Input.GetAxis("P2Camera");
+                // TODO: Getting button input rather than mouse, should be GetAxis
+                rotationInput = Input.GetAxisRaw("P2Camera") * 500;
                 break;
             default:
                 Debug.LogError("Player object not assigned type.");
                 break;
         }
-
-        rotationOnX -= rotationInput * Time.deltaTime;
-
-        transform.localEulerAngles = new Vector3(0, rotationOnX, 0);
+        
+        Vector3 newRotation = new Vector3(lastRotation.x, lastRotation.y + rotationInput * Time.deltaTime, lastRotation.z);
+        transform.eulerAngles = newRotation;
+        lastRotation =  newRotation;
     }
 }
