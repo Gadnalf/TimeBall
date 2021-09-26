@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerData))]
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float jumpSpeed = 150;
     public float groundDistance = 10;
     private PlayerData.PlayerNumber playerNumber;
+    private Camera playerCamera;
 
     private Rigidbody rb;
 
@@ -16,15 +18,28 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
     private bool jump;
+    private Vector3 lastRotation;
+
+    // Experimental
+    public Queue<Vector3> lastPositions;
+    public float recordLength = 30f;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerNumber = GetComponent<PlayerData>().playerNumber;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        playerCamera = GetComponentInChildren<Camera>();
+        lastRotation = transform.eulerAngles;
+        lastPositions = new Queue<Vector3>();
     }
 
     private void FixedUpdate()
     {
+        transform.eulerAngles = playerCamera.transform.eulerAngles;
+
         Vector3 forwardMovement = verticalInput * Vector3.forward;
         Vector3 sideMovement = horizontalInput * Vector3.right;
         Vector3 movementVector = (forwardMovement + sideMovement).normalized * speed;
@@ -34,6 +49,14 @@ public class PlayerController : MonoBehaviour
             jump = false;
         }
         rb.AddRelativeForce(movementVector);
+
+        if (recordLength > 0)
+        {
+            recordLength -= Time.deltaTime;
+            lastPositions.Enqueue(transform.position);
+            Debug.Log(recordLength);
+            Debug.Log(lastPositions.Count);
+        }
     }
 
     // Update is called once per frame
@@ -67,5 +90,23 @@ public class PlayerController : MonoBehaviour
         {
             jump = true;
         }
+
+        float rotationInput = 0;
+        switch (playerNumber)
+        {
+            case PlayerData.PlayerNumber.PlayerOne:
+                rotationInput = Input.GetAxis("P1Camera");
+                break;
+            case PlayerData.PlayerNumber.PlayerTwo:
+                // TODO: Getting button input rather than mouse, should be GetAxis
+                rotationInput = Input.GetAxisRaw("P2Camera") * 500;
+                break;
+            default:
+                Debug.LogError("Player object not assigned type.");
+                break;
+        }
+
+        playerCamera.transform.eulerAngles = new Vector3(lastRotation.x, lastRotation.y + rotationInput * Time.deltaTime, lastRotation.z);
+        lastRotation = playerCamera.transform.eulerAngles;
     }
 }
