@@ -27,7 +27,7 @@ public class CloneController : MonoBehaviour
                 nextPos = player.lastPositions.Dequeue();
             }
             // move whatever fraction of the way to the target is necessary
-            Vector3 partialMove = transform.position + (nextPos - transform.position)/player.framesToSkip;
+            Vector3 partialMove = transform.position + (nextPos - transform.position)/(player.framesToSkip + 1);
             Debug.Log(partialMove);
             rb.MovePosition(partialMove);
             frame = (frame + 1) % (player.framesToSkip + 1);
