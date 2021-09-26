@@ -22,7 +22,9 @@ public class PlayerController : MonoBehaviour
 
     // Experimental
     public Queue<Vector3> lastPositions;
-    public float recordLength = 30f;
+    public float recordLength = 10f;
+    public int framesToSkip = 0;
+    private int frame = 0;
 
     private void Start()
     {
@@ -52,10 +54,13 @@ public class PlayerController : MonoBehaviour
 
         if (recordLength > 0)
         {
-            recordLength -= Time.deltaTime;
-            lastPositions.Enqueue(transform.position);
-            Debug.Log(recordLength);
-            Debug.Log(lastPositions.Count);
+            recordLength -= Time.deltaTime; 
+            if (frame == 0)
+            {
+                lastPositions.Enqueue(transform.position);
+                Debug.Log(lastPositions.Count);
+            }
+            frame = (frame + 1) % (framesToSkip + 1);
         }
     }
 

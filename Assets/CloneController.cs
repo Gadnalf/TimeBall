@@ -7,11 +7,13 @@ public class CloneController : MonoBehaviour
     private float delay;
     private Rigidbody rb;
     public PlayerController player;
+    private int frame;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        frame = 0;
     }
 
     // Update is called once per frame
@@ -19,8 +21,12 @@ public class CloneController : MonoBehaviour
     {
         if (player.recordLength <= 0)
         {
-            Vector3 pos = player.lastPositions.Dequeue();
-            rb.MovePosition(pos);
+            if (frame == 0)
+            {
+                Vector3 pos = player.lastPositions.Dequeue();
+                rb.MovePosition(pos);
+            }
+            frame = (frame + 1) % (player.framesToSkip + 1);
         }
     }
 }
