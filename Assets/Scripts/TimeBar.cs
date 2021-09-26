@@ -10,6 +10,8 @@ public class TimeBar : MonoBehaviour
 
     public float FillSpeed;
 
+    [SerializeField] private GameObject fillKnob;
+
     private void Awake() {
         slider = gameObject.GetComponent<Slider>();
     }
@@ -20,6 +22,9 @@ public class TimeBar : MonoBehaviour
 
     void Update() {
         SetToProgressAnimated(0);
+
+        bool timeDone = slider.value == 0;
+        fillKnob.SetActive(!timeDone);
     }
 
     public void IncreaseProgress(float progressIncrease) {

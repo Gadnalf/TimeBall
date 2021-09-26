@@ -33,7 +33,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -1.2218018, y: 0}
+  m_AnchoredPosition: {x: -1.2217865, y: 0}
   m_SizeDelta: {x: 2.4437, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3342401929490388667
@@ -128,8 +128,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -203,8 +203,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.2218, y: 18.1}
-  m_SizeDelta: {x: 100.6561, y: 10.8782}
+  m_AnchoredPosition: {x: -1.2218, y: 23.5806}
+  m_SizeDelta: {x: 100.6561, y: 28.1192}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5544354492188380822
 GameObject:
@@ -240,7 +240,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.0000009536743}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7923865138768509145
@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 3152733203454653539}
   - component: {fileID: 1722650626393815985}
   m_Layer: 5
-  m_Name: Timebar
+  m_Name: TimeBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -459,4 +459,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4de75f02a4bad743a41847919781a91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FillSpeed: 0.2
+  FillSpeed: 0.05
+  fillKnob: {fileID: 5544354492188380822}

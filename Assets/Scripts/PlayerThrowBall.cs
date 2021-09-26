@@ -81,7 +81,7 @@ public class PlayerThrowBall : MonoBehaviour
             {
                 Debug.Log("gotcha");
                 ballData.playerNumber = playerNumber;
-                scoringManager.setCurrentPlayer(playerNumber);
+                scoringManager.SetCurrentPlayer(playerNumber);
 
                 ball = collision.gameObject;
                 ball.GetComponent<Renderer>().material.color = GetComponent<Renderer>().material.color;
