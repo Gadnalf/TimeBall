@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     // Experimental
     public Queue<Vector3> lastPositions;
     public float recordLength = 10f;
-    public int framesToSkip = 0;
+    public int framesToSkip = 3;
     private int frame = 0;
 
     private void Start()
