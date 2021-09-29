@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CloneController : MonoBehaviour
@@ -24,6 +25,11 @@ public class CloneController : MonoBehaviour
         {
             if (frame == 0)
             {
+                if (!player.lastPositions.Any())
+                {
+                    gameObject.SetActive(false);
+                    return;
+                }
                 nextPos = player.lastPositions.Dequeue();
             }
             // move whatever fraction of the way to the target is necessary
