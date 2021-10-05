@@ -3,10 +3,16 @@ using UnityEngine;
 
 public static class CloneManager
 {
-    public static GameObject clonePrefab;
-    public static PlayerController[] players;
+    private static GameObject clonePrefab;
+    private static PlayerController[] players;
 
     private static List<CloneData> clones;
+
+    static void Configure(GameObject prefab, PlayerController[] playerList)
+    {
+        clonePrefab = prefab;
+        players = playerList;
+    }
 
     static void AddClones()
     {
