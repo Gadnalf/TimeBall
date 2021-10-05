@@ -24,13 +24,13 @@ public class CloneController : MonoBehaviour
         {
             if (frame % skipFrames == 0)
             {
-                nextPos = directions[frame];
+                nextPos = directions[frame/skipFrames];
             }
             // move whatever fraction of the way to the target is necessary
             Vector3 partialMove = transform.position + (nextPos - transform.position)/(skipFrames + 1);
             Debug.Log(partialMove);
             rb.MovePosition(partialMove);
-            frame = (frame + 1) % (skipFrames + 1);
+            frame++;
         }
         else
         {
