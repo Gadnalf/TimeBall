@@ -10,6 +10,7 @@ public class TimeBar : MonoBehaviour
 
     public float FillSpeed;
 
+    private bool isTimeDone;
     [SerializeField] private GameObject fillKnob;
 
     private void Awake() {
@@ -18,13 +19,14 @@ public class TimeBar : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
         SetToProgress(1f);
+        isTimeDone = false;
     }
 
     void Update() {
         SetToProgressAnimated(0);
 
-        bool timeDone = slider.value == 0;
-        fillKnob.SetActive(!timeDone);
+        isTimeDone = slider.value == 0;
+        fillKnob.SetActive(!isTimeDone);
     }
 
     public void IncreaseProgress(float progressIncrease) {
@@ -50,5 +52,9 @@ public class TimeBar : MonoBehaviour
 
     public float CheckTime() {
         return slider.value;
+    }
+
+    public bool CheckIfTimeDone() {
+        return isTimeDone;
     }
 }
