@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class GoalPost : MonoBehaviour
 {
-    public ScoringManager scoringManager;
+    [SerializeField]
+    private ScoringManager scoringManager;
 
     private void OnTriggerEnter(Collider other)
     {

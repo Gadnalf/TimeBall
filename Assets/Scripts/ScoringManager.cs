@@ -24,8 +24,8 @@ public class ScoringManager : MonoBehaviour
 
     void Update()
     {
-        playerOneScore.text = playerScores[GetPlayerNumber(PlayerData.PlayerNumber.PlayerOne)].ToString();
-        playerTwoScore.text = playerScores[GetPlayerNumber(PlayerData.PlayerNumber.PlayerTwo)].ToString();
+        playerOneScore.text = GetPlayerScore(PlayerData.PlayerNumber.PlayerOne).ToString();
+        playerTwoScore.text = GetPlayerScore(PlayerData.PlayerNumber.PlayerTwo).ToString();
     }
 
     public void SetCurrentPlayer(PlayerData.PlayerNumber player)
