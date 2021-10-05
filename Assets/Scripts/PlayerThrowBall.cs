@@ -13,9 +13,6 @@ public class PlayerThrowBall : MonoBehaviour
     private bool throwBall = false;
     private GameObject ball;
 
-    public bool isClone = false;
-    private bool cloneKnockdown;
-
     [SerializeField]
     private ScoringManager scoringManager;
 
@@ -23,7 +20,6 @@ public class PlayerThrowBall : MonoBehaviour
     void Start()
     {
         playerNumber = GetComponent<PlayerData>().playerNumber;
-        cloneKnockdown = false;
     }
 
     private void FixedUpdate()
@@ -68,15 +64,6 @@ public class PlayerThrowBall : MonoBehaviour
                 throwBall = true;
             }
         }
-
-        if (isClone && cloneKnockdown) {
-            int knockdownSpeed = 90;
-            transform.Rotate(Vector3.forward, knockdownSpeed * Time.deltaTime);
-
-            if (transform.localEulerAngles.z >= 90) {
-                cloneKnockdown = false;
-            }
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -93,30 +80,15 @@ public class PlayerThrowBall : MonoBehaviour
             // if ball is not of player's color
             if (collision.gameObject.GetComponent<PlayerData>().playerNumber != playerNumber)
             {
-                if (isClone) {
-                    Debug.Log("ball passed to enemy clone");
-                    cloneKnockdown = true;
-                }
 
-                else {
-                    Debug.Log("ball passed to enemy player");
-
-                    ballData.playerNumber = playerNumber;
-                    scoringManager.SetCurrentPlayer(playerNumber);
-                    claimBall(collision);
-                }
+                ballData.playerNumber = playerNumber;
+                scoringManager.SetCurrentPlayer(playerNumber);
+                claimBall(collision);
             }
 
             // if ball is of player's color
             else {
-
-                if (isClone) {
-                    Debug.Log("ball passed to friendly clone");
-                }
-
-                else {
-                    claimBall(collision);
-                }
+                claimBall(collision);
             }
         }
     }

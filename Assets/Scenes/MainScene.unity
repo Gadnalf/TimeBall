@@ -2643,22 +2643,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2011509578}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &253445652779967183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3239468831519385312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7adca486c038794698e44e7dad1b675, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ballDistance: 2
-  throwingForce: 1000
-  isClone: 0
-  scoringManager: {fileID: 743372950}
 --- !u!1 &3239468831519385312
 GameObject:
   m_ObjectHideFlags: 0
@@ -2672,10 +2656,8 @@ GameObject:
   - component: {fileID: 3239468831519385315}
   - component: {fileID: 3239468831519385314}
   - component: {fileID: 3239468831519385326}
-  - component: {fileID: 3239468831519385313}
-  - component: {fileID: 3239468831519385327}
   - component: {fileID: 3239468831519385320}
-  - component: {fileID: 253445652779967183}
+  - component: {fileID: 3239468831519385316}
   m_Layer: 0
   m_Name: Clone1
   m_TagString: Player
@@ -2683,21 +2665,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &3239468831519385313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3239468831519385312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbe8a585dc9309545a320b15261dc61e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  jumpSpeed: 150
-  groundDistance: 10
 --- !u!136 &3239468831519385314
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2731,7 +2698,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d80667461e177e344b582809f0b8462a, type: 2}
+  - {fileID: 2100000, guid: 7062d9e0d8c12fd4ead18c403fd65fdb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2753,6 +2720,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3239468831519385316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3239468831519385312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed16a1c79a9521489b8bd61ca34f0ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockdownSpeed: 90
 --- !u!114 &3239468831519385320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2804,18 +2784,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &3239468831519385327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3239468831519385312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b85268d8b8b25b498cb28b27b96ff53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4618061266620561492
 GameObject:
   m_ObjectHideFlags: 0
@@ -2829,10 +2797,8 @@ GameObject:
   - component: {fileID: 4618061266620561495}
   - component: {fileID: 4618061266620561494}
   - component: {fileID: 4618061266620561498}
-  - component: {fileID: 4618061266620561493}
-  - component: {fileID: 4618061266620561499}
   - component: {fileID: 4618061266620561500}
-  - component: {fileID: 8027150142854413435}
+  - component: {fileID: 4618061266620561493}
   m_Layer: 0
   m_Name: Clone2
   m_TagString: Player
@@ -2849,12 +2815,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4618061266620561492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbe8a585dc9309545a320b15261dc61e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ed16a1c79a9521489b8bd61ca34f0ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  jumpSpeed: 150
-  groundDistance: 10
+  knockdownSpeed: 90
 --- !u!136 &4618061266620561494
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2888,7 +2852,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d80667461e177e344b582809f0b8462a, type: 2}
+  - {fileID: 2100000, guid: 7062d9e0d8c12fd4ead18c403fd65fdb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2948,18 +2912,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &4618061266620561499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4618061266620561492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b85268d8b8b25b498cb28b27b96ff53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4618061266620561500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2973,21 +2925,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 2
---- !u!114 &4879184234418683028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4879184234418683029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbe8a585dc9309545a320b15261dc61e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  jumpSpeed: 150
-  groundDistance: 10
 --- !u!1 &4879184234418683029
 GameObject:
   m_ObjectHideFlags: 0
@@ -3001,10 +2938,8 @@ GameObject:
   - component: {fileID: 4879184234418683030}
   - component: {fileID: 4879184234418683031}
   - component: {fileID: 4879184234418683035}
-  - component: {fileID: 4879184234418683028}
-  - component: {fileID: 4879184234418683034}
   - component: {fileID: 4879184234418683037}
-  - component: {fileID: 7838186339920951482}
+  - component: {fileID: 4879184234418683034}
   m_Layer: 0
   m_Name: Clone3
   m_TagString: Player
@@ -3031,7 +2966,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d80667461e177e344b582809f0b8462a, type: 2}
+  - {fileID: 2100000, guid: 7062d9e0d8c12fd4ead18c403fd65fdb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3098,9 +3033,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4879184234418683029}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b85268d8b8b25b498cb28b27b96ff53, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ed16a1c79a9521489b8bd61ca34f0ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knockdownSpeed: 90
 --- !u!54 &4879184234418683035
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3130,35 +3066,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 2
---- !u!114 &7838186339920951482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4879184234418683029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7adca486c038794698e44e7dad1b675, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ballDistance: 2
-  throwingForce: 1000
-  isClone: 0
-  scoringManager: {fileID: 743372950}
---- !u!114 &8027150142854413435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4618061266620561492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7adca486c038794698e44e7dad1b675, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ballDistance: 2
-  throwingForce: 1000
-  isClone: 0
-  scoringManager: {fileID: 743372950}
