@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class CloneController : MonoBehaviour
 {
-    private float delay;
+    public Vector3[] directions;
+    public int skipFrames;
+
+    // State data
     private Rigidbody rb;
-    public PlayerController player;
     private int frame;
     private Vector3 nextPos;
 
@@ -21,22 +20,21 @@ public class CloneController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (player.recordLength <= 0)
+        if (frame < directions.Length)
         {
-            if (frame == 0)
+            if (frame % skipFrames == 0)
             {
-                if (!player.lastPositions.Any())
-                {
-                    gameObject.SetActive(false);
-                    return;
-                }
-                nextPos = player.lastPositions.Dequeue();
+                nextPos = directions[frame];
             }
             // move whatever fraction of the way to the target is necessary
-            Vector3 partialMove = transform.position + (nextPos - transform.position)/(player.framesToSkip + 1);
+            Vector3 partialMove = transform.position + (nextPos - transform.position)/(skipFrames + 1);
             Debug.Log(partialMove);
             rb.MovePosition(partialMove);
-            frame = (frame + 1) % (player.framesToSkip + 1);
+            frame = (frame + 1) % (skipFrames + 1);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 }
