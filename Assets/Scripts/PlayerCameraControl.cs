@@ -5,6 +5,7 @@ public class PlayerCameraControl : MonoBehaviour
 {
     // Config
     private PlayerData.PlayerNumber playerNumber;
+    private Camera playerCamera;
 
     // State info
     private Vector3 lastRotation;
@@ -15,6 +16,7 @@ public class PlayerCameraControl : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         playerNumber = GetComponent<PlayerData>().playerNumber;
+        playerCamera = GetComponentInChildren<Camera>();
         lastRotation = transform.eulerAngles;
     }
 
@@ -36,8 +38,7 @@ public class PlayerCameraControl : MonoBehaviour
                 break;
         }
         
-        Vector3 newRotation = new Vector3(lastRotation.x, lastRotation.y + rotationInput * Time.deltaTime, lastRotation.z);
-        transform.eulerAngles = newRotation;
-        lastRotation =  newRotation;
+        playerCamera.transform.eulerAngles = new Vector3(lastRotation.x, lastRotation.y + rotationInput * Time.deltaTime, lastRotation.z);
+        lastRotation = playerCamera.transform.eulerAngles;
     }
 }
