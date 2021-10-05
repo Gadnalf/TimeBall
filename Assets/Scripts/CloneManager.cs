@@ -6,23 +6,26 @@ public static class CloneManager
     private static GameObject clonePrefab;
     private static PlayerController[] players;
 
-    private static List<CloneData> clones;
+    private static List<CloneData> clones = new List<CloneData>();
 
-    static void Configure(GameObject prefab, PlayerController[] playerList)
+    public static void Configure(GameObject prefab, PlayerController[] playerList)
     {
         clonePrefab = prefab;
         players = playerList;
     }
 
-    static void AddClones()
+    public static void AddClones()
     {
+        
         foreach (PlayerController player in players)
         {
-            clones.Add(new CloneData() { SkipFrames = player.framesToSkip, Positions = player.lastPositions.ToArray() });
+            Debug.Log(player);
+            CloneData c = new CloneData() { SkipFrames = player.framesToSkip, Positions = player.lastPositions.ToArray() };
+            clones.Add(c);
         }
     }
 
-    static void SpawnClones()
+    public static void SpawnClones()
     {
         foreach (CloneData clone in clones)
         {

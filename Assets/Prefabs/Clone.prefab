@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 3698119906725327034}
   - component: {fileID: 3698119906725327030}
   - component: {fileID: 6638636319804852972}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Clone
-  m_TagString: Player
+  m_TagString: Clone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

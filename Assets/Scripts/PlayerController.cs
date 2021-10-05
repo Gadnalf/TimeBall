@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
             if (frame == 0)
             {
                 lastPositions.Enqueue(transform.position);
-                Debug.Log(lastPositions.Count);
+                //Debug.Log(lastPositions.Count);
             }
             frame = (frame + 1) % (framesToSkip + 1);
         }
