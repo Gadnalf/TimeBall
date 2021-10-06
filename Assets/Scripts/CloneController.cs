@@ -40,7 +40,7 @@ public class CloneController : MonoBehaviour
             }
             // move whatever fraction of the way to the target is necessary
             Vector3 partialMove = transform.position + (nextPos - transform.position)/(skipFrames + 1);
-            Debug.Log(partialMove);
+            //Debug.Log(partialMove);
             rb.MovePosition(partialMove);
             frame++;
         }

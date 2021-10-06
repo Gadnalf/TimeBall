@@ -64,13 +64,13 @@ public class PlayerThrowBall : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("bonk");
-        Debug.Log(collision.transform.tag);
-        Debug.Log(!ball);
+        //Debug.Log("bonk");
+        //Debug.Log(collision.transform.tag);
+        //Debug.Log(!ball);
         // if not holding ball and object is ball
         if (!ball && collision.transform.tag == "Ball")
         {
-            Debug.Log("balldetected");
+            //Debug.Log("balldetected");
             PlayerData ballData = collision.gameObject.GetComponent<PlayerData>();
 
             // if ball is not of player's color
