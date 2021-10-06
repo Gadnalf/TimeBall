@@ -5,13 +5,15 @@ public static class CloneManager
 {
     private static GameObject clonePrefab;
     private static PlayerController[] players;
+    private static int cloneCap = 10;
 
-    private static List<CloneData> clones = new List<CloneData>();
+    private static Queue<CloneData> clones = new Queue<CloneData>();
 
-    public static void Configure(GameObject prefab, PlayerController[] playerList)
+    public static void Configure(GameObject prefab, PlayerController[] playerList, int cap = 10)
     {
         clonePrefab = prefab;
         players = playerList;
+        cloneCap = cap;
     }
 
     public static void AddClones()
@@ -19,7 +21,11 @@ public static class CloneManager
         foreach (PlayerController player in players)
         {
             CloneData c = new CloneData() { Number = player.playerNumber, SkipFrames = player.framesToSkip, Positions = player.lastPositions.ToArray() };
-            clones.Add(c);
+            clones.Enqueue(c);
+            if(clones.Count > cloneCap)
+            {
+                clones.Dequeue();
+            }
         }
     }
 
