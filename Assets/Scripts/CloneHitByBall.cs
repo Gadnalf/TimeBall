@@ -6,6 +6,8 @@ public class CloneHitByBall : MonoBehaviour
 {
     private PlayerData.PlayerNumber playerNumber;
     public int knockdownSpeed = 90;
+    [SerializeField]
+    private float throwingForce = 1000f;
 
     // state info
     private bool cloneKnockdown;
@@ -44,8 +46,7 @@ public class CloneHitByBall : MonoBehaviour
             // if ball is of player's color
             else {
                 Debug.Log("ball passed to friendly clone");
-                // add acceleration to the ball
-                // collision.gameObject.GetComponent<Rigidbody>().AddRelativeForce(...); 
+                collision.gameObject.GetComponent<Rigidbody>().AddForce(collision.gameObject.transform.forward * throwingForce); 
             }
         }
     }
