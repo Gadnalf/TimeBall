@@ -49,4 +49,9 @@ public class CloneController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void Kill()
+    {
+        Destroy(gameObject);
+    }
 }
