@@ -23,30 +23,37 @@ public class CloneHitByBall : MonoBehaviour
     void Update()
     {
         if (cloneKnockdown) {
-            int knockdownSpeed = 90;
+            int knockdownSpeed = 60;
             transform.Rotate(Vector3.forward, knockdownSpeed * Time.deltaTime);
 
             if (transform.localEulerAngles.z >= 90) {
                 cloneKnockdown = false;
+                GetComponent<CloneController>().Kill();
             }
         }
     }
 
     private void OnCollisionEnter(Collision collision) {
-
         if (collision.transform.tag == "Ball") {
             PlayerData ballData = collision.gameObject.GetComponent<PlayerData>();
+            
+            // if ball is of player's color
+            if (collision.gameObject.GetComponent<PlayerData>().playerNumber == playerNumber) {
+                Debug.Log("ball passed to friendly clone");
+                var ballDirection = collision.gameObject.transform.forward;
 
-            // if ball is not of player's color
-            if (collision.gameObject.GetComponent<PlayerData>().playerNumber != playerNumber) {
-                Debug.Log("ball passed to enemy clone");
-                cloneKnockdown = true;
+                collision.gameObject.GetComponent<Rigidbody>().AddForce(collision.gameObject.transform.forward * throwingForce * 2);
             }
 
-            // if ball is of player's color
+            // if ball is of no player's color
+            else if (collision.gameObject.GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.NoPlayer) {
+                Debug.Log("clone collided with unclaimed ball");
+            }
+
+            // if ball is of opponent's color
             else {
-                Debug.Log("ball passed to friendly clone");
-                collision.gameObject.GetComponent<Rigidbody>().AddForce(collision.gameObject.transform.forward * throwingForce); 
+                Debug.Log("ball passed to enemy clone");
+                cloneKnockdown = true;
             }
         }
     }

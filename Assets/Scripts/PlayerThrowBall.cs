@@ -7,7 +7,7 @@ public class PlayerThrowBall : MonoBehaviour
     private float ballDistance = 2f;
     [SerializeField]
     private float throwingForce = 1000f;
-    private PlayerData.PlayerNumber playerNumber;
+    public PlayerData.PlayerNumber playerNumber;
 
     // State info
     private bool throwBall = false;
@@ -95,6 +95,7 @@ public class PlayerThrowBall : MonoBehaviour
 
     private void claimBall(Collision collision) {
         ball = collision.gameObject;
+        ball.GetComponent<PlayerData>().playerNumber = playerNumber;
         ball.GetComponent<Renderer>().material.color = GetComponent<Renderer>().material.color;
         ball.transform.parent = transform;
         ball.transform.localPosition = new Vector3(0, 0, ballDistance);

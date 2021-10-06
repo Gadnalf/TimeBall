@@ -4,7 +4,6 @@ public class CloneController : MonoBehaviour
 {
     public Vector3[] directions;
     public int skipFrames;
-    public PlayerData.PlayerNumber playerNum;
 
     public Material p1Mat;
     public Material p2Mat;
@@ -13,18 +12,19 @@ public class CloneController : MonoBehaviour
     private Rigidbody rb;
     private int frame;
     private Vector3 nextPos;
+    private PlayerData playerData;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerData.GetComponent<PlayerData>();
         frame = 0;
-        if (playerNum == PlayerData.PlayerNumber.PlayerOne)
-        {
+
+        if (playerData.playerNumber == PlayerData.PlayerNumber.PlayerOne) {
             GetComponent<Renderer>().material = p1Mat;
         }
-        if (playerNum == PlayerData.PlayerNumber.PlayerTwo)
-        {
+        if (playerData.playerNumber == PlayerData.PlayerNumber.PlayerTwo) {
             GetComponent<Renderer>().material = p2Mat;
         }
     }

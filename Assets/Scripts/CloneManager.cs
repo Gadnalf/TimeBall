@@ -31,7 +31,7 @@ public static class CloneManager
             CloneController controller = newClone.GetComponent<CloneController>();
             controller.directions = clone.Positions;
             controller.skipFrames = clone.SkipFrames;
-            controller.playerNum = clone.Number;
+            controller.GetComponent<PlayerData>().playerNumber = clone.Number;
         }
     }
 
