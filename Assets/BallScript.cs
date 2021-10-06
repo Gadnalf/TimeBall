@@ -18,6 +18,7 @@ public class BallScript : MonoBehaviour
 
     public void Reset()
     {
+        rb.isKinematic = false;
         rb.transform.position = spawnLocation;
         rb.transform.parent = null;
         rb.velocity = Vector3.zero;
