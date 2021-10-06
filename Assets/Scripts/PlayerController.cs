@@ -9,7 +9,11 @@ public class PlayerController : MonoBehaviour
     public float speed = 10;
     public float jumpSpeed = 150;
     public float groundDistance = 10;
-    private PlayerData.PlayerNumber playerNumber;
+    public float recordLength = 10f;
+    public Vector3 spawnLocation;
+    public Vector3 spawnRotation;
+
+    public PlayerData.PlayerNumber playerNumber;
     private Camera playerCamera;
 
     private Rigidbody rb;
@@ -22,9 +26,19 @@ public class PlayerController : MonoBehaviour
 
     // Experimental
     public Queue<Vector3> lastPositions;
-    public float recordLength = 10f;
+    private float timeLeft = 10f;
     public int framesToSkip = 3;
     private int frame = 0;
+
+    public void Reset()
+    {
+        rb.transform.position = spawnLocation;
+        rb.transform.eulerAngles = spawnRotation;
+        lastRotation = spawnRotation;
+        rb.velocity = Vector3.zero;
+        timeLeft = recordLength;
+        lastPositions = new Queue<Vector3>();
+    }
 
     private void Start()
     {
@@ -34,8 +48,7 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         playerCamera = GetComponentInChildren<Camera>();
-        lastRotation = transform.eulerAngles;
-        lastPositions = new Queue<Vector3>();
+        Reset();
     }
 
     private void FixedUpdate()
@@ -52,9 +65,9 @@ public class PlayerController : MonoBehaviour
         }
         rb.AddRelativeForce(movementVector);
 
-        if (recordLength > 0)
+        if (timeLeft > 0)
         {
-            recordLength -= Time.deltaTime; 
+            timeLeft -= Time.deltaTime; 
             if (frame == 0)
             {
                 lastPositions.Enqueue(transform.position);

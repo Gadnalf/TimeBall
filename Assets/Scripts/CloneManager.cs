@@ -16,11 +16,9 @@ public static class CloneManager
 
     public static void AddClones()
     {
-        
         foreach (PlayerController player in players)
         {
-            Debug.Log(player);
-            CloneData c = new CloneData() { SkipFrames = player.framesToSkip, Positions = player.lastPositions.ToArray() };
+            CloneData c = new CloneData() { Number = player.playerNumber, SkipFrames = player.framesToSkip, Positions = player.lastPositions.ToArray() };
             clones.Add(c);
         }
     }
@@ -33,11 +31,13 @@ public static class CloneManager
             CloneController controller = newClone.GetComponent<CloneController>();
             controller.directions = clone.Positions;
             controller.skipFrames = clone.SkipFrames;
+            controller.playerNum = clone.Number;
         }
     }
 
     private class CloneData
     {
+        public PlayerData.PlayerNumber Number { get; set; }
         public int SkipFrames { get; set; }
         public Vector3[] Positions { get; set; }
     }

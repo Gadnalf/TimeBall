@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI timer;
 
+    [SerializeField]
+    private BallScript ball;
+
     private float timeRemaining = 10;
     private int roundNumber = 1;
 
@@ -46,7 +49,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("end of round");
                 timerIsRunning = false;
                 CloneManager.AddClones();
-                Invoke("doNextRoundStuff", 3);
+                doNextRoundStuff();
             }
         }
     }
@@ -66,6 +69,11 @@ public class GameManager : MonoBehaviour
         timerIsRunning = true;
         timeRemaining = 10;
         CloneManager.SpawnClones();
+        foreach (PlayerController player in playerControllers)
+        {
+            player.Reset();
+        }
+        ball.Reset();
     }
 
 }

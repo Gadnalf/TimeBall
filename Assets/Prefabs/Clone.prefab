@@ -156,3 +156,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   directions: []
   skipFrames: 0
+  playerNum: 0
+  p1Mat: {fileID: 2100000, guid: bb65bc0de0b339245a33fef4851d8f41, type: 2}
+  p2Mat: {fileID: 2100000, guid: 7062d9e0d8c12fd4ead18c403fd65fdb, type: 2}
