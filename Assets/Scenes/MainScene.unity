@@ -629,7 +629,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 317751702428796679, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: spawnLocation.z
-      value: -30
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 317751702428796679, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
+      propertyPath: spawnRotation.y
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 317751702428796681, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_Enabled
@@ -2287,6 +2291,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 0
+--- !u!114 &1469519849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469519842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5340220cc5ec984f98b536f7c582426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnLocation: {x: 1.63, y: 2.7, z: -1.214848}
 --- !u!1 &1512777275
 GameObject:
   m_ObjectHideFlags: 0
@@ -2911,6 +2928,7 @@ MonoBehaviour:
   - {fileID: 305053304}
   - {fileID: 537828462}
   timer: {fileID: 1208929498}
+  ball: {fileID: 1469519849}
 --- !u!4 &1995729810
 Transform:
   m_ObjectHideFlags: 0
