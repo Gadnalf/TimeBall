@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject endMenuPanel;
 
-    private float timeRemaining = 10;
+    private float timeRemaining = GameSettings.roundDuration;
     private int roundNumber = 1;
 
     private bool timerIsRunning = true;
@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log("starting new round " + roundNumber);
         timerIsRunning = true;
-        timeRemaining = 10;
+        timeRemaining = GameSettings.roundDuration;
         CloneManager.SpawnClones();
         foreach (PlayerController player in playerControllers)
         {

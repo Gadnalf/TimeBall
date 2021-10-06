@@ -62,10 +62,10 @@ public class CloneHitByBall : MonoBehaviour
     private void ballSpeedBoost(GameObject ball, Vector3 direction) {
         ball.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         ball.transform.parent = transform;
-        ball.transform.localPosition = new Vector3(0, 0, PhysicsSettings.ballDistance);
+        ball.transform.localPosition = new Vector3(0, 0, GameSettings.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;
         ball.transform.parent = null;
         ball.GetComponent<Rigidbody>().isKinematic = false;
-        ball.GetComponent<Rigidbody>().AddForce(direction * PhysicsSettings.throwingForce * speedBoostFactor);
+        ball.GetComponent<Rigidbody>().AddForce(direction * GameSettings.throwingForce * speedBoostFactor);
     }
 }

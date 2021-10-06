@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 10;
     public float jumpSpeed = 150;
     public float groundDistance = 10;
-    public float recordLength = 10f;
+    public float recordLength = GameSettings.roundDuration;
     public Vector3 spawnLocation;
     public Vector3 spawnRotation;
 
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     // Experimental
     public Queue<Vector3> lastPositions;
-    private float timeLeft = 10f;
+    private float timeLeft = GameSettings.roundDuration;
     public int framesToSkip = 3;
     private int frame = 0;
 

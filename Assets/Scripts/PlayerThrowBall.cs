@@ -25,7 +25,7 @@ public class PlayerThrowBall : MonoBehaviour
             throwBall = false;
             ball.transform.parent = null;
             ball.GetComponent<Rigidbody>().isKinematic = false;
-            ball.GetComponent<Rigidbody>().AddForce(transform.forward * PhysicsSettings.throwingForce);
+            ball.GetComponent<Rigidbody>().AddForce(transform.forward * GameSettings.throwingForce);
             ball = null;
         }
     }
@@ -94,7 +94,7 @@ public class PlayerThrowBall : MonoBehaviour
         ball.GetComponent<PlayerData>().playerNumber = playerNumber;
         ball.GetComponent<Renderer>().material.color = GetComponent<Renderer>().material.color;
         ball.transform.parent = transform;
-        ball.transform.localPosition = new Vector3(0, 0, PhysicsSettings.ballDistance);
+        ball.transform.localPosition = new Vector3(0, 0, GameSettings.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;
     }
 }

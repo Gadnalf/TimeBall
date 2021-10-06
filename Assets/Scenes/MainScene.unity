@@ -388,6 +388,10 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 317751702428796679, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
+      propertyPath: recordLength
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 317751702428796679, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: spawnLocation.y
       value: 1
       objectReference: {fileID: 0}
@@ -665,6 +669,10 @@ PrefabInstance:
     - target: {fileID: 317751702428796678, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 317751702428796679, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
+      propertyPath: recordLength
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 317751702428796679, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: spawnLocation.y
