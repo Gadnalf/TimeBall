@@ -18,7 +18,7 @@ public class CloneController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        playerData.GetComponent<PlayerData>();
+        playerData = GetComponent<PlayerData>();
         frame = 0;
 
         if (playerData.playerNumber == PlayerData.PlayerNumber.PlayerOne) {
