@@ -37,6 +37,35 @@ public class GameManager : MonoBehaviour
 
     public static bool gamePaused = true;
 
+    PlayerControls controls;
+
+    private void Awake()
+    {
+        controls = new PlayerControls();
+        controls.MainMenu.StartGame.performed += ctx =>
+        {
+            if (!gameStarted)
+            {
+                StartGame();
+            }
+
+        };
+
+        controls.MainMenu.PauseGame.performed += ctx =>
+        {
+
+            if (!gamePaused)
+            {
+                PauseGame();
+            }
+            else
+            {
+                ResumeGame();
+            }
+
+        };
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,25 +75,25 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            if (!gameStarted)
-            {
-                StartGame();
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.Return))
+        //{
+        //    if (!gameStarted)
+        //    {
+        //        StartGame();
+        //    }
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (!gamePaused)
-            {
-                PauseGame();
-            }
-            else
-            {
-                ResumeGame();
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    if (!gamePaused)
+        //    {
+        //        PauseGame();
+        //    }
+        //    else
+        //    {
+        //        ResumeGame();
+        //    }
+        //}
 
 
         if (!gamePaused && gameStarted)
@@ -145,6 +174,16 @@ public class GameManager : MonoBehaviour
         gamePaused = true;
         endMenuPanel.SetActive(true);
         Time.timeScale = 0f;
+    }
+
+    private void OnEnable()
+    {
+        controls.MainMenu.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.MainMenu.Disable();
     }
 
 }

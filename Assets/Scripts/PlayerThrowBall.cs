@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerThrowBall : MonoBehaviour
 {
@@ -11,6 +12,20 @@ public class PlayerThrowBall : MonoBehaviour
 
     [SerializeField]
     private ScoringManager scoringManager;
+
+    PlayerControls controls;
+    private bool throwInput = false;
+
+    private void Awake()
+    {
+        controls = new PlayerControls();
+    }
+
+    public void OnThrow(InputAction.CallbackContext context)
+    {
+        //jumped = context.ReadValue<bool>();
+        throwInput = context.action.triggered;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -41,19 +56,18 @@ public class PlayerThrowBall : MonoBehaviour
                 return;
             }
 
-            bool throwInput = false;
-            switch (playerNumber)
-            {
-                case PlayerData.PlayerNumber.PlayerOne:
-                    throwInput = Input.GetButtonDown("P1Fire");
-                    break;
-                case PlayerData.PlayerNumber.PlayerTwo:
-                    throwInput = Input.GetButtonDown("P2Fire");
-                    break;
-                default:
-                    Debug.LogError("Error: player object not assigned type.");
-                    break;
-            }
+            //switch (playerNumber)
+            //{
+            //    case PlayerData.PlayerNumber.PlayerOne:
+            //        throwInput = Input.GetButtonDown("P1Fire");
+            //        break;
+            //    case PlayerData.PlayerNumber.PlayerTwo:
+            //        throwInput = Input.GetButtonDown("P2Fire");
+            //        break;
+            //    default:
+            //        //Debug.LogError("Error: player object not assigned type.");
+            //        break;
+            //}
 
             if (throwInput)
             {
@@ -97,4 +111,15 @@ public class PlayerThrowBall : MonoBehaviour
         ball.transform.localPosition = new Vector3(0, 0, GameSettings.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;
     }
+
+    private void OnEnable()
+    {
+        controls.Gameplay.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Gameplay.Disable();
+    }
+
 }
