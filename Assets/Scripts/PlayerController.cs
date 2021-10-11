@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public float speed = 10;
     public float jumpSpeed = 150;
     public float groundDistance = 10;
-    public float recordLength = GameSettings.roundDuration;
     public Vector3 spawnLocation;
     public Vector3 spawnRotation;
 
@@ -25,7 +24,6 @@ public class PlayerController : MonoBehaviour
 
     // Experimental
     public Queue<Vector3> lastPositions;
-    private float timeLeft = GameSettings.roundDuration;
     public int framesToSkip = 3;
     private int frame = 0;
 
@@ -35,7 +33,6 @@ public class PlayerController : MonoBehaviour
         rb.transform.eulerAngles = spawnRotation;
         lastRotation = spawnRotation;
         rb.velocity = Vector3.zero;
-        timeLeft = recordLength;
         lastPositions = new Queue<Vector3>();
     }
 
@@ -43,6 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerNumber = GetComponent<PlayerData>().playerNumber;
+        Reset();
     }
 
     private void FixedUpdate()
@@ -57,16 +55,12 @@ public class PlayerController : MonoBehaviour
         }
         rb.AddRelativeForce(movementVector);
 
-        if (timeLeft > 0)
+        if (frame == 0)
         {
-            timeLeft -= Time.deltaTime; 
-            if (frame == 0)
-            {
-                lastPositions.Enqueue(transform.position);
-                //Debug.Log(lastPositions.Count);
-            }
-            frame = (frame + 1) % (framesToSkip + 1);
+            lastPositions.Enqueue(transform.position);
+            //Debug.Log(lastPositions.Count);
         }
+        frame = (frame + 1) % (framesToSkip + 1);
     }
 
     // Update is called once per frame
