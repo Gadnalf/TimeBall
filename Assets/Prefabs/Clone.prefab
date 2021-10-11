@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 3698119906725327026}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: -7.82, y: 1, z: 21.66}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed16a1c79a9521489b8bd61ca34f0ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedBoostFactor: 2
   knockdownSpeed: 90
 --- !u!114 &6638636319804852972
 MonoBehaviour:
@@ -156,6 +157,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   directions: []
   skipFrames: 0
-  playerNum: 0
   p1Mat: {fileID: 2100000, guid: bb65bc0de0b339245a33fef4851d8f41, type: 2}
   p2Mat: {fileID: 2100000, guid: 7062d9e0d8c12fd4ead18c403fd65fdb, type: 2}

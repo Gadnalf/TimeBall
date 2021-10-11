@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Config
-    public float speed = 10;
+    public float speed = 20;
     public float jumpSpeed = 150;
     public float groundDistance = 10;
     public Vector3 spawnLocation;
@@ -48,12 +48,18 @@ public class PlayerController : MonoBehaviour
         Vector3 forwardMovement = verticalInput * Vector3.forward;
         Vector3 sideMovement = horizontalInput * Vector3.right;
         Vector3 movementVector = (forwardMovement + sideMovement).normalized * speed;
+
+        Vector3 vel = transform.InverseTransformDirection(rb.velocity);
+        vel.x = movementVector.x;
+        vel.z = movementVector.z;
+        rb.velocity = transform.TransformDirection(vel);
+
         if (jump)
         {
-            movementVector += Vector3.up * jumpSpeed;
+            Vector3 jumpVector = Vector3.up * jumpSpeed;
+            rb.AddRelativeForce(jumpVector);
             jump = false;
         }
-        rb.AddRelativeForce(movementVector);
 
         if (frame == 0)
         {
