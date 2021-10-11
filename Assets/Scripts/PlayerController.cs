@@ -43,10 +43,6 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerNumber = GetComponent<PlayerData>().playerNumber;
-
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Reset();
     }
 
     private void FixedUpdate()
