@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
     public Vector3 spawnRotation;
 
     public PlayerData.PlayerNumber playerNumber;
-    private Camera playerCamera;
 
     private Rigidbody rb;
 
@@ -47,14 +46,11 @@ public class PlayerController : MonoBehaviour
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        playerCamera = GetComponentInChildren<Camera>();
         Reset();
     }
 
     private void FixedUpdate()
     {
-        transform.eulerAngles = playerCamera.transform.eulerAngles;
-
         Vector3 forwardMovement = verticalInput * Vector3.forward;
         Vector3 sideMovement = horizontalInput * Vector3.right;
         Vector3 movementVector = (forwardMovement + sideMovement).normalized * speed;
@@ -124,7 +120,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        playerCamera.transform.eulerAngles = new Vector3(lastRotation.x, lastRotation.y + rotationInput * Time.deltaTime, lastRotation.z);
-        lastRotation = playerCamera.transform.eulerAngles;
+        transform.eulerAngles = new Vector3(lastRotation.x, lastRotation.y + rotationInput * Time.deltaTime, lastRotation.z);
+        lastRotation = transform.eulerAngles;
     }
 }
