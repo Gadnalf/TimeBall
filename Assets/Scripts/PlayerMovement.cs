@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
     public void OnRotate(InputAction.CallbackContext context)
     {
         rotationInput = context.ReadValue<Vector2>().x;
-        Debug.Log(rotationInput);
+        //Debug.Log(rotationInput);
     }
 
     private void Start()

@@ -19,6 +19,11 @@ public class PlayerThrowBall : MonoBehaviour
     private void Awake()
     {
         controls = new PlayerControls();
+
+        controls.Gameplay.Throw.canceled += ctx =>
+        {
+            throwInput = false;
+        };
     }
 
     public void OnThrow(InputAction.CallbackContext context)
