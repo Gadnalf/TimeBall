@@ -37,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
     PlayerControls controls;
     private bool jumped = false;
 
+    private float rotationInput = 0;
+
     private void Awake()
     {
         controls = new PlayerControls();
@@ -51,6 +53,12 @@ public class PlayerMovement : MonoBehaviour
     {
         //jumped = context.ReadValue<bool>();
         jumped = context.action.triggered;
+    }
+
+    public void OnRotate(InputAction.CallbackContext context)
+    {
+        rotationInput = context.ReadValue<Vector2>().x;
+        Debug.Log(rotationInput);
     }
 
     private void Start()
@@ -122,7 +130,6 @@ public class PlayerMovement : MonoBehaviour
             jumped = true;
         }
 
-        float rotationInput = 0;
         //switch (playerNumber)
         //{
         //    case PlayerData.PlayerNumber.PlayerOne:
@@ -137,8 +144,8 @@ public class PlayerMovement : MonoBehaviour
         //        break;
         //}
 
-        playerCamera.transform.eulerAngles = new Vector3(lastRotation.x, lastRotation.y + rotationInput * Time.deltaTime, lastRotation.z);
-        lastRotation = playerCamera.transform.eulerAngles;
+        transform.eulerAngles = new Vector3(lastRotation.x, lastRotation.y + rotationInput, lastRotation.z);
+        lastRotation = transform.eulerAngles;
     }
 
 

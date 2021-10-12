@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     private GameObject clonePrefab;
 
     [SerializeField]
-    private PlayerController[] playerControllers;
+    //private PlayerController[] playerControllers;
+    private PlayerMovement[] playerControllers;
 
     [SerializeField]
     private TextMeshProUGUI timer;
@@ -147,7 +148,7 @@ public class GameManager : MonoBehaviour
         timerIsRunning = true;
         timeRemaining = GameSettings.roundDuration;
         CloneManager.SpawnClones();
-        foreach (PlayerController player in playerControllers)
+        foreach (PlayerMovement player in playerControllers)
         {
             player.Reset();
         }

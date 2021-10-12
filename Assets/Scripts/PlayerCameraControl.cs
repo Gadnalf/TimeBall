@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerData))]
+//[RequireComponent(typeof(PlayerData))]
 public class PlayerCameraControl : MonoBehaviour
 {
     // Config
@@ -15,6 +15,6 @@ public class PlayerCameraControl : MonoBehaviour
 
     private void LateUpdate()
     {
-        // transform.LookAt(transform.parent.transform);
+        //transform.LookAt(transform.parent.transform);
     }
 }
