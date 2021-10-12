@@ -4,12 +4,12 @@ using UnityEngine;
 public static class CloneManager
 {
     private static GameObject clonePrefab;
-    private static PlayerController[] players;
+    private static PlayerMovement[] players;
     private static int cloneCap = 10;
 
     private static Queue<CloneData> clones = new Queue<CloneData>();
 
-    public static void Configure(GameObject prefab, PlayerController[] playerList, int cap = 10)
+    public static void Configure(GameObject prefab, PlayerMovement[] playerList, int cap = 10)
     {
         clonePrefab = prefab;
         players = playerList;
@@ -18,7 +18,7 @@ public static class CloneManager
 
     public static void AddClones()
     {
-        foreach (PlayerController player in players)
+        foreach (PlayerMovement player in players)
         {
             CloneData c = new CloneData() { Number = player.playerNumber, SkipFrames = player.framesToSkip, Positions = player.lastPositions.ToArray() };
             clones.Enqueue(c);
