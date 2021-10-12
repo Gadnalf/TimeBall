@@ -81,8 +81,9 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movementVector = (forwardMovement + sideMovement).normalized * speed;
         if (jumped)
         {
-            movementVector += Vector3.up * jumpSpeed;
-            jumped = false;
+            Vector3 jumpVector = Vector3.up * jumpSpeed;
+            rb.AddRelativeForce(jumpVector);
+            jump = false;
         }
         Vector3 vel = transform.InverseTransformDirection(rb.velocity);
         vel.x = movementVector.x;
