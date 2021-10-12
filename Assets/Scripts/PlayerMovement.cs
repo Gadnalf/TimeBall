@@ -42,6 +42,21 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         controls = new PlayerControls();
+
+        controls.Gameplay.Jump.canceled += ctx =>
+        {
+            jumped = false;
+        };
+
+        controls.Gameplay.Move.canceled += ctx =>
+        {
+            movement = Vector2.zero;
+        };
+
+        controls.Gameplay.Rotate.canceled += ctx =>
+        {
+            rotationInput = 0f;
+        };
     }
 
     public void OnMove(InputAction.CallbackContext context)
