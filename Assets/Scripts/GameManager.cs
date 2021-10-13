@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     private float timeRemaining = GameConfigurations.roundDuration;
     private int roundNumber = 1;
 
-    private bool timerIsRunning = true;
+    private bool timerIsRunning = false;
 
     public static bool gameStarted = false;
 
@@ -117,10 +117,11 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        Debug.Log("button work");
+        //Debug.Log("button work");
         gameStarted = true;
         gamePaused = false;
         Time.timeScale = 1f;
+        timerIsRunning = true;
         mainMenuPanel.SetActive(false);
         foreach (PlayerMovement player in playerControllers) {
             player.GetComponent<PlayerMovement>().enabled = true;
