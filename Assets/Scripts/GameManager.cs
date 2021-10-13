@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     private GameObject clonePrefab;
 
     [SerializeField]
-    //private PlayerController[] playerControllers;
     private PlayerMovement[] playerControllers;
 
     [SerializeField]
@@ -34,9 +33,9 @@ public class GameManager : MonoBehaviour
 
     private bool timerIsRunning = false;
 
-    public static bool gameStarted = false;
+    private bool gameStarted = false;
 
-    public static bool gamePaused = true;
+    private bool gamePaused = false;
 
     PlayerControls controls;
 
@@ -57,27 +56,23 @@ public class GameManager : MonoBehaviour
         //    gamePaused = true;
         //};
 
-        controls.MainMenu.PauseGame.performed += ctx =>
+        controls.MainMenu.PauseGame.started += ctx =>
         {
 
-            if (!gamePaused)
+            if (gameStarted)
             {
-                PauseGame();
-            }
-            else
-            {
-                ResumeGame();
+                if (!gamePaused)
+                {
+                    PauseGame();
+                }
+                else
+                {
+                    ResumeGame();
+                }
             }
 
         };
 
-        controls.MainMenu.PauseGame.canceled += ctx =>
-        {
-            /*if (!gamePaused)
-                ResumeGame();
-            else
-                PauseGame();*/
-        };
     }
 
     // Start is called before the first frame update
