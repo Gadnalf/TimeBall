@@ -49,6 +49,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Lockon"",
+                    ""type"": ""Button"",
+                    ""id"": ""7fcd783d-f79f-4a96-9aea-83665084090b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -209,7 +217,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6a716333-fea0-4f07-8908-149cf9959735"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Player1"",
@@ -225,6 +233,39 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Player2"",
                     ""action"": ""Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7ab2aaad-fcba-49ad-bc0c-213869ccad39"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Player1"",
+                    ""action"": ""Lockon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7ea6b73-754d-4a9b-8ea2-d34750c680bb"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Player1"",
+                    ""action"": ""Lockon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11e786d4-3359-4a99-97f0-b6545e297961"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Player2"",
+                    ""action"": ""Lockon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -362,6 +403,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
         m_Gameplay_Rotate = m_Gameplay.FindAction("Rotate", throwIfNotFound: true);
         m_Gameplay_Throw = m_Gameplay.FindAction("Throw", throwIfNotFound: true);
+        m_Gameplay_Lockon = m_Gameplay.FindAction("Lockon", throwIfNotFound: true);
         // MainMenu
         m_MainMenu = asset.FindActionMap("MainMenu", throwIfNotFound: true);
         m_MainMenu_StartGame = m_MainMenu.FindAction("StartGame", throwIfNotFound: true);
@@ -419,6 +461,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Move;
     private readonly InputAction m_Gameplay_Rotate;
     private readonly InputAction m_Gameplay_Throw;
+    private readonly InputAction m_Gameplay_Lockon;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -427,6 +470,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
         public InputAction @Rotate => m_Wrapper.m_Gameplay_Rotate;
         public InputAction @Throw => m_Wrapper.m_Gameplay_Throw;
+        public InputAction @Lockon => m_Wrapper.m_Gameplay_Lockon;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -448,6 +492,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Throw.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnThrow;
                 @Throw.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnThrow;
                 @Throw.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnThrow;
+                @Lockon.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLockon;
+                @Lockon.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLockon;
+                @Lockon.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLockon;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -464,6 +511,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Throw.started += instance.OnThrow;
                 @Throw.performed += instance.OnThrow;
                 @Throw.canceled += instance.OnThrow;
+                @Lockon.started += instance.OnLockon;
+                @Lockon.performed += instance.OnLockon;
+                @Lockon.canceled += instance.OnLockon;
             }
         }
     }
@@ -533,6 +583,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
         void OnThrow(InputAction.CallbackContext context);
+        void OnLockon(InputAction.CallbackContext context);
     }
     public interface IMainMenuActions
     {
