@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
 
     // Config
     public float speed;
-    public float dashSpeed;
     public float groundDistance = 10;
     public float recordLength = GameConfigurations.roundDuration;
     public Vector3 spawnLocation;
@@ -67,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //jumped = context.ReadValue<bool>();
         if (context.action.triggered && dashCD == 0) {
+            // Debug.Log("Player dashing.");
             dashingFrame = GameConfigurations.dashingFrame;
         }
     }
@@ -94,8 +94,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movementVector = new Vector3(movement.x, 0, movement.y).normalized * speed;
 
         if (dashingFrame > 0) {
-            float dashFactor = dashSpeed / GameConfigurations.dashingFrame;
-            float dashBonus = dashSpeed - dashFactor * (GameConfigurations.dashingFrame - dashingFrame);
+            float dashFactor = GameConfigurations.dashSpeed / GameConfigurations.dashingFrame;
+            float dashBonus = GameConfigurations.dashSpeed - dashFactor * (GameConfigurations.dashingFrame - dashingFrame);
 
             // Debug.Log("Dashing speed: " + dashSpeed.ToString() + " - " + dashFactor.ToString() + " * " + (15 - dashingFrame).ToString());
             dashingFrame --;

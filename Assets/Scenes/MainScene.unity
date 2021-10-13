@@ -322,7 +322,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bb65bc0de0b339245a33fef4851d8f41, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -441,7 +441,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123504860}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -22.81}
+  m_LocalPosition: {x: 0, y: 4, z: -22.81}
   m_LocalScale: {x: 30, y: 8, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -600,7 +600,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_NeverAutoSwitchControlSchemes
@@ -619,6 +619,10 @@ PrefabInstance:
       value: d608b7f5-685e-4c10-b29a-7919d171c175
       objectReference: {fileID: 0}
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      value: 7fcd783d-f79f-4a96-9aea-83665084090b
+      objectReference: {fileID: 0}
+    - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_ActionName
       value: MainMenu/PauseGame[/DualShock4GamepadHID/start]
       objectReference: {fileID: 0}
@@ -629,6 +633,10 @@ PrefabInstance:
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[5].m_ActionName
       value: Gameplay/Throw[/DualShock4GamepadHID/rightTrigger,/Keyboard/shift,/DualShock4GamepadHID/rightTrigger]
+      objectReference: {fileID: 0}
+    - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      value: Gameplay/Lockon[/Mouse/rightButton,/XInputControllerWindows/leftTrigger,/XInputControllerWindows/leftTrigger]
       objectReference: {fileID: 0}
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
@@ -673,6 +681,10 @@ PrefabInstance:
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnDash
       objectReference: {fileID: 0}
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1065,7 +1077,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_NeverAutoSwitchControlSchemes
@@ -1084,6 +1096,10 @@ PrefabInstance:
       value: d608b7f5-685e-4c10-b29a-7919d171c175
       objectReference: {fileID: 0}
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      value: 7fcd783d-f79f-4a96-9aea-83665084090b
+      objectReference: {fileID: 0}
+    - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_ActionName
       value: MainMenu/PauseGame[/DualShock4GamepadHID/start]
       objectReference: {fileID: 0}
@@ -1094,6 +1110,10 @@ PrefabInstance:
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[5].m_ActionName
       value: Gameplay/Throw[/DualShock4GamepadHID/rightTrigger,/Keyboard/shift,/DualShock4GamepadHID/rightTrigger]
+      objectReference: {fileID: 0}
+    - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      value: Gameplay/Lockon[/Mouse/rightButton,/XInputControllerWindows/leftTrigger,/XInputControllerWindows/leftTrigger]
       objectReference: {fileID: 0}
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
@@ -1126,6 +1146,10 @@ PrefabInstance:
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnDash
       objectReference: {fileID: 0}
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1627,7 +1651,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7062d9e0d8c12fd4ead18c403fd65fdb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1824,7 +1848,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 897584037}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15, y: 0, z: 0}
+  m_LocalPosition: {x: -15, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 8, z: 45}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1895,7 +1919,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7062d9e0d8c12fd4ead18c403fd65fdb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1934,11 +1958,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1154118605}
-  - component: {fileID: 1154118608}
-  - component: {fileID: 1154118607}
   - component: {fileID: 1154118606}
   - component: {fileID: 1154118609}
-  - component: {fileID: 1154118610}
   m_Layer: 0
   m_Name: GoalGround1
   m_TagString: Untagged
@@ -1954,7 +1975,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154118604}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: -1, z: -20}
+  m_LocalPosition: {x: 0, y: 1, z: -20}
   m_LocalScale: {x: 7, y: 1, z: 4}
   m_Children:
   - {fileID: 2011509579}
@@ -1974,57 +1995,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 3.9324718, z: 1}
-  m_Center: {x: -0, y: 1.4662359, z: -0}
---- !u!23 &1154118607
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1154118604}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1154118608
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1154118604}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Size: {x: 0.8676442, y: 4.839344, z: 0.68357706}
+  m_Center: {x: -0.01993537, y: 1.0127997, z: 0.15821147}
 --- !u!114 &1154118609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2040,19 +2012,6 @@ MonoBehaviour:
   scoringManager: {fileID: 743372950}
   playerGoal: 1
   ball: {fileID: 1469519842}
---- !u!65 &1154118610
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1154118604}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.2, z: 1}
-  m_Center: {x: -0, y: 0.102074906, z: -0}
 --- !u!1 &1160520754
 GameObject:
   m_ObjectHideFlags: 0
@@ -2634,7 +2593,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1331678790}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 22.81}
+  m_LocalPosition: {x: 0, y: 4, z: 22.81}
   m_LocalScale: {x: 30, y: 8, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2857,7 +2816,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7062d9e0d8c12fd4ead18c403fd65fdb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3423,7 +3382,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bb65bc0de0b339245a33fef4851d8f41, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3907,11 +3866,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1792390966}
-  - component: {fileID: 1792390969}
-  - component: {fileID: 1792390968}
   - component: {fileID: 1792390967}
   - component: {fileID: 1792390970}
-  - component: {fileID: 1792390971}
   m_Layer: 0
   m_Name: GoalGround2
   m_TagString: Untagged
@@ -3927,7 +3883,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1792390965}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 20}
+  m_LocalPosition: {x: 0, y: 1, z: 20}
   m_LocalScale: {x: 7, y: 1, z: 4}
   m_Children:
   - {fileID: 1410152419}
@@ -3947,57 +3903,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 3.8708425, z: 1}
-  m_Center: {x: 0, y: 1.4354212, z: 0}
---- !u!23 &1792390968
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1792390965}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1792390969
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1792390965}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Size: {x: 0.8676442, y: 4.839344, z: 0.68357706}
+  m_Center: {x: -0.01993537, y: 1.0127997, z: 0.15821147}
 --- !u!114 &1792390970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4013,19 +3920,6 @@ MonoBehaviour:
   scoringManager: {fileID: 743372950}
   playerGoal: 2
   ball: {fileID: 1469519842}
---- !u!65 &1792390971
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1792390965}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.2, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1995729808
 GameObject:
   m_ObjectHideFlags: 0
@@ -4143,7 +4037,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bb65bc0de0b339245a33fef4851d8f41, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4262,7 +4156,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2144716454}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: 0, z: 0}
+  m_LocalPosition: {x: 15, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 8, z: 45}
   m_Children: []
   m_Father: {fileID: 0}
