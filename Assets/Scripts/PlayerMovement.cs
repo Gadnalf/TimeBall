@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Config
     public float speed;
-    public float groundDistance = 10;
+    public float lockDistance = 100;
     public Vector3 spawnLocation;
     public Vector3 spawnRotation;
 
@@ -30,6 +30,9 @@ public class PlayerMovement : MonoBehaviour
 
     PlayerControls controls;
     private float rotationInput = 0;
+    private bool lockInput;
+
+    public Rigidbody lockedTarget;
 
     private void Awake()
     {
@@ -40,7 +43,12 @@ public class PlayerMovement : MonoBehaviour
 
         };
 
-        
+        controls.Gameplay.Lockon.canceled += ctx =>
+        {
+
+        };
+
+
         controls.Gameplay.Move.canceled += ctx =>
         {
             movement = Vector2.zero;
@@ -71,6 +79,11 @@ public class PlayerMovement : MonoBehaviour
     {
         rotationInput = context.ReadValue<Vector2>().x;
         //Debug.Log(rotationInput);
+    }
+
+    public void OnLock(InputAction.CallbackContext context)
+    {
+        lockInput = context.action.triggered;
     }
 
     private void Start()
@@ -126,8 +139,39 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        transform.eulerAngles = new Vector3(lastRotation.x, lastRotation.y + rotationInput, lastRotation.z);
-        lastRotation = transform.eulerAngles;
+        if (!lockedTarget)
+        {
+            if (lockInput)
+            {
+                Ray lockRay = new Ray(transform.position, transform.forward);
+                RaycastHit[] hitInfos = Physics.RaycastAll(lockRay);
+                foreach (RaycastHit hitInfo in hitInfos)
+                {
+                    if (hitInfo.rigidbody && hitInfo.rigidbody.tag == "Clone")
+                    {
+                        lockedTarget = hitInfo.rigidbody;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (lockedTarget)
+        {
+            if (!lockInput)
+            {
+                lockedTarget = null;
+            }
+            else
+            {
+                transform.LookAt(lockedTarget.position);
+            }
+        }
+        else
+        {
+            transform.eulerAngles = new Vector3(lastRotation.x, lastRotation.y + rotationInput, lastRotation.z);
+            lastRotation = transform.eulerAngles;
+        }
     }
 
 
