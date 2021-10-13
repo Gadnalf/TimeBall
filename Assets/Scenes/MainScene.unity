@@ -2039,6 +2039,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoringManager: {fileID: 743372950}
   playerGoal: 1
+  ball: {fileID: 1469519842}
 --- !u!65 &1154118610
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4011,6 +4012,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoringManager: {fileID: 743372950}
   playerGoal: 2
+  ball: {fileID: 1469519842}
 --- !u!65 &1792390971
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -11,6 +11,9 @@ public class GoalPost : MonoBehaviour
     [SerializeField]
     private int playerGoal;
 
+    [SerializeField]
+    private GameObject ball;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Ball") {
@@ -22,6 +25,8 @@ public class GoalPost : MonoBehaviour
             {
                 scoringManager.PlayerGoal(1);
             }
+
+            ball.GetComponent<BallScript>().Reset();
             
         }
     }
