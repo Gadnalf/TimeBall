@@ -67,4 +67,15 @@ public class ScoringManager : MonoBehaviour
     public void PlayerGoal(int player) {
         AddPlayerScore(currentPlayer, player - 1);
     }
+
+    public int GetWinner()
+    {
+        if (playerScores[0] > playerScores[1])
+            return 1;
+        else if (playerScores[0] < playerScores[1])
+            return 2;
+        else
+            return 0;
+    }
+
 }

@@ -28,14 +28,23 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject endMenuPanel;
 
+    [SerializeField]
+    private TextMeshProUGUI winnerText;
+
+    [SerializeField]
+    private TextMeshProUGUI roundText;
+
+    [SerializeField]
+    private ScoringManager scoringManager;
+
     private float timeRemaining = GameConfigurations.roundDuration;
     private int roundNumber = 1;
 
     private bool timerIsRunning = false;
 
     private bool gameStarted = false;
-
     private bool gamePaused = false;
+    private bool gameEnded = false;
 
     PlayerControls controls;
 
@@ -44,7 +53,7 @@ public class GameManager : MonoBehaviour
         controls = new PlayerControls();
         controls.MainMenu.StartGame.performed += ctx =>
         {
-            if (!gameStarted)
+            if (!gameStarted && !gameEnded)
             {
                 StartGame();
             }
@@ -59,7 +68,7 @@ public class GameManager : MonoBehaviour
         controls.MainMenu.PauseGame.started += ctx =>
         {
 
-            if (gameStarted)
+            if (gameStarted && !gameEnded)
             {
                 if (!gamePaused)
                 {
@@ -87,6 +96,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        roundText.text = roundNumber.ToString();
 
         if (!gamePaused && gameStarted)
         {
@@ -175,8 +185,19 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         gameStarted = false;
+        gameEnded = true;
         gamePaused = true;
         endMenuPanel.SetActive(true);
+        int winner = scoringManager.GetWinner();
+        if (winner == 0)
+        {
+            winnerText.text = "IT'S A DRAW!";
+        }
+        else
+        {
+            winnerText.text = "PLAYER " + winner.ToString() + " WINS!";
+        }
+
         Time.timeScale = 0f;
         foreach (PlayerMovement player in playerControllers) {
             player.GetComponent<PlayerMovement>().enabled = false;
