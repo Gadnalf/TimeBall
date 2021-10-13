@@ -91,9 +91,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 forwardMovement = movement.y * Vector3.forward;
-        Vector3 sideMovement = movement.x * Vector3.right;
-        Vector3 movementVector = (forwardMovement + sideMovement).normalized * speed;
+        Vector3 movementVector = new Vector3(movement.x, 0, movement.y).normalized * speed;
 
         if (dashingFrame > 0) {
             float dashFactor = dashSpeed / GameConfigurations.dashingFrame;
