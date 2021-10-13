@@ -1069,6 +1069,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 611822746850832661, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
+      propertyPath: lockDistance
+      value: Infinity
+      objectReference: {fileID: 0}
+    - target: {fileID: 611822746850832661, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: playerNumber
       value: 2
       objectReference: {fileID: 0}

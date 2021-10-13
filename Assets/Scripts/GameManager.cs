@@ -143,13 +143,13 @@ public class GameManager : MonoBehaviour
 
     private void doNextRoundStuff()
     {
-        roundNumber++;
+        
         if (roundNumber == 5)
         {
             EndGame();
             return;
         }
-        Debug.Log("starting new round " + roundNumber);
+        roundNumber++;
         timerIsRunning = true;
         timeRemaining = GameConfigurations.roundDuration;
         CloneManager.SpawnClones();
