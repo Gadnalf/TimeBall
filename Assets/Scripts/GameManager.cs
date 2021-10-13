@@ -74,9 +74,9 @@ public class GameManager : MonoBehaviour
         controls.MainMenu.PauseGame.canceled += ctx =>
         {
             if (!gamePaused)
-                PauseGame();
-            else
                 ResumeGame();
+            else
+                PauseGame();
         };
     }
 
