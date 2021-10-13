@@ -52,6 +52,11 @@ public class GameManager : MonoBehaviour
 
         };
 
+        //controls.MainMenu.StartGame.canceled += ctx =>
+        //{
+        //    gamePaused = true;
+        //};
+
         controls.MainMenu.PauseGame.performed += ctx =>
         {
 
@@ -65,6 +70,14 @@ public class GameManager : MonoBehaviour
             }
 
         };
+
+        controls.MainMenu.PauseGame.canceled += ctx =>
+        {
+            if (!gamePaused)
+                PauseGame();
+            else
+                ResumeGame();
+        };
     }
 
     // Start is called before the first frame update
@@ -76,26 +89,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Return))
-        //{
-        //    if (!gameStarted)
-        //    {
-        //        StartGame();
-        //    }
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    if (!gamePaused)
-        //    {
-        //        PauseGame();
-        //    }
-        //    else
-        //    {
-        //        ResumeGame();
-        //    }
-        //}
-
 
         if (!gamePaused && gameStarted)
         {
@@ -160,6 +153,10 @@ public class GameManager : MonoBehaviour
         gamePaused = true;
         Time.timeScale = 0f;
         pauseMenuPanel.SetActive(true);
+        foreach (PlayerMovement player in playerControllers)
+        {
+            player.GetComponent<PlayerMovement>().enabled = false;
+        }
     }
 
     public void ResumeGame()
@@ -167,6 +164,10 @@ public class GameManager : MonoBehaviour
         gamePaused = false;
         Time.timeScale = 1f;
         pauseMenuPanel.SetActive(false);
+        foreach (PlayerMovement player in playerControllers)
+        {
+            player.GetComponent<PlayerMovement>().enabled = true;
+        }
     }
 
     public void EndGame()
