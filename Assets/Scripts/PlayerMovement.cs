@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     // Config
-    public float speed;
+    private float speed;
     public float lockDistance = 100;
     public Vector3 spawnLocation;
     public Vector3 spawnRotation;
@@ -88,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        speed = GameConfigurations.baseMovementSpeed;
         dashingFrame = 0;
         dashCD = 0;
         rb = GetComponent<Rigidbody>();

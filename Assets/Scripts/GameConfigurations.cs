@@ -1,5 +1,7 @@
 public static class GameConfigurations
 {
+    public static float baseMovementSpeed = 8f;
+
     public static float ballDistance = 2f;
     public static float throwingForce = 1000f;
     public static float roundDuration = 20f;
