@@ -147,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
                 RaycastHit[] hitInfos = Physics.RaycastAll(lockRay);
                 foreach (RaycastHit hitInfo in hitInfos)
                 {
-                    if (hitInfo.rigidbody && hitInfo.rigidbody.tag == "Clone")
+                    if (hitInfo.rigidbody && hitInfo.rigidbody.tag == "Clone" && hitInfo.rigidbody.GetComponent<PlayerData>().playerNumber == playerNumber)
                     {
                         lockedTarget = hitInfo.rigidbody;
                         break;
