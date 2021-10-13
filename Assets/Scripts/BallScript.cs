@@ -8,7 +8,7 @@ public class BallScript : MonoBehaviour
 
     private Rigidbody rb;
     private PlayerData playerData;
-    private GameObject target;
+    private Rigidbody target;
 
     // Start is called before the first frame update
     private void Start()
@@ -22,13 +22,13 @@ public class BallScript : MonoBehaviour
         if (target)
         {
             float magnitude = Mathf.Pow(Mathf.Pow(rb.velocity.x, 2) + Mathf.Pow(rb.velocity.z, 2), 0.5f);
-            Vector3 direction = 0.8f*(rb.velocity) + 0.2f*(target.transform.position - transform.position);
+            Vector3 direction = 0.2f*(rb.velocity) + 0.8f*(target.transform.position - transform.position);
             Vector2 scaledDirection = new Vector2(direction.x, direction.z).normalized * magnitude;
             rb.velocity = new Vector3(scaledDirection.x, rb.velocity.y, scaledDirection.y);
         }
     }
 
-    public void SetHomingTarget(GameObject target = null)
+    public void SetHomingTarget(Rigidbody target = null)
     {
         this.target = target;
     }

@@ -35,6 +35,7 @@ public class CloneHitByBall : MonoBehaviour
     private void OnCollisionEnter(Collision collision) {
         if (collision.transform.tag == "Ball") {
             GameObject ball = collision.gameObject;
+            ball.GetComponent<BallScript>().SetHomingTarget(null);
             PlayerData ballData = ball.GetComponent<PlayerData>();
             
             // if ball is of player's color
