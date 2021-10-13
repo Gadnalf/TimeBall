@@ -21,12 +21,9 @@ public class BallScript : MonoBehaviour
     {
         if (target)
         {
-            Debug.Log("Velocity: " + rb.velocity);
             float magnitude = Mathf.Pow(Mathf.Pow(rb.velocity.x, 2) + Mathf.Pow(rb.velocity.z, 2), 0.5f);
-            Debug.Log("Mag: " + magnitude);
-            Vector3 direction = target.transform.position - transform.position;
+            Vector3 direction = 0.8f*(rb.velocity) + 0.2f*(target.transform.position - transform.position);
             Vector2 scaledDirection = new Vector2(direction.x, direction.z).normalized * magnitude;
-            Debug.Log("Launch: " + scaledDirection);
             rb.velocity = new Vector3(scaledDirection.x, rb.velocity.y, scaledDirection.y);
         }
     }
