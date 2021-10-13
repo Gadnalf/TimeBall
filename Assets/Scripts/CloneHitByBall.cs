@@ -54,7 +54,8 @@ public class CloneHitByBall : MonoBehaviour
             // if ball is of opponent's color
             else {
                 Debug.Log("ball passed to enemy clone...");
-                cloneKnockdown = true;
+                if (ball.transform.parent == null)
+                    cloneKnockdown = true;
             }
         }
     }

@@ -28,7 +28,6 @@ public class PlayerThrowBall : MonoBehaviour
 
     public void OnThrow(InputAction.CallbackContext context)
     {
-        //jumped = context.ReadValue<bool>();
         throwInput = context.action.triggered;
     }
 

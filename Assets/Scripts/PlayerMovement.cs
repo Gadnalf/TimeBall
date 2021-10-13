@@ -9,16 +9,12 @@ public class PlayerMovement : MonoBehaviour
     // Config
     public float speed;
     public float groundDistance = 10;
-    public float recordLength = GameConfigurations.roundDuration;
     public Vector3 spawnLocation;
     public Vector3 spawnRotation;
 
     public PlayerData.PlayerNumber playerNumber;
 
     private Rigidbody rb;
-
-    //private float horizontalInput;
-    //private float verticalInput;
 
     // State info
     private Vector2 movement = Vector2.zero;
@@ -97,7 +93,6 @@ public class PlayerMovement : MonoBehaviour
             float dashFactor = GameConfigurations.dashSpeed / GameConfigurations.dashingFrame;
             float dashBonus = GameConfigurations.dashSpeed - dashFactor * (GameConfigurations.dashingFrame - dashingFrame);
 
-            // Debug.Log("Dashing speed: " + dashSpeed.ToString() + " - " + dashFactor.ToString() + " * " + (15 - dashingFrame).ToString());
             dashingFrame --;
             if (dashingFrame == 0)
                 dashCD = GameConfigurations.dashCD;
@@ -142,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
         rb.transform.eulerAngles = spawnRotation;
         lastRotation = spawnRotation;
         rb.velocity = Vector3.zero;
-        timeLeft = recordLength;
+        timeLeft = GameConfigurations.roundDuration;
         lastPositions = new Queue<Vector3>();
     }
 
