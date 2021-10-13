@@ -6,7 +6,7 @@
             "id": "ea3f059d-e5a9-492a-8e90-64811b26f640",
             "actions": [
                 {
-                    "name": "Jump",
+                    "name": "Dash",
                     "type": "Button",
                     "id": "ba89022d-a2e8-480d-9aec-d50d96ef7e14",
                     "expectedControlType": "Button",
@@ -46,7 +46,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Player1",
-                    "action": "Jump",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -57,7 +57,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Player2",
-                    "action": "Jump",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -68,7 +68,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Player1",
-                    "action": "Jump",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -8,14 +8,13 @@ public class PlayerMovement : MonoBehaviour
 
     // Config
     public float speed;
-    public float jumpSpeed;
+    public float dashSpeed;
     public float groundDistance = 10;
-    public float recordLength = GameSettings.roundDuration;
+    public float recordLength = GameConfigurations.roundDuration;
     public Vector3 spawnLocation;
     public Vector3 spawnRotation;
 
     public PlayerData.PlayerNumber playerNumber;
-    private Camera playerCamera;
 
     private Rigidbody rb;
 
@@ -24,13 +23,13 @@ public class PlayerMovement : MonoBehaviour
 
     // State info
     private Vector2 movement = Vector2.zero;
-    private bool jumped = false;
+    private int dashingFrame;
     private Vector3 lastRotation;
-    private bool grounded;
+    private int dashCD;
 
     // Experimental
     public Queue<Vector3> lastPositions;
-    private float timeLeft = GameSettings.roundDuration;
+    private float timeLeft = GameConfigurations.roundDuration;
     public int framesToSkip = 3;
     private int frame = 0;
 
@@ -41,9 +40,9 @@ public class PlayerMovement : MonoBehaviour
     {
         controls = new PlayerControls();
 
-        controls.Gameplay.Jump.canceled += ctx =>
+        controls.Gameplay.Dash.canceled += ctx =>
         {
-            jumped = false;
+
         };
 
         
@@ -64,11 +63,11 @@ public class PlayerMovement : MonoBehaviour
         movement = context.ReadValue<Vector2>();
     }
 
-    public void OnJump(InputAction.CallbackContext context)
+    public void OnDash(InputAction.CallbackContext context)
     {
         //jumped = context.ReadValue<bool>();
-        if (grounded) {
-            jumped = context.action.triggered;
+        if (context.action.triggered && dashCD == 0) {
+            dashingFrame = GameConfigurations.dashingFrame;
         }
     }
 
@@ -80,38 +79,41 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        dashingFrame = 0;
+        dashCD = 0;
         rb = GetComponent<Rigidbody>();
         playerNumber = GetComponent<PlayerData>().playerNumber;
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        playerCamera = GetComponentInChildren<Camera>();
         Reset();
     }
 
     private void FixedUpdate()
     {
-        Ray groundRay = new Ray(transform.position, Vector3.down);
-        RaycastHit hit;
-        grounded = Physics.Raycast(groundRay, out hit, 2);
-        grounded = grounded && hit.distance < groundDistance;
-
         Vector3 forwardMovement = movement.y * Vector3.forward;
         Vector3 sideMovement = movement.x * Vector3.right;
         Vector3 movementVector = (forwardMovement + sideMovement).normalized * speed;
+
+        if (dashingFrame > 0) {
+            float dashFactor = dashSpeed / GameConfigurations.dashingFrame;
+            float dashBonus = dashSpeed - dashFactor * (GameConfigurations.dashingFrame - dashingFrame);
+
+            // Debug.Log("Dashing speed: " + dashSpeed.ToString() + " - " + dashFactor.ToString() + " * " + (15 - dashingFrame).ToString());
+            dashingFrame --;
+            if (dashingFrame == 0)
+                dashCD = GameConfigurations.dashCD;
+
+            Vector3 dashVector = Vector3.forward * dashBonus;
+            movementVector += dashVector;
+        }
 
         Vector3 vel = new Vector3();
         vel.x = movementVector.x;
         vel.y = rb.velocity.y;
         vel.z = movementVector.z;
-        rb.velocity = transform.TransformDirection(vel);
 
-        if (jumped) {
-            Debug.Log("Player jumping.");
-            jumped = false;
-            Vector3 jumpVector = Vector3.up * jumpSpeed;
-            rb.AddRelativeForce(jumpVector, ForceMode.Impulse);
-        }
+        rb.velocity = transform.TransformDirection(vel);
 
         if (timeLeft > 0)
         {
@@ -121,6 +123,10 @@ public class PlayerMovement : MonoBehaviour
                 lastPositions.Enqueue(transform.position);
             }
             frame = (frame + 1) % (framesToSkip + 1);
+        }
+
+        if (dashCD != 0) {
+            dashCD --;
         }
     }
 
