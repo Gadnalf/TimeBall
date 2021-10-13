@@ -7,8 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
 
     // Config
-    public float speed = 10;
-    public float jumpSpeed = 150;
+    public float speed;
+    public float jumpSpeed;
     public float groundDistance = 10;
     public float recordLength = GameSettings.roundDuration;
     public Vector3 spawnLocation;
@@ -24,9 +24,9 @@ public class PlayerMovement : MonoBehaviour
 
     // State info
     private Vector2 movement = Vector2.zero;
-
-    private bool jump;
+    private bool jumped = false;
     private Vector3 lastRotation;
+    private bool grounded;
 
     // Experimental
     public Queue<Vector3> lastPositions;
@@ -35,8 +35,6 @@ public class PlayerMovement : MonoBehaviour
     private int frame = 0;
 
     PlayerControls controls;
-    private bool jumped = false;
-
     private float rotationInput = 0;
 
     private void Awake()
@@ -48,10 +46,12 @@ public class PlayerMovement : MonoBehaviour
             jumped = false;
         };
 
+        
         controls.Gameplay.Move.canceled += ctx =>
         {
             movement = Vector2.zero;
         };
+        
 
         controls.Gameplay.Rotate.canceled += ctx =>
         {
@@ -67,7 +67,9 @@ public class PlayerMovement : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
         //jumped = context.ReadValue<bool>();
-        jumped = context.action.triggered;
+        if (grounded) {
+            jumped = context.action.triggered;
+        }
     }
 
     public void OnRotate(InputAction.CallbackContext context)
@@ -89,21 +91,27 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.eulerAngles = playerCamera.transform.eulerAngles;
+        Ray groundRay = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+        grounded = Physics.Raycast(groundRay, out hit, 2);
+        grounded = grounded && hit.distance < groundDistance;
 
         Vector3 forwardMovement = movement.y * Vector3.forward;
         Vector3 sideMovement = movement.x * Vector3.right;
         Vector3 movementVector = (forwardMovement + sideMovement).normalized * speed;
-        if (jumped)
-        {
-            Vector3 jumpVector = Vector3.up * jumpSpeed;
-            rb.AddRelativeForce(jumpVector);
-            jump = false;
-        }
-        Vector3 vel = transform.InverseTransformDirection(rb.velocity);
+
+        Vector3 vel = new Vector3();
         vel.x = movementVector.x;
+        vel.y = rb.velocity.y;
         vel.z = movementVector.z;
         rb.velocity = transform.TransformDirection(vel);
+
+        if (jumped) {
+            Debug.Log("Player jumping.");
+            jumped = false;
+            Vector3 jumpVector = Vector3.up * jumpSpeed;
+            rb.AddRelativeForce(jumpVector, ForceMode.Impulse);
+        }
 
         if (timeLeft > 0)
         {
@@ -111,7 +119,6 @@ public class PlayerMovement : MonoBehaviour
             if (frame == 0)
             {
                 lastPositions.Enqueue(transform.position);
-                //Debug.Log(lastPositions.Count);
             }
             frame = (frame + 1) % (framesToSkip + 1);
         }
@@ -120,49 +127,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        Ray groundRay = new Ray(transform.position, Vector3.down);
-        RaycastHit hit;
-        bool grounded = Physics.Raycast(groundRay, out hit, 2);
-        grounded = grounded && hit.distance < groundDistance;
-
-        //bool jumpInput = false;
-        //// Keyboard inputs
-        //switch (playerNumber)
-        //{
-        //    case PlayerData.PlayerNumber.PlayerOne:
-        //        horizontalInput = Input.GetAxisRaw("P1Horizontal");
-        //        verticalInput = Input.GetAxisRaw("P1Vertical");
-        //        jumpInput = Input.GetButtonDown("P1Jump");
-        //        break;
-        //    case PlayerData.PlayerNumber.PlayerTwo:
-        //        horizontalInput = Input.GetAxisRaw("P2Horizontal");
-        //        verticalInput = Input.GetAxisRaw("P2Vertical");
-        //        jumpInput = Input.GetButtonDown("P2Jump");
-        //        break;
-        //    default:
-        //        Debug.LogError("Player object not assigned type.");
-        //        break;
-        //}
-
-        if (jumped && grounded)
-        {
-            jumped = true;
-        }
-
-        //switch (playerNumber)
-        //{
-        //    case PlayerData.PlayerNumber.PlayerOne:
-        //        rotationInput = Input.GetAxis("P1Camera");
-        //        break;
-        //    case PlayerData.PlayerNumber.PlayerTwo:
-        //        // TODO: Getting button input rather than mouse, should be GetAxis
-        //        rotationInput = Input.GetAxisRaw("P2Camera") * 500;
-        //        break;
-        //    default:
-        //        Debug.LogError("Player object not assigned type.");
-        //        break;
-        //}
-
         transform.eulerAngles = new Vector3(lastRotation.x, lastRotation.y + rotationInput, lastRotation.z);
         lastRotation = transform.eulerAngles;
     }

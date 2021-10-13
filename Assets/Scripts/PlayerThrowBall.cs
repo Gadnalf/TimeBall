@@ -93,9 +93,14 @@ public class PlayerThrowBall : MonoBehaviour
             PlayerData ballData = collision.gameObject.GetComponent<PlayerData>();
 
             // if ball is not of player's color
-            if (collision.gameObject.GetComponent<PlayerData>().playerNumber != playerNumber)
-            {
+            if (collision.gameObject.GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.NoPlayer) {
+                Debug.Log("Claiming un-owned ball");
+                claimBall(collision);
+            }
 
+            else if (collision.gameObject.GetComponent<PlayerData>().playerNumber != playerNumber)
+            {
+                Debug.Log("Ball passed to enemy.");
                 ballData.playerNumber = playerNumber;
                 scoringManager.SetCurrentPlayer(playerNumber);
                 claimBall(collision);
