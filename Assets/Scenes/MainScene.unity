@@ -2012,6 +2012,7 @@ MonoBehaviour:
   scoringManager: {fileID: 743372950}
   playerGoal: 1
   ball: {fileID: 1469519842}
+  playerController: []
 --- !u!1 &1160520754
 GameObject:
   m_ObjectHideFlags: 0
@@ -3916,7 +3917,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1792390965}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 20}
   m_LocalScale: {x: 15, y: 1.5, z: 4}
   m_Children:
@@ -3925,7 +3926,7 @@ Transform:
   - {fileID: 873281950}
   m_Father: {fileID: 1160520755}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1792390967
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3954,6 +3955,7 @@ MonoBehaviour:
   scoringManager: {fileID: 743372950}
   playerGoal: 2
   ball: {fileID: 1469519842}
+  playerController: []
 --- !u!1 &1995729808
 GameObject:
   m_ObjectHideFlags: 0
