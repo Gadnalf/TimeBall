@@ -2012,7 +2012,9 @@ MonoBehaviour:
   scoringManager: {fileID: 743372950}
   playerGoal: 1
   ball: {fileID: 1469519842}
-  playerController: []
+  playerMovements:
+  - {fileID: 1163400099}
+  - {fileID: 1471856583}
 --- !u!1 &1160520754
 GameObject:
   m_ObjectHideFlags: 0
@@ -3955,7 +3957,9 @@ MonoBehaviour:
   scoringManager: {fileID: 743372950}
   playerGoal: 2
   ball: {fileID: 1469519842}
-  playerController: []
+  playerMovements:
+  - {fileID: 1163400099}
+  - {fileID: 1471856583}
 --- !u!1 &1995729808
 GameObject:
   m_ObjectHideFlags: 0

@@ -106,9 +106,10 @@ public class PlayerThrowBall : MonoBehaviour
                     claimBall(collision);
                 }
                 else {
-                    Debug.Log("Tag ball.");
-                    if (GetComponent<PlayerMovement>().getDashFrame() != 0)
+                    if (GetComponent<PlayerMovement>().getDashFrame() != 0) {
+                        Debug.Log("Tag ball.");
                         claimBall(collision);
+                    }
                 }
             }
 

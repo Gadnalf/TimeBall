@@ -62,11 +62,6 @@ public class ScoringManager : MonoBehaviour
         //int playerNum = GetPlayerNumber(player);
 
         playerScores[playerNum]++;
-
-        for (int i = 0; i < playerScores.Length; i++)
-        {
-            print(playerScores[i]);
-        }
     }
 
     public void PlayerGoal(int player) {

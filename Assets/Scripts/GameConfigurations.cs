@@ -7,4 +7,7 @@ public static class GameConfigurations
     public static float dashSpeed = 50f;
     public static int dashingFrame = 10;
     public static int dashCD = 50;
+
+    public static float explosionSpeed = 50f;
+    public static int explosionFrame = 30;
 }

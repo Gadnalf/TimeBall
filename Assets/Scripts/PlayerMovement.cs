@@ -152,8 +152,11 @@ public class PlayerMovement : MonoBehaviour
         controls.Gameplay.Disable();
     }
 
-
     public int getDashFrame() {
         return dashingFrame;
+    }
+
+    public Rigidbody getRb() {
+        return rb;
     }
 }
