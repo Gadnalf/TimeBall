@@ -5,6 +5,7 @@ public class PlayerThrowBall : MonoBehaviour
 {
     // Config
     public PlayerData.PlayerNumber playerNumber;
+    public GameObject lockedTarget;
 
     // State info
     private bool throwBall = false;
@@ -45,6 +46,7 @@ public class PlayerThrowBall : MonoBehaviour
             ball.transform.parent = null;
             ball.GetComponent<Rigidbody>().isKinematic = false;
             ball.GetComponent<Rigidbody>().AddForce(transform.forward * GameConfigurations.throwingForce);
+            ball.GetComponent<BallScript>().SetHomingTarget(lockedTarget);
             ball = null;
         }
     }
@@ -59,19 +61,6 @@ public class PlayerThrowBall : MonoBehaviour
                 ball = null;
                 return;
             }
-
-            //switch (playerNumber)
-            //{
-            //    case PlayerData.PlayerNumber.PlayerOne:
-            //        throwInput = Input.GetButtonDown("P1Fire");
-            //        break;
-            //    case PlayerData.PlayerNumber.PlayerTwo:
-            //        throwInput = Input.GetButtonDown("P2Fire");
-            //        break;
-            //    default:
-            //        //Debug.LogError("Error: player object not assigned type.");
-            //        break;
-            //}
 
             if (throwInput)
             {
