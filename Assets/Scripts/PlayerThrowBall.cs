@@ -100,7 +100,7 @@ public class PlayerThrowBall : MonoBehaviour
 
             else if (collision.gameObject.GetComponent<PlayerData>().playerNumber != playerNumber)
             {
-                if (collision.transform.parent.GetComponent<PlayerData>() == null) {
+                if (collision.transform.parent == null) {
                     Debug.Log("Ball passed to enemy.");
                     ballData.playerNumber = playerNumber;
                     scoringManager.SetCurrentPlayer(playerNumber);
@@ -108,6 +108,8 @@ public class PlayerThrowBall : MonoBehaviour
                 }
                 else {
                     Debug.Log("Tag ball.");
+                    if (GetComponent<PlayerMovement>().getDashFrame() != 0)
+                        claimBall(collision);
                 }
             }
 

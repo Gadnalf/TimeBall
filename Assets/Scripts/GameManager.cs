@@ -73,10 +73,10 @@ public class GameManager : MonoBehaviour
 
         controls.MainMenu.PauseGame.canceled += ctx =>
         {
-            if (!gamePaused)
+            /*if (!gamePaused)
                 ResumeGame();
             else
-                PauseGame();
+                PauseGame();*/
         };
     }
 
@@ -85,6 +85,9 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         CloneManager.Configure(clonePrefab, playerControllers);
+        foreach (PlayerMovement player in playerControllers) {
+            player.GetComponent<PlayerMovement>().enabled = false;
+        }
     }
 
     void Update()
@@ -119,6 +122,9 @@ public class GameManager : MonoBehaviour
         gamePaused = false;
         Time.timeScale = 1f;
         mainMenuPanel.SetActive(false);
+        foreach (PlayerMovement player in playerControllers) {
+            player.GetComponent<PlayerMovement>().enabled = true;
+        }
     }
 
     private void DisplayTime(float timeToDisplay)
@@ -176,6 +182,9 @@ public class GameManager : MonoBehaviour
         gamePaused = true;
         endMenuPanel.SetActive(true);
         Time.timeScale = 0f;
+        foreach (PlayerMovement player in playerControllers) {
+            player.GetComponent<PlayerMovement>().enabled = false;
+        }
     }
 
     private void OnEnable()

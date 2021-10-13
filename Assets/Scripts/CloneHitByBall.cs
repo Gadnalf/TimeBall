@@ -39,7 +39,7 @@ public class CloneHitByBall : MonoBehaviour
             
             // if ball is of player's color
             if (ballData.playerNumber == playerNumber) {
-                Debug.Log("ball passed to friendly clone");
+                Debug.Log("ball passed to friendly clone...");
                 if (ball.transform.parent == null) {
                     var ballDirection = collision.relativeVelocity.normalized;
                     ballSpeedBoost(ball, ballDirection);
@@ -53,7 +53,7 @@ public class CloneHitByBall : MonoBehaviour
 
             // if ball is of opponent's color
             else {
-                Debug.Log("ball passed to enemy clone");
+                Debug.Log("ball passed to enemy clone...");
                 cloneKnockdown = true;
             }
         }
@@ -62,7 +62,7 @@ public class CloneHitByBall : MonoBehaviour
     private void ballSpeedBoost(GameObject ball, Vector3 direction) {
         ball.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         ball.transform.parent = transform;
-        ball.transform.localPosition = new Vector3(0, 0, GameConfigurations.ballDistance);
+        ball.transform.localPosition = direction * GameConfigurations.ballDistance;
         ball.GetComponent<Rigidbody>().isKinematic = true;
         ball.transform.parent = null;
         ball.GetComponent<Rigidbody>().isKinematic = false;
