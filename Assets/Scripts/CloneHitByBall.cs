@@ -65,9 +65,7 @@ public class CloneHitByBall : MonoBehaviour
         ball.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         ball.transform.parent = transform;
         ball.transform.localPosition = direction * GameConfigurations.ballDistance;
-        ball.GetComponent<Rigidbody>().isKinematic = true;
         ball.transform.parent = null;
-        ball.GetComponent<Rigidbody>().isKinematic = false;
         ball.GetComponent<Rigidbody>().AddForce(direction * GameConfigurations.throwingForce * speedBoostFactor);
     }
 }
