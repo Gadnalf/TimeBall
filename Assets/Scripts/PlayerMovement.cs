@@ -170,8 +170,8 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             transform.eulerAngles = new Vector3(lastRotation.x, lastRotation.y + rotationInput, lastRotation.z);
-            lastRotation = transform.eulerAngles;
         }
+        lastRotation = transform.eulerAngles;
     }
 
 
