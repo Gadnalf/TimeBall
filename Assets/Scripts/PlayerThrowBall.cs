@@ -100,10 +100,15 @@ public class PlayerThrowBall : MonoBehaviour
 
             else if (collision.gameObject.GetComponent<PlayerData>().playerNumber != playerNumber)
             {
-                Debug.Log("Ball passed to enemy.");
-                ballData.playerNumber = playerNumber;
-                scoringManager.SetCurrentPlayer(playerNumber);
-                claimBall(collision);
+                if (collision.transform.parent.GetComponent<PlayerData>() == null) {
+                    Debug.Log("Ball passed to enemy.");
+                    ballData.playerNumber = playerNumber;
+                    scoringManager.SetCurrentPlayer(playerNumber);
+                    claimBall(collision);
+                }
+                else {
+                    Debug.Log("Tag ball.");
+                }
             }
 
             // if ball is of player's color
