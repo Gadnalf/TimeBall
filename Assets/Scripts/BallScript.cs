@@ -28,6 +28,11 @@ public class BallScript : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        target = null;
+    }
+
     public void SetHomingTarget(Rigidbody target = null)
     {
         this.target = target;
