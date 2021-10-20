@@ -576,6 +576,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 481113962}
     - target: {fileID: 611822746850832661, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 820825457}
+    - target: {fileID: 611822746850832661, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: lockDistance
       value: Infinity
       objectReference: {fileID: 0}
@@ -1417,6 +1421,10 @@ PrefabInstance:
       propertyPath: stunText
       value: 
       objectReference: {fileID: 1415272747}
+    - target: {fileID: 611822746850832661, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 1646508163}
     - target: {fileID: 611822746850832661, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: lockDistance
       value: Infinity
