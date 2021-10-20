@@ -40,8 +40,8 @@ public class CloneHitByBall : MonoBehaviour
             
             // if ball is of player's color
             if (ballData.playerNumber == playerNumber) {
-                Debug.Log("ball passed to friendly clone...");
                 if (ball.transform.parent == null) {
+                    Debug.Log("ball passed to friendly clone...");
                     var ballDirection = collision.relativeVelocity.normalized;
                     ballSpeedBoost(ball, ballDirection);
                 }
@@ -54,7 +54,6 @@ public class CloneHitByBall : MonoBehaviour
 
             // if ball is of opponent's color
             else {
-                Debug.Log("ball passed to enemy clone...");
                 if (ball.transform.parent == null)
                     cloneKnockdown = true;
             }

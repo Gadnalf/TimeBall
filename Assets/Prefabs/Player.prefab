@@ -206,6 +206,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbe8a585dc9309545a320b15261dc61e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 20
+  jumpSpeed: 150
+  groundDistance: 10
+  spawnLocation: {x: 0, y: 0, z: 0}
+  spawnRotation: {x: 0, y: 0, z: 0}
+  playerNumber: 0
+  framesToSkip: 3
 --- !u!114 &317751702428796681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,14 +264,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac9751bf7dccc7a4b8eaf1ec8a31767a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  jumpSpeed: 150
-  groundDistance: 10
-  recordLength: 30
+  lockDistance: 100
   spawnLocation: {x: 0, y: 0, z: 0}
   spawnRotation: {x: 0, y: 0, z: 0}
   playerNumber: 0
   framesToSkip: 3
+  lockedTarget: {fileID: 0}
 --- !u!114 &3760237316264621619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,12 +333,20 @@ MonoBehaviour:
     m_ActionName: Gameplay/Rotate[/DualShock4GamepadHID/rightStick]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: bd5edca2-a1d3-4084-9735-d80b47d7952f
-    m_ActionName: MainMenu/StartGame[/DualShock4GamepadHID/buttonWest,/Keyboard/anyKey]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 07f7a998-a55f-4019-ab36-129190e2e1d1
     m_ActionName: MainMenu/PauseGame[/DualShock4GamepadHID/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d608b7f5-685e-4c10-b29a-7919d171c175
+    m_ActionName: Gameplay/Throw[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7fcd783d-f79f-4a96-9aea-83665084090b
+    m_ActionName: Gameplay/Lockon[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dac77291-5555-4440-bab6-1a527b175365
+    m_ActionName: MainMenu/StartGame[/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay

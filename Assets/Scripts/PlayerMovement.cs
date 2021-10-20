@@ -17,10 +17,17 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
 
     // State info
-    private Vector2 movement = Vector2.zero;
+    private Vector2 movement;
     private int dashingFrame;
     private Vector3 lastRotation;
     private int dashCD;
+
+    private int currentExplosionFrame;
+    private int explosionFrameDuration;
+    private Vector3 explosionDirection;
+    private float explosionSpeed;
+
+    private bool stunned;
 
     // Experimental
     public Queue<Vector3> lastPositions;
@@ -33,6 +40,9 @@ public class PlayerMovement : MonoBehaviour
     private bool lockInput;
 
     public Rigidbody lockedTarget;
+
+    [SerializeField]
+    private GameObject stunText;
 
     private void Awake()
     {
@@ -68,9 +78,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        //jumped = context.ReadValue<bool>();
         if (context.action.triggered && dashCD == 0) {
-            // Debug.Log("Player dashing.");
             dashingFrame = GameConfigurations.dashingFrame;
         }
     }
@@ -78,7 +86,6 @@ public class PlayerMovement : MonoBehaviour
     public void OnRotate(InputAction.CallbackContext context)
     {
         rotationInput = context.ReadValue<Vector2>().x;
-        //Debug.Log(rotationInput);
     }
 
     public void OnLock(InputAction.CallbackContext context)
@@ -88,9 +95,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        movement = Vector2.zero;
         speed = GameConfigurations.baseMovementSpeed;
         dashingFrame = 0;
         dashCD = 0;
+
+        currentExplosionFrame = 0;
+        explosionFrameDuration = 0;
+        explosionDirection = Vector3.zero;
+        explosionSpeed = 0;
+
+        stunned = false;
+
         rb = GetComponent<Rigidbody>();
         playerNumber = GetComponent<PlayerData>().playerNumber;
 
@@ -103,6 +119,19 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 movementVector = new Vector3(movement.x, 0, movement.y).normalized * speed;
 
+        if (currentExplosionFrame > 0) {
+            float explosionFactor = explosionSpeed / explosionFrameDuration;
+            float explosionBonus = explosionSpeed - explosionFactor * (explosionFrameDuration - currentExplosionFrame);
+
+            currentExplosionFrame--;
+
+            rb.AddForce(explosionDirection * explosionBonus, ForceMode.Impulse);
+
+            if (currentExplosionFrame == 0) {
+                stunned = false;
+            }
+        }
+
         if (dashingFrame > 0) {
             float dashFactor = GameConfigurations.dashSpeed / GameConfigurations.dashingFrame;
             float dashBonus = GameConfigurations.dashSpeed - dashFactor * (GameConfigurations.dashingFrame - dashingFrame);
@@ -111,11 +140,17 @@ public class PlayerMovement : MonoBehaviour
             if (dashingFrame == 0)
                 dashCD = GameConfigurations.dashCD;
 
-            Vector3 dashVector = Vector3.forward * dashBonus;
+            Vector3 dashVector;
+            if (movement == Vector2.zero) {
+                dashVector = Vector3.forward * dashBonus;
+            }
+            else {
+                dashVector = movementVector.normalized * dashBonus;
+            }
             movementVector += dashVector;
         }
 
-        Vector3 vel = new Vector3();
+        Vector3 vel;
         vel.x = movementVector.x;
         vel.y = rb.velocity.y;
         vel.z = movementVector.z;
@@ -140,6 +175,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        stunText.SetActive(stunned);
+
         if (!lockedTarget)
         {
             if (lockInput)
@@ -197,11 +234,26 @@ public class PlayerMovement : MonoBehaviour
         controls.Gameplay.Disable();
     }
 
-    public int getDashFrame() {
-        return dashingFrame;
+    public bool GetDashStatus() {
+        return dashingFrame > 0;
     }
 
-    public Rigidbody getRb() {
-        return rb;
+    public bool GetStunStatus() {
+        return stunned;
+    }
+
+    public void SetStunStatus(bool ifStun) {
+        stunned = ifStun;
+    }
+
+    public void StartExplosion(float explosionSpeed, int explosionFrameDuration, Vector3 from) {
+        this.explosionSpeed = explosionSpeed;
+        this.explosionFrameDuration = explosionFrameDuration;
+
+        var direction = transform.position - from;
+        direction.y = 0;
+        this.explosionDirection = direction.normalized;
+
+        this.currentExplosionFrame = explosionFrameDuration;
     }
 }

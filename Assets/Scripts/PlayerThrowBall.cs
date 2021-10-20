@@ -82,20 +82,19 @@ public class PlayerThrowBall : MonoBehaviour
 
             // if ball is not of player's color
             if (collision.gameObject.GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.NoPlayer) {
-                Debug.Log("Claiming un-owned ball");
                 claimBall(collision);
             }
 
+            // if ball is of opponent's color
             else if (collision.gameObject.GetComponent<PlayerData>().playerNumber != playerNumber)
             {
                 if (collision.transform.parent == null) {
-                    Debug.Log("Ball passed to enemy.");
                     ballData.playerNumber = playerNumber;
                     scoringManager.SetCurrentPlayer(playerNumber);
                     claimBall(collision);
                 }
                 else {
-                    if (GetComponent<PlayerMovement>().getDashFrame() != 0) {
+                    if (GetComponent<PlayerMovement>().GetDashStatus() == true) {
                         Debug.Log("Tag ball.");
                         claimBall(collision);
                     }
@@ -104,7 +103,24 @@ public class PlayerThrowBall : MonoBehaviour
 
             // if ball is of player's color
             else {
-                claimBall(collision);
+                if (GetComponent<PlayerMovement>().GetStunStatus() == false) {
+                    claimBall(collision);
+                }
+            }
+        }
+
+        else if (collision.transform.tag == "Player" && GetComponent<PlayerMovement>().GetDashStatus() == true) {
+            var opponentBall = collision.gameObject.GetComponent<PlayerThrowBall>().ball;
+            if (opponentBall != null) {
+                Debug.Log("Stunning opponent player.");
+
+                opponentBall.transform.parent = null;
+                opponentBall.GetComponent<Rigidbody>().isKinematic = false;
+                opponentBall.GetComponent<Rigidbody>().AddForce(transform.forward * GameConfigurations.throwingForce / 50);
+                collision.gameObject.GetComponent<PlayerThrowBall>().ReleaseBall();
+
+                collision.gameObject.GetComponent<PlayerMovement>().SetStunStatus(true);
+                collision.gameObject.GetComponent<PlayerMovement>().StartExplosion(GameConfigurations.stunningSpeed, GameConfigurations.stunningFrame, transform.position);
             }
         }
     }
@@ -112,9 +128,9 @@ public class PlayerThrowBall : MonoBehaviour
     private void claimBall(Collision collision) {
         ball = collision.gameObject;
         ball.GetComponent<PlayerData>().playerNumber = playerNumber;
-        ball.GetComponent<Renderer>().material.color = GetComponent<Renderer>().material.color;
+
         ball.transform.parent = transform;
-        ball.transform.localPosition = new Vector3(0, 0, GameConfigurations.ballDistance);
+        ball.transform.localPosition = new Vector3(0, GameConfigurations.ballHeight, GameConfigurations.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;
     }
 
@@ -128,4 +144,7 @@ public class PlayerThrowBall : MonoBehaviour
         controls.Gameplay.Disable();
     }
 
+    public void ReleaseBall() {
+        ball = null;
+    }
 }

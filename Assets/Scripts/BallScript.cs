@@ -41,5 +41,6 @@ public class BallScript : MonoBehaviour
         rb.velocity = Vector3.zero;
         playerData.playerNumber = PlayerData.PlayerNumber.NoPlayer;
         target = null;
+        GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.gray);
     }
 }
