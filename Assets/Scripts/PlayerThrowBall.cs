@@ -5,16 +5,21 @@ public class PlayerThrowBall : MonoBehaviour
 {
     // Config
     public PlayerData.PlayerNumber playerNumber;
+    public CrosshairScript crosshair;
+    public float lockDistance = 10000;
 
     // State info
     private bool throwBall = false;
     private GameObject ball;
+    private Rigidbody lockedTarget;
+    private CloneHitByBall thrownAtTarget;
 
     [SerializeField]
     private ScoringManager scoringManager;
 
     PlayerControls controls;
     private bool throwInput = false;
+    private bool lockInput;
 
     private void Awake()
     {
@@ -24,11 +29,21 @@ public class PlayerThrowBall : MonoBehaviour
         {
             throwInput = false;
         };
+
+        controls.Gameplay.Lockon.canceled += ctx =>
+        {
+
+        };
     }
 
     public void OnThrow(InputAction.CallbackContext context)
     {
         throwInput = context.action.triggered;
+    }
+
+    public void OnLock(InputAction.CallbackContext context)
+    {
+        lockInput = context.action.triggered;
     }
 
     // Start is called before the first frame update
@@ -45,8 +60,10 @@ public class PlayerThrowBall : MonoBehaviour
             ball.transform.parent = null;
             ball.GetComponent<Rigidbody>().isKinematic = false;
             ball.GetComponent<Rigidbody>().AddForce(transform.forward * GameConfigurations.throwingForce);
-            Rigidbody lockedTarget = gameObject.GetComponent<PlayerMovement>().lockedTarget;
-            ball.GetComponent<BallScript>().SetHomingTarget(lockedTarget);
+            if (lockedTarget)
+            {
+                ball.GetComponent<BallScript>().SetHomingTarget(lockedTarget);
+            }
             ball = null;
         }
     }
@@ -54,14 +71,45 @@ public class PlayerThrowBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!lockedTarget && ball)
+        {
+            if (lockInput)
+            {
+                Ray lockRay = new Ray(transform.position, transform.forward);
+                RaycastHit[] hitInfos = Physics.RaycastAll(lockRay);
+                foreach (RaycastHit hitInfo in hitInfos)
+                {
+                    if (hitInfo.rigidbody && hitInfo.rigidbody.tag == "Clone" && hitInfo.rigidbody.GetComponent<PlayerData>().playerNumber == playerNumber)
+                    {
+                        lockedTarget = hitInfo.rigidbody;
+                        crosshair.SetTarget(lockedTarget);
+                        break;
+                    }
+                }
+            }
+        }
+        else if (!lockInput)
+        {
+            lockedTarget = null;
+            crosshair.SetTarget(null);
+        }
+
         if (ball)
         {
+            // Failsafe
             if (ball.GetComponent<PlayerData>().playerNumber != playerNumber)
             {
                 ball = null;
                 return;
             }
 
+            if (throwInput)
+            {
+                throwBall = true;
+            }
+        }
+        else if (thrownAtTarget)
+        {
             if (throwInput)
             {
                 throwBall = true;
@@ -82,7 +130,8 @@ public class PlayerThrowBall : MonoBehaviour
 
             // if ball is not of player's color
             if (collision.gameObject.GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.NoPlayer) {
-                claimBall(collision);
+                Debug.Log("Claiming un-owned ball");
+                ClaimBall(collision);
             }
 
             // if ball is of opponent's color
@@ -91,12 +140,12 @@ public class PlayerThrowBall : MonoBehaviour
                 if (collision.transform.parent == null) {
                     ballData.playerNumber = playerNumber;
                     scoringManager.SetCurrentPlayer(playerNumber);
-                    claimBall(collision);
+                    ClaimBall(collision);
                 }
                 else {
                     if (GetComponent<PlayerMovement>().GetDashStatus() == true) {
                         Debug.Log("Tag ball.");
-                        claimBall(collision);
+                        ClaimBall(collision);
                     }
                 }
             }
@@ -104,7 +153,7 @@ public class PlayerThrowBall : MonoBehaviour
             // if ball is of player's color
             else {
                 if (GetComponent<PlayerMovement>().GetStunStatus() == false) {
-                    claimBall(collision);
+                    ClaimBall(collision);
                 }
             }
         }
@@ -125,7 +174,7 @@ public class PlayerThrowBall : MonoBehaviour
         }
     }
 
-    private void claimBall(Collision collision) {
+    private void ClaimBall(Collision collision) {
         ball = collision.gameObject;
         ball.GetComponent<PlayerData>().playerNumber = playerNumber;
 

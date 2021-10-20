@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CloneHitByBall : MonoBehaviour
@@ -8,9 +6,13 @@ public class CloneHitByBall : MonoBehaviour
     public int knockdownSpeed = 60;
 
     private PlayerData.PlayerNumber playerNumber;
+    private GameObject ball;
+    private Vector3 ballDirection;
 
     // state info
     private bool cloneKnockdown;
+    private bool throwInput;
+    private Rigidbody passBackTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -19,9 +21,29 @@ public class CloneHitByBall : MonoBehaviour
         cloneKnockdown = false;
     }
 
+    private void FixedUpdate()
+    {
+        if (passBackTarget && throwInput)
+        {
+            ballDirection = transform.forward;
+            ball.GetComponent<BallScript>().SetHomingTarget(passBackTarget);
+            passBackTarget = null;
+            ThrowBall();
+        }
+        else if (throwInput)
+        {
+            ThrowBall();
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (passBackTarget)
+        {
+            transform.LookAt(passBackTarget.transform);
+        }
+
         if (cloneKnockdown) {
             transform.Rotate(Vector3.forward, knockdownSpeed * Time.deltaTime);
 
@@ -34,7 +56,7 @@ public class CloneHitByBall : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision) {
         if (collision.transform.tag == "Ball") {
-            GameObject ball = collision.gameObject;
+            ball = collision.gameObject;
             ball.GetComponent<BallScript>().SetHomingTarget(null);
             PlayerData ballData = ball.GetComponent<PlayerData>();
             
@@ -42,9 +64,10 @@ public class CloneHitByBall : MonoBehaviour
             if (ballData.playerNumber == playerNumber) {
                 if (ball.transform.parent == null) {
                     Debug.Log("ball passed to friendly clone...");
-                    var ballDirection = collision.relativeVelocity.normalized;
-                    ballSpeedBoost(ball, ballDirection);
+                    ballDirection = new Vector3(collision.relativeVelocity.x, 0, collision.relativeVelocity.z).normalized;
                 }
+                
+                ClaimBall();
             }
 
             // if ball is of no player's color
@@ -60,11 +83,30 @@ public class CloneHitByBall : MonoBehaviour
         }
     }
 
-    private void ballSpeedBoost(GameObject ball, Vector3 direction) {
-        ball.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+    public void Boost()
+    {
+        throwInput = true;
+    }
+
+    public void TossBack(Rigidbody target)
+    {
+        passBackTarget = target;
+    }
+
+    private void ClaimBall()
+    {
         ball.transform.parent = transform;
-        ball.transform.localPosition = direction * GameConfigurations.ballDistance;
+        ball.transform.localPosition = new Vector3(0, 0, GameConfigurations.ballDistance);
+        ball.GetComponent<Rigidbody>().isKinematic = true;
+    }
+
+    private void ThrowBall()
+    {
+        ball.GetComponent<Rigidbody>().isKinematic = false;
+        ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        ball.GetComponent<Rigidbody>().AddForce(ballDirection * GameConfigurations.throwingForce * speedBoostFactor);
+        ball.transform.parent = transform;
+        ball.transform.localPosition = ballDirection * GameConfigurations.ballDistance;
         ball.transform.parent = null;
-        ball.GetComponent<Rigidbody>().AddForce(direction * GameConfigurations.throwingForce * speedBoostFactor);
     }
 }

@@ -39,6 +39,11 @@ public class BallScript : MonoBehaviour
         this.target = target;
     }
 
+    public bool IsHoming()
+    {
+        return target;
+    }
+
     public void Reset()
     {
         rb.isKinematic = false;
