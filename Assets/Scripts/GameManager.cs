@@ -37,6 +37,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private ScoringManager scoringManager;
 
+    [SerializeField]
+    private GameObject controlsPanel;
+
     private float timeRemaining = GameConfigurations.roundDuration;
     private int roundNumber = 1;
 
@@ -60,10 +63,20 @@ public class GameManager : MonoBehaviour
 
         };
 
-        //controls.MainMenu.StartGame.canceled += ctx =>
-        //{
-        //    gamePaused = true;
-        //};
+        controls.MainMenu.ShowControls.performed += ctx =>
+        {
+            if (!gameStarted && !gameEnded)
+            {
+                if (controlsPanel.activeInHierarchy)
+                {
+                    ShowControlsPanel(false);
+                } 
+                else
+                {
+                    ShowControlsPanel(true);
+                }
+            }
+        };
 
         controls.MainMenu.PauseGame.started += ctx =>
         {
@@ -131,6 +144,11 @@ public class GameManager : MonoBehaviour
         foreach (PlayerMovement player in playerControllers) {
             player.GetComponent<PlayerMovement>().enabled = true;
         }
+    }
+
+    public void ShowControlsPanel(bool value)
+    {
+        controlsPanel.SetActive(value);
     }
 
     private void DisplayTime(float timeToDisplay)
