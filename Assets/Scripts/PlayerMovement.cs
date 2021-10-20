@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -34,12 +34,13 @@ public class PlayerMovement : MonoBehaviour
     private float timeLeft = GameConfigurations.roundDuration;
     public int framesToSkip = 3;
     private int frame = 0;
+    public CrosshairScript crosshair;
+    [NonSerialized]
+    public Rigidbody lockedTarget;
 
     PlayerControls controls;
     private float rotationInput = 0;
     private bool lockInput;
-
-    public Rigidbody lockedTarget;
 
     [SerializeField]
     private GameObject stunText;
@@ -188,27 +189,19 @@ public class PlayerMovement : MonoBehaviour
                     if (hitInfo.rigidbody && hitInfo.rigidbody.tag == "Clone" && hitInfo.rigidbody.GetComponent<PlayerData>().playerNumber == playerNumber)
                     {
                         lockedTarget = hitInfo.rigidbody;
+                        crosshair.SetTarget(lockedTarget);
                         break;
                     }
                 }
             }
         }
+        else if (!lockInput)
+        {
+            lockedTarget = null;
+            crosshair.SetTarget(null);
+        }
 
-        if (lockedTarget)
-        {
-            if (!lockInput)
-            {
-                lockedTarget = null;
-            }
-            else
-            {
-                transform.LookAt(lockedTarget.position);
-            }
-        }
-        else
-        {
-            transform.eulerAngles = new Vector3(lastRotation.x, lastRotation.y + rotationInput, lastRotation.z);
-        }
+        transform.eulerAngles = new Vector3(lastRotation.x, lastRotation.y + rotationInput, lastRotation.z);
         lastRotation = transform.eulerAngles;
     }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class BallScript : MonoBehaviour
 {
     public Vector3 spawnLocation;
+    public float turnRate = 0.5f;
 
     private Rigidbody rb;
     private PlayerData playerData;
@@ -22,10 +23,15 @@ public class BallScript : MonoBehaviour
         if (target)
         {
             float magnitude = Mathf.Pow(Mathf.Pow(rb.velocity.x, 2) + Mathf.Pow(rb.velocity.z, 2), 0.5f);
-            Vector3 direction = 0f*(rb.velocity) + 1f*(target.transform.position - transform.position);
+            Vector3 direction = (1f-turnRate)*(rb.velocity) + turnRate*(target.transform.position - transform.position);
             Vector2 scaledDirection = new Vector2(direction.x, direction.z).normalized * magnitude;
             rb.velocity = new Vector3(scaledDirection.x, rb.velocity.y, scaledDirection.y);
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        target = null;
     }
 
     public void SetHomingTarget(Rigidbody target = null)
