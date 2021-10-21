@@ -5,6 +5,7 @@ public static class GameConfigurations
     public static float ballDistance = 2f;
     public static float ballHeight = 0.5f;
     public static float throwingForce = 1000f;
+    public static float verticalThrowingForce = 300f;
     public static float roundDuration = 20f;
 
     public static float dashSpeed = 50f;

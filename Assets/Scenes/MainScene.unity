@@ -608,6 +608,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 481113962}
     - target: {fileID: 3105352589549749033, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 820825457}
+    - target: {fileID: 3105352589549749033, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -746,7 +750,7 @@ PrefabInstance:
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1163400099}
+      objectReference: {fileID: 1163400100}
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -805,7 +809,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerMovement, Assembly-CSharp
+      value: PlayerThrowBall, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1551,6 +1555,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1415272747}
     - target: {fileID: 3105352589549749033, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 1646508163}
+    - target: {fileID: 3105352589549749033, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -1697,7 +1705,7 @@ PrefabInstance:
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1471856583}
+      objectReference: {fileID: 1471856584}
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1768,7 +1776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerMovement, Assembly-CSharp
+      value: PlayerThrowBall, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3760237316264621619, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -6696,6 +6704,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnLocation: {x: 1.63, y: 2.7, z: -1.214848}
   turnRate: 0.5
+  lastPlayerNumber: 0
 --- !u!114 &2016777399
 MonoBehaviour:
   m_ObjectHideFlags: 0

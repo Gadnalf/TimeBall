@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
 
     // Config
     private float speed;
-    public float lockDistance = 100;
     public Vector3 spawnLocation;
     public Vector3 spawnRotation;
 
@@ -34,13 +33,9 @@ public class PlayerMovement : MonoBehaviour
     private float timeLeft = GameConfigurations.roundDuration;
     public int framesToSkip = 3;
     private int frame = 0;
-    public CrosshairScript crosshair;
-    [NonSerialized]
-    public Rigidbody lockedTarget;
 
     PlayerControls controls;
     private float rotationInput = 0;
-    private bool lockInput;
 
     [SerializeField]
     private GameObject stunText;
@@ -53,12 +48,6 @@ public class PlayerMovement : MonoBehaviour
         {
 
         };
-
-        controls.Gameplay.Lockon.canceled += ctx =>
-        {
-
-        };
-
 
         controls.Gameplay.Move.canceled += ctx =>
         {
@@ -87,11 +76,6 @@ public class PlayerMovement : MonoBehaviour
     public void OnRotate(InputAction.CallbackContext context)
     {
         rotationInput = context.ReadValue<Vector2>().x;
-    }
-
-    public void OnLock(InputAction.CallbackContext context)
-    {
-        lockInput = context.action.triggered;
     }
 
     private void Start()
@@ -176,29 +160,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-
-        if (!lockedTarget)
-        {
-            if (lockInput)
-            {
-                Ray lockRay = new Ray(transform.position, transform.forward);
-                RaycastHit[] hitInfos = Physics.RaycastAll(lockRay);
-                foreach (RaycastHit hitInfo in hitInfos)
-                {
-                    if (hitInfo.rigidbody && hitInfo.rigidbody.tag == "Clone" && hitInfo.rigidbody.GetComponent<PlayerData>().playerNumber == playerNumber)
-                    {
-                        lockedTarget = hitInfo.rigidbody;
-                        crosshair.SetTarget(lockedTarget);
-                        break;
-                    }
-                }
-            }
-        }
-        else if (!lockInput)
-        {
-            lockedTarget = null;
-            crosshair.SetTarget(null);
-        }
 
         transform.eulerAngles = new Vector3(lastRotation.x, lastRotation.y + rotationInput, lastRotation.z);
         lastRotation = transform.eulerAngles;
