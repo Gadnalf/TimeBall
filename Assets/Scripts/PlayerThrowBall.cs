@@ -12,7 +12,7 @@ public class PlayerThrowBall : MonoBehaviour
     private bool throwBall = false;
     private GameObject ball;
     private Rigidbody lockedTarget;
-    private CloneHitByBall thrownAtTarget;
+    private CloneHitByBall cloneWithBall;
 
     [SerializeField]
     private ScoringManager scoringManager;
@@ -58,8 +58,9 @@ public class PlayerThrowBall : MonoBehaviour
         {
             throwBall = false;
             ball.transform.parent = null;
+            ball.GetComponent<PlayerData>().playerNumber = playerNumber;
             ball.GetComponent<Rigidbody>().isKinematic = false;
-            ball.GetComponent<Rigidbody>().AddForce(transform.forward * GameConfigurations.throwingForce);
+            ball.GetComponent<Rigidbody>().AddForce(transform.forward * GameConfigurations.throwingForce + Vector3.up * GameConfigurations.verticalThrowingForce);
             if (lockedTarget)
             {
                 ball.GetComponent<BallScript>().SetHomingTarget(lockedTarget);
@@ -71,6 +72,43 @@ public class PlayerThrowBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Check if ball gone
+        if (ball && ball.transform.parent != transform)
+        {
+            ball = null;
+            return;
+        }
+
+        // Update throw inputs
+        if (ball)
+        {
+            if (throwInput)
+            {
+                throwBall = true;
+                throwInput = false;
+            }
+        }
+
+        // Send input to clone if necessary
+        else if (cloneWithBall)
+        {
+            if (lockInput)
+            {
+                cloneWithBall.SetTarget(GetComponent<Rigidbody>());
+            }
+            else
+            {
+                cloneWithBall.SetTarget(null);
+            }
+
+            if (throwInput)
+            {
+                cloneWithBall.Fire();
+                throwInput = false;
+            }
+        }
+
+        // Update lock on targets
         if (!lockedTarget && ball)
         {
             if (lockInput)
@@ -93,35 +131,10 @@ public class PlayerThrowBall : MonoBehaviour
             lockedTarget = null;
             crosshair.SetTarget(null);
         }
-
-        if (ball)
-        {
-            // Failsafe
-            if (ball.GetComponent<PlayerData>().playerNumber != playerNumber)
-            {
-                ball = null;
-                return;
-            }
-
-            if (throwInput)
-            {
-                throwBall = true;
-            }
-        }
-        else if (thrownAtTarget)
-        {
-            if (throwInput)
-            {
-                throwBall = true;
-            }
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log("bonk");
-        //Debug.Log(collision.transform.tag);
-        //Debug.Log(!ball);
         // if not holding ball and object is ball
         if (!ball && collision.transform.tag == "Ball")
         {
@@ -137,7 +150,7 @@ public class PlayerThrowBall : MonoBehaviour
             // if ball is of opponent's color
             else if (collision.gameObject.GetComponent<PlayerData>().playerNumber != playerNumber)
             {
-                if (collision.transform.parent == null) {
+                if (!collision.transform.parent) {
                     ballData.playerNumber = playerNumber;
                     scoringManager.SetCurrentPlayer(playerNumber);
                     ClaimBall(collision);
@@ -174,10 +187,14 @@ public class PlayerThrowBall : MonoBehaviour
         }
     }
 
+    public void SetCloneWithBall(CloneHitByBall clone)
+    {
+        cloneWithBall = clone;
+    }
+
     private void ClaimBall(Collision collision) {
         ball = collision.gameObject;
         ball.GetComponent<PlayerData>().playerNumber = playerNumber;
-
         ball.transform.parent = transform;
         ball.transform.localPosition = new Vector3(0, GameConfigurations.ballHeight, GameConfigurations.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;

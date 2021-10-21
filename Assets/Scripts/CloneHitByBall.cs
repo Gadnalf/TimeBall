@@ -11,37 +11,72 @@ public class CloneHitByBall : MonoBehaviour
 
     // state info
     private bool cloneKnockdown;
-    private bool throwInput;
-    private Rigidbody passBackTarget;
+    private bool throwBall;
+    private Rigidbody passbackTarget;
+    private PlayerThrowBall playerToNotify;
 
     // Start is called before the first frame update
     void Start()
     {
         playerNumber = GetComponent<PlayerData>().playerNumber;
         cloneKnockdown = false;
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (player.GetComponent<PlayerData>().playerNumber == playerNumber)
+            {
+                playerToNotify = player.GetComponent<PlayerThrowBall>();
+            }
+        }
+        if (!playerToNotify)
+        {
+            Debug.LogError("Player discovery failed. It's probably an issue with either the player numbers or tags.");
+        }
     }
 
     private void FixedUpdate()
     {
-        if (passBackTarget && throwInput)
+        if (throwBall)
         {
-            ballDirection = transform.forward;
-            ball.GetComponent<BallScript>().SetHomingTarget(passBackTarget);
-            passBackTarget = null;
-            ThrowBall();
-        }
-        else if (throwInput)
-        {
-            ThrowBall();
+            playerToNotify.SetCloneWithBall(null);
+
+            Debug.Log("Throwing");
+            throwBall = false;
+            ball.transform.parent = null;
+            ball.GetComponent<Rigidbody>().isKinematic = false;
+            ball.GetComponent<Rigidbody>().AddForce(transform.forward * GameConfigurations.throwingForce * speedBoostFactor + Vector3.up * GameConfigurations.verticalThrowingForce);
+            if (passbackTarget)
+            {
+                ball.GetComponent<BallScript>().SetHomingTarget(passbackTarget);
+            }
+            ball = null;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (passBackTarget)
+        // Check if ball gone
+        if (ball && ball.transform.parent != transform)
         {
-            transform.LookAt(passBackTarget.transform);
+            ball = null;
+            playerToNotify.SetCloneWithBall(null);
+            return;
+        }
+
+        if (ball)
+        {
+            playerToNotify.SetCloneWithBall(this);
+            // TODO: Use something more gradual than transform.LookAt()
+            Vector3 thingToLookAt;
+            if (passbackTarget)
+            {
+                thingToLookAt = passbackTarget.transform.position;
+            }
+            else
+            {
+                thingToLookAt = transform.position + ballDirection;
+            }
+            transform.LookAt(thingToLookAt);
         }
 
         if (cloneKnockdown) {
@@ -55,19 +90,22 @@ public class CloneHitByBall : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision collision) {
-        if (collision.transform.tag == "Ball") {
+        if (!ball && collision.transform.tag == "Ball") {
             ball = collision.gameObject;
-            ball.GetComponent<BallScript>().SetHomingTarget(null);
             PlayerData ballData = ball.GetComponent<PlayerData>();
-            
+            Debug.Log("touched a ball: " + ballData.playerNumber);
+
             // if ball is of player's color
             if (ballData.playerNumber == playerNumber) {
-                if (ball.transform.parent == null) {
-                    Debug.Log("ball passed to friendly clone...");
-                    ballDirection = new Vector3(collision.relativeVelocity.x, 0, collision.relativeVelocity.z).normalized;
+                Debug.Log("ball passed to friendly clone...");
+                if (!ball.transform.parent) {
+                    ballDirection = new Vector3(collision.relativeVelocity.x, transform.position.y, collision.relativeVelocity.z).normalized;
+                    ClaimBall(collision);
                 }
-                
-                ClaimBall();
+                else
+                {
+                    Debug.Log(ball.transform.parent.name);
+                }
             }
 
             // if ball is of no player's color
@@ -83,30 +121,26 @@ public class CloneHitByBall : MonoBehaviour
         }
     }
 
-    public void Boost()
+    public void Fire()
     {
-        throwInput = true;
+        if (ball)
+        {
+            throwBall = true;
+        }
     }
 
-    public void TossBack(Rigidbody target)
+    public void SetTarget(Rigidbody target)
     {
-        passBackTarget = target;
+        passbackTarget = target;
     }
 
-    private void ClaimBall()
+    private void ClaimBall(Collision collision)
     {
+        ball = collision.gameObject;
         ball.transform.parent = transform;
+        ball.GetComponent<PlayerData>().playerNumber = playerNumber;
         ball.transform.localPosition = new Vector3(0, 0, GameConfigurations.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;
-    }
-
-    private void ThrowBall()
-    {
-        ball.GetComponent<Rigidbody>().isKinematic = false;
-        ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        ball.GetComponent<Rigidbody>().AddForce(ballDirection * GameConfigurations.throwingForce * speedBoostFactor);
-        ball.transform.parent = transform;
-        ball.transform.localPosition = ballDirection * GameConfigurations.ballDistance;
-        ball.transform.parent = null;
+        playerToNotify.SetCloneWithBall(this);
     }
 }
