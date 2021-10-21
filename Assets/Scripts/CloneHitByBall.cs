@@ -93,24 +93,17 @@ public class CloneHitByBall : MonoBehaviour
         if (!ball && collision.transform.tag == "Ball") {
             ball = collision.gameObject;
             PlayerData ballData = ball.GetComponent<PlayerData>();
-            Debug.Log("touched a ball: " + ballData.playerNumber);
 
             // if ball is of player's color
             if (ballData.playerNumber == playerNumber) {
-                Debug.Log("ball passed to friendly clone...");
                 if (!ball.transform.parent) {
                     ballDirection = new Vector3(collision.relativeVelocity.x, transform.position.y, collision.relativeVelocity.z).normalized;
                     ClaimBall(collision);
-                }
-                else
-                {
-                    Debug.Log(ball.transform.parent.name);
                 }
             }
 
             // if ball is of no player's color
             else if (ballData.playerNumber == PlayerData.PlayerNumber.NoPlayer) {
-                Debug.Log("clone collided with unclaimed ball");
             }
 
             // if ball is of opponent's color
