@@ -129,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(explosionDirection * explosionBonus, ForceMode.Impulse);
 
             if (currentExplosionFrame == 0) {
-                stunned = false;
+                SetStunStatus(false);
             }
         }
 
@@ -176,7 +176,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        stunText.SetActive(stunned);
 
         if (!lockedTarget)
         {
@@ -237,6 +236,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetStunStatus(bool ifStun) {
         stunned = ifStun;
+        stunText.SetActive(ifStun);
     }
 
     public void StartExplosion(float explosionSpeed, int explosionFrameDuration, Vector3 from) {
