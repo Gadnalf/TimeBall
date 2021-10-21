@@ -160,6 +160,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        stunText.SetActive(stunned);
+
         transform.eulerAngles = new Vector3(lastRotation.x, lastRotation.y + rotationInput, lastRotation.z);
         lastRotation = transform.eulerAngles;
     }
