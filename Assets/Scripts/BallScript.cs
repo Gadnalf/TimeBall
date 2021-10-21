@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BallScript : MonoBehaviour
 {
     public Vector3 spawnLocation;
     public float turnRate = 0.5f;
-    public PlayerData.PlayerNumber lastPlayerNumber;
 
     private Rigidbody rb;
     private PlayerData playerData;
