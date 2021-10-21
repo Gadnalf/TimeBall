@@ -63,7 +63,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        movement = context.ReadValue<Vector2>();
+        if (currentExplosionFrame == 0) {
+            movement = context.ReadValue<Vector2>();
+        }
+        else {
+            movement = Vector2.zero;
+        }
     }
 
     public void OnDash(InputAction.CallbackContext context)
