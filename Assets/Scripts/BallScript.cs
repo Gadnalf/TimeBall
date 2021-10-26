@@ -37,9 +37,9 @@ public class BallScript : MonoBehaviour
         this.target = target;
     }
 
-    public Rigidbody GetHomingTarget()
+    public bool IsHomingTarget(Rigidbody rb)
     {
-        return target;
+        return target == rb;
     }
 
     public void Reset()
