@@ -16,5 +16,5 @@ public static class GameConfigurations
     public static int goalExplosionFrame = 30;
 
     public static float stunningSpeed = 10f;
-    public static int stunningFrame = 50;
+    public static int stunningFrame = 100;
 }

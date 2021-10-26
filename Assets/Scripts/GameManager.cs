@@ -181,6 +181,10 @@ public class GameManager : MonoBehaviour
         {
             player.Reset();
         }
+        foreach (CrosshairScript crosshair in FindObjectsOfType<CrosshairScript>())
+        {
+            crosshair.Reset();
+        }
         ball.Reset();
     }
 

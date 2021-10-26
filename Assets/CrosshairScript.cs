@@ -37,4 +37,9 @@ public class CrosshairScript : MonoBehaviour
         transform.position = playerCamera.WorldToScreenPoint(target.position);
         transform.localScale = crosshairScale / Mathf.Max(1, transform.position.z) * Vector2.one;
     }
+
+    public void Reset()
+    {
+        SetTarget(null);
+    }
 }

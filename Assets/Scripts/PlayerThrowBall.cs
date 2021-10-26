@@ -126,7 +126,7 @@ public class PlayerThrowBall : MonoBehaviour
                 }
             }
         }
-        else if (!lockInput)
+        else if (!lockInput || !ball)
         {
             lockedTarget = null;
             crosshair.SetTarget(null);
