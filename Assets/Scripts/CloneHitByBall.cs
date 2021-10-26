@@ -111,6 +111,15 @@ public class CloneHitByBall : MonoBehaviour
                 if (ball.transform.parent == null)
                     cloneKnockdown = true;
             }
+
+            if (ball.GetComponent<BallScript>().GetHomingTarget() == GetComponent<Rigidbody>())
+            {
+                throwBall = false;
+            }
+            else
+            {
+                throwBall = true;
+            }
         }
     }
 

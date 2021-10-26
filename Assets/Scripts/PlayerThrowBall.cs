@@ -85,7 +85,6 @@ public class PlayerThrowBall : MonoBehaviour
             if (throwInput)
             {
                 throwBall = true;
-                throwInput = false;
             }
         }
 
@@ -104,7 +103,6 @@ public class PlayerThrowBall : MonoBehaviour
             if (throwInput)
             {
                 cloneWithBall.Fire();
-                throwInput = false;
             }
         }
 
