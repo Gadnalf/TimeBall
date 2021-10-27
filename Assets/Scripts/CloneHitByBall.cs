@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class CloneHitByBall : MonoBehaviour
 {
-    public float speedBoostFactor = 2f;
     public int knockdownSpeed = 60;
 
     private PlayerData.PlayerNumber playerNumber;
@@ -43,7 +42,7 @@ public class CloneHitByBall : MonoBehaviour
             throwBall = false;
             ball.transform.parent = null;
             ball.GetComponent<Rigidbody>().isKinematic = false;
-            ball.GetComponent<Rigidbody>().AddForce(transform.forward * GameConfigurations.throwingForce * speedBoostFactor + Vector3.up * GameConfigurations.verticalThrowingForce);
+            ball.GetComponent<Rigidbody>().AddForce((transform.forward * GameConfigurations.throwingForce * GameConfigurations.speedBoostFactor) + Vector3.up * GameConfigurations.verticalThrowingForce);
             if (passbackTarget)
             {
                 ball.GetComponent<BallScript>().SetHomingTarget(passbackTarget);
@@ -110,6 +109,16 @@ public class CloneHitByBall : MonoBehaviour
             else {
                 if (ball.transform.parent == null)
                     cloneKnockdown = true;
+            }
+
+            BallScript ballScript = ball.GetComponent<BallScript>();
+            if (ballScript.IsHomingTarget(GetComponent<Rigidbody>()))
+            {
+                throwBall = false;
+            }
+            else
+            {
+                throwBall = true;
             }
         }
     }

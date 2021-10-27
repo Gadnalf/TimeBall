@@ -10,6 +10,7 @@ public class PlayerThrowBall : MonoBehaviour
 
     // State info
     private bool throwBall = false;
+    private bool throwBoost = false;
     private GameObject ball;
     private Rigidbody lockedTarget;
     private CloneHitByBall cloneWithBall;
@@ -60,7 +61,14 @@ public class PlayerThrowBall : MonoBehaviour
             ball.transform.parent = null;
             ball.GetComponent<PlayerData>().playerNumber = playerNumber;
             ball.GetComponent<Rigidbody>().isKinematic = false;
-            ball.GetComponent<Rigidbody>().AddForce(transform.forward * GameConfigurations.throwingForce + Vector3.up * GameConfigurations.verticalThrowingForce);
+            Vector3 throwForce = transform.forward * GameConfigurations.throwingForce;
+            if (throwBoost)
+            {
+                throwBoost = false;
+                throwForce *= GameConfigurations.speedBoostFactor;
+            }
+            throwForce += Vector3.up * GameConfigurations.verticalThrowingForce;
+            ball.GetComponent<Rigidbody>().AddForce(throwForce);
             if (lockedTarget)
             {
                 ball.GetComponent<BallScript>().SetHomingTarget(lockedTarget);
@@ -85,7 +93,6 @@ public class PlayerThrowBall : MonoBehaviour
             if (throwInput)
             {
                 throwBall = true;
-                throwInput = false;
             }
         }
 
@@ -104,7 +111,6 @@ public class PlayerThrowBall : MonoBehaviour
             if (throwInput)
             {
                 cloneWithBall.Fire();
-                throwInput = false;
             }
         }
 
@@ -126,7 +132,7 @@ public class PlayerThrowBall : MonoBehaviour
                 }
             }
         }
-        else if (!lockInput)
+        else if (!lockInput || !ball)
         {
             lockedTarget = null;
             crosshair.SetTarget(null);
@@ -198,6 +204,12 @@ public class PlayerThrowBall : MonoBehaviour
         ball.transform.parent = transform;
         ball.transform.localPosition = new Vector3(0, GameConfigurations.ballHeight, GameConfigurations.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;
+
+        BallScript ballScript = ball.GetComponent<BallScript>();
+        if (ballScript.IsHomingTarget(GetComponent<Rigidbody>()))
+        {
+            throwBoost = true;
+        }
     }
 
     private void OnEnable()
