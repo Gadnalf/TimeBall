@@ -141,7 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed16a1c79a9521489b8bd61ca34f0ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedBoostFactor: 2
   knockdownSpeed: 90
 --- !u!114 &6638636319804852972
 MonoBehaviour:
@@ -157,5 +156,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   directions: []
   skipFrames: 0
-  p1Mat: {fileID: 2100000, guid: bb65bc0de0b339245a33fef4851d8f41, type: 2}
+  p1Mat: {fileID: 2100000, guid: 1265d8e249f7d9546a985f1fda3b6213, type: 2}
   p2Mat: {fileID: 2100000, guid: 7062d9e0d8c12fd4ead18c403fd65fdb, type: 2}
