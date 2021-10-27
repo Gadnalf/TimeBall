@@ -3,10 +3,20 @@ guid: 2488c89a1a92a7d49aaad3e1c0ca7169
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Barrier_Wall1
+    second: {fileID: 2100000, guid: bb57db9ca3a8a7b4cac1aacfaa23df5d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Forcefield_material
+    second: {fileID: 2100000, guid: 11555f514dab37e4fa48a215317732a6, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 0
+    materialName: 1
     materialSearch: 1
     materialLocation: 1
   animations:
