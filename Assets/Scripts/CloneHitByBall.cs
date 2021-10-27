@@ -69,7 +69,7 @@ public class CloneHitByBall : MonoBehaviour
             Vector3 thingToLookAt;
             if (passbackTarget)
             {
-                thingToLookAt = passbackTarget.transform.position;
+                thingToLookAt = new Vector3(passbackTarget.transform.position.x, 0, passbackTarget.transform.position.z);
             }
             else
             {
@@ -96,8 +96,9 @@ public class CloneHitByBall : MonoBehaviour
             // if ball is of player's color
             if (ballData.playerNumber == playerNumber) {
                 if (!ball.transform.parent) {
-                    ballDirection = new Vector3(collision.relativeVelocity.x, transform.position.y, collision.relativeVelocity.z).normalized;
+                    ballDirection = new Vector3(collision.relativeVelocity.x, 0, collision.relativeVelocity.z).normalized;
                     ClaimBall(collision);
+                    ball.GetComponent<BallScript>().SetCharge();
                 }
             }
 
@@ -128,6 +129,7 @@ public class CloneHitByBall : MonoBehaviour
         if (ball)
         {
             throwBall = true;
+            ball.GetComponent<BallScript>().SetCharge();
         }
     }
 

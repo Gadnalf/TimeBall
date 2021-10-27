@@ -209,6 +209,11 @@ public class PlayerThrowBall : MonoBehaviour
         if (ballscript.IsHomingTarget(GetComponent<Rigidbody>()))
         {
             throwBoost = true;
+            ball.GetComponent<BallScript>().SetCharge(true);
+        }
+        else
+        {
+            ball.GetComponent<BallScript>().SetCharge(false);
         }
     }
 

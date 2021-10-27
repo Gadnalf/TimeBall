@@ -6785,6 +6785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnLocation: {x: 1.63, y: 2.7, z: -1.214848}
   turnRate: 0.5
+  shield: {fileID: 1438630118}
 --- !u!114 &2016777399
 MonoBehaviour:
   m_ObjectHideFlags: 0
