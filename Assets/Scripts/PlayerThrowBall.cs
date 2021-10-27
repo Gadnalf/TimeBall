@@ -64,15 +64,13 @@ public class PlayerThrowBall : MonoBehaviour
             Vector3 throwForce = transform.forward * GameConfigurations.throwingForce;
             if (throwBoost)
             {
+                Debug.Log("boosted");
                 throwBoost = false;
                 throwForce *= GameConfigurations.speedBoostFactor;
             }
             throwForce += Vector3.up * GameConfigurations.verticalThrowingForce;
             ball.GetComponent<Rigidbody>().AddForce(throwForce);
-            if (lockedTarget)
-            {
-                ball.GetComponent<BallScript>().SetHomingTarget(lockedTarget);
-            }
+            ball.GetComponent<BallScript>().SetHomingTarget(lockedTarget);
             ball = null;
         }
     }
@@ -94,6 +92,7 @@ public class PlayerThrowBall : MonoBehaviour
             {
                 throwBall = true;
             }
+            throwInput = false;
         }
 
         // Send input to clone if necessary
@@ -111,6 +110,7 @@ public class PlayerThrowBall : MonoBehaviour
             if (throwInput)
             {
                 cloneWithBall.Fire();
+                throwInput = false;
             }
         }
 
@@ -205,8 +205,8 @@ public class PlayerThrowBall : MonoBehaviour
         ball.transform.localPosition = new Vector3(0, GameConfigurations.ballHeight, GameConfigurations.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;
 
-        BallScript ballScript = ball.GetComponent<BallScript>();
-        if (ballScript.IsHomingTarget(GetComponent<Rigidbody>()))
+        BallScript ballscript = ball.GetComponent<BallScript>();
+        if (ballscript.IsHomingTarget(GetComponent<Rigidbody>()))
         {
             throwBoost = true;
         }
