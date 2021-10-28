@@ -7,7 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
 
     // Config
-    private float speed;
+    private float baseMovementSpeed;
+    private float withBallMovementSpeed;
     public Vector3 spawnLocation;
     public Vector3 spawnRotation;
 
@@ -68,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (context.action.triggered && dashCD == 0) {
+        if (context.action.triggered && dashCD == 0 && GetComponent<PlayerThrowBall>().CheckIfHasBall() == false) {
             dashingFrame = GameConfigurations.dashingFrame;
         }
     }
@@ -81,7 +82,8 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         movement = Vector2.zero;
-        speed = GameConfigurations.baseMovementSpeed;
+        baseMovementSpeed = GameConfigurations.baseMovementSpeed;
+        withBallMovementSpeed = GameConfigurations.withBallMovementSpeed;
         dashingFrame = 0;
         dashCD = 0;
 
@@ -107,7 +109,12 @@ public class PlayerMovement : MonoBehaviour
             movementVector = Vector3.zero;
         }
         else {
-            movementVector = new Vector3(movement.x, 0, movement.y).normalized * speed;
+            if (GetComponent<PlayerThrowBall>().CheckIfHasBall()) {
+                movementVector = new Vector3(movement.x, 0, movement.y).normalized * baseMovementSpeed;
+            }
+            else {
+                movementVector = new Vector3(movement.x, 0, movement.y).normalized * withBallMovementSpeed;
+            }
         }
         
 

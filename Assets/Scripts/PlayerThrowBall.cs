@@ -230,4 +230,8 @@ public class PlayerThrowBall : MonoBehaviour
     public void ReleaseBall() {
         ball = null;
     }
+
+    public bool CheckIfHasBall() {
+        return (ball != null);
+    }
 }
