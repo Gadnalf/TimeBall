@@ -32,7 +32,19 @@ public class BallScript : MonoBehaviour
 
     private void Update()
     {
-        shield.SetActive(charged);
+        UpdateShield();
+    }
+
+    private void UpdateShield()
+    {
+        if (!charged)
+        {
+            shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.zero);
+        }
+        else
+        {
+            shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.one * 0.1f);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -64,6 +76,7 @@ public class BallScript : MonoBehaviour
     {
         rb.isKinematic = false;
         rb.transform.position = spawnLocation;
+        rb.transform.rotation = Quaternion.identity;
         rb.transform.parent = null;
         rb.velocity = Vector3.zero;
         playerData.playerNumber = PlayerData.PlayerNumber.NoPlayer;

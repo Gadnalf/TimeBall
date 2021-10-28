@@ -537,7 +537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 317751702428796683, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 1.81
       objectReference: {fileID: 0}
     - target: {fileID: 317751702428796683, guid: f1e60e0ad2be99c4dabf6293fcf26946, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2733,9 +2733,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 13e8a32954fe373419b8a0361bad890d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 13e8a32954fe373419b8a0361bad890d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e48fafa5c60377c42a5a042896bed9d0, type: 2}
+      objectReference: {fileID: 2100000, guid: 6040c5b88be6bab46a6be6baf835ef0e, type: 2}
     - target: {fileID: 919132149155446097, guid: 13e8a32954fe373419b8a0361bad890d, type: 3}
       propertyPath: m_Name
       value: Ball
