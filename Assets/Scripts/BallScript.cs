@@ -84,6 +84,5 @@ public class BallScript : MonoBehaviour
         target = null;
         homing = false;
         charged = false;
-        GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.gray);
     }
 }

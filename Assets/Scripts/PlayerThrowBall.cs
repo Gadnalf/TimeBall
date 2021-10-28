@@ -179,17 +179,18 @@ public class PlayerThrowBall : MonoBehaviour
 
         else if (collision.transform.tag == "Player" && GetComponent<PlayerMovement>().GetDashStatus() == true) {
             var opponentBall = collision.gameObject.GetComponent<PlayerThrowBall>().ball;
-            if (opponentBall != null) {
+            
                 Debug.Log("Stunning opponent player.");
 
+            if (opponentBall != null) {
                 opponentBall.transform.parent = null;
                 opponentBall.GetComponent<Rigidbody>().isKinematic = false;
                 opponentBall.GetComponent<Rigidbody>().AddForce(transform.forward * GameConfigurations.horizontalThrowingForce / 50);
-                collision.gameObject.GetComponent<PlayerThrowBall>().ReleaseBall();
-
-                collision.gameObject.GetComponent<PlayerMovement>().SetStunStatus(true);
-                collision.gameObject.GetComponent<PlayerMovement>().StartExplosion(GameConfigurations.stunningSpeed, GameConfigurations.stunningFrame, transform.position);
+                collision.gameObject.GetComponent<PlayerThrowBall>().ReleaseBall();   
             }
+
+            collision.gameObject.GetComponent<PlayerMovement>().SetStunStatus(true);
+            collision.gameObject.GetComponent<PlayerMovement>().StartExplosion(GameConfigurations.stunningSpeed, GameConfigurations.stunningFrame, transform.position);
         }
     }
 
