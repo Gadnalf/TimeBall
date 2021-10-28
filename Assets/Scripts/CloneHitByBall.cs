@@ -108,7 +108,7 @@ public class CloneHitByBall : MonoBehaviour
                 {
                     throwBall = false;
                 }
-                else if (ballScript.GetHomingTarget().GetComponent<PlayerData>().playerNumber == playerNumber)
+                else if (ballScript.GetHomingTarget() != null && ballScript.GetHomingTarget().GetComponent<PlayerData>().playerNumber == playerNumber)
                 {
                     throwBall = true;
                     passbackTarget = ballScript.GetHomingTarget();

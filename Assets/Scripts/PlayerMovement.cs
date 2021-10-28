@@ -103,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 movementVector;
-        if (currentExplosionFrame != 0) {
+        if (currentExplosionFrame != 0 || (Math.Abs(movement.x) < 0.05f && Math.Abs(movement.y) < 0.05f)) {
             movementVector = Vector3.zero;
         }
         else {
