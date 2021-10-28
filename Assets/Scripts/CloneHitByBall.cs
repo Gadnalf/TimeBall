@@ -102,6 +102,21 @@ public class CloneHitByBall : MonoBehaviour
                     ClaimBall(collision);
                     ball.GetComponent<BallScript>().SetCharge();
                 }
+
+                BallScript ballScript = ball.GetComponent<BallScript>();
+                if (ballScript.IsHomingTarget(GetComponent<Rigidbody>()))
+                {
+                    throwBall = false;
+                }
+                else if (ballScript.GetHomingTarget().GetComponent<PlayerData>().playerNumber == playerNumber)
+                {
+                    throwBall = true;
+                    passbackTarget = ballScript.GetHomingTarget();
+                }
+                else
+                {
+                    throwBall = true;
+                }
             }
 
             // if ball is of no player's color
@@ -112,17 +127,6 @@ public class CloneHitByBall : MonoBehaviour
             else {
                 if (ball.transform.parent == null)
                     cloneKnockdown = true;
-            }
-
-            BallScript ballScript = ball.GetComponent<BallScript>();
-            if (ballScript.IsHomingTarget(GetComponent<Rigidbody>()))
-            {
-                throwBall = false;
-            }
-            else
-            {
-                Debug.Log("In IsHomeing()");
-                throwBall = true;
             }
         }
     }
@@ -139,7 +143,11 @@ public class CloneHitByBall : MonoBehaviour
 
     public void SetTarget(Rigidbody target)
     {
-        passbackTarget = target;
+        // If the clone is not currently throwing the ball, set target
+        if (!throwBall)
+        {
+            passbackTarget = target;
+        }
     }
 
     private void ClaimBall(Collision collision)
