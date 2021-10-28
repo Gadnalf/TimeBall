@@ -47,6 +47,7 @@ public class CloneHitByBall : MonoBehaviour
             if (passbackTarget)
             {
                 ball.GetComponent<BallScript>().SetHomingTarget(passbackTarget);
+                passbackTarget = null;
             }
             ball = null;
         }
