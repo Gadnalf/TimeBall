@@ -4,11 +4,13 @@ public class BallScript : MonoBehaviour
 {
     public Vector3 spawnLocation;
     public float turnRate = 0.5f;
+    public GameObject shield;
 
     private Rigidbody rb;
     private PlayerData playerData;
     private Rigidbody target;
     private bool homing;
+    private bool charged;
 
     // Start is called before the first frame update
     private void Start()
@@ -19,7 +21,7 @@ public class BallScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (target)
+        if (target && homing)
         {
             float magnitude = Mathf.Pow(Mathf.Pow(rb.velocity.x, 2) + Mathf.Pow(rb.velocity.z, 2), 0.5f);
             Vector3 direction = (1f-turnRate)*(rb.velocity) + turnRate*(target.transform.position - transform.position);
@@ -28,9 +30,18 @@ public class BallScript : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        shield.SetActive(charged);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        homing = false;
+        bool held = this.transform.parent != null;
+        if (!held) {
+            homing = false;
+            charged = false;
+        }
     }
 
     public void SetHomingTarget(Rigidbody target = null)
@@ -44,6 +55,11 @@ public class BallScript : MonoBehaviour
         return target == rb;
     }
 
+    public void SetCharge(bool charge = true)
+    {
+        charged = charge;
+    }
+
     public void Reset()
     {
         rb.isKinematic = false;
@@ -53,6 +69,7 @@ public class BallScript : MonoBehaviour
         playerData.playerNumber = PlayerData.PlayerNumber.NoPlayer;
         target = null;
         homing = false;
+        charged = false;
         GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.gray);
     }
 }

@@ -3,10 +3,15 @@ guid: 618a6d39301c05648bab155ed35a060c
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bleechers
+    second: {fileID: 2100000, guid: 5af5b8f8bc0f3fd4085096ce94963625, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 0
+    materialName: 1
     materialSearch: 1
     materialLocation: 1
   animations:
