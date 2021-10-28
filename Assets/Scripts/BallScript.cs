@@ -8,6 +8,7 @@ public class BallScript : MonoBehaviour
     private Rigidbody rb;
     private PlayerData playerData;
     private Rigidbody target;
+    private bool homing;
 
     // Start is called before the first frame update
     private void Start()
@@ -29,12 +30,13 @@ public class BallScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        target = null;
+        homing = false;
     }
 
     public void SetHomingTarget(Rigidbody target = null)
     {
         this.target = target;
+        homing = target;
     }
 
     public bool IsHomingTarget(Rigidbody rb)
@@ -50,6 +52,7 @@ public class BallScript : MonoBehaviour
         rb.velocity = Vector3.zero;
         playerData.playerNumber = PlayerData.PlayerNumber.NoPlayer;
         target = null;
+        homing = false;
         GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.gray);
     }
 }
