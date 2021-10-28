@@ -169,7 +169,7 @@ public class GameManager : MonoBehaviour
     private void doNextRoundStuff()
     {
         
-        if (roundNumber == 5)
+        if (roundNumber == GameConfigurations.numberOfRounds)
         {
             EndGame();
             return;

@@ -61,7 +61,7 @@ public class PlayerThrowBall : MonoBehaviour
             ball.transform.parent = null;
             ball.GetComponent<PlayerData>().playerNumber = playerNumber;
             ball.GetComponent<Rigidbody>().isKinematic = false;
-            Vector3 throwForce = transform.forward * GameConfigurations.throwingForce;
+            Vector3 throwForce = transform.forward * GameConfigurations.horizontalThrowingForce;
             if (throwBoost)
             {
                 Debug.Log("boosted");
@@ -184,7 +184,7 @@ public class PlayerThrowBall : MonoBehaviour
 
                 opponentBall.transform.parent = null;
                 opponentBall.GetComponent<Rigidbody>().isKinematic = false;
-                opponentBall.GetComponent<Rigidbody>().AddForce(transform.forward * GameConfigurations.throwingForce / 50);
+                opponentBall.GetComponent<Rigidbody>().AddForce(transform.forward * GameConfigurations.horizontalThrowingForce / 50);
                 collision.gameObject.GetComponent<PlayerThrowBall>().ReleaseBall();
 
                 collision.gameObject.GetComponent<PlayerMovement>().SetStunStatus(true);

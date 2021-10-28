@@ -43,7 +43,7 @@ public class CloneHitByBall : MonoBehaviour
             
             ball.transform.parent = null;
             ball.GetComponent<Rigidbody>().isKinematic = false;
-            ball.GetComponent<Rigidbody>().AddForce((transform.forward * GameConfigurations.throwingForce * GameConfigurations.speedBoostFactor) + Vector3.up * GameConfigurations.verticalThrowingForce);
+            ball.GetComponent<Rigidbody>().AddForce((transform.forward * GameConfigurations.horizontalThrowingForce * GameConfigurations.speedBoostFactor) + Vector3.up * GameConfigurations.verticalThrowingForce);
             if (passbackTarget)
             {
                 ball.GetComponent<BallScript>().SetHomingTarget(passbackTarget);

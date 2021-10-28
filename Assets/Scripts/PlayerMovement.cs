@@ -63,12 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (currentExplosionFrame == 0) {
-            movement = context.ReadValue<Vector2>();
-        }
-        else {
-            movement = Vector2.zero;
-        }
+        movement = context.ReadValue<Vector2>();
     }
 
     public void OnDash(InputAction.CallbackContext context)
@@ -107,7 +102,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 movementVector = new Vector3(movement.x, 0, movement.y).normalized * speed;
+        Vector3 movementVector;
+        if (currentExplosionFrame != 0) {
+            movementVector = Vector3.zero;
+        }
+        else {
+            movementVector = new Vector3(movement.x, 0, movement.y).normalized * speed;
+        }
+        
 
         if (currentExplosionFrame > 0) {
             float explosionFactor = explosionSpeed / explosionFrameDuration;
