@@ -143,7 +143,11 @@ public class CloneHitByBall : MonoBehaviour
 
     public void SetTarget(Rigidbody target)
     {
-        passbackTarget = target;
+        // If the clone is not currently throwing the ball, set target
+        if (!throwBall)
+        {
+            passbackTarget = target;
+        }
     }
 
     private void ClaimBall(Collision collision)
