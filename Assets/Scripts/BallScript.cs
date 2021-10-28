@@ -62,6 +62,11 @@ public class BallScript : MonoBehaviour
         homing = target;
     }
 
+    public Rigidbody GetHomingTarget()
+    {
+        return target;
+    }
+
     public bool IsHomingTarget(Rigidbody rb)
     {
         return target == rb;
