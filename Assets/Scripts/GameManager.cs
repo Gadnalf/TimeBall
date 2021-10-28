@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject clonePrefab;
+    private GameObject[] clonePrefabs;
 
     [SerializeField]
     private PlayerMovement[] playerControllers;
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 0f;
-        CloneManager.Configure(clonePrefab, playerControllers);
+        CloneManager.Configure(clonePrefabs, playerControllers);
         foreach (PlayerMovement player in playerControllers) {
             player.GetComponent<PlayerMovement>().enabled = false;
         }

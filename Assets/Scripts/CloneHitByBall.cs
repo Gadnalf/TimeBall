@@ -17,6 +17,7 @@ public class CloneHitByBall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        throwBall = false;
         playerNumber = GetComponent<PlayerData>().playerNumber;
         cloneKnockdown = false;
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
@@ -34,12 +35,12 @@ public class CloneHitByBall : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (throwBall)
+        if (throwBall && ball)
         {
             playerToNotify.SetCloneWithBall(null);
 
             Debug.Log("Throwing");
-            throwBall = false;
+            
             ball.transform.parent = null;
             ball.GetComponent<Rigidbody>().isKinematic = false;
             ball.GetComponent<Rigidbody>().AddForce((transform.forward * GameConfigurations.throwingForce * GameConfigurations.speedBoostFactor) + Vector3.up * GameConfigurations.verticalThrowingForce);
@@ -49,6 +50,7 @@ public class CloneHitByBall : MonoBehaviour
             }
             ball = null;
         }
+        throwBall = false;
     }
 
     // Update is called once per frame
@@ -119,6 +121,7 @@ public class CloneHitByBall : MonoBehaviour
             }
             else
             {
+                Debug.Log("In IsHomeing()");
                 throwBall = true;
             }
         }
@@ -128,6 +131,7 @@ public class CloneHitByBall : MonoBehaviour
     {
         if (ball)
         {
+            Debug.Log("In Fire()");
             throwBall = true;
             ball.GetComponent<BallScript>().SetCharge();
         }

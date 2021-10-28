@@ -5,9 +5,6 @@ public class CloneController : MonoBehaviour
     public Vector3[] directions;
     public int skipFrames;
 
-    public Material p1Mat;
-    public Material p2Mat;
-
     // State data
     private Rigidbody rb;
     private int frame;
@@ -20,13 +17,6 @@ public class CloneController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerData = GetComponent<PlayerData>();
         frame = 0;
-
-        if (playerData.playerNumber == PlayerData.PlayerNumber.PlayerOne) {
-            GetComponent<Renderer>().material = p1Mat;
-        }
-        if (playerData.playerNumber == PlayerData.PlayerNumber.PlayerTwo) {
-            GetComponent<Renderer>().material = p2Mat;
-        }
     }
 
     // Update is called once per frame

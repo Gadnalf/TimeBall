@@ -3,15 +3,15 @@ using UnityEngine;
 
 public static class CloneManager
 {
-    private static GameObject clonePrefab;
+    private static GameObject[] clonePrefabs;
     private static PlayerMovement[] players;
     private static int cloneCap = 10;
 
     private static Queue<CloneData> clones = new Queue<CloneData>();
 
-    public static void Configure(GameObject prefab, PlayerMovement[] playerList, int cap = 10)
+    public static void Configure(GameObject[] prefabs, PlayerMovement[] playerList, int cap = 10)
     {
-        clonePrefab = prefab;
+        clonePrefabs = prefabs;
         players = playerList;
         cloneCap = cap;
     }
@@ -33,7 +33,14 @@ public static class CloneManager
     {
         foreach (CloneData clone in clones)
         {
-            GameObject newClone = Object.Instantiate(clonePrefab, clone.Positions[0], Quaternion.identity);
+            GameObject newClone;
+            if (clone.Number == PlayerData.PlayerNumber.PlayerOne) {
+                newClone = Object.Instantiate(clonePrefabs[0], clone.Positions[0], Quaternion.identity);
+            }
+            else {
+                newClone = Object.Instantiate(clonePrefabs[1], clone.Positions[0], Quaternion.identity);
+            }
+            
             CloneController controller = newClone.GetComponent<CloneController>();
             controller.directions = clone.Positions;
             controller.skipFrames = clone.SkipFrames;
