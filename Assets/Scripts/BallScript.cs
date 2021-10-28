@@ -43,17 +43,13 @@ public class BallScript : MonoBehaviour
         }
         else
         {
-            shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.one * 0.1f);
+            shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.one * 0.2f);
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        bool held = this.transform.parent != null;
-        if (!held) {
-            homing = false;
-            charged = false;
-        }
+        homing = false;
     }
 
     public void SetHomingTarget(Rigidbody target = null)

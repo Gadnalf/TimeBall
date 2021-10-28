@@ -47,6 +47,7 @@ public class CloneHitByBall : MonoBehaviour
             if (passbackTarget)
             {
                 ball.GetComponent<BallScript>().SetHomingTarget(passbackTarget);
+                passbackTarget = null;
             }
             ball = null;
         }
@@ -108,7 +109,7 @@ public class CloneHitByBall : MonoBehaviour
                 {
                     throwBall = false;
                 }
-                else if (ballScript.GetHomingTarget().GetComponent<PlayerData>().playerNumber == playerNumber)
+                else if (ballScript.GetHomingTarget() != null && ballScript.GetHomingTarget().GetComponent<PlayerData>().playerNumber == playerNumber)
                 {
                     throwBall = true;
                     passbackTarget = ballScript.GetHomingTarget();
@@ -155,7 +156,7 @@ public class CloneHitByBall : MonoBehaviour
         ball = collision.gameObject;
         ball.transform.parent = transform;
         ball.GetComponent<PlayerData>().playerNumber = playerNumber;
-        ball.transform.localPosition = new Vector3(0, 0, GameConfigurations.ballDistance);
+        ball.transform.localPosition = new Vector3(0, GameConfigurations.ballHeight, GameConfigurations.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;
         playerToNotify.SetCloneWithBall(this);
     }

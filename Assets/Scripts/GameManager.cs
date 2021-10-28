@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
 
             else if (!gameStarted && gameEnded)
             {
+                Debug.Log("game ended");
                 CloneManager.DeleteClones();
                 SceneManager.LoadScene("MainScene");
             }
@@ -147,6 +148,7 @@ public class GameManager : MonoBehaviour
         gamePaused = false;
         Time.timeScale = 1f;
         timerIsRunning = true;
+        timeRemaining = GameConfigurations.roundDuration;
         mainMenuPanel.SetActive(false);
         foreach (PlayerMovement player in playerControllers) {
             player.GetComponent<PlayerMovement>().enabled = true;
@@ -168,7 +170,9 @@ public class GameManager : MonoBehaviour
 
     private void doNextRoundStuff()
     {
-        
+
+        Debug.Log("started round " + roundNumber.ToString());
+
         if (roundNumber == GameConfigurations.numberOfRounds)
         {
             EndGame();
@@ -176,6 +180,12 @@ public class GameManager : MonoBehaviour
         }
         roundNumber++;
         timerIsRunning = true;
+        //GameConfigurations.roundDuration = GameConfigurations.roundDuration * roundNumber;
+        //timeRemaining = GameConfigurations.roundDuration;
+        //if (timeRemaining > 30f)
+        //{
+        //    timeRemaining = 30f;
+        //}
         timeRemaining = GameConfigurations.roundDuration;
         CloneManager.SpawnClones();
         foreach (PlayerMovement player in playerControllers)
