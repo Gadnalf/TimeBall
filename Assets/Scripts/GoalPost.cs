@@ -30,7 +30,7 @@ public class GoalPost : MonoBehaviour
             }
 
             ball.SetActive(false);
-            Invoke("ResetBall", 1);
+            Invoke("ResetBall", 2);
             
             foreach (PlayerMovement playerMovement in playerMovements) {
                 playerMovement.StartExplosion(GameConfigurations.goalExplosionSpeed, GameConfigurations.goalExplosionFrame, transform.position);
