@@ -48,6 +48,11 @@ public static class CloneManager
         }
     }
 
+    public static void DeleteClones()
+    {
+        clones.Clear();
+    }
+
     private class CloneData
     {
         public PlayerData.PlayerNumber Number { get; set; }

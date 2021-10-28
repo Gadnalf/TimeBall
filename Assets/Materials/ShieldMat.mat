@@ -38,10 +38,12 @@ Material:
     m_Floats:
     - Vector1_88cd6fba7503416895c52ad39e1ae089: 3
     - Vector1_98bd123d6217498ea685b022807e0a08: 2
+    - Vector1_af241d6c1730494894cd8f7d4249d35d: 1
     m_Colors:
     - Color_2507788b5a214aaf8f23fe02101ba7f5: {r: 1, g: 1, b: 1, a: 0}
     - Color_4de69bbb1b38421aa073a3a57feb919d: {r: 0, g: 0.8402246, b: 12.183256, a: 1}
     - Color_94aca56f8168455e86bac3a1c2c8fa4c: {r: 1, g: 0, b: 0.04943371, a: 1}
     - Vector3_eb9ebfa6f6be4482924c01cf77e4146e: {r: 0.1, g: 0.1, b: 0.1, a: 0}
+    - _FrontColor: {r: 0, g: 0.15446766, b: 9.189588, a: 1}
     - _PulseOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
