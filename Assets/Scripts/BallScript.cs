@@ -49,11 +49,7 @@ public class BallScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        bool held = this.transform.parent != null;
-        if (!held) {
-            homing = false;
-            charged = false;
-        }
+        homing = false;
     }
 
     public void SetHomingTarget(Rigidbody target = null)

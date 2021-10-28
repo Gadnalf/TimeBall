@@ -156,7 +156,7 @@ public class CloneHitByBall : MonoBehaviour
         ball = collision.gameObject;
         ball.transform.parent = transform;
         ball.GetComponent<PlayerData>().playerNumber = playerNumber;
-        ball.transform.localPosition = new Vector3(0, 0, GameConfigurations.ballDistance);
+        ball.transform.localPosition = new Vector3(0, GameConfigurations.ballHeight, GameConfigurations.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;
         playerToNotify.SetCloneWithBall(this);
     }
