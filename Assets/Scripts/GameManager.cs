@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
 
             else if (!gameStarted && gameEnded)
             {
+                CloneManager.DeleteClones();
                 SceneManager.LoadScene("MainScene");
             }
 
