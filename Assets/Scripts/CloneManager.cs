@@ -41,7 +41,7 @@ public static class CloneManager
         }
     }
 
-    public static void ResetClones()
+    public static void DeleteClones()
     {
         clones.Clear();
     }
