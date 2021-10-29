@@ -175,7 +175,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directions: []
-  skipFrames: 3
+  rotations: []
+  positionSkipFrames: 0
+  rotationSkipFrames: 0
 --- !u!114 &7690376133837250058
 MonoBehaviour:
   m_ObjectHideFlags: 0

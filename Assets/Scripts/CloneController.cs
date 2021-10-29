@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CloneController : MonoBehaviour
@@ -44,8 +45,8 @@ public class CloneController : MonoBehaviour
     public Quaternion GetNextRotation(float timeSinceLastUpdate)
     {
         float howFarToSlerp = (timeSinceLastUpdate / Time.fixedDeltaTime) + (frame % (rotationSkipFrames + 1)) / (rotationSkipFrames + 1);
-        int currentRot = frame / (rotationSkipFrames + 1);
-        int nextRot = currentRot + 1;
+        int currentRot = Math.Min(frame / (rotationSkipFrames + 1), rotations.Length - 1);
+        int nextRot = Math.Min(currentRot + 1, rotations.Length - 1);
         return Quaternion.Slerp(rotations[currentRot], rotations[nextRot], howFarToSlerp);
     }
 

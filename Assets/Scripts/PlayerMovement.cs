@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     public Queue<Quaternion> lastRotations;
     private float timeLeftToRecord = GameConfigurations.roundDuration;
     public int postionFramesToSkip = 3;
-    public int rotationFramesToSkip = 0;
+    public int rotationFramesToSkip = 3;
     private int frame = 0;
 
     // Input

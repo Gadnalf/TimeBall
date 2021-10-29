@@ -539,7 +539,7 @@ MonoBehaviour:
   spawnRotation: {x: 0, y: 0, z: 0}
   playerNumber: 1
   postionFramesToSkip: 3
-  rotationFramesToSkip: 0
+  rotationFramesToSkip: 3
   stunText: {fileID: 6759124670507385261}
 --- !u!1 &186593614
 GameObject:
