@@ -44,10 +44,6 @@ public class CloneController : MonoBehaviour
     public Quaternion GetNextRotation(float timeSinceLastUpdate)
     {
         float howFarToSlerp = (timeSinceLastUpdate / Time.fixedDeltaTime) + (frame % (rotationSkipFrames + 1)) / (rotationSkipFrames + 1);
-        if (howFarToSlerp > 1)
-        {
-            Debug.LogError("slerp too far:" + (howFarToSlerp - 1));
-        }
         int currentRot = frame / (rotationSkipFrames + 1);
         int nextRot = currentRot + 1;
         return Quaternion.Slerp(rotations[currentRot], rotations[nextRot], howFarToSlerp);

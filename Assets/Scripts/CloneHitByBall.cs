@@ -4,7 +4,6 @@ public class CloneHitByBall : MonoBehaviour
 {
     public int knockdownSpeed = 60;
 
-    private PlayerData.PlayerNumber playerNumber;
     private GameObject ball;
     private Vector3 ballDirection;
 
@@ -19,11 +18,10 @@ public class CloneHitByBall : MonoBehaviour
     void Start()
     {
         throwBall = false;
-        playerNumber = GetComponent<PlayerData>().playerNumber;
         cloneKnockdown = false;
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
-            if (player.GetComponent<PlayerData>().playerNumber == playerNumber)
+            if (player.GetComponent<PlayerData>().playerNumber == GetComponent<PlayerData>().playerNumber)
             {
                 playerToNotify = player.GetComponent<PlayerThrowBall>();
             }
@@ -103,7 +101,7 @@ public class CloneHitByBall : MonoBehaviour
             PlayerData ballData = ball.GetComponent<PlayerData>();
 
             // if ball is of player's color
-            if (ballData.playerNumber == playerNumber) {
+            if (ballData.playerNumber == GetComponent<PlayerData>().playerNumber) {
                 if (!ball.transform.parent) {
                     ballDirection = new Vector3(collision.relativeVelocity.x, 0, collision.relativeVelocity.z).normalized;
                     ClaimBall(collision);
@@ -115,7 +113,7 @@ public class CloneHitByBall : MonoBehaviour
                 {
                     throwBall = false;
                 }
-                else if (ballScript.GetHomingTarget() != null && ballScript.GetHomingTarget().GetComponent<PlayerData>().playerNumber == playerNumber)
+                else if (ballScript.GetHomingTarget() != null && ballScript.GetHomingTarget().GetComponent<PlayerData>().playerNumber == GetComponent<PlayerData>().playerNumber)
                 {
                     throwBall = true;
                     lockTarget = ballScript.GetHomingTarget();
@@ -161,7 +159,7 @@ public class CloneHitByBall : MonoBehaviour
     {
         ball = collision.gameObject;
         ball.transform.parent = transform;
-        ball.GetComponent<PlayerData>().playerNumber = playerNumber;
+        ball.GetComponent<PlayerData>().playerNumber = GetComponent<PlayerData>().playerNumber;
         ball.transform.localPosition = new Vector3(0, GameConfigurations.ballHeight, GameConfigurations.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;
         playerToNotify.SetCloneWithBall(this);
