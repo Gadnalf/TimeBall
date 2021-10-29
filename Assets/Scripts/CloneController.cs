@@ -3,33 +3,34 @@ using UnityEngine;
 public class CloneController : MonoBehaviour
 {
     public Vector3[] directions;
-    public int skipFrames;
+    public Quaternion[] rotations;
+    public int positionSkipFrames;
+    public int rotationSkipFrames;
 
     // State data
     private Rigidbody rb;
     private int frame;
     private Vector3 nextPos;
-    private PlayerData playerData;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        playerData = GetComponent<PlayerData>();
         frame = 0;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (frame/(skipFrames + 1) < directions.Length)
+        if (frame/(positionSkipFrames + 1) < directions.Length)
         {
-            if (frame % skipFrames == 0)
+            if (frame % positionSkipFrames == 0)
             {
-                nextPos = directions[frame/(skipFrames + 1)];
+                int nextIndex = frame / (positionSkipFrames + 1);
+                nextPos = directions[nextIndex];
             }
             // move whatever fraction of the way to the target is necessary
-            Vector3 partialMove = transform.position + (nextPos - transform.position)/(skipFrames + 1);
+            Vector3 partialMove = transform.position + (nextPos - transform.position)/(positionSkipFrames + 1);
             //Debug.Log(partialMove);
             rb.MovePosition(partialMove);
             frame++;
@@ -38,6 +39,18 @@ public class CloneController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public Quaternion GetNextRotation(float timeSinceLastUpdate)
+    {
+        float howFarToSlerp = (timeSinceLastUpdate / Time.fixedDeltaTime) + (frame % (rotationSkipFrames + 1)) / (rotationSkipFrames + 1);
+        if (howFarToSlerp > 1)
+        {
+            Debug.LogError("slerp too far:" + (howFarToSlerp - 1));
+        }
+        int currentRot = frame / (rotationSkipFrames + 1);
+        int nextRot = currentRot + 1;
+        return Quaternion.Slerp(rotations[currentRot], rotations[nextRot], howFarToSlerp);
     }
 
     public void Kill()

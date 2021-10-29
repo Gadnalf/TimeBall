@@ -11,7 +11,8 @@ public class CloneHitByBall : MonoBehaviour
     // state info
     private bool cloneKnockdown;
     private bool throwBall;
-    private Rigidbody passbackTarget;
+    private float timeSinceLastUpdate;
+    private Rigidbody lockTarget;
     private PlayerThrowBall playerToNotify;
 
     // Start is called before the first frame update
@@ -44,50 +45,55 @@ public class CloneHitByBall : MonoBehaviour
             ball.transform.parent = null;
             ball.GetComponent<Rigidbody>().isKinematic = false;
             ball.GetComponent<Rigidbody>().AddForce((transform.forward * GameConfigurations.horizontalThrowingForce * GameConfigurations.speedBoostFactor) + Vector3.up * GameConfigurations.verticalThrowingForce);
-            if (passbackTarget)
+            if (lockTarget)
             {
-                ball.GetComponent<BallScript>().SetHomingTarget(passbackTarget);
-                passbackTarget = null;
+                ball.GetComponent<BallScript>().SetHomingTarget(lockTarget);
+                lockTarget = null;
             }
             ball = null;
         }
         throwBall = false;
+        timeSinceLastUpdate = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Check if ball gone
-        if (ball && ball.transform.parent != transform)
-        {
-            ball = null;
-            playerToNotify.SetCloneWithBall(null);
-            return;
-        }
+        timeSinceLastUpdate += Time.deltaTime;
 
-        if (ball)
+        if (cloneKnockdown)
         {
-            playerToNotify.SetCloneWithBall(this);
-            // TODO: Use something more gradual than transform.LookAt()
-            Vector3 thingToLookAt;
-            if (passbackTarget)
-            {
-                thingToLookAt = new Vector3(passbackTarget.transform.position.x, 0, passbackTarget.transform.position.z);
-            }
-            else
-            {
-                thingToLookAt = transform.position + ballDirection;
-            }
-            transform.LookAt(thingToLookAt);
-        }
-
-        if (cloneKnockdown) {
             transform.Rotate(Vector3.forward, knockdownSpeed * Time.deltaTime);
 
-            if (transform.localEulerAngles.z >= 90) {
+            if (transform.localEulerAngles.z >= 90)
+            {
                 cloneKnockdown = false;
                 GetComponent<CloneController>().Kill();
             }
+        }
+        else
+        {
+            // Start by fetching the rotation
+            Quaternion targetRotation = GetComponent<CloneController>().GetNextRotation(timeSinceLastUpdate);
+
+            // Check if ball gone
+            if (ball && ball.transform.parent != transform)
+            {
+                ball = null;
+                playerToNotify.SetCloneWithBall(null);
+                return;
+            }
+
+            if (ball)
+            {
+                playerToNotify.SetCloneWithBall(this);
+                if (lockTarget)
+                {
+                    Vector3 vectorTowardsTarget = new Vector3(lockTarget.transform.position.x, transform.position.y, lockTarget.transform.position.z) - transform.position;
+                    targetRotation = Quaternion.LookRotation(vectorTowardsTarget, Vector3.up);
+                }
+            }
+            transform.rotation = targetRotation;
         }
     }
 
@@ -112,7 +118,7 @@ public class CloneHitByBall : MonoBehaviour
                 else if (ballScript.GetHomingTarget() != null && ballScript.GetHomingTarget().GetComponent<PlayerData>().playerNumber == playerNumber)
                 {
                     throwBall = true;
-                    passbackTarget = ballScript.GetHomingTarget();
+                    lockTarget = ballScript.GetHomingTarget();
                 }
                 else
                 {
@@ -147,7 +153,7 @@ public class CloneHitByBall : MonoBehaviour
         // If the clone is not currently throwing the ball, set target
         if (!throwBall)
         {
-            passbackTarget = target;
+            this.lockTarget = target;
         }
     }
 
