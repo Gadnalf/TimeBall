@@ -5,11 +5,11 @@ public static class CloneManager
 {
     private static GameObject[] clonePrefabs;
     private static PlayerMovement[] players;
-    private static int cloneCap = 10;
+    private static int cloneCap = 3;
 
     private static Queue<CloneData> clones = new Queue<CloneData>();
 
-    public static void Configure(GameObject[] prefabs, PlayerMovement[] playerList, int cap = 10)
+    public static void Configure(GameObject[] prefabs, PlayerMovement[] playerList, int cap = 3)
     {
         clonePrefabs = prefabs;
         players = playerList;
