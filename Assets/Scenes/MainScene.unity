@@ -538,7 +538,8 @@ MonoBehaviour:
   spawnLocation: {x: 0, y: 1, z: -14}
   spawnRotation: {x: 0, y: 0, z: 0}
   playerNumber: 1
-  framesToSkip: 3
+  postionFramesToSkip: 3
+  rotationFramesToSkip: 0
   stunText: {fileID: 6759124670507385261}
 --- !u!1 &186593614
 GameObject:
@@ -4976,7 +4977,8 @@ MonoBehaviour:
   spawnLocation: {x: 0, y: 1, z: 14}
   spawnRotation: {x: 0, y: 180, z: 0}
   playerNumber: 2
-  framesToSkip: 3
+  postionFramesToSkip: 3
+  rotationFramesToSkip: 3
   stunText: {fileID: 8724670009966049745}
 --- !u!114 &1471856584
 MonoBehaviour:
