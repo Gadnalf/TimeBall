@@ -29,12 +29,15 @@ public class PlayerMovement : MonoBehaviour
 
     private bool stunned;
 
-    // Experimental
+    // Cloning
     public Queue<Vector3> lastPositions;
-    private float timeLeft = GameConfigurations.roundDuration;
-    public int framesToSkip = 3;
+    public Queue<Quaternion> lastRotations;
+    private float timeLeftToRecord = GameConfigurations.roundDuration;
+    public int postionFramesToSkip = 3;
+    public int rotationFramesToSkip = 0;
     private int frame = 0;
 
+    // Input
     PlayerControls controls;
     private float rotationInput = 0;
 
@@ -97,6 +100,9 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerNumber = GetComponent<PlayerData>().playerNumber;
 
+        lastPositions = new Queue<Vector3>();
+        lastRotations = new Queue<Quaternion>();
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         Reset();
@@ -156,14 +162,20 @@ public class PlayerMovement : MonoBehaviour
 
         rb.velocity = transform.TransformDirection(vel);
 
-        if (timeLeft > 0)
+        if (timeLeftToRecord > 0)
         {
-            timeLeft -= Time.deltaTime;
-            if (frame == 0)
+            timeLeftToRecord -= Time.deltaTime;
+            if (frame % (postionFramesToSkip + 1) == 0)
             {
                 lastPositions.Enqueue(transform.position);
             }
-            frame = (frame + 1) % (framesToSkip + 1);
+
+            if (frame % (rotationFramesToSkip + 1) == 0)
+            {
+                lastRotations.Enqueue(transform.rotation);
+            }
+
+            frame++;
         }
 
         if (dashCD != 0) {
@@ -185,8 +197,9 @@ public class PlayerMovement : MonoBehaviour
         rb.transform.eulerAngles = spawnRotation;
         lastRotation = spawnRotation;
         rb.velocity = Vector3.zero;
-        timeLeft = GameConfigurations.roundDuration;
-        lastPositions = new Queue<Vector3>();
+        timeLeftToRecord = GameConfigurations.roundDuration;
+        lastPositions.Clear();
+        lastRotations.Clear();
     }
 
 
