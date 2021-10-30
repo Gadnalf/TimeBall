@@ -22,10 +22,18 @@ public static class CloneManager
         {
             CloneData c = new CloneData() { Number = player.playerNumber, PositionSkipFrames = player.postionFramesToSkip, RotationSkipFrames = player.rotationFramesToSkip, Positions = player.lastPositions.ToArray(), Rotations = player.lastRotations.ToArray() };
             clones.Enqueue(c);
-            if(clones.Count > cloneCap)
+            if(clones.Count > cloneCap * 2)
             {
                 clones.Dequeue();
             }
+        }
+    }
+
+    public static void KillClones()
+    {
+        foreach (CloneController clone in GameObject.FindObjectsOfType<CloneController>())
+        {
+            clone.Kill();
         }
     }
 

@@ -197,7 +197,7 @@ public class PlayerMovement : MonoBehaviour
         rb.transform.eulerAngles = spawnRotation;
         lastRotation = spawnRotation;
         rb.velocity = Vector3.zero;
-        timeLeftToRecord = GameConfigurations.roundDuration;
+        timeLeftToRecord = FindObjectOfType<GameManager>().GetTimeLeft();
         lastPositions.Clear();
         lastRotations.Clear();
     }

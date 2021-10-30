@@ -36,10 +36,6 @@ public class CloneController : MonoBehaviour
             rb.MovePosition(partialMove);
             frame++;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 
     public Quaternion GetNextRotation(float timeSinceLastUpdate)
