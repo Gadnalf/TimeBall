@@ -1,7 +1,7 @@
 public static class GameConfigurations
 {
-    public static float baseMovementSpeed = 15f;
-    public static float withBallMovementSpeed = 8f;
+    public static float baseMovementSpeed = 20f;
+    public static float withBallMovementSpeed = 10f;
 
     public static float roundDuration = 30f;
     public static int numberOfRounds = 5;
@@ -12,14 +12,15 @@ public static class GameConfigurations
     public static float horizontalThrowingForce = 1500f;
     public static float verticalThrowingForce = 200f;
 
-    public static float speedBoostFactor = 2f;
+    public static float speedBoostFactor = 2.5f;
 
     public static float dashSpeed = 50f;
     public static int dashingFrame = 10;
-    public static int dashCD = 50;
+    public static int dashCDinFrames = 50;
+    public static float dashCDinSeconds = dashCDinFrames / 50;
 
     public static float goalExplosionSpeed = 50f;
-    public static int goalExplosionFrame = 30;
+    public static int goalExplosionFrame = 50;
 
     public static float stunningSpeed = 10f;
     public static int stunningFrame = 100;

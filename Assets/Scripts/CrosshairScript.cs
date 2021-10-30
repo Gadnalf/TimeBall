@@ -25,7 +25,11 @@ public class CrosshairScript : MonoBehaviour
     public void SetTarget(Rigidbody target)
     {
         this.target = target;
-        crosshair.enabled = target;
+
+        if (crosshair) {
+            crosshair.enabled = target;
+        }
+        
         if (target)
         {
             UpdatePosition();

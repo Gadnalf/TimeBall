@@ -22,6 +22,9 @@ public class PlayerThrowBall : MonoBehaviour
     private bool throwInput = false;
     private bool lockInput;
 
+    [SerializeField]
+    private CooldownTimer dashCooldown;
+
     private void Awake()
     {
         controls = new PlayerControls();
@@ -91,6 +94,7 @@ public class PlayerThrowBall : MonoBehaviour
             if (throwInput)
             {
                 throwBall = true;
+                dashCooldown.AbilityEnabled();
             }
             throwInput = false;
         }

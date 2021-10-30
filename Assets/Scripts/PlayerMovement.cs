@@ -41,6 +41,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private GameObject stunText;
 
+    [SerializeField]
+    private CooldownTimer cooldownTimer;
+
     private void Awake()
     {
         controls = new PlayerControls();
@@ -69,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (context.action.triggered && dashCD == 0 && GetComponent<PlayerThrowBall>().CheckIfHasBall() == false) {
+        if (context.action.triggered && ifCanDash()) {
             dashingFrame = GameConfigurations.dashingFrame;
         }
     }
@@ -110,10 +113,10 @@ public class PlayerMovement : MonoBehaviour
         }
         else {
             if (GetComponent<PlayerThrowBall>().CheckIfHasBall()) {
-                movementVector = new Vector3(movement.x, 0, movement.y).normalized * baseMovementSpeed;
+                movementVector = new Vector3(movement.x, 0, movement.y).normalized * withBallMovementSpeed;
             }
             else {
-                movementVector = new Vector3(movement.x, 0, movement.y).normalized * withBallMovementSpeed;
+                movementVector = new Vector3(movement.x, 0, movement.y).normalized * baseMovementSpeed;
             }
         }
         
@@ -136,8 +139,10 @@ public class PlayerMovement : MonoBehaviour
             float dashBonus = GameConfigurations.dashSpeed - dashFactor * (GameConfigurations.dashingFrame - dashingFrame);
 
             dashingFrame --;
-            if (dashingFrame == 0)
-                dashCD = GameConfigurations.dashCD;
+            if (dashingFrame == 0) {
+                dashCD = GameConfigurations.dashCDinFrames;
+                cooldownTimer.StartCooldown(GameConfigurations.dashCDinSeconds);
+            }
 
             Vector3 dashVector;
             if (movement == Vector2.zero) {
@@ -222,5 +227,9 @@ public class PlayerMovement : MonoBehaviour
         this.explosionDirection = direction.normalized;
 
         this.currentExplosionFrame = explosionFrameDuration;
+    }
+
+    private bool ifCanDash() {
+        return dashingFrame == 0 && dashCD == 0 && GetComponent<PlayerThrowBall>().CheckIfHasBall() == false;
     }
 }
