@@ -2213,7 +2213,6 @@ GameObject:
   - component: {fileID: 884753735}
   - component: {fileID: 884753734}
   - component: {fileID: 884753733}
-  - component: {fileID: 884753732}
   - component: {fileID: 884753731}
   - component: {fileID: 183019535}
   - component: {fileID: 183019536}
@@ -2384,18 +2383,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
---- !u!114 &884753732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 884753729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b85268d8b8b25b498cb28b27b96ff53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &884753733
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4167,7 +4154,6 @@ GameObject:
   - component: {fileID: 1403474643}
   - component: {fileID: 1403474642}
   - component: {fileID: 1403474641}
-  - component: {fileID: 1403474640}
   - component: {fileID: 1403474639}
   - component: {fileID: 1471856584}
   - component: {fileID: 1471856583}
@@ -4350,18 +4336,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 2
---- !u!114 &1403474640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403474637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b85268d8b8b25b498cb28b27b96ff53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &1403474641
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6798,6 +6772,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b85268d8b8b25b498cb28b27b96ff53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetLocation: {x: 0, y: 2, z: -3}
+  spacing: 2.5
 --- !u!82 &6759124671745435235
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7001,3 +6977,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b85268d8b8b25b498cb28b27b96ff53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetLocation: {x: 0, y: 2, z: -3}
+  spacing: 2.5
