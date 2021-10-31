@@ -46,7 +46,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private GameObject stunText;
 
-    [SerializeField]
     private CooldownTimer cooldownTimer;
 
     private void Awake()
@@ -130,6 +129,16 @@ public class PlayerMovement : MonoBehaviour
 
         lastPositions = new Queue<Vector3>();
         lastRotations = new Queue<Quaternion>();
+
+        CooldownTimer[] cooldownTimers = FindObjectsOfType<CooldownTimer>();
+        foreach (CooldownTimer cooldownTimer in cooldownTimers) {
+            if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerOne && cooldownTimer.name.StartsWith("P1")) {
+                this.cooldownTimer = cooldownTimer;
+            }
+            else if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerTwo && cooldownTimer.name.StartsWith("P2")) {
+                this.cooldownTimer = cooldownTimer;
+            }
+        }
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;

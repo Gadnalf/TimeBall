@@ -22,7 +22,6 @@ public class PlayerThrowBall : MonoBehaviour
     private bool throwInput = false;
     private bool lockInput;
 
-    [SerializeField]
     private CooldownTimer dashCooldown;
 
     private PlayerConfig playerConfig;
@@ -63,7 +62,6 @@ public class PlayerThrowBall : MonoBehaviour
     public void OnThrow(InputAction.CallbackContext context)
     {
         throwInput = context.action.triggered;
-        Debug.Log("throwing");
     }
 
     public void OnLock(InputAction.CallbackContext context)
@@ -89,6 +87,16 @@ public class PlayerThrowBall : MonoBehaviour
         }
 
         scoringManager = FindObjectOfType<ScoringManager>();
+
+        CooldownTimer[] dashCooldowns = FindObjectsOfType<CooldownTimer>();
+        foreach (CooldownTimer dashCooldown in dashCooldowns) {
+            if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerOne && dashCooldown.name.StartsWith("P1")) {
+                this.dashCooldown = dashCooldown;
+            }
+            else if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerTwo && dashCooldown.name.StartsWith("P2")) {
+                this.dashCooldown = dashCooldown;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -201,9 +209,11 @@ public class PlayerThrowBall : MonoBehaviour
                     ClaimBall(collision);
                 }
                 else {
+                    // tag ball
                     if (GetComponent<PlayerMovement>().GetDashStatus() == true) {
-                        Debug.Log("Tag ball.");
                         ClaimBall(collision);
+                        collision.transform.parent.GetComponent<PlayerThrowBall>().dashCooldown.AbilityEnabled();
+                        collision.gameObject.GetComponent<PlayerThrowBall>().ReleaseBall();
                     }
                 }
             }
@@ -225,6 +235,7 @@ public class PlayerThrowBall : MonoBehaviour
                 opponentBall.transform.parent = null;
                 opponentBall.GetComponent<Rigidbody>().isKinematic = false;
                 opponentBall.GetComponent<Rigidbody>().AddForce(transform.forward * GameConfigurations.horizontalThrowingForce / 50);
+                collision.gameObject.GetComponent<PlayerThrowBall>().dashCooldown.AbilityEnabled();
                 collision.gameObject.GetComponent<PlayerThrowBall>().ReleaseBall();   
             }
 
@@ -239,6 +250,7 @@ public class PlayerThrowBall : MonoBehaviour
     }
 
     private void ClaimBall(Collision collision) {
+
         ball = collision.gameObject;
         ball.GetComponent<PlayerData>().playerNumber = playerNumber;
         ball.transform.parent = transform;

@@ -5,17 +5,15 @@ using System.Collections;
 public class CooldownTimer : MonoBehaviour
 {
     [SerializeField]
-    private Camera playerCamera;
-    [SerializeField]
     private Image coolDown;
 
     private void Start() {
-        if (playerCamera.name == "P1Camera") {
+        if (gameObject.name == "P1DashCD") {
             transform.position = new Vector3(30, 30, 0);
         }
         else {
-            // canvas.height is 776
-            transform.position = new Vector3(30, 776/2 + 30, 0);
+            // canvas.height is 1080
+            transform.position = new Vector3(30, 1080/2 + 30, 0);
         }
 
         coolDown.fillAmount = 0f;
