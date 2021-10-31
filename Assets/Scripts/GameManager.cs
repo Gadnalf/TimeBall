@@ -170,7 +170,7 @@ public class GameManager : MonoBehaviour
 
     private void doNextRoundStuff()
     {
-
+        CloneManager.KillClones();
         Debug.Log("started round " + roundNumber.ToString());
 
         if (roundNumber == GameConfigurations.numberOfRounds)
@@ -186,7 +186,7 @@ public class GameManager : MonoBehaviour
         //{
         //    timeRemaining = 30f;
         //}
-        timeRemaining = GameConfigurations.roundDuration;
+        timeRemaining = GameConfigurations.roundDuration + (roundNumber-1) * GameConfigurations.roundLengthIncrease;
         CloneManager.SpawnClones();
         foreach (PlayerMovement player in playerControllers)
         {
@@ -241,6 +241,11 @@ public class GameManager : MonoBehaviour
         foreach (PlayerMovement player in playerControllers) {
             player.GetComponent<PlayerMovement>().enabled = false;
         }
+    }
+
+    public float GetTimeLeft()
+    {
+        return timeRemaining;
     }
 
     private void OnEnable()
