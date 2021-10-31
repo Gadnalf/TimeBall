@@ -181,7 +181,9 @@ public class PlayerMovement : MonoBehaviour
             dashingFrame --;
             if (dashingFrame == 0) {
                 dashCD = GameConfigurations.dashCDinFrames;
-                cooldownTimer.StartCooldown(GameConfigurations.dashCDinSeconds);
+                if (cooldownTimer.gameObject.activeInHierarchy) {
+                    cooldownTimer.StartCooldown(GameConfigurations.dashCDinSeconds);
+                }
             }
 
             Vector3 dashVector;
@@ -239,6 +241,10 @@ public class PlayerMovement : MonoBehaviour
         timeLeftToRecord = FindObjectOfType<GameManager>().GetTimeLeft();
         lastPositions.Clear();
         lastRotations.Clear();
+
+        cooldownTimer.AbilityEnabled();
+        SetStunStatus(false);
+        currentExplosionFrame = 0;
     }
 
 

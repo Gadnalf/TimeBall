@@ -24,7 +24,6 @@ public class TimeBar : MonoBehaviour
 
     void Update() {
         SetToProgressAnimated(0);
-
         isTimeDone = slider.value == 0;
         fillKnob.SetActive(!isTimeDone);
     }

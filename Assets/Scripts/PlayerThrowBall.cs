@@ -211,8 +211,8 @@ public class PlayerThrowBall : MonoBehaviour
                 else {
                     // tag ball
                     if (GetComponent<PlayerMovement>().GetDashStatus() == true) {
-                        ClaimBall(collision);
                         collision.transform.parent.GetComponent<PlayerThrowBall>().dashCooldown.AbilityEnabled();
+                        ClaimBall(collision);
                         collision.gameObject.GetComponent<PlayerThrowBall>().ReleaseBall();
                     }
                 }
@@ -250,7 +250,6 @@ public class PlayerThrowBall : MonoBehaviour
     }
 
     private void ClaimBall(Collision collision) {
-
         ball = collision.gameObject;
         ball.GetComponent<PlayerData>().playerNumber = playerNumber;
         ball.transform.parent = transform;
