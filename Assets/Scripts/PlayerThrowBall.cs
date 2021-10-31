@@ -220,6 +220,7 @@ public class PlayerThrowBall : MonoBehaviour
         {
             ball.GetComponent<BallScript>().SetCharge(false);
         }
+        dashCooldown.AbilityDisabled();
     }
 
     private void OnEnable()

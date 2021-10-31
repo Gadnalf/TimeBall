@@ -23,10 +23,12 @@ public class CooldownTimer : MonoBehaviour
 
     public void AbilityDisabled() {
         coolDown.fillAmount = 1f;
+        gameObject.SetActive(false);
     }
 
     public void AbilityEnabled() {
         coolDown.fillAmount = 0f;
+        gameObject.SetActive(true);
     }
 
     public void StartCooldown(float seconds) {
