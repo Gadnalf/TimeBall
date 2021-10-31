@@ -3,7 +3,8 @@ using UnityEngine.UI;
 
 public class CrosshairScript : MonoBehaviour
 {
-    public Camera playerCamera;
+    public string playerPrefix;
+    private Camera playerCamera;
     public float crosshairScale = 25f;
 
     private Rigidbody target;
@@ -12,6 +13,14 @@ public class CrosshairScript : MonoBehaviour
     private void Start()
     {
         crosshair = GetComponent<Image>();
+        Camera[] playerCameras = FindObjectsOfType<Camera>();
+        foreach (Camera camera in playerCameras)
+        {
+            if (camera.name.StartsWith(playerPrefix))
+            {
+                playerCamera = camera;
+            }
+        }
     }
 
     void Update()
