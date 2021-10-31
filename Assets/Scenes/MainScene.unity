@@ -1623,7 +1623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c0b9c3caa6c6b4194a31d7396945b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 0}
+  playerPrefix: P1
   crosshairScale: 25
 --- !u!114 &820825458
 MonoBehaviour:
@@ -4872,7 +4872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c0b9c3caa6c6b4194a31d7396945b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 0}
+  playerPrefix: P2
   crosshairScale: 25
 --- !u!114 &1646508164
 MonoBehaviour:
