@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
 
     // Config
+    private PlayerConfig playerConfig;
+
     private float baseMovementSpeed;
     private float withBallMovementSpeed;
     public Vector3 spawnLocation;
@@ -66,6 +68,29 @@ public class PlayerMovement : MonoBehaviour
         {
             rotationInput = 0f;
         };
+    }
+
+    public void InitializePlayer(PlayerConfig pc)
+    {
+        playerConfig = pc;
+        GetComponent<PlayerThrowBall>().InitializePlayerConfig(pc);
+        playerConfig.Input.onActionTriggered += Input_onActionTriggered;
+    }
+
+    private void Input_onActionTriggered(InputAction.CallbackContext obj)
+    {
+        if (obj.action.name == controls.Gameplay.Move.name)
+        {
+            OnMove(obj);
+        }
+        else if (obj.action.name == controls.Gameplay.Dash.name)
+        {
+            OnDash(obj);
+        }
+        else if (obj.action.name == controls.Gameplay.Rotate.name)
+        {
+            OnRotate(obj);
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)

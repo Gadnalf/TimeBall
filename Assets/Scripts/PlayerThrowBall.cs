@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,7 +6,7 @@ public class PlayerThrowBall : MonoBehaviour
 {
     // Config
     public PlayerData.PlayerNumber playerNumber;
-    public CrosshairScript crosshair;
+    private CrosshairScript crosshair;
     public float lockDistance = 10000;
 
     // State info
@@ -15,7 +16,6 @@ public class PlayerThrowBall : MonoBehaviour
     private Rigidbody lockedTarget;
     private CloneHitByBall cloneWithBall;
 
-    [SerializeField]
     private ScoringManager scoringManager;
 
     PlayerControls controls;
@@ -24,6 +24,8 @@ public class PlayerThrowBall : MonoBehaviour
 
     [SerializeField]
     private CooldownTimer dashCooldown;
+
+    private PlayerConfig playerConfig;
 
     private void Awake()
     {
@@ -40,9 +42,28 @@ public class PlayerThrowBall : MonoBehaviour
         };
     }
 
+    public void InitializePlayerConfig(PlayerConfig pc)
+    {
+        playerConfig = pc;
+        playerConfig.Input.onActionTriggered += Input_onActionTriggered;
+    }
+
+    private void Input_onActionTriggered(InputAction.CallbackContext obj)
+    {
+        if (obj.action.name == controls.Gameplay.Throw.name)
+        {
+            OnThrow(obj);
+        }
+        else if (obj.action.name == controls.Gameplay.Lockon.name)
+        {
+            OnLock(obj);
+        }
+    }
+
     public void OnThrow(InputAction.CallbackContext context)
     {
         throwInput = context.action.triggered;
+        Debug.Log("throwing");
     }
 
     public void OnLock(InputAction.CallbackContext context)
@@ -54,6 +75,20 @@ public class PlayerThrowBall : MonoBehaviour
     void Start()
     {
         playerNumber = GetComponent<PlayerData>().playerNumber;
+        CrosshairScript[] crosshairs = FindObjectsOfType<CrosshairScript>();
+        foreach (CrosshairScript crosshair in crosshairs)
+        {
+            if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerOne && crosshair.name.StartsWith("P1"))
+            {
+                this.crosshair = crosshair;
+            }
+            else if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerTwo && crosshair.name.StartsWith("P2"))
+            {
+                this.crosshair = crosshair;
+            }
+        }
+
+        scoringManager = FindObjectOfType<ScoringManager>();
     }
 
     private void FixedUpdate()

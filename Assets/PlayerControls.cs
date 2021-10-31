@@ -66,18 +66,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
-                    ""action"": ""Dash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d8ca6786-ee1b-4733-ba27-ac4d8224fc46"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Player2"",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -88,19 +77,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
+                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""Dash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fff08324-646d-4647-9792-95645a6bc267"",
-                    ""path"": ""<Gamepad>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Player1"",
-                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -110,7 +88,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player2"",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -132,7 +110,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
+                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -143,7 +121,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
+                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -154,7 +132,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
+                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -165,7 +143,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
+                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -176,18 +154,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""98a1d77b-20a2-41bb-9359-fa302b54b58c"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Player2"",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -198,7 +165,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
+                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -209,7 +176,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Throw"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -220,18 +187,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
-                    ""action"": ""Throw"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fff4291d-ddf2-4949-af9e-a575b2f8dd6e"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Player2"",
+                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""Throw"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -242,7 +198,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
+                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""Lockon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -253,18 +209,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
-                    ""action"": ""Lockon"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""11e786d4-3359-4a99-97f0-b6545e297961"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Player2"",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Lockon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -298,6 +243,22 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""4d651798-b1ec-4c43-b0a8-7627aea69154"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""MenuMove"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""aac07add-bedf-4b7f-835c-276fb21ec3d1"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -307,18 +268,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
-                    ""action"": ""PauseGame"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e3a42701-8233-4398-ab2c-3ea21d04abae"",
-                    ""path"": ""<Gamepad>/start"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Player2"",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""PauseGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -329,19 +279,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
+                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""PauseGame"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""882c2701-2cb4-4416-956b-9c71b6d906c8"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Player2"",
-                    ""action"": ""StartGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -351,7 +290,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""StartGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -362,7 +301,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
+                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""StartGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -373,18 +312,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
-                    ""action"": ""ShowControls"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4ea19d41-de9e-4e42-9355-7f443b768b95"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Player2"",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""ShowControls"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -395,8 +323,96 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/numpadEnter"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Player1"",
+                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""ShowControls"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""59b89d9c-7e4a-44db-aace-cc3c8eeb0b72"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51898d20-4d9b-4a71-8412-0c4d4d035480"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""67226884-2cdb-4f95-8591-659358ef521e"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MenuMove"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""cc9cb862-3902-4b2c-b3a5-4d563e92b180"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""MenuMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""d678e461-f61e-4a98-8706-717ff63987d6"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""MenuMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""e056b7a3-586d-4986-b69b-b5fff8e081b8"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""MenuMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""53261b59-8c49-438c-86de-515842be7fb8"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""MenuMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""96e429ef-7ee0-4d5c-a300-593702a13edd"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""MenuMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -405,29 +421,24 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     ],
     ""controlSchemes"": [
         {
-            ""name"": ""Player1"",
-            ""bindingGroup"": ""Player1"",
+            ""name"": ""KeyboardMouse"",
+            ""bindingGroup"": ""KeyboardMouse"",
             ""devices"": [
                 {
-                    ""devicePath"": ""<Gamepad>"",
-                    ""isOptional"": true,
-                    ""isOR"": false
-                },
-                {
                     ""devicePath"": ""<Keyboard>"",
-                    ""isOptional"": true,
+                    ""isOptional"": false,
                     ""isOR"": false
                 },
                 {
                     ""devicePath"": ""<Mouse>"",
-                    ""isOptional"": true,
+                    ""isOptional"": false,
                     ""isOR"": false
                 }
             ]
         },
         {
-            ""name"": ""Player2"",
-            ""bindingGroup"": ""Player2"",
+            ""name"": ""Gamepad"",
+            ""bindingGroup"": ""Gamepad"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Gamepad>"",
@@ -450,6 +461,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_MainMenu_StartGame = m_MainMenu.FindAction("StartGame", throwIfNotFound: true);
         m_MainMenu_PauseGame = m_MainMenu.FindAction("PauseGame", throwIfNotFound: true);
         m_MainMenu_ShowControls = m_MainMenu.FindAction("ShowControls", throwIfNotFound: true);
+        m_MainMenu_Select = m_MainMenu.FindAction("Select", throwIfNotFound: true);
+        m_MainMenu_MenuMove = m_MainMenu.FindAction("MenuMove", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -567,6 +580,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_MainMenu_StartGame;
     private readonly InputAction m_MainMenu_PauseGame;
     private readonly InputAction m_MainMenu_ShowControls;
+    private readonly InputAction m_MainMenu_Select;
+    private readonly InputAction m_MainMenu_MenuMove;
     public struct MainMenuActions
     {
         private @PlayerControls m_Wrapper;
@@ -574,6 +589,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @StartGame => m_Wrapper.m_MainMenu_StartGame;
         public InputAction @PauseGame => m_Wrapper.m_MainMenu_PauseGame;
         public InputAction @ShowControls => m_Wrapper.m_MainMenu_ShowControls;
+        public InputAction @Select => m_Wrapper.m_MainMenu_Select;
+        public InputAction @MenuMove => m_Wrapper.m_MainMenu_MenuMove;
         public InputActionMap Get() { return m_Wrapper.m_MainMenu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -592,6 +609,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @ShowControls.started -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnShowControls;
                 @ShowControls.performed -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnShowControls;
                 @ShowControls.canceled -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnShowControls;
+                @Select.started -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnSelect;
+                @Select.performed -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnSelect;
+                @Select.canceled -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnSelect;
+                @MenuMove.started -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnMenuMove;
+                @MenuMove.performed -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnMenuMove;
+                @MenuMove.canceled -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnMenuMove;
             }
             m_Wrapper.m_MainMenuActionsCallbackInterface = instance;
             if (instance != null)
@@ -605,26 +628,32 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @ShowControls.started += instance.OnShowControls;
                 @ShowControls.performed += instance.OnShowControls;
                 @ShowControls.canceled += instance.OnShowControls;
+                @Select.started += instance.OnSelect;
+                @Select.performed += instance.OnSelect;
+                @Select.canceled += instance.OnSelect;
+                @MenuMove.started += instance.OnMenuMove;
+                @MenuMove.performed += instance.OnMenuMove;
+                @MenuMove.canceled += instance.OnMenuMove;
             }
         }
     }
     public MainMenuActions @MainMenu => new MainMenuActions(this);
-    private int m_Player1SchemeIndex = -1;
-    public InputControlScheme Player1Scheme
+    private int m_KeyboardMouseSchemeIndex = -1;
+    public InputControlScheme KeyboardMouseScheme
     {
         get
         {
-            if (m_Player1SchemeIndex == -1) m_Player1SchemeIndex = asset.FindControlSchemeIndex("Player1");
-            return asset.controlSchemes[m_Player1SchemeIndex];
+            if (m_KeyboardMouseSchemeIndex == -1) m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("KeyboardMouse");
+            return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
         }
     }
-    private int m_Player2SchemeIndex = -1;
-    public InputControlScheme Player2Scheme
+    private int m_GamepadSchemeIndex = -1;
+    public InputControlScheme GamepadScheme
     {
         get
         {
-            if (m_Player2SchemeIndex == -1) m_Player2SchemeIndex = asset.FindControlSchemeIndex("Player2");
-            return asset.controlSchemes[m_Player2SchemeIndex];
+            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+            return asset.controlSchemes[m_GamepadSchemeIndex];
         }
     }
     public interface IGameplayActions
@@ -640,5 +669,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnStartGame(InputAction.CallbackContext context);
         void OnPauseGame(InputAction.CallbackContext context);
         void OnShowControls(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
+        void OnMenuMove(InputAction.CallbackContext context);
     }
 }
