@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI timer;
 
     [SerializeField]
+    private Transform[] spawnPoints;
+
+    [SerializeField]
     private BallScript ball;
 
     [SerializeField]
@@ -54,6 +57,18 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+
+        var playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs().ToArray();
+
+        for (int i = 0; i < playerConfigs.Length; i++)
+        {
+
+            var player = Instantiate(playerConfigs[i].PlayerPrefab, spawnPoints[i].position, spawnPoints[i].rotation, gameObject.transform);
+            player.GetComponent<PlayerMovement>().InitializePlayer(playerConfigs[i]);
+
+        }
+
+
         controls = new PlayerControls();
         controls.MainMenu.StartGame.performed += ctx =>
         {
@@ -109,6 +124,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 0f;
+
         CloneManager.Configure(clonePrefabs, playerControllers);
         foreach (PlayerMovement player in playerControllers) {
             player.GetComponent<PlayerMovement>().enabled = false;
