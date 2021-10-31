@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
     {
 
         var playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs().ToArray();
+        var goals = GameObject.FindGameObjectsWithTag("Goals");
 
         for (int i = 0; i < playerConfigs.Length; i++)
         {
@@ -69,6 +70,11 @@ public class GameManager : MonoBehaviour
             var player = Instantiate(playerPrefabs[i], spawnPoints[i].position, spawnPoints[i].rotation, gameObject.transform);
             player.GetComponent<PlayerMovement>().InitializePlayer(playerConfigs[i]);
             playerControllers[i] = player.GetComponent<PlayerMovement>();
+
+            foreach (GameObject goal in goals)
+            {
+                goal.GetComponent<GoalPost>().playerMovements[i] = player.GetComponent<PlayerMovement>();
+            }
 
         }
 

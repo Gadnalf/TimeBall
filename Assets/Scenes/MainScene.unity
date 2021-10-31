@@ -2661,7 +2661,7 @@ GameObject:
   - component: {fileID: 1154118609}
   m_Layer: 0
   m_Name: GoalGround1
-  m_TagString: Untagged
+  m_TagString: Goals
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5091,7 +5091,7 @@ GameObject:
   - component: {fileID: 1792390970}
   m_Layer: 0
   m_Name: GoalGround2
-  m_TagString: Untagged
+  m_TagString: Goals
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

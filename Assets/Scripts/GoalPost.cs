@@ -15,7 +15,7 @@ public class GoalPost : MonoBehaviour
     private GameObject ball;
 
     [SerializeField]
-    private PlayerMovement[] playerMovements;
+    public PlayerMovement[] playerMovements;
 
     private void OnTriggerEnter(Collider other)
     {
