@@ -44,6 +44,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject controlsPanel;
 
+    [SerializeField]
+    private GameObject[] playerPrefabs;
+
     private float timeRemaining = GameConfigurations.roundDuration;
     private int roundNumber = 1;
 
@@ -63,8 +66,9 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < playerConfigs.Length; i++)
         {
 
-            var player = Instantiate(playerConfigs[i].PlayerPrefab, spawnPoints[i].position, spawnPoints[i].rotation, gameObject.transform);
+            var player = Instantiate(playerPrefabs[i], spawnPoints[i].position, spawnPoints[i].rotation, gameObject.transform);
             player.GetComponent<PlayerMovement>().InitializePlayer(playerConfigs[i]);
+            playerControllers[i] = player.GetComponent<PlayerMovement>();
 
         }
 

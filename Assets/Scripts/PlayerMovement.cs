@@ -73,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
     public void InitializePlayer(PlayerConfig pc)
     {
         playerConfig = pc;
+        GetComponent<PlayerThrowBall>().InitializePlayerConfig(pc);
         playerConfig.Input.onActionTriggered += Input_onActionTriggered;
     }
 

@@ -38,7 +38,7 @@ public class CloneHitByBall : MonoBehaviour
         {
             playerToNotify.SetCloneWithBall(null);
 
-            Debug.Log("Throwing");
+            //Debug.Log("Throwing");
             
             ball.transform.parent = null;
             ball.GetComponent<Rigidbody>().isKinematic = false;

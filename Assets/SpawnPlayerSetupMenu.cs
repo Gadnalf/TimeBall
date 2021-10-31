@@ -11,7 +11,8 @@ public class SpawnPlayerSetupMenu : MonoBehaviour
     [SerializeField] 
     private GameObject playerSetupMenuPrefab;
 
-    public PlayerInput playerInput;
+    [SerializeField]
+    private PlayerInput playerInput;
 
     private void Awake()
     {

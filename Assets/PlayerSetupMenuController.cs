@@ -13,30 +13,32 @@ public class PlayerSetupMenuController : MonoBehaviour
     private TextMeshProUGUI titleText;
 
     [SerializeField]
-    private GameObject readyPanel;
-
-    [SerializeField]
-    private GameObject menuPanel;
-
-    [SerializeField]
     private Button readyBtn;
 
     public void SetPlayerIndex(int pi)
     {
         PlayerIndex = pi;
-        titleText.SetText("Player " + (pi + 1).ToString());
+
+        if (pi == 0)
+        {
+            titleText.SetText("Player 1");
+            titleText.color = new Color(0, 78, 251);
+        }
+        else
+        {
+            titleText.SetText("Player 2");
+            titleText.color = new Color(219, 8, 0);
+        }
+
+        //readyBtn.Select();
+
     }
 
-    public void SetPrefab(GameObject prefab)
-    {
+    //public void SetPrefab(GameObject prefab)
+    //{
 
-        PlayerConfigManager.Instance.SetPlayerPrefab(PlayerIndex, prefab);
-        Debug.Log("this stuff is happening");
-        readyPanel.SetActive(true);
-        readyBtn.Select();
-        menuPanel.SetActive(false);
-
-    }
+    //    PlayerConfigManager.Instance.SetPlayerPrefab(PlayerIndex, prefab);
+    //}
 
     public void ReadyPlayerUp()
     {

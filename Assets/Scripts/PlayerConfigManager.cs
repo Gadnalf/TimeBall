@@ -27,10 +27,10 @@ public class PlayerConfigManager : MonoBehaviour
         }
     }
 
-    public void SetPlayerPrefab(int index, GameObject prefab)
-    {
-        playerConfigs[index].PlayerPrefab = prefab;
-    }
+    //public void SetPlayerPrefab(int index, GameObject prefab)
+    //{
+    //    playerConfigs[index].PlayerPrefab = prefab;
+    //}
 
     public void ReadyPlayer(int index)
     {
@@ -61,6 +61,9 @@ public class PlayerConfigManager : MonoBehaviour
 
     public void HandlePlayerJoin(PlayerInput pi)
     {
+
+        if (playerConfigs.Count >= MaxPlayers) return;
+
         Debug.Log("Player " + pi.playerIndex.ToString() + " joined.");
 
         foreach (PlayerConfig pc in playerConfigs) {
@@ -81,7 +84,7 @@ public class PlayerConfig
     public PlayerInput Input { get; set; }
     public int PlayerIndex { get; set; }
     public bool IsReady { get; set; }
-    public GameObject PlayerPrefab { get; set; }
+    //public GameObject PlayerPrefab { get; set; }
 
     public PlayerConfig(PlayerInput pi)
     {

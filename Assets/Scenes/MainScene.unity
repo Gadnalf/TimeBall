@@ -5153,7 +5153,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1963460528}
-  - component: {fileID: 1963460529}
   m_Layer: 0
   m_Name: LevelInitializer
   m_TagString: Untagged
@@ -5177,18 +5176,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1963460529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1963460527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d36bc1a3bcf79ab4282da1823e1884ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1985232823
 GameObject:
   m_ObjectHideFlags: 0
@@ -5370,6 +5357,9 @@ MonoBehaviour:
   roundText: {fileID: 1113168603}
   scoringManager: {fileID: 743372950}
   controlsPanel: {fileID: 1112428134}
+  playerPrefabs:
+  - {fileID: 7115374961518105058, guid: 01ccfdea8cab4b74bb2dddb584cdff0c, type: 3}
+  - {fileID: 1527515247663946147, guid: 707bd45bece4e9046ba15211270ee551, type: 3}
 --- !u!4 &1995729810
 Transform:
   m_ObjectHideFlags: 0
