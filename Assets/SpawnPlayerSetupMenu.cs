@@ -22,7 +22,7 @@ public class SpawnPlayerSetupMenu : MonoBehaviour
         {
             var menu = Instantiate(playerSetupMenuPrefab, rootMenu.transform);
             playerInput.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
-            menu.GetComponent<PlayerSetupMenuController>().SetPlayerIndex(playerInput.playerIndex);
+            menu.GetComponent<PlayerSetupMenuController>().SetPlayerIndex(playerInput);
         }
 
     }
