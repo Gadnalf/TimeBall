@@ -30,6 +30,7 @@ public class CooldownTimer : MonoBehaviour
     }
 
     public void StartCooldown(float seconds) {
+        Debug.Log("StartCooldown coroutine(" + seconds.ToString() + ")");
         coolDown.fillAmount = 1f;
         IEnumerator coroutine = cooldownFill(seconds);
         StartCoroutine(coroutine);
@@ -37,8 +38,8 @@ public class CooldownTimer : MonoBehaviour
 
     private IEnumerator cooldownFill(float seconds) {
         while (coolDown.fillAmount > 0) {
-            yield return new WaitForSeconds(seconds / 50);
-            coolDown.fillAmount -= seconds / 50;
+            yield return new WaitForSeconds((float)1 / 50);
+            coolDown.fillAmount -= (float)1 / (50 * seconds);
         }
     }
 }
