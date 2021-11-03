@@ -212,7 +212,7 @@ public class GameManager : MonoBehaviour
         //{
         //    timeRemaining = 30f;
         //}
-        timeRemaining = GameConfigurations.roundDuration + (roundNumber-1) * GameConfigurations.roundLengthIncrease;
+        timeRemaining = GameConfigurations.roundDuration + Math.Min((roundNumber-1) * GameConfigurations.roundLengthIncrease, GameConfigurations.maxRoundLength);
         CloneManager.SpawnClones();
         foreach (PlayerMovement player in playerControllers)
         {
