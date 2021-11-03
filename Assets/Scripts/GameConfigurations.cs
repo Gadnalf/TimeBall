@@ -28,6 +28,6 @@ public static class GameConfigurations
     public static float goalExplosionSpeed = 50f;
     public static int goalExplosionFrame = 50;
 
-    public static float stunningSpeed = 10f;
+    public static float stunningSpeed = 1f;
     public static int stunningFrame = 50;
 }

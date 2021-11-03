@@ -37,12 +37,9 @@ public class BallScript : MonoBehaviour
 
     private void UpdateShield()
     {
-        switch (charge) {
-            case 1: 
-                shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.one * 0.2f);
-                break;
-            case 2:
-                shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.one * 0.4f);
+        switch (charge >= GameConfigurations.maxBallCharge / 2) {
+            case true: 
+                shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.one * 0.3f);
                 break;
             default:
                 shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.zero);
@@ -77,7 +74,9 @@ public class BallScript : MonoBehaviour
         {
             charge++;
         }
-        gameObject.layer = 8;
+        if (charge >= GameConfigurations.maxBallCharge / 2) {
+            gameObject.layer = 8;
+        }
     }
 
     public void SetMaxCharge() {
