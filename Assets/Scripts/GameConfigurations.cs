@@ -1,14 +1,14 @@
 public static class GameConfigurations
 {
-    public static float baseMovementSpeed = 12.5f;
-    public static float withBallMovementSpeed = 7.5f;
-    public static float ballChargingMovementSpeed = 5f;
+    public static float baseMovementSpeed = 20f;
+    public static float withBallMovementSpeed = 15f;
+    public static float ballChargingMovementSpeed = 10f;
     public static float rotationSpeed = 400f;
 
     public static float roundDuration = 10f;
-    public static float roundLengthIncrease = 5f;
+    public static float roundLengthIncrease = 10f;
     public static float maxRoundLength = 30f;
-    public static int numberOfRounds = 7;
+    public static int numberOfRounds = 5;
 
     public static float ballDistance = 2f;
     public static float ballHeight = 0.5f;
