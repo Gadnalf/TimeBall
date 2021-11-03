@@ -12,8 +12,8 @@ public class CooldownTimer : MonoBehaviour
             transform.position = new Vector3(30, 30, 0);
         }
         else {
-            // canvas.height is 1080
-            transform.position = new Vector3(30, 1080/2 + 30, 0);
+            var height = FindObjectOfType<Canvas>().GetComponent<RectTransform>().rect.height;
+            transform.position = new Vector3(30, height / 2 + 30, 0);
         }
 
         coolDown.fillAmount = 0f;

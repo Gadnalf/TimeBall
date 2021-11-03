@@ -138,11 +138,11 @@ public class PlayerThrowBall : MonoBehaviour
                     ballScript.AddCharge();
                     chargeBall = 0;
                 }
-                dashCooldown.AbilityEnabled();
             }
             else if (chargeBall > 0)
             {
                 throwBall = true;
+                dashCooldown.AbilityEnabled();
             }
         }
 
@@ -207,12 +207,13 @@ public class PlayerThrowBall : MonoBehaviour
             // if ball is of opponent's color
             else if (collision.gameObject.GetComponent<PlayerData>().playerNumber != playerNumber)
             {
-                ball.GetComponent<BallScript>().ClearCharge();
+                
 
                 if (!collision.transform.parent) {
                     ballData.playerNumber = playerNumber;
                     scoringManager.SetCurrentPlayer(playerNumber);
                     ClaimBall(collision);
+                    ball.GetComponent<BallScript>().ClearCharge();
                 }
                 else {
                     // tag ball
@@ -220,6 +221,7 @@ public class PlayerThrowBall : MonoBehaviour
                         var opponent = collision.transform.parent;
                         opponent.GetComponent<PlayerThrowBall>().dashCooldown.AbilityEnabled();
                         ClaimBall(collision);
+                        ball.GetComponent<BallScript>().ClearCharge();
                         if (opponent.GetComponent<PlayerThrowBall>().CheckIfHasBall()) {
                             opponent.GetComponent<PlayerThrowBall>().ReleaseBall();
                         }
@@ -246,7 +248,7 @@ public class PlayerThrowBall : MonoBehaviour
                 opponentBall.GetComponent<Rigidbody>().isKinematic = false;
                 opponentBall.GetComponent<Rigidbody>().AddForce(transform.forward * GameConfigurations.horizontalThrowingForce / 50);
                 collision.gameObject.GetComponent<PlayerThrowBall>().dashCooldown.AbilityEnabled();
-                collision.gameObject.GetComponent<PlayerThrowBall>().ReleaseBall();   
+                collision.gameObject.GetComponent<PlayerThrowBall>().ReleaseBall();
             }
 
             collision.gameObject.GetComponent<PlayerMovement>().SetStunStatus(true);
