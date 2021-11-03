@@ -103,7 +103,7 @@ public class CloneHitByBall : MonoBehaviour
             if (ballData.playerNumber == GetComponent<PlayerData>().playerNumber) {
                 if (!ball.transform.parent) {
                     ClaimBall(collision);
-                    ball.GetComponent<BallScript>().SetCharge();
+                    ball.GetComponent<BallScript>().AddCharge();
                 }
 
                 BallScript ballScript = ball.GetComponent<BallScript>();
@@ -128,7 +128,7 @@ public class CloneHitByBall : MonoBehaviour
 
             // if ball is of opponent's color
             else {
-                if (ball.transform.parent == null && ball.GetComponent<BallScript>().CheckIfCharged()) {
+                if (ball.transform.parent == null && ball.GetComponent<BallScript>().GetCharge() > 0) {
                     cloneKnockdown = true;
                 }
             }
@@ -139,9 +139,8 @@ public class CloneHitByBall : MonoBehaviour
     {
         if (ball)
         {
-            Debug.Log("In Fire()");
             throwBall = true;
-            ball.GetComponent<BallScript>().SetCharge();
+            ball.GetComponent<BallScript>().AddCharge();
         }
     }
 

@@ -11,7 +11,7 @@ public class PlayerThrowBall : MonoBehaviour
 
     // State info
     private bool throwBall = false;
-    private bool throwBoost = false;
+    private float chargeBall;
     private GameObject ball;
     private Rigidbody lockedTarget;
     private CloneHitByBall cloneWithBall;
@@ -108,16 +108,11 @@ public class PlayerThrowBall : MonoBehaviour
             ball.GetComponent<PlayerData>().playerNumber = playerNumber;
             ball.GetComponent<Rigidbody>().isKinematic = false;
             Vector3 throwForce = transform.forward * GameConfigurations.horizontalThrowingForce;
-            if (throwBoost)
-            {
-                Debug.Log("boosted");
-                throwBoost = false;
-                throwForce *= GameConfigurations.speedBoostFactor;
-            }
+            throwForce *= GameConfigurations.speedBoostFactor * (1 + ball.GetComponent<BallScript>().GetCharge());
             throwForce += Vector3.up * GameConfigurations.verticalThrowingForce;
             ball.GetComponent<Rigidbody>().AddForce(throwForce);
             ball.GetComponent<BallScript>().SetHomingTarget(lockedTarget);
-            ball = null;
+            Reset();
         }
     }
 
@@ -127,19 +122,28 @@ public class PlayerThrowBall : MonoBehaviour
         // Check if ball gone
         if (ball && ball.transform.parent != transform)
         {
-            ball = null;
+            Reset();
             return;
         }
 
         // Update throw inputs
         if (ball)
         {
+            BallScript ballScript = ball.GetComponent<BallScript>();
             if (throwInput)
             {
-                throwBall = true;
+                chargeBall += Time.deltaTime;
+                if (chargeBall > GameConfigurations.ballChargeTime)
+                {
+                    ballScript.AddCharge();
+                    chargeBall = 0;
+                }
                 dashCooldown.AbilityEnabled();
             }
-            throwInput = false;
+            else if (chargeBall > 0)
+            {
+                throwBall = true;
+            }
         }
 
         // Send input to clone if necessary
@@ -203,6 +207,8 @@ public class PlayerThrowBall : MonoBehaviour
             // if ball is of opponent's color
             else if (collision.gameObject.GetComponent<PlayerData>().playerNumber != playerNumber)
             {
+                ball.GetComponent<BallScript>().ClearCharge();
+
                 if (!collision.transform.parent) {
                     ballData.playerNumber = playerNumber;
                     scoringManager.SetCurrentPlayer(playerNumber);
@@ -229,6 +235,7 @@ public class PlayerThrowBall : MonoBehaviour
             }
         }
 
+        // Stun code
         else if (collision.transform.tag == "Player" && GetComponent<PlayerMovement>().GetDashStatus() == true) {
             var opponentBall = collision.gameObject.GetComponent<PlayerThrowBall>().ball;
             
@@ -253,23 +260,23 @@ public class PlayerThrowBall : MonoBehaviour
     }
 
     private void ClaimBall(Collision collision) {
+        // Set ball attributes to current player
         ball = collision.gameObject;
         ball.GetComponent<PlayerData>().playerNumber = playerNumber;
+
+        // Pick up ball
         ball.transform.parent = transform;
         ball.transform.localPosition = new Vector3(0, GameConfigurations.ballHeight, GameConfigurations.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;
-
-        BallScript ballscript = ball.GetComponent<BallScript>();
-        if (ballscript.IsHomingTarget(GetComponent<Rigidbody>()))
-        {
-            throwBoost = true;
-            ball.GetComponent<BallScript>().SetCharge(true);
-        }
-        else
-        {
-            ball.GetComponent<BallScript>().SetCharge(false);
-        }
         dashCooldown.AbilityDisabled();
+    }
+
+    public void Reset()
+    {
+        ball = null;
+        chargeBall = 0;
+        lockedTarget = null;
+        crosshair.SetTarget(null);
     }
 
     private void OnEnable()
@@ -288,5 +295,10 @@ public class PlayerThrowBall : MonoBehaviour
 
     public bool CheckIfHasBall() {
         return (ball != null);
+    }
+
+    public bool CheckIfCharging()
+    {
+        return (chargeBall > 0 || throwInput);
     }
 }

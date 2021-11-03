@@ -3,17 +3,14 @@ using UnityEngine;
 public class BallScript : MonoBehaviour
 {
     public Vector3 spawnLocation;
-    public float turnRate = 0.5f;
+    public float turnRate = 1f;
     public GameObject shield;
 
     private Rigidbody rb;
     private PlayerData playerData;
     private Rigidbody target;
     private bool homing;
-    private bool charged;
-
-    [SerializeField]
-    private GoalShield[] goalShields;
+    private int charge;
 
     // Start is called before the first frame update
     private void Start()
@@ -40,13 +37,16 @@ public class BallScript : MonoBehaviour
 
     private void UpdateShield()
     {
-        if (!charged)
-        {
-            shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.zero);
-        }
-        else
-        {
-            shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.one * 0.2f);
+        switch (charge) {
+            case 1: 
+                shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.one * 0.2f);
+                break;
+            case 2:
+                shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.one * 0.4f);
+                break;
+            default:
+                shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.zero);
+                break;
         }
     }
 
@@ -71,21 +71,23 @@ public class BallScript : MonoBehaviour
         return target == rb;
     }
 
-    public void SetCharge(bool charge = true)
+    public void AddCharge()
     {
-        charged = charge;
-        switch (charged) {
-            case true:
-                gameObject.layer = 8;
-                break;
-            default:
-                gameObject.layer = 0;
-                break;
+        if (charge < GameConfigurations.maxBallCharge)
+        {
+            charge++;
         }
+        gameObject.layer = 8;
     }
 
-    public bool CheckIfCharged() {
-        return charged;
+    public void ClearCharge()
+    {
+        charge = 0;
+        gameObject.layer = 0;
+    }
+
+    public int GetCharge() {
+        return charge;
     }
 
     public void Reset()
@@ -96,8 +98,7 @@ public class BallScript : MonoBehaviour
         rb.transform.parent = null;
         rb.velocity = Vector3.zero;
         playerData.playerNumber = PlayerData.PlayerNumber.NoPlayer;
-        target = null;
-        homing = false;
-        charged = false;
+        SetHomingTarget(null);
+        ClearCharge();
     }
 }

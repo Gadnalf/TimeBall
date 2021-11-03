@@ -152,7 +152,7 @@ public class PlayerMovement : MonoBehaviour
             movementVector = Vector3.zero;
         }
         else {
-            if (GetComponent<PlayerThrowBall>().CheckIfHasBall()) {
+            if (GetComponent<PlayerThrowBall>().CheckIfCharging()) {
                 movementVector = new Vector3(movement.x, 0, movement.y).normalized * withBallMovementSpeed;
             }
             else {
@@ -245,6 +245,8 @@ public class PlayerMovement : MonoBehaviour
         cooldownTimer.AbilityEnabled();
         SetStunStatus(false);
         currentExplosionFrame = 0;
+
+        GetComponent<PlayerThrowBall>().Reset();
     }
 
 
