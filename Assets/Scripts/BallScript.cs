@@ -33,6 +33,9 @@ public class BallScript : MonoBehaviour
     private void Update()
     {
         UpdateShield();
+        if (transform.position.y >= 30) {
+            Reset();
+        }
     }
 
     private void UpdateShield()
