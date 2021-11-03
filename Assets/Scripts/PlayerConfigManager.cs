@@ -47,6 +47,7 @@ public class PlayerConfigManager : MonoBehaviour
 
             if (b)
             {
+                GetComponent<PlayerInputManager>().DisableJoining();
                 SceneManager.LoadScene("MainScene");
             }
 

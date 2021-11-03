@@ -12,6 +12,9 @@ public class BallScript : MonoBehaviour
     private bool homing;
     private bool charged;
 
+    [SerializeField]
+    private GoalShield[] goalShields;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -71,6 +74,18 @@ public class BallScript : MonoBehaviour
     public void SetCharge(bool charge = true)
     {
         charged = charge;
+        switch (charged) {
+            case true:
+                gameObject.layer = 8;
+                break;
+            default:
+                gameObject.layer = 0;
+                break;
+        }
+    }
+
+    public bool CheckIfCharged() {
+        return charged;
     }
 
     public void Reset()

@@ -5,7 +5,6 @@ public class CloneHitByBall : MonoBehaviour
     public int knockdownSpeed = 60;
 
     private GameObject ball;
-    private Vector3 ballDirection;
 
     // state info
     private bool cloneKnockdown;
@@ -103,7 +102,6 @@ public class CloneHitByBall : MonoBehaviour
             // if ball is of player's color
             if (ballData.playerNumber == GetComponent<PlayerData>().playerNumber) {
                 if (!ball.transform.parent) {
-                    ballDirection = new Vector3(collision.relativeVelocity.x, 0, collision.relativeVelocity.z).normalized;
                     ClaimBall(collision);
                     ball.GetComponent<BallScript>().SetCharge();
                 }
@@ -130,8 +128,9 @@ public class CloneHitByBall : MonoBehaviour
 
             // if ball is of opponent's color
             else {
-                if (ball.transform.parent == null)
+                if (ball.transform.parent == null && ball.GetComponent<BallScript>().CheckIfCharged()) {
                     cloneKnockdown = true;
+                }
             }
         }
     }

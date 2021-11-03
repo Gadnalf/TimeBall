@@ -198,7 +198,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 vel;
         vel.x = movementVector.x;
-        vel.y = rb.velocity.y;
+        vel.y = 0;
         vel.z = movementVector.z;
 
         rb.velocity = transform.TransformDirection(vel);
@@ -283,6 +283,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private bool ifCanDash() {
-        return dashingFrame == 0 && dashCD == 0 && GetComponent<PlayerThrowBall>().CheckIfHasBall() == false;
+        if (GetComponent<PlayerThrowBall>()) {
+            return dashingFrame == 0 && dashCD == 0 && GetComponent<PlayerThrowBall>().CheckIfHasBall() == false;
+        }
+        else {
+            return true;
+        }
     }
 }

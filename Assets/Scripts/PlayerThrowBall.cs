@@ -211,9 +211,12 @@ public class PlayerThrowBall : MonoBehaviour
                 else {
                     // tag ball
                     if (GetComponent<PlayerMovement>().GetDashStatus() == true) {
-                        collision.transform.parent.GetComponent<PlayerThrowBall>().dashCooldown.AbilityEnabled();
+                        var opponent = collision.transform.parent;
+                        opponent.GetComponent<PlayerThrowBall>().dashCooldown.AbilityEnabled();
                         ClaimBall(collision);
-                        collision.gameObject.GetComponent<PlayerThrowBall>().ReleaseBall();
+                        if (opponent.GetComponent<PlayerThrowBall>().CheckIfHasBall()) {
+                            opponent.GetComponent<PlayerThrowBall>().ReleaseBall();
+                        }
                     }
                 }
             }
