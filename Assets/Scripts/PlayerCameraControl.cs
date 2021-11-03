@@ -26,7 +26,7 @@ public class PlayerCameraControl : MonoBehaviour
             float cameraDistance;
             if (hitInfo.distance > offset)
             {
-                Debug.Log((1 - (hitInfo.distance - offset) / spacing));
+                // TODO: Burn this entire file
                 cameraDistance = -targetLocation.z - (1-(hitInfo.distance - offset) / spacing) * -targetLocation.z;
             }
             else
