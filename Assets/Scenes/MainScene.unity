@@ -4692,7 +4692,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -100}
+  m_AnchoredPosition: {x: 0, y: 250}
   m_SizeDelta: {x: 900, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1525812595
@@ -6231,9 +6231,6 @@ MonoBehaviour:
   spawnLocation: {x: 0, y: 6, z: 0}
   turnRate: 1
   shield: {fileID: 1438630118}
-  goalShields:
-  - {fileID: 1754997898}
-  - {fileID: 585691221}
 --- !u!114 &2016777399
 MonoBehaviour:
   m_ObjectHideFlags: 0
