@@ -104,5 +104,6 @@ public class BallScript : MonoBehaviour
         playerData.playerNumber = PlayerData.PlayerNumber.NoPlayer;
         SetHomingTarget(null);
         ClearCharge();
+        shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.zero);
     }
 }
