@@ -41,7 +41,8 @@ public class CloneHitByBall : MonoBehaviour
             
             ball.transform.parent = null;
             ball.GetComponent<Rigidbody>().isKinematic = false;
-            ball.GetComponent<Rigidbody>().AddForce((transform.forward * GameConfigurations.horizontalThrowingForce * GameConfigurations.speedBoostFactor) + Vector3.up * GameConfigurations.verticalThrowingForce);
+            ball.GetComponent<Rigidbody>().AddForce((transform.forward * GameConfigurations.horizontalThrowingForce * GameConfigurations.speedBoostFactor * (1 + ball.GetComponent<BallScript>().GetCharge()))
+                + Vector3.up * GameConfigurations.verticalThrowingForce);
             if (lockTarget)
             {
                 ball.GetComponent<BallScript>().SetHomingTarget(lockTarget);
@@ -103,7 +104,7 @@ public class CloneHitByBall : MonoBehaviour
             if (ballData.playerNumber == GetComponent<PlayerData>().playerNumber) {
                 if (!ball.transform.parent) {
                     ClaimBall(collision);
-                    ball.GetComponent<BallScript>().AddCharge();
+                    ball.GetComponent<BallScript>().SetMaxCharge();
                 }
 
                 BallScript ballScript = ball.GetComponent<BallScript>();

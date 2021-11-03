@@ -12,13 +12,13 @@ public static class GameConfigurations
 
     public static float ballDistance = 2f;
     public static float ballHeight = 0.5f;
-    public static float ballChargeTime = 2f;
+    public static float ballChargeTime = 1.5f;
     public static int maxBallCharge = 2;
 
-    public static float horizontalThrowingForce = 1000f;
+    public static float horizontalThrowingForce = 750f;
     public static float verticalThrowingForce = 200f;
 
-    public static float speedBoostFactor = 1.5f;
+    public static float speedBoostFactor = 1.75f;
 
     public static float dashSpeed = 50f;
     public static int dashingFrame = 10;

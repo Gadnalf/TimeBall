@@ -80,6 +80,11 @@ public class BallScript : MonoBehaviour
         gameObject.layer = 8;
     }
 
+    public void SetMaxCharge() {
+        charge = GameConfigurations.maxBallCharge;
+        gameObject.layer = 8;
+    }
+
     public void ClearCharge()
     {
         charge = 0;
