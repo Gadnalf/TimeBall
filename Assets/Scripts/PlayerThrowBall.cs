@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,10 @@ public class PlayerThrowBall : MonoBehaviour
     public PlayerData.PlayerNumber playerNumber;
     private CrosshairScript crosshair;
     public float lockDistance = 10000;
+
+    // Pass config
+    public int searchWidth = 15;
+    public float searchStep = 0.5f;
 
     // State info
     private bool throwBall = false;
@@ -170,17 +175,28 @@ public class PlayerThrowBall : MonoBehaviour
         {
             if (lockInput)
             {
-                Ray lockRay = new Ray(transform.position, transform.forward);
-                RaycastHit[] hitInfos = Physics.RaycastAll(lockRay);
-                foreach (RaycastHit hitInfo in hitInfos)
+                List<Rigidbody> availableClones = new List<Rigidbody>();
+
+                Vector3 rayStart = transform.position;
+                for (int i = 1; i < searchWidth*2; i++)
                 {
-                    if (hitInfo.rigidbody && hitInfo.rigidbody.tag == "Clone" && hitInfo.rigidbody.GetComponent<PlayerData>().playerNumber == playerNumber)
+                    float offset = i/2 * searchStep;
+                    if (i%2 == 0)
                     {
-                        lockedTarget = hitInfo.rigidbody;
-                        crosshair.SetTarget(lockedTarget);
-                        break;
+                        offset *= -1;
+                    }
+                    rayStart += new Vector3(0, offset, 0);
+                    Ray lockRay = new Ray(rayStart, transform.forward);
+                    RaycastHit[] hitInfos = Physics.RaycastAll(lockRay);
+                    foreach (RaycastHit hitInfo in hitInfos)
+                    {
+                        if (hitInfo.rigidbody && hitInfo.rigidbody.tag == "Clone" && hitInfo.rigidbody.GetComponent<PlayerData>().playerNumber == playerNumber)
+                        {
+                            availableClones.Add(hitInfo.rigidbody);
+                        }
                     }
                 }
+                lockedTarget = availableClones[1];
             }
         }
         else if (!lockInput || !ball)

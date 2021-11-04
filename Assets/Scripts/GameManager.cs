@@ -172,7 +172,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log("button work");
         gameStarted = true;
         gamePaused = false;
-        Time.timeScale = 1f;
+        Time.timeScale = 0.75f;
         timerIsRunning = true;
         timeRemaining = GameConfigurations.roundDuration;
         mainMenuPanel.SetActive(false);
