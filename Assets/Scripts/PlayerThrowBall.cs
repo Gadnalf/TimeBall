@@ -135,7 +135,9 @@ public class PlayerThrowBall : MonoBehaviour
                 chargeBall += Time.deltaTime;
                 if (chargeBall > GameConfigurations.ballChargeTime)
                 {
-                    ballScript.AddCharge();
+                    if (ballScript.GetCharge() < GameConfigurations.maxBallCharge - 1) {
+                        ballScript.AddCharge();
+                    }
                     chargeBall = 0;
                 }
             }
@@ -202,6 +204,7 @@ public class PlayerThrowBall : MonoBehaviour
             if (collision.gameObject.GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.NoPlayer) {
                 ///Debug.Log("Claiming un-owned ball");
                 ClaimBall(collision);
+                ball.GetComponent<BallScript>().ClearCharge();
             }
 
             // if ball is of opponent's color
