@@ -158,7 +158,6 @@ public class GameManager : MonoBehaviour
                 {
                     timeRemaining = 0;
                     DisplayTime(timeRemaining);
-                    Debug.Log("end of round");
                     timerIsRunning = false;
                     CloneManager.AddClones();
                     doNextRoundStuff();
@@ -197,7 +196,7 @@ public class GameManager : MonoBehaviour
     private void doNextRoundStuff()
     {
         CloneManager.KillClones();
-        Debug.Log("started round " + roundNumber.ToString());
+        //Debug.Log("started round " + roundNumber.ToString());
 
         if (roundNumber == GameConfigurations.numberOfRounds)
         {
@@ -219,10 +218,10 @@ public class GameManager : MonoBehaviour
             player.Reset();
         }
 
-        foreach (CrosshairScript crosshair in FindObjectsOfType<CrosshairScript>())
-        {
-            crosshair.Reset();
-        }
+        //foreach (CrosshairScript crosshair in FindObjectsOfType<CrosshairScript>())
+        //{
+        //    crosshair.Reset();
+        //}
         ball.Reset();
     }
 
