@@ -13,6 +13,9 @@ public class PlayerConfigManager : MonoBehaviour
 
     public static PlayerConfigManager Instance { get; private set; }
 
+    [SerializeField]
+    private AudioManager audioManager;
+
     private void Awake()
     {
         if (Instance != null)
@@ -25,6 +28,11 @@ public class PlayerConfigManager : MonoBehaviour
             DontDestroyOnLoad(Instance);
             playerConfigs = new List<PlayerConfig>();
         }
+    }
+
+    private void Start()
+    {
+        audioManager.GetAudio("Lobby").Play();
     }
 
     //public void SetPlayerPrefab(int index, GameObject prefab)
@@ -48,6 +56,7 @@ public class PlayerConfigManager : MonoBehaviour
             if (b)
             {
                 GetComponent<PlayerInputManager>().DisableJoining();
+                audioManager.GetAudio("Lobby").Stop();
                 SceneManager.LoadScene("MainScene");
             }
 

@@ -12,11 +12,14 @@ public class BallScript : MonoBehaviour
     private bool homing;
     private int charge;
 
+    private AudioManager audioManager;
+
     // Start is called before the first frame update
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerData = GetComponent<PlayerData>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     private void FixedUpdate()
@@ -53,6 +56,10 @@ public class BallScript : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         homing = false;
+        var collide = collision.gameObject;
+
+        if (collide.tag == "Arena" || collide.layer == 9)
+            audioManager.GetAudio("BallBounce").Play();
     }
 
     public void SetHomingTarget(Rigidbody target = null)

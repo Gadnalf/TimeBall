@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 64174758}
   m_Layer: 0
   m_Name: Left
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1950,7 +1950,6 @@ GameObject:
   m_Component:
   - component: {fileID: 743372949}
   - component: {fileID: 743372950}
-  - component: {fileID: 743372951}
   m_Layer: 0
   m_Name: ScoringManager
   m_TagString: Untagged
@@ -1986,14 +1985,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerOneScore: {fileID: 499574366}
   playerTwoScore: {fileID: 1450177749}
---- !u!81 &743372951
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 743372948}
-  m_Enabled: 1
 --- !u!1 &797942358
 GameObject:
   m_ObjectHideFlags: 0
@@ -2490,7 +2481,7 @@ GameObject:
   - component: {fileID: 897584038}
   m_Layer: 0
   m_Name: LeftBound
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2809,7 +2800,7 @@ GameObject:
   - component: {fileID: 929341541}
   m_Layer: 0
   m_Name: Right
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3446,6 +3437,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1160520755}
+  - component: {fileID: 1160520756}
   m_Layer: 0
   m_Name: Arena
   m_TagString: Untagged
@@ -3470,6 +3462,14 @@ Transform:
   m_Father: {fileID: 1612331287}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &1160520756
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160520754}
+  m_Enabled: 1
 --- !u!1001 &1165246828
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4122,7 +4122,7 @@ GameObject:
   - component: {fileID: 1331678791}
   m_Layer: 0
   m_Name: Left
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5113,7 +5113,7 @@ GameObject:
   - component: {fileID: 1544955942}
   m_Layer: 0
   m_Name: Down
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5279,7 +5279,7 @@ GameObject:
   - component: {fileID: 1576347103}
   m_Layer: 0
   m_Name: Up
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5621,7 +5621,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1612331287}
-  - component: {fileID: 1612331288}
   m_Layer: 0
   m_Name: Gym
   m_TagString: Untagged
@@ -5646,14 +5645,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1612331288
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612331286}
-  m_Enabled: 1
 --- !u!1 &1624314810
 GameObject:
   m_ObjectHideFlags: 0
@@ -5780,7 +5771,7 @@ GameObject:
   - component: {fileID: 1628177425}
   m_Layer: 0
   m_Name: Right
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6915,7 +6906,7 @@ GameObject:
   - component: {fileID: 2144716455}
   m_Layer: 0
   m_Name: RightBound
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6996,3 +6987,64 @@ Transform:
   m_Father: {fileID: 1400615348}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &9168097001736011403
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 9168097001097185132, guid: 80f0478f46013bd4fba2b119c4712a64, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168097001097185132, guid: 80f0478f46013bd4fba2b119c4712a64, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168097001097185132, guid: 80f0478f46013bd4fba2b119c4712a64, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168097001097185132, guid: 80f0478f46013bd4fba2b119c4712a64, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168097001097185132, guid: 80f0478f46013bd4fba2b119c4712a64, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168097001097185132, guid: 80f0478f46013bd4fba2b119c4712a64, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168097001097185132, guid: 80f0478f46013bd4fba2b119c4712a64, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168097001097185132, guid: 80f0478f46013bd4fba2b119c4712a64, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168097001097185132, guid: 80f0478f46013bd4fba2b119c4712a64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168097001097185132, guid: 80f0478f46013bd4fba2b119c4712a64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168097001097185132, guid: 80f0478f46013bd4fba2b119c4712a64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168097001097185133, guid: 80f0478f46013bd4fba2b119c4712a64, type: 3}
+      propertyPath: sounds.Array.data[1].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168097001097185134, guid: 80f0478f46013bd4fba2b119c4712a64, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 80f0478f46013bd4fba2b119c4712a64, type: 3}

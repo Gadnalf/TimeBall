@@ -58,6 +58,9 @@ public class GameManager : MonoBehaviour
 
     PlayerControls controls;
 
+    private AudioManager audioManager;
+    private AudioSource runningWithouBall;
+
     private void Awake()
     {
 
@@ -77,7 +80,6 @@ public class GameManager : MonoBehaviour
             }
 
         }
-
 
         controls = new PlayerControls();
         controls.MainMenu.StartGame.performed += ctx =>
@@ -139,6 +141,9 @@ public class GameManager : MonoBehaviour
         foreach (PlayerMovement player in playerControllers) {
             player.GetComponent<PlayerMovement>().enabled = false;
         }
+
+        audioManager = FindObjectOfType<AudioManager>();
+        runningWithouBall = audioManager.GetAudio("Running");
     }
 
     void Update()
@@ -163,6 +168,15 @@ public class GameManager : MonoBehaviour
                     doNextRoundStuff();
                 }
             }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (playerControllers[0].ShouldStopRunningSound() && playerControllers[1].ShouldStopRunningSound())
+        {
+            if (runningWithouBall.isPlaying)
+                runningWithouBall.Stop();
         }
     }
 

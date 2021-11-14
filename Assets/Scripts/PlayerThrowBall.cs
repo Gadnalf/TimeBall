@@ -32,6 +32,13 @@ public class PlayerThrowBall : MonoBehaviour
     private GameObject[] clones;
     private List<GameObject> playerClones = new List<GameObject>();
 
+    // sound effects
+    [HideInInspector]
+    public AudioManager audioManager;
+    private AudioSource runningWithoutBall;
+    private AudioSource throwBallSound;
+    private AudioSource stunSound;
+
     private void Awake()
     {
         controls = new PlayerControls();
@@ -103,6 +110,11 @@ public class PlayerThrowBall : MonoBehaviour
                 this.dashCooldown = dashCooldown;
             }
         }
+
+        audioManager = FindObjectOfType<AudioManager>();
+        runningWithoutBall = audioManager.GetAudio("Running");
+        throwBallSound = audioManager.GetAudio("ThrowBall");
+        stunSound = audioManager.GetAudio("Stunning");
     }
 
     private void FixedUpdate()
@@ -120,6 +132,7 @@ public class PlayerThrowBall : MonoBehaviour
             ball.GetComponent<Rigidbody>().AddForce(throwForce);
             ball.GetComponent<BallScript>().SetHomingTarget(lockedTarget);
             Reset();
+            throwBallSound.Play();
         }
         //else if (ball && lockedTarget)
         //{
@@ -311,6 +324,7 @@ public class PlayerThrowBall : MonoBehaviour
             }
 
             collision.gameObject.GetComponent<PlayerMovement>().SetStunStatus(true);
+            stunSound.Play();
             collision.gameObject.GetComponent<PlayerMovement>().StartExplosion(GameConfigurations.stunningSpeed, GameConfigurations.stunningFrame, transform.position);
         }
     }
@@ -330,6 +344,9 @@ public class PlayerThrowBall : MonoBehaviour
         ball.transform.localPosition = new Vector3(0, GameConfigurations.ballHeight, GameConfigurations.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;
         dashCooldown.AbilityDisabled();
+
+        if (runningWithoutBall.isPlaying)
+            runningWithoutBall.Stop();
     }
 
     public void Reset()
