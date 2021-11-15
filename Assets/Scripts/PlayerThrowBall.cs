@@ -94,6 +94,7 @@ public class PlayerThrowBall : MonoBehaviour
     void Start()
     {
         playerNumber = GetComponent<PlayerData>().playerNumber;
+        clones = GameObject.FindGameObjectsWithTag("Clone");
         //CrosshairScript[] crosshairs = FindObjectsOfType<CrosshairScript>();
         //foreach (CrosshairScript crosshair in crosshairs)
         //{
@@ -127,12 +128,8 @@ public class PlayerThrowBall : MonoBehaviour
 
     private void FixedUpdate()
     {
-<<<<<<< HEAD
         records.RecordInput(throwInput);
-        if (throwBall)
-=======
         if (throwBall || passBall)
->>>>>>> main
         {
             throwBall = false;
             passBall = false;
@@ -213,7 +210,7 @@ public class PlayerThrowBall : MonoBehaviour
         {
             if (lockInput)
             {
-                clones = GameObject.FindGameObjectsWithTag("Clone");
+                
                 foreach (GameObject clone in clones)
                 {
                     if (clone.GetComponent<PlayerData>().playerNumber == playerNumber)
@@ -368,7 +365,7 @@ public class PlayerThrowBall : MonoBehaviour
         chargeBall = 0;
         lockedTarget = null;
         playerClones.Clear();
-        //crosshair.SetTarget(null);
+        clones = GameObject.FindGameObjectsWithTag("Clone");
     }
 
     private void OnEnable()
