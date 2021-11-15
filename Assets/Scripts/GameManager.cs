@@ -61,6 +61,9 @@ public class GameManager : MonoBehaviour
 
     PlayerControls controls;
 
+    private AudioManager audioManager;
+    private AudioSource runningWithouBall;
+
     private void Awake()
     {
 
@@ -81,7 +84,6 @@ public class GameManager : MonoBehaviour
             }
 
         }
-
 
         controls = new PlayerControls();
         controls.MainMenu.StartGame.performed += ctx =>
@@ -143,6 +145,9 @@ public class GameManager : MonoBehaviour
         foreach (PlayerMovement player in playerControllers) {
             player.GetComponent<PlayerMovement>().enabled = false;
         }
+
+        audioManager = FindObjectOfType<AudioManager>();
+        runningWithouBall = audioManager.GetAudio("Running");
     }
 
     void Update()
@@ -162,12 +167,20 @@ public class GameManager : MonoBehaviour
                 {
                     timeRemaining = 0;
                     DisplayTime(timeRemaining);
-                    Debug.Log("end of round");
                     timerIsRunning = false;
                     CloneManager.AddClones();
                     doNextRoundStuff();
                 }
             }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (playerControllers[0].ShouldStopRunningSound() && playerControllers[1].ShouldStopRunningSound())
+        {
+            if (runningWithouBall.isPlaying)
+                runningWithouBall.Stop();
         }
     }
 
@@ -201,7 +214,7 @@ public class GameManager : MonoBehaviour
     private void doNextRoundStuff()
     {
         CloneManager.KillClones();
-        Debug.Log("started round " + roundNumber.ToString());
+        //Debug.Log("started round " + roundNumber.ToString());
 
         if (roundNumber == GameConfigurations.numberOfRounds)
         {
@@ -223,10 +236,10 @@ public class GameManager : MonoBehaviour
             player.Reset();
         }
 
-        foreach (CrosshairScript crosshair in FindObjectsOfType<CrosshairScript>())
-        {
-            crosshair.Reset();
-        }
+        //foreach (CrosshairScript crosshair in FindObjectsOfType<CrosshairScript>())
+        //{
+        //    crosshair.Reset();
+        //}
         ball.Reset();
     }
 

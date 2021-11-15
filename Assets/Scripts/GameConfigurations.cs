@@ -1,7 +1,7 @@
 public static class GameConfigurations
 {
-    public static float baseMovementSpeed = 20f;
-    public static float withBallMovementSpeed = 15f;
+    public static float baseMovementSpeed = 25f;
+    public static float withBallMovementSpeed = 17.5f;
     public static float ballChargingMovementSpeed = 10f;
     public static float rotationSpeed = 400f;
 
@@ -12,13 +12,13 @@ public static class GameConfigurations
 
     public static float ballDistance = 2f;
     public static float ballHeight = 0.5f;
-    public static float ballChargeTime = 1.5f;
-    public static int maxBallCharge = 2;
+    public static float ballChargeTime = 1f;
+    public static int maxBallCharge = 3;
 
-    public static float horizontalThrowingForce = 750f;
+    public static float horizontalThrowingForce = 1000f;
     public static float verticalThrowingForce = 200f;
 
-    public static float speedBoostFactor = 2f;
+    public static float speedBoostFactor = 2.5f;
 
     public static float dashSpeed = 50f;
     public static int dashingFrame = 10;

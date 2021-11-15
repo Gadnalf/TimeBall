@@ -16,6 +16,15 @@ public class GoalPost : MonoBehaviour
 
     public PlayerMovement[] playerMovements;
 
+    private AudioManager audioManager;
+    private AudioSource goalSound;
+
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+        goalSound = audioManager.GetAudio("Goal");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Ball") {
@@ -27,6 +36,9 @@ public class GoalPost : MonoBehaviour
             {
                 scoringManager.PlayerGoal(1);
             }
+
+            if (goalSound.isPlaying == false)
+                PlayGoalSound();
 
             ball.SetActive(false);
             Invoke("ResetBall", 2);
@@ -40,5 +52,18 @@ public class GoalPost : MonoBehaviour
     private void ResetBall() {
         ball.SetActive(true);
         ball.GetComponent<BallScript>().Reset();
+    }
+
+    public void PlayGoalSound()
+    {
+        IEnumerator coroutine = GoalSoundCoroutine(5);
+        StartCoroutine(coroutine);
+    }
+
+    private IEnumerator GoalSoundCoroutine(float seconds)
+    {
+        goalSound.Play();
+        yield return new WaitForSeconds(seconds);
+        goalSound.Stop();
     }
 }

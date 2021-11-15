@@ -12,11 +12,14 @@ public class BallScript : MonoBehaviour
     private bool homing;
     private int charge;
 
+    private AudioManager audioManager;
+
     // Start is called before the first frame update
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerData = GetComponent<PlayerData>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     private void FixedUpdate()
@@ -40,7 +43,7 @@ public class BallScript : MonoBehaviour
 
     private void UpdateShield()
     {
-        switch (charge >= GameConfigurations.maxBallCharge / 2) {
+        switch (charge >= GameConfigurations.maxBallCharge) {
             case true: 
                 shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.one * 0.3f);
                 break;
@@ -53,6 +56,10 @@ public class BallScript : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         homing = false;
+        var collide = collision.gameObject;
+
+        if (collide.tag == "Arena" || collide.layer == 9)
+            audioManager.GetAudio("BallBounce").Play();
     }
 
     public void SetHomingTarget(Rigidbody target = null)
@@ -77,7 +84,7 @@ public class BallScript : MonoBehaviour
         {
             charge++;
         }
-        if (charge >= GameConfigurations.maxBallCharge / 2) {
+        if (charge >= GameConfigurations.maxBallCharge) {
             gameObject.layer = 8;
         }
     }
@@ -95,6 +102,10 @@ public class BallScript : MonoBehaviour
 
     public int GetCharge() {
         return charge;
+    }
+
+    public PlayerData.PlayerNumber GetPlayerNumber () {
+        return playerData.playerNumber;
     }
 
     public void Reset()

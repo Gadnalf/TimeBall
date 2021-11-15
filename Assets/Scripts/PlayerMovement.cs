@@ -42,6 +42,11 @@ public class PlayerMovement : MonoBehaviour
 
     private CooldownTimer cooldownTimer;
 
+    // Sound effects
+    [HideInInspector]
+    public AudioManager audioManager;
+    private AudioSource runningWithoutBall;
+
     private void Awake()
     {
         controls = new PlayerControls();
@@ -132,6 +137,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        audioManager = FindObjectOfType<AudioManager>();
+        runningWithoutBall = audioManager.GetAudio("Running");
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         Reset();
@@ -145,16 +153,21 @@ public class PlayerMovement : MonoBehaviour
         }
         else {
             PlayerThrowBall playerBall = GetComponent<PlayerThrowBall>();
-            if (playerBall.CheckIfHasBall() && playerBall.CheckIfCharging()) {
-                movementVector = new Vector3(movement.x, 0, movement.y).normalized * ballChargingMovementSpeed;
-            }
-            else {
-                if (playerBall.CheckIfHasBall()) {
+
+            if (playerBall.CheckIfHasBall()) {
+
+                if (playerBall.CheckIfCharging())
+                    movementVector = new Vector3(movement.x, 0, movement.y).normalized * ballChargingMovementSpeed;
+
+                else
                     movementVector = new Vector3(movement.x, 0, movement.y).normalized * withBallMovementSpeed;
-                }
-                else {
-                    movementVector = new Vector3(movement.x, 0, movement.y).normalized * baseMovementSpeed;
-                }
+            }
+
+            else {
+                movementVector = new Vector3(movement.x, 0, movement.y).normalized * baseMovementSpeed;
+
+                if (runningWithoutBall.isPlaying == false)
+                    runningWithoutBall.Play();
             }
         }     
         
@@ -253,6 +266,11 @@ public class PlayerMovement : MonoBehaviour
     public void SetStunStatus(bool ifStun) {
         stunned = ifStun;
         stunText.SetActive(ifStun);
+    }
+
+    public bool ShouldStopRunningSound ()
+    {
+        return (currentExplosionFrame != 0 || (Math.Abs(movement.x) < 0.05f && Math.Abs(movement.y) < 0.05f));
     }
 
     public void StartExplosion(float explosionSpeed, int explosionFrameDuration, Vector3 from) {
