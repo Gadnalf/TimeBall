@@ -32,13 +32,13 @@ public class CloneController : MonoBehaviour
                 nextPos = cloneData.Positions[nextIndex];
             }
 
-            if (cloneData.ThrowInputs.Length < nextThrowInputChange)
+            if (cloneData.ThrowInputs.Length > nextThrowInputChange)
             {
                 if (frame == cloneData.ThrowInputs[nextThrowInputChange])
                 {
                     throwInput = !throwInput;
+                    nextThrowInputChange++;
                 }
-                nextThrowInputChange++;
             }
 
             // move whatever fraction of the way to the target is necessary

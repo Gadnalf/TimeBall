@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static CloneManager;
@@ -10,14 +9,13 @@ public class PlayerRecording : MonoBehaviour
 
     public int postionFramesToSkip = 3;
     public int rotationFramesToSkip = 3;
-    private int frame = 0;
 
-    public Queue<int> throwInputChangeFrames;
+    public Queue<int> throwInputChangeFrames = new Queue<int>();
     private bool lastThrowInput;
 
     private float timeLeftToRecord = GameConfigurations.roundDuration;
 
-    public void RecordLocation()
+    public void RecordLocation(int frame)
     {
         if (timeLeftToRecord > 0)
         {
@@ -31,24 +29,29 @@ public class PlayerRecording : MonoBehaviour
             {
                 lastRotations.Enqueue(transform.rotation);
             }
-
-            frame++;
         }
     }
 
-    public void RecordInput(bool throwInput)
+    public void RecordInput(bool throwInput, int frame)
     {
         if (throwInput != lastThrowInput)
         {
             throwInputChangeFrames.Enqueue(frame);
             lastThrowInput = throwInput;
         }
-        frame++;
     }
 
     public CloneData GetPlayerData()
     {
-        return new CloneData() { Number = GetComponent<PlayerData>().playerNumber, PositionSkipFrames = postionFramesToSkip, RotationSkipFrames = rotationFramesToSkip, Positions = lastPositions.ToArray(), Rotations = lastRotations.ToArray(), ThrowInputs = throwInputChangeFrames.ToArray()};
+        Debug.Log(throwInputChangeFrames.ToArray());
+        return new CloneData() { 
+            Number = GetComponent<PlayerData>().playerNumber, 
+            PositionSkipFrames = postionFramesToSkip, 
+            RotationSkipFrames = rotationFramesToSkip, 
+            Positions = lastPositions.ToArray(), 
+            Rotations = lastRotations.ToArray(), 
+            ThrowInputs = throwInputChangeFrames.ToArray()
+        };
     }
 
     public void Reset()
@@ -56,5 +59,7 @@ public class PlayerRecording : MonoBehaviour
         timeLeftToRecord = FindObjectOfType<GameManager>().GetTimeLeft();
         lastPositions.Clear();
         lastRotations.Clear();
+        throwInputChangeFrames.Clear();
+        lastThrowInput = false;
     }
 }

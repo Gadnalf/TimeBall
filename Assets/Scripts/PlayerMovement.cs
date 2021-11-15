@@ -33,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool stunned;
 
+    private int frame;
+
     // Input
     PlayerControls controls;
     private float rotationInput = 0;
@@ -125,6 +127,7 @@ public class PlayerMovement : MonoBehaviour
         stunned = false;
 
         rb = GetComponent<Rigidbody>();
+        records = GetComponent<PlayerRecording>();
         playerNumber = GetComponent<PlayerData>().playerNumber;
 
         CooldownTimer[] cooldownTimers = FindObjectsOfType<CooldownTimer>();
@@ -218,7 +221,8 @@ public class PlayerMovement : MonoBehaviour
             dashCD --;
         }
 
-        records.RecordLocation();
+        records.RecordLocation(frame);
+        frame++;
     }
 
     // Update is called once per frame
@@ -239,6 +243,8 @@ public class PlayerMovement : MonoBehaviour
         cooldownTimer.AbilityEnabled();
         SetStunStatus(false);
         currentExplosionFrame = 0;
+
+        frame = 0;
 
         GetComponent<PlayerThrowBall>().Reset();
         GetComponent<PlayerRecording>().Reset();

@@ -5,6 +5,7 @@ public class CloneHitByBall : MonoBehaviour
     public int knockdownSpeed = 60;
 
     private GameObject ball;
+    private CloneController controller;
 
     // state info
     private bool cloneKnockdown;
@@ -17,6 +18,7 @@ public class CloneHitByBall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        controller = GetComponent<CloneController>();
         throwBall = false;
         cloneKnockdown = false;
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
@@ -67,14 +69,14 @@ public class CloneHitByBall : MonoBehaviour
             if (transform.localEulerAngles.z >= 90)
             {
                 cloneKnockdown = false;
-                GetComponent<CloneController>().Kill();
+                controller.Kill();
             }
         }
         else
         {
             // Start by fetching controller data
-            Quaternion targetRotation = GetComponent<CloneController>().GetNextRotation(timeSinceLastUpdate);
-            bool throwInput = GetComponent<CloneController>().throwInput;
+            Quaternion targetRotation = controller.GetNextRotation(timeSinceLastUpdate);
+            bool throwInput = controller.throwInput;
 
             // Check if ball gone
             if (ball && ball.transform.parent != transform)
@@ -90,12 +92,12 @@ public class CloneHitByBall : MonoBehaviour
 
                 if (throwInput)
                 {
-                    chargeBall += Time.deltaTime;
                     if (chargeBall > GameConfigurations.ballChargeTime)
                     {
                         ball.GetComponent<BallScript>().AddCharge();
                         chargeBall = 0;
                     }
+                    chargeBall += Time.deltaTime;
                 }
                 else if (chargeBall > 0)
                 {
@@ -122,32 +124,37 @@ public class CloneHitByBall : MonoBehaviour
                 if (!ball.transform.parent) {
                     ClaimBall(collision);
                     ball.GetComponent<BallScript>().SetMaxCharge();
-                }
 
-                BallScript ballScript = ball.GetComponent<BallScript>();
-                if (ballScript.IsHomingTarget(GetComponent<Rigidbody>()))
-                {
-                    throwBall = false;
-                }
-                else if (ballScript.GetHomingTarget() != null && ballScript.GetHomingTarget().GetComponent<PlayerData>().playerNumber == GetComponent<PlayerData>().playerNumber)
-                {
-                    throwBall = true;
-                    lockTarget = ballScript.GetHomingTarget();
-                }
-                else
-                {
-                    throwBall = true;
+                    BallScript ballScript = ball.GetComponent<BallScript>();
+                    if (ballScript.IsHomingTarget(GetComponent<Rigidbody>()))
+                    {
+                        throwBall = false;
+                    }
+                    else if (ballScript.GetHomingTarget() != null && ballScript.GetHomingTarget().GetComponent<PlayerData>().playerNumber == GetComponent<PlayerData>().playerNumber)
+                    {
+                        throwBall = true;
+                        lockTarget = ballScript.GetHomingTarget();
+                    }
+                    else
+                    {
+                        throwBall = true;
+                    }
                 }
             }
 
             // if ball is of no player's color
             else if (ballData.playerNumber == PlayerData.PlayerNumber.NoPlayer) {
+                ClaimBall(collision);
             }
 
             // if ball is of opponent's color
             else {
                 if (ball.transform.parent == null && ball.GetComponent<BallScript>().GetCharge() > 0) {
                     cloneKnockdown = true;
+                }
+                else
+                {
+                    ClaimBall(collision);
                 }
             }
         }

@@ -6578,9 +6578,11 @@ MonoBehaviour:
   - {fileID: -7833122166078350889, guid: 448ec3c0429378942a389c5265b7a784, type: 3}
   - {fileID: 5388235866837839550, guid: 6fc08efb2818bdd4d847a59f97b68b75, type: 3}
   playerControllers:
-  - {fileID: 7115374961479007411, guid: 01ccfdea8cab4b74bb2dddb584cdff0c, type: 3}
-  - {fileID: 1527515247598728361, guid: 707bd45bece4e9046ba15211270ee551, type: 3}
-  playerRecordings: []
+  - {fileID: 0}
+  - {fileID: 0}
+  playerRecordings:
+  - {fileID: 0}
+  - {fileID: 0}
   timer: {fileID: 1208929498}
   spawnPoints:
   - {fileID: 1583858271}

@@ -26,7 +26,7 @@ public static class CloneManager
 
     public static void KillClones()
     {
-        foreach (CloneController clone in GameObject.FindObjectsOfType<CloneController>())
+        foreach (CloneController clone in Object.FindObjectsOfType<CloneController>())
         {
             clone.Kill();
         }
@@ -61,7 +61,6 @@ public static class CloneManager
         public int RotationSkipFrames { get; set; }
         public Vector3[] Positions { get; set; }
         public Quaternion[] Rotations { get; set; }
-
         public int[] ThrowInputs { get; set; }
     }
 }
