@@ -39,7 +39,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""4e6c6d7a-aade-465f-bf68-ac6284ad24cd"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=0.5,y=0.5)"",
                     ""interactions"": """"
                 },
                 {

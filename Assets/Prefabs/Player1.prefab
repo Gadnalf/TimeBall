@@ -163,7 +163,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7b667c42b226e2e4abbdce77926ef4fe, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -271,8 +271,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.47640958, y: 2.103929, z: 1}
-  m_Center: {x: 0.021827146, y: 0.021096766, z: 0}
+  m_Size: {x: 0.47640958, y: 2.103929, z: 0.5727396}
+  m_Center: {x: 0.021827146, y: 0.021096706, z: -0.018337727}
 --- !u!1 &7115374962058494977
 GameObject:
   m_ObjectHideFlags: 0
