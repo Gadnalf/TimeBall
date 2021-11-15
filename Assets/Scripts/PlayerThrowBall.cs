@@ -51,6 +51,7 @@ public class PlayerThrowBall : MonoBehaviour
         controls.Gameplay.Lockon.canceled += ctx =>
         {
             lockInput = false;
+            passBall = false;
         };
     }
 
@@ -173,7 +174,8 @@ public class PlayerThrowBall : MonoBehaviour
         }
 
         // Send input to clone if necessary
-        else if (cloneWithBall && !lockedTarget)
+        //else if (cloneWithBall && !lockedTarget)
+        else if (cloneWithBall)
         {
             if (lockInput)
             {
@@ -181,6 +183,8 @@ public class PlayerThrowBall : MonoBehaviour
                 Debug.Log("Clone has set target");
                 cloneWithBall.Fire();
                 lockInput = false;
+                passBall = false;
+                lockedTarget = null;
             }
             else
             {
@@ -207,7 +211,7 @@ public class PlayerThrowBall : MonoBehaviour
                         playerClones.Add(clone);
                 }
 
-                Debug.Log(playerClones.Count);
+                //Debug.Log(playerClones.Count);
 
                 lockedTarget = GetClosestClone();
 
