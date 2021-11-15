@@ -94,7 +94,7 @@ public class CloneHitByBall : MonoBehaviour
                 {
                     if (chargeBall > GameConfigurations.ballChargeTime)
                     {
-                        ball.GetComponent<BallScript>().AddCharge();
+                        ball.GetComponent<BallScript>().AddCharge(2);
                         chargeBall = 0;
                     }
                     chargeBall += Time.deltaTime;
@@ -123,7 +123,7 @@ public class CloneHitByBall : MonoBehaviour
             if (ballData.playerNumber == GetComponent<PlayerData>().playerNumber) {
                 if (!ball.transform.parent) {
                     ClaimBall(collision);
-                    ball.GetComponent<BallScript>().SetMaxCharge();
+                    ball.GetComponent<BallScript>().AddCharge();
 
                     BallScript ballScript = ball.GetComponent<BallScript>();
                     if (ballScript.IsHomingTarget(GetComponent<Rigidbody>()))
@@ -161,7 +161,6 @@ public class CloneHitByBall : MonoBehaviour
         if (ball)
         {
             throwBall = true;
-            ball.GetComponent<BallScript>().AddCharge();
         }
     }
 
