@@ -1,9 +1,4 @@
-using System;
 using System.Collections.Generic;
-<<<<<<< HEAD
-=======
-using System.Linq;
->>>>>>> main
 using UnityEngine;
 using UnityEngine.InputSystem;
 

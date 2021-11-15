@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -72,7 +70,6 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < playerConfigs.Length; i++)
         {
-
             var player = Instantiate(playerPrefabs[i], spawnPoints[i].position, spawnPoints[i].rotation, gameObject.transform);
             player.GetComponent<PlayerMovement>().InitializePlayer(playerConfigs[i]);
             playerRecordings[i] = player.GetComponent<PlayerRecording>();
