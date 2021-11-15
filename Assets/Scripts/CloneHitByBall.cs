@@ -135,10 +135,6 @@ public class CloneHitByBall : MonoBehaviour
                         throwBall = true;
                         lockTarget = ballScript.GetHomingTarget();
                     }
-                    else
-                    {
-                        throwBall = true;
-                    }
                 }
             }
 
