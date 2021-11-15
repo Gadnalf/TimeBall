@@ -12,6 +12,7 @@ public class CloneHitByBall : MonoBehaviour
     private float timeSinceLastUpdate;
     private Rigidbody lockTarget;
     private PlayerThrowBall playerToNotify;
+    private float chargeBall;
 
     // Start is called before the first frame update
     void Start()
@@ -71,8 +72,9 @@ public class CloneHitByBall : MonoBehaviour
         }
         else
         {
-            // Start by fetching the rotation
+            // Start by fetching controller data
             Quaternion targetRotation = GetComponent<CloneController>().GetNextRotation(timeSinceLastUpdate);
+            bool throwInput = GetComponent<CloneController>().throwInput;
 
             // Check if ball gone
             if (ball && ball.transform.parent != transform)
@@ -85,6 +87,21 @@ public class CloneHitByBall : MonoBehaviour
             if (ball)
             {
                 playerToNotify.SetCloneWithBall(this);
+
+                if (throwInput)
+                {
+                    chargeBall += Time.deltaTime;
+                    if (chargeBall > GameConfigurations.ballChargeTime)
+                    {
+                        ball.GetComponent<BallScript>().AddCharge();
+                        chargeBall = 0;
+                    }
+                }
+                else if (chargeBall > 0)
+                {
+                    throwBall = true;
+                }
+
                 if (lockTarget)
                 {
                     Vector3 vectorTowardsTarget = new Vector3(lockTarget.transform.position.x, transform.position.y, lockTarget.transform.position.z) - transform.position;

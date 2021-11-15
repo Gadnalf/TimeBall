@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     private PlayerMovement[] playerControllers;
 
     [SerializeField]
+    private PlayerRecording[] playerRecordings;
+
+    [SerializeField]
     private TextMeshProUGUI timer;
 
     [SerializeField]
@@ -69,6 +72,7 @@ public class GameManager : MonoBehaviour
 
             var player = Instantiate(playerPrefabs[i], spawnPoints[i].position, spawnPoints[i].rotation, gameObject.transform);
             player.GetComponent<PlayerMovement>().InitializePlayer(playerConfigs[i]);
+            playerRecordings[i] = player.GetComponent<PlayerRecording>();
             playerControllers[i] = player.GetComponent<PlayerMovement>();
 
             foreach (GameObject goal in goals)
@@ -135,7 +139,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
 
-        CloneManager.Configure(clonePrefabs, playerControllers);
+        CloneManager.Configure(clonePrefabs, playerRecordings);
         foreach (PlayerMovement player in playerControllers) {
             player.GetComponent<PlayerMovement>().enabled = false;
         }

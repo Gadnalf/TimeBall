@@ -11,8 +11,8 @@ public class PlayerThrowBall : MonoBehaviour
     public float lockDistance = 10000;
 
     // Pass config
-    public int searchWidth = 15;
-    public float searchStep = 0.5f;
+    public int searchWidth = 100;
+    public float searchStep = 0.2f;
 
     // State info
     private bool throwBall = false;
@@ -30,6 +30,7 @@ public class PlayerThrowBall : MonoBehaviour
     private CooldownTimer dashCooldown;
 
     private PlayerConfig playerConfig;
+    private PlayerRecording records;
 
     private void Awake()
     {
@@ -106,6 +107,7 @@ public class PlayerThrowBall : MonoBehaviour
 
     private void FixedUpdate()
     {
+        records.RecordInput(throwInput);
         if (throwBall)
         {
             throwBall = false;
@@ -178,6 +180,7 @@ public class PlayerThrowBall : MonoBehaviour
                 List<Rigidbody> availableClones = new List<Rigidbody>();
 
                 Vector3 rayStart = transform.position;
+                Debug.Log("Offset:" + transform.position + transform.right);
                 for (int i = 1; i < searchWidth*2; i++)
                 {
                     float offset = i/2 * searchStep;
@@ -185,8 +188,8 @@ public class PlayerThrowBall : MonoBehaviour
                     {
                         offset *= -1;
                     }
-                    rayStart += new Vector3(0, offset, 0);
-                    Ray lockRay = new Ray(rayStart, transform.forward);
+                    rayStart += transform.position + (transform.right * offset);
+                    Ray lockRay = new Ray(rayStart, transform.forward); ;
                     RaycastHit[] hitInfos = Physics.RaycastAll(lockRay);
                     foreach (RaycastHit hitInfo in hitInfos)
                     {
@@ -196,7 +199,11 @@ public class PlayerThrowBall : MonoBehaviour
                         }
                     }
                 }
-                lockedTarget = availableClones[1];
+                if (availableClones.Count > 0)
+                {
+                    lockedTarget = availableClones[0];
+                    crosshair.SetTarget(lockedTarget);
+                }
             }
         }
         else if (!lockInput || !ball)

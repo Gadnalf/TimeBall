@@ -4,12 +4,12 @@ using UnityEngine;
 public static class CloneManager
 {
     private static GameObject[] clonePrefabs;
-    private static PlayerMovement[] players;
+    private static PlayerRecording[] players;
     private static int cloneCap = 3;
 
     private static Queue<CloneData> clones = new Queue<CloneData>();
 
-    public static void Configure(GameObject[] prefabs, PlayerMovement[] playerList, int cap = 3)
+    public static void Configure(GameObject[] prefabs, PlayerRecording[] playerList, int cap = 3)
     {
         clonePrefabs = prefabs;
         players = playerList;
@@ -18,14 +18,9 @@ public static class CloneManager
 
     public static void AddClones()
     {
-        foreach (PlayerMovement player in players)
+        foreach (PlayerRecording player in players)
         {
-            CloneData c = new CloneData() { Number = player.playerNumber, PositionSkipFrames = player.postionFramesToSkip, RotationSkipFrames = player.rotationFramesToSkip, Positions = player.lastPositions.ToArray(), Rotations = player.lastRotations.ToArray() };
-            clones.Enqueue(c);
-            if(clones.Count > cloneCap * 2)
-            {
-                clones.Dequeue();
-            }
+            clones.Enqueue(player.GetPlayerData());
         }
     }
 
@@ -50,10 +45,7 @@ public static class CloneManager
             }
             
             CloneController controller = newClone.GetComponent<CloneController>();
-            controller.directions = clone.Positions;
-            controller.rotations = clone.Rotations;
-            controller.rotationSkipFrames = clone.RotationSkipFrames;
-            controller.positionSkipFrames = clone.PositionSkipFrames;
+            controller.SetData(clone);
         }
     }
 
@@ -62,12 +54,14 @@ public static class CloneManager
         clones.Clear();
     }
 
-    private class CloneData
+    public class CloneData
     {
         public PlayerData.PlayerNumber Number { get; set; }
         public int PositionSkipFrames { get; set; }
         public int RotationSkipFrames { get; set; }
         public Vector3[] Positions { get; set; }
         public Quaternion[] Rotations { get; set; }
+
+        public int[] ThrowInputs { get; set; }
     }
 }
