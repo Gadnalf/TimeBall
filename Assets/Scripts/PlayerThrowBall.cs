@@ -87,19 +87,6 @@ public class PlayerThrowBall : MonoBehaviour
     void Start()
     {
         playerNumber = GetComponent<PlayerData>().playerNumber;
-        //CrosshairScript[] crosshairs = FindObjectsOfType<CrosshairScript>();
-        //foreach (CrosshairScript crosshair in crosshairs)
-        //{
-        //    if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerOne && crosshair.name.StartsWith("P1"))
-        //    {
-        //        this.crosshair = crosshair;
-        //    }
-        //    else if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerTwo && crosshair.name.StartsWith("P2"))
-        //    {
-        //        this.crosshair = crosshair;
-        //    }
-        //}
-
         scoringManager = FindObjectOfType<ScoringManager>();
 
         CooldownTimer[] dashCooldowns = FindObjectsOfType<CooldownTimer>();
@@ -135,10 +122,6 @@ public class PlayerThrowBall : MonoBehaviour
             Reset();
             throwBallSound.Play();
         }
-        //else if (ball && lockedTarget)
-        //{
-        //}
-        //Debug.Log(lockInput);
     }
 
     // Update is called once per frame
@@ -174,13 +157,12 @@ public class PlayerThrowBall : MonoBehaviour
         }
 
         // Send input to clone if necessary
-        //else if (cloneWithBall && !lockedTarget)
-        else if (cloneWithBall)
+        else if (cloneWithBall && !lockedTarget)
+        //else if (cloneWithBall)
         {
             if (lockInput)
             {
                 cloneWithBall.SetTarget(GetComponent<Rigidbody>());
-                Debug.Log("Clone has set target");
                 cloneWithBall.Fire();
                 lockInput = false;
                 passBall = false;
@@ -189,14 +171,13 @@ public class PlayerThrowBall : MonoBehaviour
             else
             {
                 cloneWithBall.SetTarget(null);
-                Debug.Log("Clone target is now null");
             }
 
-            //if (throwInput)
-            //{
-            //    cloneWithBall.Fire();
-            //    throwInput = false;
-            //}
+            if (throwInput)
+            {
+                cloneWithBall.Fire();
+                throwInput = false;
+            }
         }
 
         // Update lock on targets
@@ -211,30 +192,14 @@ public class PlayerThrowBall : MonoBehaviour
                         playerClones.Add(clone);
                 }
 
-                //Debug.Log(playerClones.Count);
 
                 lockedTarget = GetClosestClone();
-
-                //Ray lockRay = new Ray(transform.position, transform.forward);
-                //RaycastHit[] hitInfos = Physics.RaycastAll(lockRay, Mathf.Infinity);
-                //foreach (RaycastHit hitInfo in hitInfos)
-                //{
-                //    if (hitInfo.rigidbody && hitInfo.rigidbody.tag == "Clone" && hitInfo.rigidbody.GetComponent<PlayerData>().playerNumber == playerNumber)
-                //    {
-                //        lockedTarget = hitInfo.rigidbody;
-                //        //Debug.Log("passing");
-                //        //Debug.Log(lockedTarget.tag);
-                //        //crosshair.SetTarget(lockedTarget);
-                //        break;
-                //    }
-                //}
                 passBall = true;
             }
         }
         else if (!lockInput || !ball)
         {
             lockedTarget = null;
-            //crosshair.SetTarget(null);
         }
     }
 
@@ -359,7 +324,6 @@ public class PlayerThrowBall : MonoBehaviour
         chargeBall = 0;
         lockedTarget = null;
         playerClones.Clear();
-        //crosshair.SetTarget(null);
     }
 
     private void OnEnable()

@@ -18,7 +18,7 @@ public static class GameConfigurations
     public static float horizontalThrowingForce = 1000f;
     public static float verticalThrowingForce = 200f;
 
-    public static float speedBoostFactor = 2.5f;
+    public static float speedBoostFactor = 1.1f;
 
     public static float dashSpeed = 50f;
     public static int dashingFrame = 10;
