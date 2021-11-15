@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +8,10 @@ public class PlayerThrowBall : MonoBehaviour
     public PlayerData.PlayerNumber playerNumber;
     //private CrosshairScript crosshair;
     public float lockDistance = 10000;
+
+    // Pass config
+    public int searchWidth = 100;
+    public float searchStep = 0.2f;
 
     // State info
     private bool throwBall = false;
@@ -27,7 +29,10 @@ public class PlayerThrowBall : MonoBehaviour
 
     private CooldownTimer dashCooldown;
 
+    private int frame;
+
     private PlayerConfig playerConfig;
+    private PlayerRecording records;
 
     private GameObject[] clones;
     private List<GameObject> playerClones = new List<GameObject>();
@@ -85,7 +90,9 @@ public class PlayerThrowBall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        records = GetComponent<PlayerRecording>();
         playerNumber = GetComponent<PlayerData>().playerNumber;
+        clones = GameObject.FindGameObjectsWithTag("Clone");
         //CrosshairScript[] crosshairs = FindObjectsOfType<CrosshairScript>();
         //foreach (CrosshairScript crosshair in crosshairs)
         //{
@@ -131,13 +138,14 @@ public class PlayerThrowBall : MonoBehaviour
             throwForce += Vector3.up * GameConfigurations.verticalThrowingForce;
             ball.GetComponent<Rigidbody>().AddForce(throwForce);
             ball.GetComponent<BallScript>().SetHomingTarget(lockedTarget);
-            Reset();
+            ball = null;
+            chargeBall = 0;
+            lockedTarget = null;
             throwBallSound.Play();
         }
-        //else if (ball && lockedTarget)
-        //{
-        //}
-        //Debug.Log(lockInput);
+
+        records.RecordInput(throwInput, frame);
+        frame++;
     }
 
     // Update is called once per frame
@@ -146,7 +154,9 @@ public class PlayerThrowBall : MonoBehaviour
         // Check if ball gone
         if (ball && ball.transform.parent != transform)
         {
-            Reset();
+            ball = null;
+            chargeBall = 0;
+            lockedTarget = null;
             return;
         }
 
@@ -178,14 +188,12 @@ public class PlayerThrowBall : MonoBehaviour
             if (lockInput)
             {
                 cloneWithBall.SetTarget(GetComponent<Rigidbody>());
-                Debug.Log("Clone has set target");
                 cloneWithBall.Fire();
                 lockInput = false;
             }
             else
             {
                 cloneWithBall.SetTarget(null);
-                Debug.Log("Clone target is now null");
             }
 
             //if (throwInput)
@@ -200,14 +208,12 @@ public class PlayerThrowBall : MonoBehaviour
         {
             if (lockInput)
             {
-                clones = GameObject.FindGameObjectsWithTag("Clone");
+                playerClones.Clear();
                 foreach (GameObject clone in clones)
                 {
                     if (clone.GetComponent<PlayerData>().playerNumber == playerNumber)
                         playerClones.Add(clone);
                 }
-
-                Debug.Log(playerClones.Count);
 
                 lockedTarget = GetClosestClone();
 
@@ -354,8 +360,8 @@ public class PlayerThrowBall : MonoBehaviour
         ball = null;
         chargeBall = 0;
         lockedTarget = null;
-        playerClones.Clear();
-        //crosshair.SetTarget(null);
+        frame = 0;
+        clones = GameObject.FindGameObjectsWithTag("Clone");
     }
 
     private void OnEnable()

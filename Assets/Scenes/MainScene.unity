@@ -6580,6 +6580,9 @@ MonoBehaviour:
   playerControllers:
   - {fileID: 0}
   - {fileID: 0}
+  playerRecordings:
+  - {fileID: 0}
+  - {fileID: 0}
   timer: {fileID: 1208929498}
   spawnPoints:
   - {fileID: 1583858271}

@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 7115374961518105056}
   - component: {fileID: 7115374961479007404}
   - component: {fileID: 7115374961479007411}
+  - component: {fileID: 2895117463742061351}
   - component: {fileID: 1533811853056394656}
   m_Layer: 6
   m_Name: Player1
@@ -227,6 +228,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 1
   lockDistance: 10000
+  searchWidth: 100
+  searchStep: 0.2
 --- !u!114 &7115374961479007411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,9 +245,21 @@ MonoBehaviour:
   spawnLocation: {x: 0, y: 1, z: -14}
   spawnRotation: {x: 0, y: 0, z: 0}
   playerNumber: 1
+  stunText: {fileID: 4572244094758065422}
+--- !u!114 &2895117463742061351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7115374961518105058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53b912e44dfe54c41ad1e1ab24a9a8ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   postionFramesToSkip: 3
   rotationFramesToSkip: 3
-  stunText: {fileID: 4572244094758065422}
 --- !u!65 &1533811853056394656
 BoxCollider:
   m_ObjectHideFlags: 0
