@@ -105,21 +105,17 @@ public class CloneHitByBall : MonoBehaviour
                 if (!ball.transform.parent) {
                     ClaimBall(collision);
                     ball.GetComponent<BallScript>().SetMaxCharge();
-                }
 
-                BallScript ballScript = ball.GetComponent<BallScript>();
-                if (ballScript.IsHomingTarget(GetComponent<Rigidbody>()))
-                {
-                    throwBall = false;
-                }
-                else if (ballScript.GetHomingTarget() != null && ballScript.GetHomingTarget().GetComponent<PlayerData>().playerNumber == GetComponent<PlayerData>().playerNumber)
-                {
-                    throwBall = true;
-                    lockTarget = ballScript.GetHomingTarget();
-                }
-                else
-                {
-                    throwBall = true;
+                    BallScript ballScript = ball.GetComponent<BallScript>();
+                    if (ballScript.IsHomingTarget(GetComponent<Rigidbody>()))
+                    {
+                        throwBall = false;
+                    }
+                    else if (ballScript.GetHomingTarget() != null && ballScript.GetHomingTarget().GetComponent<PlayerData>().playerNumber == GetComponent<PlayerData>().playerNumber)
+                    {
+                        throwBall = true;
+                        lockTarget = ballScript.GetHomingTarget();
+                    }
                 }
             }
 
