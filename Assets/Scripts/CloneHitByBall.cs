@@ -57,6 +57,7 @@ public class CloneHitByBall : MonoBehaviour
                 lockTarget = null;
             }
             ball = null;
+            chargeBall = 0;
         }
         throwBall = false;
         timeSinceLastUpdate = 0;
@@ -91,22 +92,30 @@ public class CloneHitByBall : MonoBehaviour
                 return;
             }
 
+            // Charge the ball while input is held. When throw input is released, release the charge if the ball isn't held.
+            if (throwInput)
+            {
+                chargeBall += Time.deltaTime;
+            }
+            else if (!ball)
+            {
+                chargeBall = 0;
+            }
+
             if (ball)
             {
                 playerToNotify.SetCloneWithBall(this);
-
-                if (throwInput)
-                {
-                    if (chargeBall > GameConfigurations.ballChargeTime)
-                    {
-                        ball.GetComponent<BallScript>().AddCharge(2);
-                        chargeBall = 0;
-                    }
-                    chargeBall += Time.deltaTime;
-                }
-                else if (chargeBall > 0)
+                
+                // When throw input is released, if the ball is held and charged, throw the ball.
+                if (!throwInput && chargeBall > 0)
                 {
                     throwBall = true;
+
+                    if (chargeBall > GameConfigurations.ballChargeTime)
+                    {
+                        ball.GetComponent<BallScript>().AddCharge((int)(chargeBall / GameConfigurations.ballChargeTime) * 2);
+                        chargeBall = 0;
+                    }
                 }
 
                 if (lockTarget)

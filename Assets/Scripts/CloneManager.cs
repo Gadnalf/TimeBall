@@ -61,6 +61,7 @@ public static class CloneManager
     public class CloneData
     {
         public PlayerData.PlayerNumber Number { get; set; }
+        public int RoundNumber { get; set; }
         public int PositionSkipFrames { get; set; }
         public int RotationSkipFrames { get; set; }
         public Vector3[] Positions { get; set; }

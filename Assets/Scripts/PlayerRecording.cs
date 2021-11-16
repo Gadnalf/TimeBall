@@ -13,6 +13,9 @@ public class PlayerRecording : MonoBehaviour
     public Queue<int> throwInputChangeFrames = new Queue<int>();
     private bool lastThrowInput;
 
+    public Queue<(int, int?)> passTargetChangeFrames = new Queue<(int, int?)>();
+    private int? lastPassTarget;
+
     private float timeLeftToRecord = GameConfigurations.roundDuration;
 
     public void RecordLocation(int frame)
@@ -41,10 +44,20 @@ public class PlayerRecording : MonoBehaviour
         }
     }
 
+    public void RecordPassInput(int? passTargetId, int frame)
+    {
+        if (passTargetId != lastPassTarget)
+        {
+            passTargetChangeFrames.Enqueue((frame, passTargetId));
+            lastPassTarget = passTargetId;
+        }
+    }
+
     public CloneData GetPlayerData()
     {
-        return new CloneData() { 
-            Number = GetComponent<PlayerData>().playerNumber, 
+        return new CloneData() {
+            Number = GetComponent<PlayerData>().playerNumber,
+            RoundNumber = GetComponent<GameManager>().GetRoundNumber(),
             PositionSkipFrames = postionFramesToSkip, 
             RotationSkipFrames = rotationFramesToSkip, 
             Positions = lastPositions.ToArray(), 

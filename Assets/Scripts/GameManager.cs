@@ -289,6 +289,11 @@ public class GameManager : MonoBehaviour
         return timeRemaining;
     }
 
+    public int GetRoundNumber()
+    {
+        return roundNumber;
+    }
+
     private void OnEnable()
     {
         controls.MainMenu.Enable();

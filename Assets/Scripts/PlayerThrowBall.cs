@@ -113,6 +113,8 @@ public class PlayerThrowBall : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //int? passTargetId = lockedTarget?.GetComponent<CloneController>().cloneData.RoundNumber;
+
         if (throwBall || passBall)
         {
             throwBall = false;
@@ -132,6 +134,7 @@ public class PlayerThrowBall : MonoBehaviour
         }
 
         records.RecordInput(throwInput, frame);
+        //records.RecordPassInput(passTargetId, frame);
         frame++;
     }
 

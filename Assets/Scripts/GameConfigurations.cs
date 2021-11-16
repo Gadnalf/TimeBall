@@ -12,7 +12,7 @@ public static class GameConfigurations
 
     public static float ballDistance = 2f;
     public static float ballHeight = 0.5f;
-    public static float ballChargeTime = 1f;
+    public static float ballChargeTime = 0.3f;
     public static int maxBallCharge = 3;
     public static int cloneBaseCharge = 1;
     public static float cloneBaseChargeCDInSeconds = 5;
@@ -31,5 +31,5 @@ public static class GameConfigurations
     public static int goalExplosionFrame = 50;
 
     public static float stunningSpeed = 1f;
-    public static int stunningFrame = 50;
+    public static int stunningFrame = 10;
 }
