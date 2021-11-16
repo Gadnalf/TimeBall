@@ -5,9 +5,9 @@ public static class GameConfigurations
     public static float ballChargingMovementSpeed = 5f;
     public static float rotationSpeed = 400f;
 
-    public static float roundDuration = 10f;
-    public static float roundLengthIncrease = 10f;
-    public static float maxRoundLength = 30f;
+    public static float roundDuration = 25f;
+    public static float roundLengthIncrease = 0f;
+    public static float maxRoundLength = 25f;
     public static int numberOfRounds = 5;
 
     public static float ballDistance = 2f;
@@ -17,7 +17,7 @@ public static class GameConfigurations
     public static int cloneBaseCharge = 1;
     public static float cloneBaseChargeCDInSeconds = 5;
 
-    public static float horizontalThrowingForce = 1000f;
+    public static float horizontalThrowingForce = 1500f;
     public static float verticalThrowingForce = 200f;
 
     public static float speedBoostFactor = 1.1f;

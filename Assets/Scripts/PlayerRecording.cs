@@ -43,7 +43,6 @@ public class PlayerRecording : MonoBehaviour
 
     public CloneData GetPlayerData()
     {
-        Debug.Log(throwInputChangeFrames.ToArray());
         return new CloneData() { 
             Number = GetComponent<PlayerData>().playerNumber, 
             PositionSkipFrames = postionFramesToSkip, 

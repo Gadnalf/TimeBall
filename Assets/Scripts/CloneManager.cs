@@ -21,6 +21,10 @@ public static class CloneManager
         foreach (PlayerRecording player in players)
         {
             clones.Enqueue(player.GetPlayerData());
+            if (clones.Count > cloneCap * 2)
+            {
+                clones.Dequeue();
+            }
         }
     }
 
