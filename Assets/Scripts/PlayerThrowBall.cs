@@ -159,9 +159,9 @@ public class PlayerThrowBall : MonoBehaviour
                 chargeBall += Time.deltaTime;
                 if (chargeBall > GameConfigurations.ballChargeTime)
                 {
-                    if (ballScript.GetCharge() < GameConfigurations.maxBallCharge - 1) {
+                    if (ballScript.GetCharge() < GameConfigurations.maxBallCharge - 1)
                         ballScript.AddCharge();
-                    }
+
                     chargeBall = 0;
                 }
             }

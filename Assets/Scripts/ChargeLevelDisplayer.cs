@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using TMPro;
 
@@ -21,18 +20,20 @@ public class ChargeLevelDisplayer : MonoBehaviour
             playerNumber = PlayerData.PlayerNumber.PlayerOne;
         }
         else if (gameObject.name == "P2ChargeLevel") {
-
             transform.position = new Vector3(90, height / 2 + 30, 0);
             playerNumber = PlayerData.PlayerNumber.PlayerTwo;
         }
     }
 
     private void Update() {
-        if (ballScript.GetPlayerNumber() == playerNumber) {
+        if (ballScript.GetPlayerNumber() == playerNumber)
             chargeLevel.text = ballScript.GetCharge().ToString();
-        }
-        else {
+        else
             chargeLevel.text = "0";
-        }
+
+        if (chargeLevel.text == GameConfigurations.maxBallCharge.ToString())
+            chargeLevel.color = Color.red;
+        else
+            chargeLevel.color = Color.white;
     }
 }

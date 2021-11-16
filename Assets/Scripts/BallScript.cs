@@ -78,15 +78,12 @@ public class BallScript : MonoBehaviour
         return target == rb;
     }
 
-    public void AddCharge()
+    public void AddCharge(int num = 1)
     {
         if (charge < GameConfigurations.maxBallCharge)
-        {
-            charge++;
-        }
-        if (charge >= GameConfigurations.maxBallCharge) {
+            charge += num;
+        if (charge >= GameConfigurations.maxBallCharge)
             gameObject.layer = 8;
-        }
     }
 
     public void SetMaxCharge() {

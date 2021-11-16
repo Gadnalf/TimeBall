@@ -14,6 +14,8 @@ public static class GameConfigurations
     public static float ballHeight = 0.5f;
     public static float ballChargeTime = 1f;
     public static int maxBallCharge = 3;
+    public static int cloneBaseCharge = 1;
+    public static float cloneBaseChargeCDInSeconds = 5;
 
     public static float horizontalThrowingForce = 1000f;
     public static float verticalThrowingForce = 200f;

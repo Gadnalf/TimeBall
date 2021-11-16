@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class CloneHitByBall : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class CloneHitByBall : MonoBehaviour
     private float timeSinceLastUpdate;
     private Rigidbody lockTarget;
     private PlayerThrowBall playerToNotify;
+
+    private bool baseChargeOnCooldown;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +32,8 @@ public class CloneHitByBall : MonoBehaviour
         {
             Debug.LogError("Player discovery failed. It's probably an issue with either the player numbers or tags.");
         }
+
+        baseChargeOnCooldown = false;
     }
 
     private void FixedUpdate()
@@ -104,7 +109,13 @@ public class CloneHitByBall : MonoBehaviour
             if (ballData.playerNumber == GetComponent<PlayerData>().playerNumber) {
                 if (!ball.transform.parent) {
                     ClaimBall(collision);
-                    ball.GetComponent<BallScript>().SetMaxCharge();
+
+                    if (baseChargeOnCooldown == false)
+                    {
+                        ball.GetComponent<BallScript>().AddCharge(GameConfigurations.cloneBaseCharge);
+                        baseChargeOnCooldown = true;
+                        StartBaseChargeCD();
+                    }
 
                     BallScript ballScript = ball.GetComponent<BallScript>();
                     if (ballScript.IsHomingTarget(GetComponent<Rigidbody>()))
@@ -135,10 +146,7 @@ public class CloneHitByBall : MonoBehaviour
     public void Fire()
     {
         if (ball)
-        {
             throwBall = true;
-            ball.GetComponent<BallScript>().AddCharge();
-        }
     }
 
     public void SetTarget(Rigidbody target)
@@ -158,5 +166,17 @@ public class CloneHitByBall : MonoBehaviour
         ball.transform.localPosition = new Vector3(0, GameConfigurations.ballHeight, GameConfigurations.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;
         playerToNotify.SetCloneWithBall(this);
+    }
+
+    public void StartBaseChargeCD()
+    {
+        IEnumerator coroutine = coolDownCoroutine(GameConfigurations.cloneBaseChargeCDInSeconds);
+        StartCoroutine(coroutine);
+    }
+
+    private IEnumerator coolDownCoroutine(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        baseChargeOnCooldown = false;
     }
 }
