@@ -157,13 +157,14 @@ public class PlayerMovement : MonoBehaviour
         else {
             PlayerThrowBall playerBall = GetComponent<PlayerThrowBall>();
 
-            if (playerBall.CheckIfHasBall()) {
+            if (playerBall.CheckIfCharging())
+            {
+                movementVector = new Vector3(movement.x, 0, movement.y).normalized * ballChargingMovementSpeed;
+            }
 
-                if (playerBall.CheckIfCharging())
-                    movementVector = new Vector3(movement.x, 0, movement.y).normalized * ballChargingMovementSpeed;
-
-                else
-                    movementVector = new Vector3(movement.x, 0, movement.y).normalized * withBallMovementSpeed;
+            else if (playerBall.CheckIfHasBall())
+            {
+                movementVector = new Vector3(movement.x, 0, movement.y).normalized * withBallMovementSpeed;
             }
 
             else {

@@ -110,10 +110,10 @@ public class CloneHitByBall : MonoBehaviour
                 if (!throwInput && chargeBall > 0)
                 {
                     throwBall = true;
-
                     if (chargeBall > GameConfigurations.ballChargeTime)
                     {
-                        ball.GetComponent<BallScript>().AddCharge((int)(chargeBall / GameConfigurations.ballChargeTime) * 2);
+                        int chargeToAdd = (int)(chargeBall / GameConfigurations.ballChargeTime);
+                        ball.GetComponent<BallScript>().AddCharge(chargeToAdd);
                         chargeBall = 0;
                     }
                 }

@@ -16,7 +16,7 @@ public class PlayerThrowBall : MonoBehaviour
     // State info
     private bool throwBall = false;
     private bool passBall = false;
-    private float chargeBall;
+    private float throwHeldDown;
     private GameObject ball;
     private Rigidbody lockedTarget;
     private CloneHitByBall cloneWithBall;
@@ -25,7 +25,7 @@ public class PlayerThrowBall : MonoBehaviour
 
     PlayerControls controls;
     private bool throwInput = false;
-    private bool lockInput = false;
+    private bool passInput = false;
 
     private CooldownTimer dashCooldown;
 
@@ -55,7 +55,7 @@ public class PlayerThrowBall : MonoBehaviour
 
         controls.Gameplay.Lockon.canceled += ctx =>
         {
-            lockInput = false;
+            passInput = false;
             passBall = false;
         };
     }
@@ -85,7 +85,7 @@ public class PlayerThrowBall : MonoBehaviour
 
     public void OnLock(InputAction.CallbackContext context)
     {
-        lockInput = context.action.triggered;
+        passInput = context.action.triggered;
     }
 
     // Start is called before the first frame update
@@ -105,6 +105,16 @@ public class PlayerThrowBall : MonoBehaviour
             }
         }
 
+        ChargeBorderScript[] borders = FindObjectsOfType<ChargeBorderScript>();
+        foreach (ChargeBorderScript border in borders)
+        {
+            if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerOne && border.name.StartsWith("P1")
+                || GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerTwo && border.name.StartsWith("P2")) {
+                border.playerBallScript = this;
+                border.enabled = true;
+            }
+        }
+
         audioManager = FindObjectOfType<AudioManager>();
         runningWithoutBall = audioManager.GetAudio("Running");
         throwBallSound = audioManager.GetAudio("ThrowBall");
@@ -119,6 +129,8 @@ public class PlayerThrowBall : MonoBehaviour
         {
             throwBall = false;
             passBall = false;
+            throwInput = false;
+            passInput = false;
             ball.transform.parent = null;
             ball.GetComponent<PlayerData>().playerNumber = playerNumber;
             ball.GetComponent<Rigidbody>().isKinematic = false;
@@ -128,8 +140,8 @@ public class PlayerThrowBall : MonoBehaviour
             ball.GetComponent<Rigidbody>().AddForce(throwForce);
             ball.GetComponent<BallScript>().SetHomingTarget(lockedTarget);
             ball = null;
-            chargeBall = 0;
-            lockedTarget = null;
+            throwHeldDown = 0;
+            dashCooldown.AbilityEnabled();
             throwBallSound.Play();
         }
 
@@ -145,77 +157,88 @@ public class PlayerThrowBall : MonoBehaviour
         if (ball && ball.transform.parent != transform)
         {
             ball = null;
-            chargeBall = 0;
+            throwHeldDown = 0;
             lockedTarget = null;
             return;
         }
 
-        // Update throw inputs
-        if (ball)
+        // Increment hold time if throwInput is held
+        if (throwInput)
         {
-            BallScript ballScript = ball.GetComponent<BallScript>();
-            if (throwInput)
+            throwHeldDown += Time.deltaTime;
+        }
+        else
+        {
+            // If throw input was released
+            if (throwHeldDown > 0)
             {
-                chargeBall += Time.deltaTime;
-                if (chargeBall > GameConfigurations.ballChargeTime)
+                // If ball, charge and throw it
+                if (ball)
                 {
-                    if (ballScript.GetCharge() < GameConfigurations.maxBallCharge - 1)
-                        ballScript.AddCharge();
-
-                    chargeBall = 0;
+                    if (throwHeldDown > GameConfigurations.ballChargeTime)
+                    {
+                        int chargeToAdd = (int)(throwHeldDown / GameConfigurations.ballChargeTime);
+                        ball.GetComponent<BallScript>().AddCharge(chargeToAdd, GameConfigurations.maxBallCharge - 1);
+                        throwHeldDown = 0;
+                    }
+                    throwBall = true;
                 }
-            }
-            else if (chargeBall > 0)
-            {
-                throwBall = true;
-                dashCooldown.AbilityEnabled();
+                // If no ball
+                else
+                {
+                    // Send input to clone if exists
+                    if (cloneWithBall)
+                    {
+                        cloneWithBall.Fire();
+                    }
+                }
+                throwHeldDown = 0;
             }
         }
 
-        // Send input to clone if necessary
-        else if (cloneWithBall && !lockedTarget)
-        //else if (cloneWithBall)
+        if (passInput)
         {
-            if (lockInput)
+            // If locked target hasn't cleared, passInput has not been released or the pass hasn't happened yet.
+            if (!lockedTarget)
             {
-                cloneWithBall.SetTarget(GetComponent<Rigidbody>());
-                cloneWithBall.Fire();
-                lockInput = false;
-                passBall = false;
+                if (ball)
+                {
+                    playerClones.Clear();
+                    clones = GameObject.FindGameObjectsWithTag("Clone");
+                    foreach (GameObject clone in clones)
+                    {
+                        if (clone.GetComponent<PlayerData>().playerNumber == playerNumber)
+                            playerClones.Add(clone);
+                    }
+
+                    lockedTarget = GetClosestClone();
+                    if (lockedTarget)
+                    {
+                        passBall = true;
+                    }
+                }
+                else
+                {
+                    // If the clone has the ball instead
+                    if (cloneWithBall)
+                    {
+                        cloneWithBall.SetTarget(GetComponent<Rigidbody>());
+                        cloneWithBall.Fire();
+                    }
+                }
+            }
+        }
+        else
+        {
+            // Wait for pass to resolve before clearing locked target
+            if (!passBall)
+            {
                 lockedTarget = null;
-            }
-            else
-            {
-                cloneWithBall.SetTarget(null);
-            }
-
-            if (throwInput)
-            {
-                cloneWithBall.Fire();
-                throwInput = false;
-            }
-        }
-
-        // Update lock on targets
-        if (!lockedTarget && ball)
-        {
-            if (lockInput)
-            {
-                playerClones.Clear();
-                clones = GameObject.FindGameObjectsWithTag("Clone");
-                foreach (GameObject clone in clones)
+                if (cloneWithBall)
                 {
-                    if (clone.GetComponent<PlayerData>().playerNumber == playerNumber)
-                        playerClones.Add(clone);
+                    cloneWithBall.SetTarget(null);
                 }
-
-                lockedTarget = GetClosestClone();
-                passBall = true;
             }
-        }
-        else if (!lockInput || !ball)
-        {
-            lockedTarget = null;
         }
     }
 
@@ -235,9 +258,12 @@ public class PlayerThrowBall : MonoBehaviour
                 lockedTarget = clone.GetComponent<Rigidbody>();
                 angle = cloneAngle;
             }
-
         }
 
+        if (lockedTarget == null)
+        {
+            Debug.LogError("No clones located.");
+        }
         return lockedTarget;
     }
 
@@ -337,7 +363,7 @@ public class PlayerThrowBall : MonoBehaviour
     public void Reset()
     {
         ball = null;
-        chargeBall = 0;
+        throwHeldDown = 0;
         lockedTarget = null;
         frame = 0;
         clones = GameObject.FindGameObjectsWithTag("Clone");
@@ -363,6 +389,11 @@ public class PlayerThrowBall : MonoBehaviour
 
     public bool CheckIfCharging()
     {
-        return (chargeBall > 0 || throwInput);
+        return throwHeldDown > 0 || throwInput;
+    }
+
+    public int GetPotentialCharge()
+    {
+        return (int)(throwHeldDown / GameConfigurations.ballChargeTime);
     }
 }

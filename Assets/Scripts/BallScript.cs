@@ -78,9 +78,18 @@ public class BallScript : MonoBehaviour
         return target == rb;
     }
 
-    public void AddCharge(int chargeToAdd = 1)
+    public void AddCharge(int chargeToAdd = 1, int? cap = null)
     {
-        charge = Mathf.Min(GameConfigurations.maxBallCharge, charge + chargeToAdd);
+        int max;
+        if (cap == null)
+        {
+            max = GameConfigurations.maxBallCharge;
+        }
+        else
+        {
+            max = (int)cap;
+        }
+        charge = Mathf.Max(Mathf.Min(max, charge + chargeToAdd), charge);
 
         if (charge >= GameConfigurations.maxBallCharge)
             gameObject.layer = 8;
