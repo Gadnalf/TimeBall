@@ -129,8 +129,6 @@ public class PlayerThrowBall : MonoBehaviour
         {
             throwBall = false;
             passBall = false;
-            throwInput = false;
-            passInput = false;
             ball.transform.parent = null;
             ball.GetComponent<PlayerData>().playerNumber = playerNumber;
             ball.GetComponent<Rigidbody>().isKinematic = false;
