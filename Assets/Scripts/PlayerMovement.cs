@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public PlayerData.PlayerNumber playerNumber;
 
     private Rigidbody rb;
+    private PlayerRecording records;
 
     // State info
     private Vector2 movement;
@@ -32,13 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool stunned;
 
-    // Cloning
-    public Queue<Vector3> lastPositions;
-    public Queue<Quaternion> lastRotations;
-    private float timeLeftToRecord = GameConfigurations.roundDuration;
-    public int postionFramesToSkip = 3;
-    public int rotationFramesToSkip = 3;
-    private int frame = 0;
+    private int frame;
 
     // Input
     PlayerControls controls;
@@ -132,10 +127,8 @@ public class PlayerMovement : MonoBehaviour
         stunned = false;
 
         rb = GetComponent<Rigidbody>();
+        records = GetComponent<PlayerRecording>();
         playerNumber = GetComponent<PlayerData>().playerNumber;
-
-        lastPositions = new Queue<Vector3>();
-        lastRotations = new Queue<Quaternion>();
 
         CooldownTimer[] cooldownTimers = FindObjectsOfType<CooldownTimer>();
         foreach (CooldownTimer cooldownTimer in cooldownTimers) {
@@ -224,25 +217,12 @@ public class PlayerMovement : MonoBehaviour
 
         rb.velocity = transform.TransformDirection(vel);
 
-        if (timeLeftToRecord > 0)
-        {
-            timeLeftToRecord -= Time.deltaTime;
-            if (frame % (postionFramesToSkip + 1) == 0)
-            {
-                lastPositions.Enqueue(transform.position);
-            }
-
-            if (frame % (rotationFramesToSkip + 1) == 0)
-            {
-                lastRotations.Enqueue(transform.rotation);
-            }
-
-            frame++;
-        }
-
         if (dashCD != 0) {
             dashCD --;
         }
+
+        records.RecordLocation(frame);
+        frame++;
     }
 
     // Update is called once per frame
@@ -259,15 +239,15 @@ public class PlayerMovement : MonoBehaviour
         rb.transform.eulerAngles = spawnRotation;
         lastRotation = spawnRotation;
         rb.velocity = Vector3.zero;
-        timeLeftToRecord = FindObjectOfType<GameManager>().GetTimeLeft();
-        lastPositions.Clear();
-        lastRotations.Clear();
 
         cooldownTimer.AbilityEnabled();
         SetStunStatus(false);
         currentExplosionFrame = 0;
 
+        frame = 0;
+
         GetComponent<PlayerThrowBall>().Reset();
+        GetComponent<PlayerRecording>().Reset();
     }
 
 

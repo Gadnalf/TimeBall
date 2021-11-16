@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +11,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private PlayerMovement[] playerControllers;
+
+    [SerializeField]
+    private PlayerRecording[] playerRecordings;
 
     [SerializeField]
     private TextMeshProUGUI timer;
@@ -69,9 +70,9 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < playerConfigs.Length; i++)
         {
-
             var player = Instantiate(playerPrefabs[i], spawnPoints[i].position, spawnPoints[i].rotation, gameObject.transform);
             player.GetComponent<PlayerMovement>().InitializePlayer(playerConfigs[i]);
+            playerRecordings[i] = player.GetComponent<PlayerRecording>();
             playerControllers[i] = player.GetComponent<PlayerMovement>();
 
             foreach (GameObject goal in goals)
@@ -137,7 +138,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
 
-        CloneManager.Configure(clonePrefabs, playerControllers);
+        CloneManager.Configure(clonePrefabs, playerRecordings);
         foreach (PlayerMovement player in playerControllers) {
             player.GetComponent<PlayerMovement>().enabled = false;
         }
@@ -185,7 +186,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log("button work");
         gameStarted = true;
         gamePaused = false;
-        Time.timeScale = 1f;
+        Time.timeScale = 0.75f;
         timerIsRunning = true;
         timeRemaining = GameConfigurations.roundDuration;
         mainMenuPanel.SetActive(false);

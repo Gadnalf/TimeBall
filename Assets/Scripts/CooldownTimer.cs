@@ -38,7 +38,7 @@ public class CooldownTimer : MonoBehaviour
     private IEnumerator cooldownFill(float seconds) {
         while (coolDown.fillAmount > 0) {
             yield return new WaitForSeconds((float)1 / 50);
-            coolDown.fillAmount -= (float)1 / (50 * seconds);
+            coolDown.fillAmount -= 1 / (50 * seconds);
         }
     }
 }
