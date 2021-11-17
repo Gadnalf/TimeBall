@@ -17,7 +17,7 @@ public static class GameConfigurations
     public static int cloneBaseCharge = 1;
     public static float cloneBaseChargeCDInSeconds = 5;
 
-    public static float horizontalThrowingForce = 1500f;
+    public static float horizontalThrowingForce = 2000f;
     public static float verticalThrowingForce = 200f;
 
     public static float speedBoostFactor = 1.1f;

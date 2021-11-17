@@ -288,7 +288,6 @@ public class PlayerThrowBall : MonoBehaviour
             // if ball is of opponent's color
             else if (collision.gameObject.GetComponent<PlayerData>().playerNumber != playerNumber)
             {
-                
 
                 if (!collision.transform.parent) {
                     ballData.playerNumber = playerNumber;
@@ -300,12 +299,14 @@ public class PlayerThrowBall : MonoBehaviour
                     // tag ball
                     if (GetComponent<PlayerMovement>().GetDashStatus() == true) {
                         var opponent = collision.transform.parent;
-                        opponent.GetComponent<PlayerThrowBall>().dashCooldown.AbilityEnabled();
+                        if (opponent.tag == "Player") {
+                            opponent.GetComponent<PlayerThrowBall>().dashCooldown.AbilityEnabled();
+                            if (opponent.GetComponent<PlayerThrowBall>().CheckIfHasBall())
+                                opponent.GetComponent<PlayerThrowBall>().ReleaseBall();
+                        }
                         ClaimBall(collision);
                         ball.GetComponent<BallScript>().ClearCharge();
-                        if (opponent.GetComponent<PlayerThrowBall>().CheckIfHasBall()) {
-                            opponent.GetComponent<PlayerThrowBall>().ReleaseBall();
-                        }
+                        
                     }
                 }
             }
@@ -322,14 +323,20 @@ public class PlayerThrowBall : MonoBehaviour
         else if (collision.transform.tag == "Player" && GetComponent<PlayerMovement>().GetDashStatus() == true) {
             var opponentBall = collision.gameObject.GetComponent<PlayerThrowBall>().ball;
             
-                Debug.Log("Stunning opponent player.");
+            Debug.Log("Stunning opponent player.");
 
             if (opponentBall != null) {
                 opponentBall.transform.parent = null;
-                opponentBall.GetComponent<Rigidbody>().isKinematic = false;
-                opponentBall.GetComponent<Rigidbody>().AddForce(transform.forward * GameConfigurations.horizontalThrowingForce / 50);
                 collision.gameObject.GetComponent<PlayerThrowBall>().dashCooldown.AbilityEnabled();
                 collision.gameObject.GetComponent<PlayerThrowBall>().ReleaseBall();
+                ball = opponentBall;
+                ball.GetComponent<PlayerData>().playerNumber = playerNumber;
+
+                // Pick up ball
+                opponentBall.transform.parent = transform;
+                opponentBall.transform.localPosition = new Vector3(0, GameConfigurations.ballHeight, GameConfigurations.ballDistance);
+                ball.GetComponent<Rigidbody>().isKinematic = true;
+                dashCooldown.AbilityDisabled();
             }
 
             collision.gameObject.GetComponent<PlayerMovement>().SetStunStatus(true);
@@ -343,7 +350,7 @@ public class PlayerThrowBall : MonoBehaviour
         cloneWithBall = clone;
     }
 
-    private void ClaimBall(Collision collision) {
+    public void ClaimBall(Collision collision) {
         // Set ball attributes to current player
         ball = collision.gameObject;
         ball.GetComponent<PlayerData>().playerNumber = playerNumber;
@@ -353,9 +360,6 @@ public class PlayerThrowBall : MonoBehaviour
         ball.transform.localPosition = new Vector3(0, GameConfigurations.ballHeight, GameConfigurations.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;
         dashCooldown.AbilityDisabled();
-
-        if (runningWithoutBall.isPlaying)
-            runningWithoutBall.Stop();
     }
 
     public void Reset()

@@ -15,12 +15,10 @@ public class ChargeBorderScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerBallScript.GetPotentialCharge() >= GameConfigurations.maxBallCharge - 1)
-        {
+        if (playerBallScript.GetPotentialCharge() >= GameConfigurations.maxBallCharge - 1) {
             border.enabled = true;
         }
-        else
-        {
+        else {
             border.enabled = false;
         }
     }

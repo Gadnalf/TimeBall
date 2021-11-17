@@ -81,12 +81,10 @@ public class BallScript : MonoBehaviour
     public void AddCharge(int chargeToAdd = 1, int? cap = null)
     {
         int max;
-        if (cap == null)
-        {
+        if (cap == null) {
             max = GameConfigurations.maxBallCharge;
         }
-        else
-        {
+        else {
             max = (int)cap;
         }
         charge = Mathf.Max(Mathf.Min(max, charge + chargeToAdd), charge);
