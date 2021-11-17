@@ -66,6 +66,7 @@ public class BallScript : MonoBehaviour
     {
         this.target = target;
         homing = target;
+        Debug.Log("SetHoming: " + homing + target);
     }
 
     public Rigidbody GetHomingTarget()

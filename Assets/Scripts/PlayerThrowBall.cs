@@ -128,7 +128,6 @@ public class PlayerThrowBall : MonoBehaviour
         {
             throwBall = false;
             passBall = false;
-            lockedTarget = null;
             ball.transform.parent = null;
             ball.GetComponent<PlayerData>().playerNumber = playerNumber;
             ball.GetComponent<Rigidbody>().isKinematic = false;
@@ -138,6 +137,7 @@ public class PlayerThrowBall : MonoBehaviour
             ball.GetComponent<Rigidbody>().AddForce(throwForce);
             ball.GetComponent<BallScript>().SetHomingTarget(lockedTarget);
             ball = null;
+            lockedTarget = null;
             throwHeldDown = 0;
             dashCooldown.AbilityEnabled();
             throwBallSound.Play();
@@ -212,7 +212,7 @@ public class PlayerThrowBall : MonoBehaviour
                     }
 
                     lockedTarget = GetClosestClone();
-                    if (lockedTarget)
+                    if (lockedTarget != null)
                     {
                         passBall = true;
                     }
