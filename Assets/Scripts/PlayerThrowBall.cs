@@ -136,6 +136,7 @@ public class PlayerThrowBall : MonoBehaviour
             throwForce += Vector3.up * GameConfigurations.verticalThrowingForce;
             ball.GetComponent<Rigidbody>().AddForce(throwForce);
             ball.GetComponent<BallScript>().SetHomingTarget(lockedTarget);
+            lockedTarget?.GetComponent<CloneController>().Pause();
             ball = null;
             lockedTarget = null;
             throwHeldDown = 0;

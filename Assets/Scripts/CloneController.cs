@@ -10,6 +10,7 @@ public class CloneController : MonoBehaviour
     private Rigidbody rb;
     private int frame;
     private Vector3 nextPos;
+    private int paused;
     public bool throwInput { get; private set; }
     private int nextThrowInputChange;
 
@@ -45,7 +46,14 @@ public class CloneController : MonoBehaviour
             Vector3 partialMove = transform.position + (nextPos - transform.position)/(cloneData.PositionSkipFrames + 1);
             //Debug.Log(partialMove);
             rb.MovePosition(partialMove);
-            frame++;
+            if (paused <= 0)
+            {
+                frame++;
+            }
+            else
+            {
+                paused -= 1;
+            }
         }
     }
 
@@ -60,6 +68,16 @@ public class CloneController : MonoBehaviour
     public void SetData(CloneData cloneData)
     {
         this.cloneData = cloneData;
+    }
+
+    public void Pause()
+    {
+        paused = GameConfigurations.cloneMaxPauseFrames;
+    }
+
+    public void Unpause()
+    {
+        paused = 0;
     }
 
     public void Kill()

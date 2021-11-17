@@ -199,6 +199,7 @@ public class CloneHitByBall : MonoBehaviour
         ball.transform.localPosition = new Vector3(0, GameConfigurations.ballHeight, GameConfigurations.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;
         playerToNotify.SetCloneWithBall(this);
+        controller.Unpause();
     }
 
     public void StartBaseChargeCD()
