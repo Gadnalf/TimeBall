@@ -246,13 +246,13 @@ public class PlayerThrowBall : MonoBehaviour
     private Rigidbody GetClosestClone()
     {
         lockedTarget = null;
-        float angle = Mathf.Infinity;
+        float angle = GameConfigurations.passAngle/2;
 
         foreach (GameObject clone in playerClones)
         {
             Vector3 cloneDirection = DirectionTo(clone);
 
-            float cloneAngle = Vector3.Angle(transform.forward, cloneDirection);
+            float cloneAngle = Mathf.Abs(Vector3.Angle(transform.forward, cloneDirection));
 
             if (cloneAngle < angle)
             {

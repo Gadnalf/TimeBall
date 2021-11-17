@@ -4,6 +4,7 @@ public static class GameConfigurations
     public static float withBallMovementSpeed = 17.5f;
     public static float ballChargingMovementSpeed = 5f;
     public static float rotationSpeed = 400f;
+    public static float passAngle = 90f;
 
     public static float roundDuration = 25f;
     public static float roundLengthIncrease = 0f;
