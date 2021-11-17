@@ -17,6 +17,7 @@ public class PlayerThrowBall : MonoBehaviour
     private bool throwBall = false;
     private bool passBall = false;
     private float throwHeldDown;
+    private bool passHeldDown;
     private GameObject ball;
     private Rigidbody lockedTarget;
     private CloneHitByBall cloneWithBall;
@@ -40,7 +41,6 @@ public class PlayerThrowBall : MonoBehaviour
     // sound effects
     [HideInInspector]
     public AudioManager audioManager;
-    private AudioSource runningWithoutBall;
     private AudioSource throwBallSound;
     private AudioSource stunSound;
 
@@ -116,7 +116,6 @@ public class PlayerThrowBall : MonoBehaviour
         }
 
         audioManager = FindObjectOfType<AudioManager>();
-        runningWithoutBall = audioManager.GetAudio("Running");
         throwBallSound = audioManager.GetAudio("ThrowBall");
         stunSound = audioManager.GetAudio("Stunning");
     }
@@ -129,6 +128,7 @@ public class PlayerThrowBall : MonoBehaviour
         {
             throwBall = false;
             passBall = false;
+            lockedTarget = null;
             ball.transform.parent = null;
             ball.GetComponent<PlayerData>().playerNumber = playerNumber;
             ball.GetComponent<Rigidbody>().isKinematic = false;
@@ -165,9 +165,9 @@ public class PlayerThrowBall : MonoBehaviour
         {
             throwHeldDown += Time.deltaTime;
         }
+        // If throw input was released
         else
         {
-            // If throw input was released
             if (throwHeldDown > 0)
             {
                 // If ball, charge and throw it
@@ -194,11 +194,13 @@ public class PlayerThrowBall : MonoBehaviour
             }
         }
 
+        // Pass input is held
         if (passInput)
         {
-            // If locked target hasn't cleared, passInput has not been released or the pass hasn't happened yet.
-            if (!lockedTarget)
+            // If passHeldDown hasn't cleared, passInput has not been released or the pass hasn't happened yet.
+            if (!passHeldDown)
             {
+                passHeldDown = true;
                 if (ball)
                 {
                     playerClones.Clear();
@@ -226,12 +228,13 @@ public class PlayerThrowBall : MonoBehaviour
                 }
             }
         }
+        // Pass input is released
         else
         {
             // Wait for pass to resolve before clearing locked target
             if (!passBall)
             {
-                lockedTarget = null;
+                passHeldDown = false;
                 if (cloneWithBall)
                 {
                     cloneWithBall.SetTarget(null);
