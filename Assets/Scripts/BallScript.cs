@@ -43,8 +43,8 @@ public class BallScript : MonoBehaviour
 
     private void UpdateShield()
     {
-        switch (charge >= GameConfigurations.maxBallCharge) {
-            case true: 
+        switch (charge >= GameConfigurations.goalShieldBreakableCharge) {
+            case true:
                 shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.one * 0.3f);
                 break;
             default:

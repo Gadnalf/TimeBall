@@ -14,7 +14,8 @@ public class CloneHitByBall : MonoBehaviour
     private float timeSinceLastUpdate;
     private Rigidbody lockTarget;
     private PlayerThrowBall playerToNotify;
-    private float chargeBall;
+    private float holdThrow;
+    private float chargeTime;
 
     private bool baseChargeOnCooldown;
 
@@ -37,10 +38,20 @@ public class CloneHitByBall : MonoBehaviour
         }
 
         baseChargeOnCooldown = false;
+        chargeTime = 0;
     }
 
     private void FixedUpdate()
     {
+        if (ball != null) {
+            chargeTime += Time.deltaTime;
+
+            if (chargeTime > GameConfigurations.ballChargeTime) {
+                ball.GetComponent<BallScript>().AddCharge(1, GameConfigurations.maxBallCharge);
+                chargeTime = 0;
+            }
+        }
+
         if (throwBall && ball)
         {
             playerToNotify.SetCloneWithBall(null);
@@ -57,7 +68,7 @@ public class CloneHitByBall : MonoBehaviour
                 lockTarget = null;
             }
             ball = null;
-            chargeBall = 0;
+            holdThrow = 0;
         }
         throwBall = false;
         timeSinceLastUpdate = 0;
@@ -95,11 +106,11 @@ public class CloneHitByBall : MonoBehaviour
             // Charge the ball while input is held. When throw input is released, release the charge if the ball isn't held.
             if (throwInput)
             {
-                chargeBall += Time.deltaTime;
+                holdThrow += Time.deltaTime;
             }
             else if (!ball)
             {
-                chargeBall = 0;
+                holdThrow = 0;
             }
 
             if (ball)
@@ -107,15 +118,10 @@ public class CloneHitByBall : MonoBehaviour
                 playerToNotify.SetCloneWithBall(this);
                 
                 // When throw input is released, if the ball is held and charged, throw the ball.
-                if (!throwInput && chargeBall > 0)
+                if (!throwInput && holdThrow > 0)
                 {
                     throwBall = true;
-                    if (chargeBall > GameConfigurations.ballChargeTime)
-                    {
-                        int chargeToAdd = (int)(chargeBall / GameConfigurations.ballChargeTime);
-                        ball.GetComponent<BallScript>().AddCharge(chargeToAdd);
-                        chargeBall = 0;
-                    }
+                    holdThrow = 0;
                 }
 
                 if (lockTarget)
@@ -200,6 +206,7 @@ public class CloneHitByBall : MonoBehaviour
         ball.GetComponent<Rigidbody>().isKinematic = true;
         playerToNotify.SetCloneWithBall(this);
         controller.Unpause();
+        chargeTime = 0;
     }
 
     public void StartBaseChargeCD()

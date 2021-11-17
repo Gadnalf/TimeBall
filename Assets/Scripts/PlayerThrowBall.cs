@@ -17,6 +17,7 @@ public class PlayerThrowBall : MonoBehaviour
     private bool throwBall = false;
     private bool passBall = false;
     private float throwHeldDown;
+    private float chargeTime;
     private bool passHeldDown;
     private GameObject ball;
     private Rigidbody lockedTarget;
@@ -120,12 +121,19 @@ public class PlayerThrowBall : MonoBehaviour
         stunSound = audioManager.GetAudio("Stunning");
     }
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         //int? passTargetId = lockedTarget?.GetComponent<CloneController>().cloneData.RoundNumber;
 
-        if (throwBall || passBall)
-        {
+        if (ball != null) {
+            chargeTime += Time.deltaTime;
+
+            if (chargeTime > GameConfigurations.ballChargeTime) {
+                ball.GetComponent<BallScript>().AddCharge(1, GameConfigurations.goalShieldBreakableCharge - 1);
+                chargeTime = 0;
+            }
+        }
+
+        if (throwBall || passBall) {
             throwBall = false;
             passBall = false;
             ball.transform.parent = null;
@@ -140,6 +148,7 @@ public class PlayerThrowBall : MonoBehaviour
             ball = null;
             lockedTarget = null;
             throwHeldDown = 0;
+            chargeTime = 0;
             dashCooldown.AbilityEnabled();
             throwBallSound.Play();
         }
@@ -147,6 +156,7 @@ public class PlayerThrowBall : MonoBehaviour
         records.RecordInput(throwInput, frame);
         //records.RecordPassInput(passTargetId, frame);
         frame++;
+
     }
 
     // Update is called once per frame
@@ -172,14 +182,8 @@ public class PlayerThrowBall : MonoBehaviour
             if (throwHeldDown > 0)
             {
                 // If ball, charge and throw it
-                if (ball)
-                {
-                    if (throwHeldDown > GameConfigurations.ballChargeTime)
-                    {
-                        int chargeToAdd = (int)(throwHeldDown / GameConfigurations.ballChargeTime);
-                        ball.GetComponent<BallScript>().AddCharge(chargeToAdd, GameConfigurations.maxBallCharge - 1);
-                        throwHeldDown = 0;
-                    }
+                if (ball) {
+                    throwHeldDown = 0;
                     throwBall = true;
                 }
                 // If no ball
@@ -364,6 +368,7 @@ public class PlayerThrowBall : MonoBehaviour
         ball.transform.localPosition = new Vector3(0, GameConfigurations.ballHeight, GameConfigurations.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;
         dashCooldown.AbilityDisabled();
+        chargeTime = 0;
     }
 
     public void Reset()
@@ -372,6 +377,7 @@ public class PlayerThrowBall : MonoBehaviour
         throwHeldDown = 0;
         lockedTarget = null;
         frame = 0;
+        chargeTime = 0;
         clones = GameObject.FindGameObjectsWithTag("Clone");
     }
 
