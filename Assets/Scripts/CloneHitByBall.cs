@@ -196,7 +196,7 @@ public class CloneHitByBall : MonoBehaviour
         // If the clone is not currently throwing the ball, set target
         if (!throwBall)
         {
-            this.lockTarget = target;
+            lockTarget = target;
         }
     }
 
