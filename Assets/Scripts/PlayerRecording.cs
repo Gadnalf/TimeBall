@@ -60,8 +60,8 @@ public class PlayerRecording : MonoBehaviour
     {
         if (guardInput != lastGuardInput)
         {
-            throwInputChangeFrames.Enqueue(frame);
-            lastThrowInput = guardInput;
+            guardInputChangeFrames.Enqueue(frame);
+            lastGuardInput = guardInput;
         }
     }
 
