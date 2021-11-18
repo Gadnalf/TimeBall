@@ -22,6 +22,7 @@ public class PlayerThrowBall : MonoBehaviour
     private GameObject ball;
     private Rigidbody lockedTarget;
     private CloneHitByBall cloneWithBall;
+    private PlayerGuard guardScript;
 
     private ScoringManager scoringManager;
 
@@ -32,7 +33,6 @@ public class PlayerThrowBall : MonoBehaviour
     private CooldownTimer dashCooldown;
 
     private int frame;
-
     private PlayerConfig playerConfig;
     private PlayerRecording records;
 
@@ -94,6 +94,7 @@ public class PlayerThrowBall : MonoBehaviour
     {
         records = GetComponent<PlayerRecording>();
         playerNumber = GetComponent<PlayerData>().playerNumber;
+        guardScript = GetComponentInChildren<PlayerGuard>();
         scoringManager = FindObjectOfType<ScoringManager>();
 
         CooldownTimer[] dashCooldowns = FindObjectsOfType<CooldownTimer>();
@@ -153,7 +154,7 @@ public class PlayerThrowBall : MonoBehaviour
             throwBallSound.Play();
         }
 
-        records.RecordInput(throwInput, frame);
+        records.RecordThrowInput(throwInput, frame);
         //records.RecordPassInput(passTargetId, frame);
         frame++;
 
@@ -283,13 +284,13 @@ public class PlayerThrowBall : MonoBehaviour
         // if not holding ball and object is ball
         if (!ball && collision.transform.tag == "Ball")
         {
-            //Debug.Log("balldetected");
-            PlayerData ballData = collision.gameObject.GetComponent<PlayerData>();
+            ball = collision.gameObject;
+            PlayerData ballData = ball.GetComponent<PlayerData>();
 
             // if ball is not of player's color
             if (collision.gameObject.GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.NoPlayer) {
                 ///Debug.Log("Claiming un-owned ball");
-                ClaimBall(collision);
+                ClaimBall(ball);
                 ball.GetComponent<BallScript>().ClearCharge();
             }
 
@@ -300,7 +301,7 @@ public class PlayerThrowBall : MonoBehaviour
                 if (!collision.transform.parent) {
                     ballData.playerNumber = playerNumber;
                     scoringManager.SetCurrentPlayer(playerNumber);
-                    ClaimBall(collision);
+                    ClaimBall(ball);
                     ball.GetComponent<BallScript>().ClearCharge();
                 }
                 else {
@@ -312,7 +313,7 @@ public class PlayerThrowBall : MonoBehaviour
                             if (opponent.GetComponent<PlayerThrowBall>().CheckIfHasBall())
                                 opponent.GetComponent<PlayerThrowBall>().ReleaseBall();
                         }
-                        ClaimBall(collision);
+                        ClaimBall(ball);
                         ball.GetComponent<BallScript>().ClearCharge();
                         
                     }
@@ -322,7 +323,7 @@ public class PlayerThrowBall : MonoBehaviour
             // if ball is of player's color
             else {
                 if (GetComponent<PlayerMovement>().GetStunStatus() == false) {
-                    ClaimBall(collision);
+                    ClaimBall(ball);
                 }
             }
         }
@@ -358,9 +359,9 @@ public class PlayerThrowBall : MonoBehaviour
         cloneWithBall = clone;
     }
 
-    public void ClaimBall(Collision collision) {
+    public void ClaimBall(GameObject ball) {
         // Set ball attributes to current player
-        ball = collision.gameObject;
+        this.ball = ball;
         ball.GetComponent<PlayerData>().playerNumber = playerNumber;
 
         // Pick up ball
@@ -403,6 +404,11 @@ public class PlayerThrowBall : MonoBehaviour
     {
         return throwHeldDown > 0 || throwInput;
     }*/
+
+    public bool CheckIfGuarding()
+    {
+        return guardScript.IsGuarding();
+    }
 
     public int GetPotentialCharge()
     {
