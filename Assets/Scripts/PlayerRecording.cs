@@ -16,6 +16,9 @@ public class PlayerRecording : MonoBehaviour
     public Queue<(int, int?)> passTargetChangeFrames = new Queue<(int, int?)>();
     private int? lastPassTarget;
 
+    public Queue<int> guardInputChangeFrames = new Queue<int>();
+    private bool lastGuardInput;
+
     private float timeLeftToRecord = GameConfigurations.roundDuration;
 
     public void RecordLocation(int frame)
@@ -35,7 +38,7 @@ public class PlayerRecording : MonoBehaviour
         }
     }
 
-    public void RecordInput(bool throwInput, int frame)
+    public void RecordThrowInput(bool throwInput, int frame)
     {
         if (throwInput != lastThrowInput)
         {
@@ -53,6 +56,15 @@ public class PlayerRecording : MonoBehaviour
         }
     }
 
+    public void RecordGuardInput(bool guardInput, int frame)
+    {
+        if (guardInput != lastGuardInput)
+        {
+            guardInputChangeFrames.Enqueue(frame);
+            lastGuardInput = guardInput;
+        }
+    }
+
     public CloneData GetPlayerData()
     {
         return new CloneData() {
@@ -62,7 +74,8 @@ public class PlayerRecording : MonoBehaviour
             RotationSkipFrames = rotationFramesToSkip, 
             Positions = lastPositions.ToArray(), 
             Rotations = lastRotations.ToArray(), 
-            ThrowInputs = throwInputChangeFrames.ToArray()
+            ThrowInputs = throwInputChangeFrames.ToArray(),
+            GuardInputs = guardInputChangeFrames.ToArray()
         };
     }
 
@@ -73,5 +86,7 @@ public class PlayerRecording : MonoBehaviour
         lastRotations.Clear();
         throwInputChangeFrames.Clear();
         lastThrowInput = false;
+        lastPassTarget = null;
+        lastGuardInput = false;
     }
 }

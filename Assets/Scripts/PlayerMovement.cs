@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     // State info
     private Vector2 movement;
+    private Vector3 currentVelocity;
     private int dashingFrame;
     private Vector3 lastRotation;
     private int dashCD;
@@ -73,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
     {
         playerConfig = pc;
         GetComponent<PlayerThrowBall>().InitializePlayerConfig(pc);
+        GetComponentInChildren<PlayerGuard>().InitializePlayerConfig(pc);
         playerConfig.Input.onActionTriggered += Input_onActionTriggered;
     }
 
@@ -154,23 +156,21 @@ public class PlayerMovement : MonoBehaviour
         }
         else {
             PlayerThrowBall playerBall = GetComponent<PlayerThrowBall>();
-
-            /*if (playerBall.CheckIfCharging()) {
-                movementVector = new Vector3(movement.x, 0, movement.y).normalized * ballChargingMovementSpeed;
-
-                if (runningWithoutBall.isPlaying)
-                    runningWithoutBall.Stop();
-            }*/
-
-            if (playerBall.CheckIfHasBall()) {
+            movementVector = new Vector3(movement.x, 0, movement.y).normalized;
+            if (playerBall.CheckIfGuarding())
+            {
+                float adjustedSpeed = currentVelocity.magnitude * GameConfigurations.haltRate;
+                movementVector *= adjustedSpeed;
+            }
+            else if (playerBall.CheckIfHasBall()) {
                 movementVector = new Vector3(movement.x, 0, movement.y).normalized * withBallMovementSpeed;
             }
-
             else {
-                movementVector = new Vector3(movement.x, 0, movement.y).normalized * baseMovementSpeed;
-
+                movementVector *= baseMovementSpeed;
                 if (runningWithoutBall.isPlaying == false)
+                {
                     runningWithoutBall.Play();
+                }
             }
         }
         
@@ -210,12 +210,11 @@ public class PlayerMovement : MonoBehaviour
             movementVector += dashVector;
         }
 
-        Vector3 vel;
-        vel.x = movementVector.x;
-        vel.y = 0;
-        vel.z = movementVector.z;
+        currentVelocity.x = movementVector.x;
+        currentVelocity.y = 0;
+        currentVelocity.z = movementVector.z;
 
-        rb.velocity = transform.TransformDirection(vel);
+        rb.velocity = transform.TransformDirection(currentVelocity);
 
         if (dashCD != 0) {
             dashCD --;
@@ -248,6 +247,7 @@ public class PlayerMovement : MonoBehaviour
 
         GetComponent<PlayerThrowBall>().Reset();
         GetComponent<PlayerRecording>().Reset();
+        GetComponentInChildren<PlayerGuard>().Reset();
 
         runningWithoutBall.Stop();
     }
