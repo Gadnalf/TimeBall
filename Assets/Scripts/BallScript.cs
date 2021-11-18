@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class BallScript : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class BallScript : MonoBehaviour
     private bool homing;
     private int charge;
 
+    public HashSet<int> uniqueClones = new HashSet<int>();
+
     private AudioManager audioManager;
 
     // Start is called before the first frame update
@@ -20,6 +23,7 @@ public class BallScript : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerData = GetComponent<PlayerData>();
         audioManager = FindObjectOfType<AudioManager>();
+        uniqueClones = new HashSet<int>();
     }
 
     private void FixedUpdate()
@@ -104,6 +108,7 @@ public class BallScript : MonoBehaviour
     {
         charge = 0;
         gameObject.layer = 0;
+        uniqueClones.Clear();
     }
 
     public int GetCharge() {

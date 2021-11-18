@@ -47,7 +47,7 @@ public class CloneHitByBall : MonoBehaviour
             chargeTime += Time.deltaTime;
 
             if (chargeTime > GameConfigurations.ballChargeTime) {
-                ball.GetComponent<BallScript>().AddCharge(1, GameConfigurations.goalShieldBreakableCharge + 1);
+                ball.GetComponent<BallScript>().AddCharge(1, GameConfigurations.maxCloneAutoCharge);
                 chargeTime = 0;
             }
         }
@@ -144,11 +144,11 @@ public class CloneHitByBall : MonoBehaviour
                 if (!ball.transform.parent) {
                     ClaimBall(ball);
 
-                    if (baseChargeOnCooldown == false)
-                    {
-                        ball.GetComponent<BallScript>().AddCharge(GameConfigurations.cloneBaseCharge);
-                        baseChargeOnCooldown = true;
-                        StartBaseChargeCD();
+                    var uniqueCloneCharges = ball.GetComponent<BallScript>().uniqueClones;
+                    int cloneNum = controller.cloneData.RoundNumber;
+                    if (!uniqueCloneCharges.Contains(cloneNum)) {
+                        uniqueCloneCharges.Add(cloneNum);
+                        ball.GetComponent<BallScript>().AddCharge(GameConfigurations.cloneBaseCharge, GameConfigurations.maxBallCharge);
                     }
 
                     BallScript ballScript = ball.GetComponent<BallScript>();

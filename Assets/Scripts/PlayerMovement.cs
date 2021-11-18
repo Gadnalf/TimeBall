@@ -252,7 +252,6 @@ public class PlayerMovement : MonoBehaviour
         runningWithoutBall.Stop();
     }
 
-
     private void OnEnable()
     {
         controls.Gameplay.Enable();
