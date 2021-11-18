@@ -30,6 +30,7 @@ public class BallScript : MonoBehaviour
             Vector3 direction = (1f-turnRate)*(rb.velocity) + turnRate*(target.transform.position - transform.position);
             Vector2 scaledDirection = new Vector2(direction.x, direction.z).normalized * magnitude;
             rb.velocity = new Vector3(scaledDirection.x, rb.velocity.y, scaledDirection.y);
+            Debug.Log("Homing: " + homing.ToString() + ", Target: " + target.ToString() + " " + target.transform.position.ToString());
         }
     }
 
@@ -90,7 +91,7 @@ public class BallScript : MonoBehaviour
         }
         charge = Mathf.Max(Mathf.Min(max, charge + chargeToAdd), charge);
 
-        if (charge >= GameConfigurations.maxBallCharge)
+        if (charge >= GameConfigurations.goalShieldBreakableCharge)
             gameObject.layer = 8;
     }
 

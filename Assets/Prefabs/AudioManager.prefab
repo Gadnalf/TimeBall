@@ -46,7 +46,7 @@ MonoBehaviour:
   sounds:
   - name: Lobby
     clip: {fileID: 8300000, guid: 8bff1c4cca699a84faee3ab232661828, type: 3}
-    volume: 1
+    volume: 0.4
     pitch: 1
     loop: 1
     playOnAwake: 0
