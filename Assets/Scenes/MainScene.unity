@@ -1028,7 +1028,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b0d9b88034873479eee855a90885a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 1
   playerBallScript: {fileID: 0}
 --- !u!114 &330074708
 MonoBehaviour:
@@ -2612,7 +2611,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b0d9b88034873479eee855a90885a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 2
   playerBallScript: {fileID: 0}
 --- !u!114 &913790812
 MonoBehaviour:

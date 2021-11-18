@@ -34,5 +34,8 @@ public static class GameConfigurations
     public static float stunningSpeed = 1f;
     public static int stunningFrame = 10;
 
+    public static float guardExpandRate = 0.2f;
+    public static float guardMaxSize = 5f;
+
     public static int cloneMaxPauseFrames = 100;
 }

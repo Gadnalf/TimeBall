@@ -74,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
     {
         playerConfig = pc;
         GetComponent<PlayerThrowBall>().InitializePlayerConfig(pc);
+        GetComponentInChildren<PlayerGuard>().InitializePlayerConfig(pc);
         playerConfig.Input.onActionTriggered += Input_onActionTriggered;
     }
 

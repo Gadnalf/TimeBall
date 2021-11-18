@@ -136,7 +136,7 @@ public class CloneHitByBall : MonoBehaviour
             // if ball is of player's color
             if (ballData.playerNumber == GetComponent<PlayerData>().playerNumber) {
                 if (!ball.transform.parent) {
-                    ClaimBall(collision);
+                    ClaimBall(ball);
 
                     if (baseChargeOnCooldown == false)
                     {
@@ -160,7 +160,7 @@ public class CloneHitByBall : MonoBehaviour
 
             // if ball is of no player's color
             else if (ballData.playerNumber == PlayerData.PlayerNumber.NoPlayer) {
-                ClaimBall(collision);
+                ClaimBall(ball);
             }
 
             // if ball is of opponent's color
@@ -170,7 +170,7 @@ public class CloneHitByBall : MonoBehaviour
                 }
                 else
                 {
-                    ClaimBall(collision);
+                    ClaimBall(ball);
                 }
             }
         }
@@ -191,15 +191,19 @@ public class CloneHitByBall : MonoBehaviour
         }
     }
 
-    private void ClaimBall(Collision collision)
+    public void ClaimBall(GameObject ball)
     {
-        ball = collision.gameObject;
         ball.transform.parent = transform;
         ball.GetComponent<PlayerData>().playerNumber = GetComponent<PlayerData>().playerNumber;
         ball.transform.localPosition = new Vector3(0, GameConfigurations.ballHeight, GameConfigurations.ballDistance);
         ball.GetComponent<Rigidbody>().isKinematic = true;
         playerToNotify.SetCloneWithBall(this);
         controller.Unpause();
+    }
+
+    public void KnockDownClone()
+    {
+        cloneKnockdown = true;
     }
 
     public void StartBaseChargeCD()
