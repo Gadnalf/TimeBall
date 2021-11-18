@@ -152,7 +152,7 @@ public class PlayerThrowBall : MonoBehaviour
             throwBallSound.Play();
         }
 
-        records.RecordInput(throwInput, frame);
+        records.RecordThrowInput(throwInput, frame);
         //records.RecordPassInput(passTargetId, frame);
         frame++;
 
@@ -359,6 +359,7 @@ public class PlayerThrowBall : MonoBehaviour
 
     public void ClaimBall(GameObject ball) {
         // Set ball attributes to current player
+        this.ball = ball;
         ball.GetComponent<PlayerData>().playerNumber = playerNumber;
 
         // Pick up ball

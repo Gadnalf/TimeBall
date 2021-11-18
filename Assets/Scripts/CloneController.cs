@@ -12,15 +12,21 @@ public class CloneController : MonoBehaviour
     private Vector3 nextPos;
     private int paused;
     public bool throwInput { get; private set; }
-    private int nextThrowInputChange;
+    private int nextThrowInputChangeIndex;
+
+    private CloneGuard guardScript;
+    public bool guardInput { get; private set; }
+    private int nextGuardInputChangeIndex;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        guardScript = GetComponentInChildren<CloneGuard>();
         frame = 0;
         throwInput = false;
-        nextThrowInputChange = 0;
+        guardInput = false;
+        nextThrowInputChangeIndex = 0;
     }
 
     void FixedUpdate()
@@ -33,12 +39,22 @@ public class CloneController : MonoBehaviour
                 nextPos = cloneData.Positions[nextIndex];
             }
 
-            if (cloneData.ThrowInputs.Length > nextThrowInputChange)
+            if (cloneData.ThrowInputs.Length > nextThrowInputChangeIndex)
             {
-                if (frame == cloneData.ThrowInputs[nextThrowInputChange])
+                if (frame == cloneData.ThrowInputs[nextThrowInputChangeIndex])
                 {
                     throwInput = !throwInput;
-                    nextThrowInputChange++;
+                    nextThrowInputChangeIndex++;
+                }
+            }
+
+            if (cloneData.GuardInputs.Length > nextGuardInputChangeIndex)
+            {
+                if (frame == cloneData.GuardInputs[nextGuardInputChangeIndex])
+                {
+                    guardInput = !guardInput;
+                    nextGuardInputChangeIndex++;
+                    guardScript.SetGuard(guardInput);
                 }
             }
 

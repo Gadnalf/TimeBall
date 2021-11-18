@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -48,11 +46,14 @@ public class PlayerGuard : MonoBehaviour
     {
         playerBallScript = GetComponentInParent<PlayerThrowBall>();
         col = GetComponent<Collider>();
-        guardInput = false;
+
+        records = GetComponentInParent<PlayerRecording>();
     }
 
     private void FixedUpdate()
     {
+        records.RecordGuardInput(guardInput, frame);
+
         if (guardInput)
         {
             col.enabled = true;
@@ -65,6 +66,8 @@ public class PlayerGuard : MonoBehaviour
             col.enabled = false;
             transform.localScale = Vector3.zero;
         }
+
+        frame++;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -78,13 +81,21 @@ public class PlayerGuard : MonoBehaviour
             if (ballData.playerNumber == PlayerData.PlayerNumber.NoPlayer)
             {
                 playerBallScript.ClaimBall(ball);
+                ball.GetComponent<BallScript>().ClearCharge();
             }
 
             // if ball is of opponent's color
             else if (ballData.playerNumber != GetComponentInParent<PlayerData>().playerNumber)
             {
                 playerBallScript.ClaimBall(ball);
+                ball.GetComponent<BallScript>().ClearCharge();
             }
         }
+    }
+
+    public void Reset()
+    {
+        guardInput = false;
+        frame = 0;
     }
 }

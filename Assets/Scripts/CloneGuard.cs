@@ -1,15 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CloneGuard : MonoBehaviour
 {
     private CloneHitByBall cloneBallScript;
+    private Collider col;
 
     // Start is called before the first frame update
     void Start()
     {
         cloneBallScript = GetComponentInParent<CloneHitByBall>();
+        col = GetComponent<Collider>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -23,6 +23,7 @@ public class CloneGuard : MonoBehaviour
             if (ballData.playerNumber == PlayerData.PlayerNumber.NoPlayer)
             {
                 cloneBallScript.ClaimBall(ball);
+                ball.GetComponent<BallScript>().ClearCharge();
             }
 
             // if ball is of opponent's color
@@ -31,12 +32,30 @@ public class CloneGuard : MonoBehaviour
                 if (ball.transform.parent == null && ball.GetComponent<BallScript>().GetCharge() > 0)
                 {
                     cloneBallScript.KnockDownClone();
+                    ball.GetComponent<BallScript>().ClearCharge();
                 }
                 else
                 {
                     cloneBallScript.ClaimBall(ball);
+                    ball.GetComponent<BallScript>().ClearCharge();
                 }
             }
+        }
+    }
+
+    public void SetGuard(bool guardInput)
+    {
+        if (guardInput)
+        {
+            col.enabled = true;
+            float currentScale = transform.localScale.x;
+            float scale = Mathf.Min(currentScale + GameConfigurations.guardExpandRate, GameConfigurations.guardMaxSize);
+            transform.localScale = Vector3.one * scale;
+        }
+        else
+        {
+            col.enabled = false;
+            transform.localScale = Vector3.zero;
         }
     }
 }

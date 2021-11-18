@@ -251,6 +251,7 @@ public class PlayerMovement : MonoBehaviour
 
         GetComponent<PlayerThrowBall>().Reset();
         GetComponent<PlayerRecording>().Reset();
+        GetComponentInChildren<PlayerGuard>().Reset();
     }
 
 

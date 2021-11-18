@@ -167,16 +167,19 @@ public class CloneHitByBall : MonoBehaviour
             // if ball is of no player's color
             else if (ballData.playerNumber == PlayerData.PlayerNumber.NoPlayer) {
                 ClaimBall(ball);
+                ball.GetComponent<BallScript>().ClearCharge();
             }
 
             // if ball is of opponent's color
             else {
                 if (ball.transform.parent == null && ball.GetComponent<BallScript>().GetCharge() > 0) {
                     cloneKnockdown = true;
+                    ball.GetComponent<BallScript>().ClearCharge();
                 }
                 else
                 {
                     ClaimBall(ball);
+                    ball.GetComponent<BallScript>().ClearCharge();
                 }
             }
         }
@@ -199,6 +202,7 @@ public class CloneHitByBall : MonoBehaviour
 
     public void ClaimBall(GameObject ball)
     {
+        this.ball = ball;
         ball.transform.parent = transform;
         ball.GetComponent<PlayerData>().playerNumber = GetComponent<PlayerData>().playerNumber;
         ball.transform.localPosition = new Vector3(0, GameConfigurations.ballHeight, GameConfigurations.ballDistance);
