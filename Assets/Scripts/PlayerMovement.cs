@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     // State info
     private Vector2 movement;
+    private Vector3 currentVelocity;
     private int dashingFrame;
     private Vector3 lastRotation;
     private int dashCD;
@@ -160,7 +161,8 @@ public class PlayerMovement : MonoBehaviour
             movementVector = new Vector3(movement.x, 0, movement.y).normalized;
             if (playerBall.CheckIfGuarding())
             {
-                movementVector = Vector3.zero;
+                float adjustedSpeed = currentVelocity.magnitude * GameConfigurations.haltRate;
+                movementVector *= adjustedSpeed;
                 if (runningWithoutBall.isPlaying)
                 {
                     runningWithoutBall.Stop();
@@ -221,12 +223,11 @@ public class PlayerMovement : MonoBehaviour
             movementVector += dashVector;
         }
 
-        Vector3 vel;
-        vel.x = movementVector.x;
-        vel.y = 0;
-        vel.z = movementVector.z;
+        currentVelocity.x = movementVector.x;
+        currentVelocity.y = 0;
+        currentVelocity.z = movementVector.z;
 
-        rb.velocity = transform.TransformDirection(vel);
+        rb.velocity = transform.TransformDirection(currentVelocity);
 
         if (dashCD != 0) {
             dashCD --;
