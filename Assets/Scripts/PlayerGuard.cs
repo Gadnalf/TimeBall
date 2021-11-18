@@ -54,7 +54,7 @@ public class PlayerGuard : MonoBehaviour
     {
         records.RecordGuardInput(guardInput, frame);
 
-        if (guardInput)
+        if (guardInput && !playerBallScript.CheckIfHasBall())
         {
             col.enabled = true;
             float currentScale = transform.localScale.x;
@@ -91,6 +91,11 @@ public class PlayerGuard : MonoBehaviour
                 ball.GetComponent<BallScript>().ClearCharge();
             }
         }
+    }
+
+    public bool IsGuarding()
+    {
+        return guardInput;
     }
 
     public void Reset()

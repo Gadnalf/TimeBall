@@ -22,6 +22,7 @@ public class PlayerThrowBall : MonoBehaviour
     private GameObject ball;
     private Rigidbody lockedTarget;
     private CloneHitByBall cloneWithBall;
+    private PlayerGuard guardScript;
 
     private ScoringManager scoringManager;
 
@@ -93,6 +94,7 @@ public class PlayerThrowBall : MonoBehaviour
     {
         records = GetComponent<PlayerRecording>();
         playerNumber = GetComponent<PlayerData>().playerNumber;
+        guardScript = GetComponentInChildren<PlayerGuard>();
         scoringManager = FindObjectOfType<ScoringManager>();
 
         CooldownTimer[] dashCooldowns = FindObjectsOfType<CooldownTimer>();
@@ -401,6 +403,11 @@ public class PlayerThrowBall : MonoBehaviour
     public bool CheckIfCharging()
     {
         return throwHeldDown > 0 || throwInput;
+    }
+
+    public bool CheckIfGuarding()
+    {
+        return guardScript.IsGuarding();
     }
 
     public int GetPotentialCharge()

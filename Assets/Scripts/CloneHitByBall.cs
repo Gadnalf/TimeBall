@@ -212,6 +212,11 @@ public class CloneHitByBall : MonoBehaviour
         chargeTime = 0;
     }
 
+    public bool HasBall()
+    {
+        return ball != null;
+    }
+
     public void KnockDownClone()
     {
         cloneKnockdown = true;
