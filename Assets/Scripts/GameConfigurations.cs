@@ -13,8 +13,9 @@ public static class GameConfigurations
 
     public static float ballDistance = 2f;
     public static float ballHeight = 0.5f;
-    public static float ballChargeTime = 0.3f;
-    public static int maxBallCharge = 3;
+    public static float ballChargeTime = 0.8f;
+    public static int goalShieldBreakableCharge = 3;
+    public static int maxBallCharge = 5;
     public static int cloneBaseCharge = 1;
     public static float cloneBaseChargeCDInSeconds = 5;
 

@@ -31,7 +31,7 @@ public class ChargeLevelDisplayer : MonoBehaviour
         else
             chargeLevel.text = "0";
 
-        if (chargeLevel.text == GameConfigurations.maxBallCharge.ToString())
+        if (ballScript.GetCharge() >= GameConfigurations.goalShieldBreakableCharge)
             chargeLevel.color = Color.red;
         else
             chargeLevel.color = Color.white;
