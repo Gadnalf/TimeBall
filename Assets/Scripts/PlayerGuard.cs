@@ -46,7 +46,7 @@ public class PlayerGuard : MonoBehaviour
     {
         playerBallScript = GetComponentInParent<PlayerThrowBall>();
         col = GetComponent<Collider>();
-
+        frame = 0;
         records = GetComponentInParent<PlayerRecording>();
     }
 

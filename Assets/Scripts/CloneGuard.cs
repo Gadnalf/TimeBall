@@ -45,6 +45,7 @@ public class CloneGuard : MonoBehaviour
 
     public void UpdateGuard(bool guardInput)
     {
+        Debug.Log("guarding");
         if (guardInput)
         {
             col.enabled = true;
