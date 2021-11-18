@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
 
     private float baseMovementSpeed;
     private float withBallMovementSpeed;
-    private float ballChargingMovementSpeed;
     public Vector3 spawnLocation;
     public Vector3 spawnRotation;
 
@@ -115,7 +114,6 @@ public class PlayerMovement : MonoBehaviour
         movement = Vector2.zero;
         baseMovementSpeed = GameConfigurations.baseMovementSpeed;
         withBallMovementSpeed = GameConfigurations.withBallMovementSpeed;
-        ballChargingMovementSpeed = GameConfigurations.ballChargingMovementSpeed;
         dashingFrame = 0;
         dashCD = 0;
 
@@ -157,14 +155,14 @@ public class PlayerMovement : MonoBehaviour
         else {
             PlayerThrowBall playerBall = GetComponent<PlayerThrowBall>();
 
-            if (playerBall.CheckIfCharging()) {
+            /*if (playerBall.CheckIfCharging()) {
                 movementVector = new Vector3(movement.x, 0, movement.y).normalized * ballChargingMovementSpeed;
 
                 if (runningWithoutBall.isPlaying)
                     runningWithoutBall.Stop();
-            }
+            }*/
 
-            else if (playerBall.CheckIfHasBall()) {
+            if (playerBall.CheckIfHasBall()) {
                 movementVector = new Vector3(movement.x, 0, movement.y).normalized * withBallMovementSpeed;
             }
 
@@ -250,6 +248,8 @@ public class PlayerMovement : MonoBehaviour
 
         GetComponent<PlayerThrowBall>().Reset();
         GetComponent<PlayerRecording>().Reset();
+
+        runningWithoutBall.Stop();
     }
 
 

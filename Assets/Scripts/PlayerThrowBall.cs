@@ -399,13 +399,17 @@ public class PlayerThrowBall : MonoBehaviour
         return (ball != null);
     }
 
-    public bool CheckIfCharging()
+    /*public bool CheckIfCharging()
     {
         return throwHeldDown > 0 || throwInput;
-    }
+    }*/
 
     public int GetPotentialCharge()
     {
         return (int)(throwHeldDown / GameConfigurations.ballChargeTime);
+    }
+
+    public int GetCurrentCharge() {
+        return ball.GetComponent<BallScript>().GetCharge();
     }
 }

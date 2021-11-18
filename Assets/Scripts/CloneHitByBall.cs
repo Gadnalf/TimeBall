@@ -52,11 +52,11 @@ public class CloneHitByBall : MonoBehaviour
             }
         }
 
-        if (throwBall && ball)
+        if ((throwBall && ball && ball.GetComponent<BallScript>().GetCharge() >= GameConfigurations.goalShieldBreakableCharge) || (throwBall && ball && lockTarget))
         {
             playerToNotify.SetCloneWithBall(null);
 
-            //Debug.Log("Throwing");
+            // Debug.Log("Throwing");
             
             ball.transform.parent = null;
             ball.GetComponent<Rigidbody>().isKinematic = false;
