@@ -81,7 +81,7 @@ public class PlayerGuard : MonoBehaviour
             }
 
             // if ball is of opponent's color
-            else if (ballData.playerNumber == GetComponentInParent<PlayerData>().playerNumber)
+            else if (ballData.playerNumber != GetComponentInParent<PlayerData>().playerNumber)
             {
                 playerBallScript.ClaimBall(ball);
             }
