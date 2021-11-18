@@ -43,7 +43,7 @@ public class CloneGuard : MonoBehaviour
         }
     }
 
-    public void SetGuard(bool guardInput)
+    public void UpdateGuard(bool guardInput)
     {
         if (guardInput)
         {

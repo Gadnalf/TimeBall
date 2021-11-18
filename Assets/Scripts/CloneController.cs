@@ -54,7 +54,7 @@ public class CloneController : MonoBehaviour
                 {
                     guardInput = !guardInput;
                     nextGuardInputChangeIndex++;
-                    guardScript.SetGuard(guardInput);
+                    guardScript.UpdateGuard(guardInput);
                 }
             }
 
