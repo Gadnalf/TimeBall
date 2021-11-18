@@ -252,6 +252,23 @@ public class PlayerMovement : MonoBehaviour
         runningWithoutBall.Stop();
     }
 
+    public void ResetOnGoal() {
+        rb.transform.position = spawnLocation;
+        rb.transform.eulerAngles = spawnRotation;
+        lastRotation = spawnRotation;
+        rb.velocity = Vector3.zero;
+
+        cooldownTimer.AbilityEnabled();
+        SetStunStatus(false);
+
+        currentExplosionFrame = 0;
+
+        GetComponent<PlayerThrowBall>().ResetOnGoal();
+        GetComponentInChildren<PlayerGuard>().ResetOnGoal();
+
+        runningWithoutBall.Stop();
+    }
+
     private void OnEnable()
     {
         controls.Gameplay.Enable();

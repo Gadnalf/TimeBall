@@ -36,6 +36,9 @@ public class BallScript : MonoBehaviour
             rb.velocity = new Vector3(scaledDirection.x, rb.velocity.y, scaledDirection.y);
             Debug.Log("Homing: " + homing.ToString() + ", Target: " + target.ToString() + " " + target.transform.position.ToString());
         }
+        else {
+            Debug.Log("@*$(&@^#@*&Garbage Homing: " + homing + ", Target: " + target);
+        }
     }
 
     private void Update()
@@ -70,8 +73,8 @@ public class BallScript : MonoBehaviour
     public void SetHomingTarget(Rigidbody target = null)
     {
         this.target = target;
-        homing = target;
-        Debug.Log("SetHoming: " + homing + target);
+        homing = (target != null);
+        Debug.Log("SetHoming: " + homing + this.target);
     }
 
     public Rigidbody GetHomingTarget()

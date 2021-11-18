@@ -103,4 +103,6 @@ public class PlayerGuard : MonoBehaviour
         guardInput = false;
         frame = 0;
     }
+
+    public void ResetOnGoal() { guardInput = false; }
 }
