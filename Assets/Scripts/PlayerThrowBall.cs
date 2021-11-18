@@ -128,7 +128,7 @@ public class PlayerThrowBall : MonoBehaviour
             chargeTime += Time.deltaTime;
 
             if (chargeTime > GameConfigurations.ballChargeTime) {
-                ball.GetComponent<BallScript>().AddCharge(1, GameConfigurations.goalShieldBreakableCharge - 1);
+                ball.GetComponent<BallScript>().AddCharge(1, GameConfigurations.goalShieldBreakableCharge);
                 chargeTime = 0;
             }
         }

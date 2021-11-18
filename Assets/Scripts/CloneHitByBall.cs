@@ -47,7 +47,7 @@ public class CloneHitByBall : MonoBehaviour
             chargeTime += Time.deltaTime;
 
             if (chargeTime > GameConfigurations.ballChargeTime) {
-                ball.GetComponent<BallScript>().AddCharge(1, GameConfigurations.maxBallCharge);
+                ball.GetComponent<BallScript>().AddCharge(1, GameConfigurations.goalShieldBreakableCharge + 1);
                 chargeTime = 0;
             }
         }
@@ -171,7 +171,7 @@ public class CloneHitByBall : MonoBehaviour
 
             // if ball is of opponent's color
             else {
-                if (ball.transform.parent == null && ball.GetComponent<BallScript>().GetCharge() > 0) {
+                if (ball.transform.parent == null && ball.GetComponent<BallScript>().GetCharge() >= GameConfigurations.goalShieldBreakableCharge) {
                     cloneKnockdown = true;
                 }
                 else

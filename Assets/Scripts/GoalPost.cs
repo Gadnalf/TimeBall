@@ -28,13 +28,14 @@ public class GoalPost : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Ball") {
+            int score = ball.GetComponent<BallScript>().GetCharge();
             if (playerGoal == 1)
             {
-                scoringManager.PlayerGoal(2);
+                scoringManager.PlayerGoal(2, score);
             }
             else
             {
-                scoringManager.PlayerGoal(1);
+                scoringManager.PlayerGoal(1, score);
             }
 
             if (goalSound.isPlaying == false)

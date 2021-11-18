@@ -58,14 +58,14 @@ public class ScoringManager : MonoBehaviour
         return playerScores[playerNum];
     }
 
-    public void AddPlayerScore(PlayerData.PlayerNumber player, int playerNum) {
+    public void AddPlayerScore(PlayerData.PlayerNumber player, int playerNum, int score) {
         //int playerNum = GetPlayerNumber(player);
 
-        playerScores[playerNum]++;
+        playerScores[playerNum] += score;
     }
 
-    public void PlayerGoal(int player) {
-        AddPlayerScore(currentPlayer, player - 1);
+    public void PlayerGoal(int player, int score) {
+        AddPlayerScore(currentPlayer, player - 1, score);
     }
 
     public int GetWinner()
