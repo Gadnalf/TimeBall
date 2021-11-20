@@ -2479,7 +2479,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "6faec80ff8054894883ef8015754d60d",
     "m_Id": 0,
-    "m_DisplayName": "Vertex_Frequence",
+    "m_DisplayName": "_Pulse_Offset",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
