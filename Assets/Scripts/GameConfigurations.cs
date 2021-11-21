@@ -1,3 +1,4 @@
+using UnityEngine;
 public static class GameConfigurations
 {
     public static float baseMovementSpeed = 25f;
@@ -12,7 +13,7 @@ public static class GameConfigurations
     public static int numberOfRounds = 5;
 
     public static float ballDistance = 2f;
-    public static float ballHeight = 0.5f;
+    public static float ballHeight = 0.2f;
     public static float ballChargeTime = 1.5f;
     public static int goalShieldBreakableCharge = 1;
     public static int maxCloneAutoCharge = 3;
@@ -41,4 +42,23 @@ public static class GameConfigurations
     public static float haltRate = 0.8f;
 
     public static int cloneMaxPauseFrames = 100;
+
+    public static Color FromChargeToColor(int chargeLevel) {
+        switch (chargeLevel) {
+            case 0:
+                return Color.white;
+            case 1:
+                return Color.red;
+            case 2:
+                return new Color(1f, 0.75f, 0f); // orange
+            case 3:
+                return Color.yellow;
+            case 4:
+                return new Color(0f, 1f, 0.6f); // light green
+            case 5:
+                return Color.green;
+            default:
+                return Color.black;
+        }
+    }
 }

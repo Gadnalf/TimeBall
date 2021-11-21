@@ -5,17 +5,35 @@ using UnityEngine;
 public class GoalShield : MonoBehaviour
 {
     private Material material;
-    private Collider shieldCollider;
     private float alphaIncrease;
+
+    private BallScript ball;
+    private GameObject text;
 
     // Start is called before the first frame update
     void Start()
     {
         material = gameObject.GetComponent<Renderer>().material;
         material.color = new Color(0, 0, 0, 0.5f);
-        shieldCollider = GetComponent<Collider>();
         alphaIncrease = 1f;
-        StartAlphaChange();
+        // StartAlphaChange();
+
+        ball = FindObjectOfType<BallScript>().GetComponent<BallScript>();
+        text = transform.GetChild(0).gameObject;
+    }
+
+    private void Update() {
+        var charge = ball.GetCharge();
+
+        if (charge == 0) {
+            material.color = new Color(material.color.r, material.color.g, material.color.b, 0.9f);
+            text.gameObject.SetActive(true);
+        }
+        else {
+            material.color = new Color(material.color.r, material.color.g, material.color.b, 0.1f);
+            text.gameObject.SetActive(false);
+        }
+            
     }
 
     private void StartAlphaChange() {

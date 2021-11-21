@@ -42,7 +42,7 @@ public class GoalPost : MonoBehaviour
                 PlayGoalSound();
 
             ball.SetActive(false);
-            Invoke("ResetBall", 2);
+            Invoke("ResetBall", 1);
             
             foreach (PlayerMovement playerMovement in playerMovements) {
                 playerMovement.ResetOnGoal();

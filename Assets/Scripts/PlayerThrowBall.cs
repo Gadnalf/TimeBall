@@ -267,8 +267,7 @@ public class PlayerThrowBall : MonoBehaviour
             }
         }
 
-        if (lockedTarget == null)
-        {
+        if (lockedTarget == null) {
             Debug.Log("No clones located.");
         }
         return lockedTarget;

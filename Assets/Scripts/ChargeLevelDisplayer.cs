@@ -6,6 +6,7 @@ public class ChargeLevelDisplayer : MonoBehaviour
     private PlayerData.PlayerNumber playerNumber;
 
     private TextMeshProUGUI chargeLevel;
+    private Camera playerCamera;
 
     [SerializeField]
     private BallScript ballScript;
@@ -13,27 +14,40 @@ public class ChargeLevelDisplayer : MonoBehaviour
     private void Start() {
         chargeLevel = GetComponent<TextMeshProUGUI>();
 
-        var height = FindObjectOfType<Canvas>().GetComponent<RectTransform>().rect.height;
+        // var canvasHeight = FindObjectOfType<Canvas>().GetComponent<RectTransform>().rect.height;
 
-        if (gameObject.name == "P1ChargeLevel") {
-            transform.position = new Vector3(90, 30, 0);
-            playerNumber = PlayerData.PlayerNumber.PlayerOne;
-        }
-        else if (gameObject.name == "P2ChargeLevel") {
-            transform.position = new Vector3(90, height / 2 + 30, 0);
-            playerNumber = PlayerData.PlayerNumber.PlayerTwo;
+        Camera[] playerCameras = FindObjectsOfType<Camera>();
+
+        foreach (Camera camera in playerCameras) {
+            if (camera.name.StartsWith("P1") && gameObject.name == "P1ChargeLevel") {
+                playerCamera = camera;
+                var player = camera.transform.parent;
+                var playerPos = player.GetComponent<Rigidbody>().position;
+                var height = player.GetComponent<Collider>().bounds.size.y;
+                var y = playerPos.y + height / 2 + 1;
+                transform.position = playerCamera.WorldToScreenPoint(new Vector3(playerPos.x, y, playerPos.z));
+                playerNumber = (PlayerData.PlayerNumber)1;
+            }
+            else if (camera.name.StartsWith("P2") && gameObject.name == "P2ChargeLevel") {
+                playerCamera = camera;
+                var player = camera.transform.parent;
+                var playerPos = player.GetComponent<Rigidbody>().position;
+                var height = player.GetComponent<Collider>().bounds.size.y;
+                var y = playerPos.y + height / 2 + 1.1f;
+                transform.position = playerCamera.WorldToScreenPoint(new Vector3(playerPos.x, y, playerPos.z));
+                playerNumber = (PlayerData.PlayerNumber)2;
+            }
         }
     }
 
-    private void Update() {
-        if (ballScript.GetPlayerNumber() == playerNumber)
-            chargeLevel.text = ballScript.GetCharge().ToString();
-        else
-            chargeLevel.text = "0";
-
-        if (ballScript.GetCharge() >= GameConfigurations.goalShieldBreakableCharge)
-            chargeLevel.color = Color.red;
-        else
-            chargeLevel.color = Color.white;
+    void Update() {
+        if (ballScript.GetPlayerNumber() == playerNumber) {
+            int chargeNum = ballScript.GetCharge();
+            chargeLevel.color = GameConfigurations.FromChargeToColor(chargeNum);
+            chargeLevel.text = chargeNum.ToString();
+        }
+        else {
+            chargeLevel.color = new Color(0, 0, 0, 0f);
+        }
     }
 }

@@ -37,7 +37,7 @@ public class BallScript : MonoBehaviour
             Debug.Log("Homing: " + homing.ToString() + ", Target: " + target.ToString() + " " + target.transform.position.ToString());
         }
         else {
-            Debug.Log("@*$(&@^#@*&Garbage Homing: " + homing + ", Target: " + target);
+            // Debug.Log("@*$(&@^#@*&Garbage Homing: " + homing + ", Target: " + target);
         }
     }
 

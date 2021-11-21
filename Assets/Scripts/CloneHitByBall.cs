@@ -17,8 +17,6 @@ public class CloneHitByBall : MonoBehaviour
     private float holdThrow;
     private float chargeTime;
 
-    private bool baseChargeOnCooldown;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +35,6 @@ public class CloneHitByBall : MonoBehaviour
             Debug.LogError("Player discovery failed. It's probably an issue with either the player numbers or tags.");
         }
 
-        baseChargeOnCooldown = false;
         chargeTime = 0;
     }
 
@@ -167,7 +164,10 @@ public class CloneHitByBall : MonoBehaviour
             // if ball is of no player's color
             else if (ballData.playerNumber == PlayerData.PlayerNumber.NoPlayer) {
                 ClaimBall(ball);
-                ball.GetComponent<BallScript>().ClearCharge();
+                var uniqueCloneCharges = ball.GetComponent<BallScript>().uniqueClones;
+                int cloneNum = controller.cloneData.RoundNumber;
+                uniqueCloneCharges.Add(cloneNum);
+                ball.GetComponent<BallScript>().AddCharge(GameConfigurations.cloneBaseCharge, GameConfigurations.maxBallCharge);
             }
 
             // if ball is of opponent's color
@@ -220,17 +220,5 @@ public class CloneHitByBall : MonoBehaviour
     public void KnockDownClone()
     {
         cloneKnockdown = true;
-    }
-
-    public void StartBaseChargeCD()
-    {
-        IEnumerator coroutine = coolDownCoroutine(GameConfigurations.cloneBaseChargeCDInSeconds);
-        StartCoroutine(coroutine);
-    }
-
-    private IEnumerator coolDownCoroutine(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        baseChargeOnCooldown = false;
     }
 }
