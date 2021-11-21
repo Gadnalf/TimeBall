@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 7690376133837250058}
   - component: {fileID: 9003802432779209008}
   m_Layer: 3
-  m_Name: oldCloneP2
+  m_Name: CloneP2
   m_TagString: Clone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
