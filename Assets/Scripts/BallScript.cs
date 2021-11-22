@@ -36,23 +36,23 @@ public class BallScript : MonoBehaviour
 
     private void Update()
     {
-        UpdateShield();
+        //UpdateShield();
         if (transform.position.y >= 30) {
             Reset();
         }
     }
 
-    private void UpdateShield()
-    {
-        switch (charge >= GameConfigurations.goalShieldBreakableCharge) {
-            case true:
-                shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.one * 0.3f);
-                break;
-            default:
-                shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.zero);
-                break;
-        }
-    }
+    //private void UpdateShield()
+    //{
+    //    switch (charge >= GameConfigurations.goalShieldBreakableCharge) {
+    //        case true:
+    //            shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.one * 0.3f);
+    //            break;
+    //        default:
+    //            shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.zero);
+    //            break;
+    //    }
+    //}
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -124,6 +124,6 @@ public class BallScript : MonoBehaviour
         playerData.playerNumber = PlayerData.PlayerNumber.NoPlayer;
         SetHomingTarget(null);
         ClearCharge();
-        shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.zero);
+        //shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.zero);
     }
 }
