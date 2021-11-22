@@ -4831,7 +4831,7 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 1583858271}
   - {fileID: 1741767433}
-  ball: {fileID: 0}
+  ball: {fileID: 7613313192544614913}
   mainMenuPanel: {fileID: 507076865}
   pauseMenuPanel: {fileID: 1408822611}
   endMenuPanel: {fileID: 1393363319}
