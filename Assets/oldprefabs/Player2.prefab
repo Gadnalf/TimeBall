@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1527515246620745539}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1527515246751206461}
@@ -222,7 +222,6 @@ GameObject:
   - component: {fileID: 1527515247598728361}
   - component: {fileID: 5256312344729528318}
   - component: {fileID: 7964845582460899081}
-  - component: {fileID: 8263961036913750442}
   m_Layer: 7
   m_Name: Player2
   m_TagString: Player
@@ -382,24 +381,10 @@ BoxCollider:
   m_GameObject: {fileID: 1527515247663946147}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 2.2, z: 0.5}
-  m_Center: {x: 0, y: 1.1, z: 0}
---- !u!64 &8263961036913750442
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1527515247663946147}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: -1
-  m_Mesh: {fileID: -3592032513938595477, guid: f6072dcd7876dd241a995f3d71a8e917, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.6285002, y: 2.2, z: 0.43574992}
+  m_Center: {x: -0.051400155, y: 1.1, z: 0.03855008}
 --- !u!1 &7793076871534506687
 GameObject:
   m_ObjectHideFlags: 0
