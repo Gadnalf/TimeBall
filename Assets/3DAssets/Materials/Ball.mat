@@ -95,10 +95,10 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 0
     m_Colors:
-    - Color_26c70306fdbd476eac8ad834a4f22cd7: {r: 0, g: 1.3975757, b: 4.237095, a: 1}
+    - Color_26c70306fdbd476eac8ad834a4f22cd7: {r: 0, g: 0.9882353, b: 2.9960785, a: 1}
     - Color_2ad62992b288491dbfec40b005c3e49f: {r: 11.984314, g: 0, b: 0, a: 1}
     - Color_314ec02da34e42e09839659f80717423: {r: 0, g: 0.68485904, b: 1, a: 1}
-    - Vector3_49efe4bfd4704ca5b79afbc125115ee6: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - Vector3_49efe4bfd4704ca5b79afbc125115ee6: {r: 1, g: 1, b: 1, a: 0.5}
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
