@@ -289,7 +289,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetStunStatus(bool ifStun) {
         stunned = ifStun;
-        stunText.SetActive(ifStun);
+        // stunText.SetActive(ifStun);
     }
 
     public bool ShouldStopRunningSound ()
