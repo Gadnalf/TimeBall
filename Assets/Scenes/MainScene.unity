@@ -130,25 +130,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 507916593565815097, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3647370548015207364, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7406720297978753764, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
       propertyPath: m_Name
       value: Court
-      objectReference: {fileID: 0}
-    - target: {fileID: 8265531657357860006, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8869752740628731911, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
-      propertyPath: m_Layer
-      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9032811231464516952, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
       propertyPath: m_RootOrder
