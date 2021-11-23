@@ -8,6 +8,7 @@ TagManager:
   - Clone
   - Goals
   - Arena
+  - Wall
   layers:
   - Default
   - TransparentFX
