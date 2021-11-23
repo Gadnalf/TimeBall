@@ -132,7 +132,7 @@ Transform:
   m_Children:
   - {fileID: 7115374962058494983}
   - {fileID: 4572244094758065423}
-  - {fileID: 7274164408935615496}
+  - {fileID: 2672669375067940446}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -432,7 +432,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   volumeAnchorOverride: {fileID: 0}
-  antialiasing: 2
+  antialiasing: 0
   SMAAQuality: 2
   dithering: 0
   stopNaNs: 0
@@ -480,7 +480,7 @@ MonoBehaviour:
       data1: 0
       data2: 0
   defaultFrameSettings: 0
---- !u!1001 &7251566026696619202
+--- !u!1001 &2685979083062517396
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -537,8 +537,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf3f525d8b2859a4ca171de5c18bfb71, type: 3}
---- !u!4 &7274164408935615496 stripped
+--- !u!4 &2672669375067940446 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 23003003542796490, guid: cf3f525d8b2859a4ca171de5c18bfb71, type: 3}
-  m_PrefabInstance: {fileID: 7251566026696619202}
+  m_PrefabInstance: {fileID: 2685979083062517396}
   m_PrefabAsset: {fileID: 0}
