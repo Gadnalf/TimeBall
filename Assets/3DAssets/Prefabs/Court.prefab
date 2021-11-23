@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 4484380643638850271}
   - component: {fileID: 2789724565841515308}
   - component: {fileID: 3148335574903996645}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Reflection Probe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -992,6 +992,10 @@ PrefabInstance:
       value: Neon_Lights_2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b164c49307aeeac4caba48d8977e854a, type: 3}
+      propertyPath: m_Layer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b164c49307aeeac4caba48d8977e854a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -1060,6 +1064,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8810c1c4de45b574e8ada763dea45cc2, type: 3}
       propertyPath: m_Name
       value: measurement_Char
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8810c1c4de45b574e8ada763dea45cc2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8810c1c4de45b574e8ada763dea45cc2, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1206,6 +1214,10 @@ PrefabInstance:
       value: Neon_Lights_1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: de91a0c40e55f8a4eb4382c85c1ac8e4, type: 3}
+      propertyPath: m_Layer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: de91a0c40e55f8a4eb4382c85c1ac8e4, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -1345,6 +1357,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sheild
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b172796bbeaf8894da6d603f5464a68b, type: 3}
+      propertyPath: m_Layer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b172796bbeaf8894da6d603f5464a68b, type: 3}
 --- !u!4 &7506809822966171606 stripped
@@ -1410,6 +1426,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bcf409ea28a57bb4fba7d6a1bd2b6678, type: 3}
       propertyPath: m_Name
       value: Goal_Glass
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bcf409ea28a57bb4fba7d6a1bd2b6678, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bcf409ea28a57bb4fba7d6a1bd2b6678, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1486,6 +1506,10 @@ PrefabInstance:
       value: Neon_Lights_3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 11de8b58a845fd946bd0e7143980201b, type: 3}
+      propertyPath: m_Layer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 11de8b58a845fd946bd0e7143980201b, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -1558,6 +1582,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3fd10f6ce2965204d8758c124f464566, type: 3}
       propertyPath: m_Name
       value: Court_Props
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3fd10f6ce2965204d8758c124f464566, type: 3}
+      propertyPath: m_Layer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3fd10f6ce2965204d8758c124f464566, type: 3}
       propertyPath: m_StaticEditorFlags
