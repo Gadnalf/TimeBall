@@ -27,29 +27,33 @@ public class GoalPost : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Ball") {
+        if (other.tag == "Ball")
+        {
+            int score = ball.GetComponent<BallScript>().GetCharge();
             if (playerGoal == 1)
             {
-                scoringManager.PlayerGoal(2);
+                scoringManager.PlayerGoal(2, score);
             }
             else
             {
-                scoringManager.PlayerGoal(1);
+                scoringManager.PlayerGoal(1, score);
             }
 
             if (goalSound.isPlaying == false)
                 PlayGoalSound();
 
             ball.SetActive(false);
-            Invoke("ResetBall", 2);
-            
-            foreach (PlayerMovement playerMovement in playerMovements) {
-                playerMovement.StartExplosion(GameConfigurations.goalExplosionSpeed, GameConfigurations.goalExplosionFrame, transform.position);
+            Invoke("ResetBall", 1);
+
+            foreach (PlayerMovement playerMovement in playerMovements)
+            {
+                playerMovement.ResetOnGoal();
             }
         }
     }
 
-    private void ResetBall() {
+    private void ResetBall()
+    {
         ball.SetActive(true);
         ball.GetComponent<BallScript>().Reset();
     }

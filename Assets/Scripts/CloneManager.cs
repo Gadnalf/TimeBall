@@ -41,13 +41,15 @@ public static class CloneManager
         foreach (CloneData clone in clones)
         {
             GameObject newClone;
-            if (clone.Number == PlayerData.PlayerNumber.PlayerOne) {
+            if (clone.Number == PlayerData.PlayerNumber.PlayerOne)
+            {
                 newClone = Object.Instantiate(clonePrefabs[0], clone.Positions[0], clone.Rotations[0]);
             }
-            else {
+            else
+            {
                 newClone = Object.Instantiate(clonePrefabs[1], clone.Positions[0], clone.Rotations[0]);
             }
-            
+
             CloneController controller = newClone.GetComponent<CloneController>();
             controller.SetData(clone);
         }
@@ -67,5 +69,6 @@ public static class CloneManager
         public Vector3[] Positions { get; set; }
         public Quaternion[] Rotations { get; set; }
         public int[] ThrowInputs { get; set; }
+        public int[] GuardInputs { get; set; }
     }
 }

@@ -44,6 +44,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Guard",
+                    "type": "Button",
+                    "id": "d917a3fc-3dcd-4e94-9891-3844815a83f3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -198,6 +206,28 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e18a25a7-ef55-4585-a204-c4282ce65698",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Guard",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5723cd68-7aab-4e8f-91a5-2a9595c9c128",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Guard",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

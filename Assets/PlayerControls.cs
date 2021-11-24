@@ -57,6 +57,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Guard"",
+                    ""type"": ""Button"",
+                    ""id"": ""d917a3fc-3dcd-4e94-9891-3844815a83f3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -211,6 +219,28 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
                     ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e18a25a7-ef55-4585-a204-c4282ce65698"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Guard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5723cd68-7aab-4e8f-91a5-2a9595c9c128"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Guard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -456,6 +486,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Rotate = m_Gameplay.FindAction("Rotate", throwIfNotFound: true);
         m_Gameplay_Throw = m_Gameplay.FindAction("Throw", throwIfNotFound: true);
         m_Gameplay_Lockon = m_Gameplay.FindAction("Lockon", throwIfNotFound: true);
+        m_Gameplay_Guard = m_Gameplay.FindAction("Guard", throwIfNotFound: true);
         // MainMenu
         m_MainMenu = asset.FindActionMap("MainMenu", throwIfNotFound: true);
         m_MainMenu_StartGame = m_MainMenu.FindAction("StartGame", throwIfNotFound: true);
@@ -517,6 +548,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Rotate;
     private readonly InputAction m_Gameplay_Throw;
     private readonly InputAction m_Gameplay_Lockon;
+    private readonly InputAction m_Gameplay_Guard;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -526,6 +558,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Rotate => m_Wrapper.m_Gameplay_Rotate;
         public InputAction @Throw => m_Wrapper.m_Gameplay_Throw;
         public InputAction @Lockon => m_Wrapper.m_Gameplay_Lockon;
+        public InputAction @Guard => m_Wrapper.m_Gameplay_Guard;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -550,6 +583,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Lockon.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLockon;
                 @Lockon.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLockon;
                 @Lockon.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLockon;
+                @Guard.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGuard;
+                @Guard.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGuard;
+                @Guard.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGuard;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -569,6 +605,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Lockon.started += instance.OnLockon;
                 @Lockon.performed += instance.OnLockon;
                 @Lockon.canceled += instance.OnLockon;
+                @Guard.started += instance.OnGuard;
+                @Guard.performed += instance.OnGuard;
+                @Guard.canceled += instance.OnGuard;
             }
         }
     }
@@ -663,6 +702,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnRotate(InputAction.CallbackContext context);
         void OnThrow(InputAction.CallbackContext context);
         void OnLockon(InputAction.CallbackContext context);
+        void OnGuard(InputAction.CallbackContext context);
     }
     public interface IMainMenuActions
     {
