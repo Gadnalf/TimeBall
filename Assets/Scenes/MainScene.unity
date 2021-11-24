@@ -134,18 +134,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Court
       objectReference: {fileID: 0}
-    - target: {fileID: 8265531657357860006, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8325493146435260202, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8869752740628731911, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9032811231464516952, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
       propertyPath: m_RootOrder
       value: 6
