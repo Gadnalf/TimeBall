@@ -76,7 +76,8 @@ public class PlayerConfigManager : MonoBehaviour
 
         Debug.Log("Player " + pi.playerIndex.ToString() + " joined.");
 
-        foreach (PlayerConfig pc in playerConfigs) {
+        foreach (PlayerConfig pc in playerConfigs)
+        {
             if (pc.PlayerIndex == pi.playerIndex)
                 return;
         }

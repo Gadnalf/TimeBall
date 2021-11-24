@@ -134,21 +134,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Court
       objectReference: {fileID: 0}
+    - target: {fileID: 8265531657357860006, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325493146435260202, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869752740628731911, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9032811231464516952, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
       propertyPath: m_RootOrder
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 9032811231464516952, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9032811231464516952, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9032811231464516952, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 9032811231464516952, guid: 2271df61a1a08ea40a4c5517b41ffc73, type: 3}
       propertyPath: m_LocalPosition.x
@@ -601,6 +601,7 @@ MonoBehaviour:
   spawnLocation: {x: 0, y: 6, z: 0}
   turnRate: 1
   shield: {fileID: 1036258681}
+  fromClone: 0
 --- !u!114 &253741009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -883,7 +884,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330074705}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47b0d9b88034873479eee855a90885a0, type: 3}
   m_Name: 
@@ -1580,7 +1581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa927b5ac6480024ba6ea064482ff5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballScript: {fileID: 7613313192544614913}
+  ballScript: {fileID: 253741008}
 --- !u!114 &633798586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2114,7 +2115,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913790809}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47b0d9b88034873479eee855a90885a0, type: 3}
   m_Name: 
@@ -2644,7 +2645,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 037793e86216879489200c440246ab12, type: 2}
+  - {fileID: 2100000, guid: 154a7d09aec04e84c8a0500aa7249ee1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4541,7 +4542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa927b5ac6480024ba6ea064482ff5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballScript: {fileID: 7613313192544614913}
+  ballScript: {fileID: 253741008}
 --- !u!114 &1596392608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5987,7 +5988,7 @@ Camera:
   far clip plane: 1000
   field of view: 40.999996
   orthographic: 1
-  orthographic size: 22.3
+  orthographic size: 30
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -6086,17 +6087,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a30cee3cabd58814db03c3d6bf87f0b9, type: 3}
---- !u!114 &7613313192544614913 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 245300556, guid: a30cee3cabd58814db03c3d6bf87f0b9, type: 3}
-  m_PrefabInstance: {fileID: 7613313192544614912}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5340220cc5ec984f98b536f7c582426, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &9168097001736011403
 PrefabInstance:
   m_ObjectHideFlags: 0

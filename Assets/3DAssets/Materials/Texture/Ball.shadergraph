@@ -859,7 +859,7 @@
     },
     "m_Name": "_Pulse_Offset",
     "m_DefaultReferenceName": "Vector1_0af0cac525344eacac5a22c7ed8f580b",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_PulseOffset",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,

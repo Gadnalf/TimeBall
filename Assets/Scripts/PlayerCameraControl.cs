@@ -27,7 +27,7 @@ public class PlayerCameraControl : MonoBehaviour
             if (hitInfo.distance > offset)
             {
                 // TODO: Burn this entire file
-                cameraDistance = -targetLocation.z - (1-(hitInfo.distance - offset) / spacing) * -targetLocation.z;
+                cameraDistance = -targetLocation.z - (1 - (hitInfo.distance - offset) / spacing) * -targetLocation.z;
             }
             else
             {

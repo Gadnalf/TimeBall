@@ -61,6 +61,8 @@ public class GameManager : MonoBehaviour
 
     private AudioManager audioManager;
     private AudioSource runningWithouBall;
+    private AudioSource stadiumCrowd;
+    private AudioSource gameTheme;
 
     private void Awake()
     {
@@ -106,7 +108,7 @@ public class GameManager : MonoBehaviour
                 if (controlsPanel.activeInHierarchy)
                 {
                     ShowControlsPanel(false);
-                } 
+                }
                 else
                 {
                     ShowControlsPanel(true);
@@ -139,12 +141,15 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
 
         CloneManager.Configure(clonePrefabs, playerRecordings);
-        foreach (PlayerMovement player in playerControllers) {
+        foreach (PlayerMovement player in playerControllers)
+        {
             player.GetComponent<PlayerMovement>().enabled = false;
         }
 
         audioManager = FindObjectOfType<AudioManager>();
         runningWithouBall = audioManager.GetAudio("Running");
+        stadiumCrowd = audioManager.GetAudio("Crowd");
+        gameTheme = audioManager.GetAudio("Game");
     }
 
     void Update()
@@ -190,9 +195,13 @@ public class GameManager : MonoBehaviour
         timerIsRunning = true;
         timeRemaining = GameConfigurations.roundDuration;
         mainMenuPanel.SetActive(false);
-        foreach (PlayerMovement player in playerControllers) {
+        foreach (PlayerMovement player in playerControllers)
+        {
             player.GetComponent<PlayerMovement>().enabled = true;
         }
+
+        stadiumCrowd.Play();
+        gameTheme.Play();
     }
 
     public void ShowControlsPanel(bool value)
@@ -226,7 +235,7 @@ public class GameManager : MonoBehaviour
         //{
         //    timeRemaining = 30f;
         //}
-        timeRemaining = GameConfigurations.roundDuration + Math.Min((roundNumber-1) * GameConfigurations.roundLengthIncrease, GameConfigurations.maxRoundLength);
+        timeRemaining = GameConfigurations.roundDuration + Math.Min((roundNumber - 1) * GameConfigurations.roundLengthIncrease, GameConfigurations.maxRoundLength);
         CloneManager.SpawnClones();
         foreach (CloneController clone in FindObjectsOfType<CloneController>())
         {
@@ -253,6 +262,9 @@ public class GameManager : MonoBehaviour
         {
             player.GetComponent<PlayerMovement>().enabled = false;
         }
+
+        stadiumCrowd.Stop();
+        gameTheme.Stop();
     }
 
     public void ResumeGame()
@@ -264,10 +276,16 @@ public class GameManager : MonoBehaviour
         {
             player.GetComponent<PlayerMovement>().enabled = true;
         }
+
+        stadiumCrowd.Play();
+        gameTheme.Play();
     }
 
     public void EndGame()
     {
+        stadiumCrowd.Stop();
+        gameTheme.Stop();
+
         gameStarted = false;
         gameEnded = true;
         gamePaused = true;
@@ -283,7 +301,8 @@ public class GameManager : MonoBehaviour
         }
 
         Time.timeScale = 0f;
-        foreach (PlayerMovement player in playerControllers) {
+        foreach (PlayerMovement player in playerControllers)
+        {
             player.GetComponent<PlayerMovement>().enabled = false;
         }
     }
