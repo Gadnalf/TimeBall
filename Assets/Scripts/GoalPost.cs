@@ -29,6 +29,7 @@ public class GoalPost : MonoBehaviour
     {
         if (other.tag == "Ball")
         {
+            Debug.Log("goal scored");
             int score = ball.GetComponent<BallScript>().GetCharge();
             if (playerGoal == 1)
             {
