@@ -175,6 +175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f5981b2bcd86f4aa460ceaafa8a43e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  linePrefab: {fileID: 3618087246449344891, guid: 239d10e8aa19c5c43a2844b2691ffd2b, type: 3}
+  trailPrefab: {fileID: 3051478329978877593, guid: 09ab16587c364f84d81249e248b826ff, type: 3}
 --- !u!114 &7690376133837250058
 MonoBehaviour:
   m_ObjectHideFlags: 0

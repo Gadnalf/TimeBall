@@ -1289,6 +1289,10 @@ PrefabInstance:
       value: Ground_Pattern_1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 54358eaaff8ff5844b3df2105a968be4, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 54358eaaff8ff5844b3df2105a968be4, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -1357,6 +1361,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fb3b3c3186bec014b870d2b086585674, type: 3}
       propertyPath: m_Name
       value: Ground_Pattern_1_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fb3b3c3186bec014b870d2b086585674, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb3b3c3186bec014b870d2b086585674, type: 3}

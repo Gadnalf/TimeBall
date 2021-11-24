@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8004763195731599195}
   - component: {fileID: 7421416899627010056}
   m_Layer: 0
-  m_Name: Ball
+  m_Name: OldBall(DONTUSE)
   m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
