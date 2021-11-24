@@ -9,6 +9,7 @@ public static class GameConfigurations
 
     public static float roundDuration = 10f;
     public static float roundLengthIncrease = 0f;
+  
     public static float maxRoundLength = 25f;
     public static int numberOfRounds = 5;
 

@@ -133,6 +133,11 @@ public class BallScript : MonoBehaviour
         return playerData.playerNumber;
     }
 
+    public bool IsChargedClone(int roundNumber)
+    {
+        return !uniqueClones.Contains(roundNumber);
+    }
+
     public void Reset()
     {
         rb.isKinematic = false;
