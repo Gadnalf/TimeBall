@@ -43,7 +43,8 @@ public class PlayerThrowBall : MonoBehaviour
     [HideInInspector]
     public AudioManager audioManager;
     private AudioSource throwBallSound;
-    private AudioSource stunSound;
+    private AudioSource tagSound;
+    private AudioSource receiveSound;
 
     private void Awake()
     {
@@ -119,18 +120,24 @@ public class PlayerThrowBall : MonoBehaviour
 
         audioManager = FindObjectOfType<AudioManager>();
         throwBallSound = audioManager.GetAudio("ThrowBall");
-        stunSound = audioManager.GetAudio("Stunning");
+        tagSound = audioManager.GetAudio("TagBall");
+        receiveSound = audioManager.GetAudio("ReceivePass");
     }
 
     private void FixedUpdate() {
         //int? passTargetId = lockedTarget?.GetComponent<CloneController>().cloneData.RoundNumber;
 
         if (ball != null) {
-            chargeTime += Time.deltaTime;
+            HashSet<int> uniqueCharges = ball.GetComponent<BallScript>().uniqueHoldCharges;
 
-            if (chargeTime > GameConfigurations.ballChargeTime) {
-                ball.GetComponent<BallScript>().AddCharge(1, GameConfigurations.goalShieldBreakableCharge);
-                chargeTime = 0;
+            if (!uniqueCharges.Contains(0)) {
+                chargeTime += Time.deltaTime;
+
+                if (chargeTime > GameConfigurations.ballChargeTime) {
+                    uniqueCharges.Add(0);
+                    ball.GetComponent<BallScript>().AddCharge();
+                    chargeTime = 0;
+                }
             }
         }
 
@@ -296,7 +303,6 @@ public class PlayerThrowBall : MonoBehaviour
             // if ball is of opponent's color
             else if (collision.gameObject.GetComponent<PlayerData>().playerNumber != playerNumber)
             {
-
                 if (!collision.transform.parent) {
                     ballData.playerNumber = playerNumber;
                     scoringManager.SetCurrentPlayer(playerNumber);
@@ -313,8 +319,8 @@ public class PlayerThrowBall : MonoBehaviour
                                 opponent.GetComponent<PlayerThrowBall>().ReleaseBall();
                         }
                         ClaimBall(ball);
+                        tagSound.Play();
                         ball.GetComponent<BallScript>().ClearCharge();
-                        
                     }
                 }
             }
@@ -323,6 +329,10 @@ public class PlayerThrowBall : MonoBehaviour
             else {
                 if (GetComponent<PlayerMovement>().GetStunStatus() == false) {
                     ClaimBall(ball);
+                    if (ball.GetComponent<BallScript>().fromClone) {
+                        ball.GetComponent<BallScript>().fromClone = false;
+                        receiveSound.Play();
+                    }
                 }
             }
         }
@@ -348,7 +358,7 @@ public class PlayerThrowBall : MonoBehaviour
             }
 
             collision.gameObject.GetComponent<PlayerMovement>().SetStunStatus(true);
-            stunSound.Play();
+            tagSound.Play();
             collision.gameObject.GetComponent<PlayerMovement>().StartExplosion(GameConfigurations.stunningSpeed, GameConfigurations.stunningFrame, transform.position);
         }
     }

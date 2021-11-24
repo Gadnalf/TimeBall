@@ -16,17 +16,17 @@ public static class GameConfigurations
     public static float ballHeight = 0.2f;
     public static float ballChargeTime = 1.5f;
     public static int goalShieldBreakableCharge = 1;
-    public static int maxCloneAutoCharge = 3;
+    // public static int maxCloneAutoCharge = 3;
     public static int maxBallCharge = 5;
     public static int cloneBaseCharge = 1;
     public static float cloneBaseChargeCDInSeconds = 10;
 
     public static float horizontalThrowingForce = 2000f;
-    public static float verticalThrowingForce = 200f;
+    public static float verticalThrowingForce = 250f;
 
     public static float speedBoostFactor = 1.25f;
 
-    public static float dashSpeed = 50f;
+    public static float dashSpeed = 75f;
     public static int dashingFrame = 10;
     public static int dashCDinFrames = 50;
     public static float dashCDinSeconds = dashCDinFrames / 50;

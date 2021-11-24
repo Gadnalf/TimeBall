@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GoalShield : MonoBehaviour
@@ -25,15 +24,28 @@ public class GoalShield : MonoBehaviour
     private void Update() {
         var charge = ball.GetCharge();
 
-        if (charge == 0) {
+        if (charge == 0)
             material.color = new Color(material.color.r, material.color.g, material.color.b, 0.9f);
-            text.gameObject.SetActive(true);
-        }
-        else {
+        else
             material.color = new Color(material.color.r, material.color.g, material.color.b, 0.1f);
-            text.gameObject.SetActive(false);
-        }
             
+    }
+
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.transform.tag == "Ball" && collision.gameObject.layer != 8 && !text.activeInHierarchy) {
+            startChargeHint();
+        }
+    }
+
+    private void startChargeHint () {
+        IEnumerator coroutine = chargeHint();
+        StartCoroutine(coroutine);
+    }
+
+    private IEnumerator chargeHint() {
+        text.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        text.SetActive(false);
     }
 
     private void StartAlphaChange() {

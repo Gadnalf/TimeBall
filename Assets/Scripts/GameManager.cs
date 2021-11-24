@@ -61,6 +61,8 @@ public class GameManager : MonoBehaviour
 
     private AudioManager audioManager;
     private AudioSource runningWithouBall;
+    private AudioSource stadiumCrowd;
+    private AudioSource gameTheme;
 
     private void Awake()
     {
@@ -145,6 +147,8 @@ public class GameManager : MonoBehaviour
 
         audioManager = FindObjectOfType<AudioManager>();
         runningWithouBall = audioManager.GetAudio("Running");
+        stadiumCrowd = audioManager.GetAudio("Crowd");
+        gameTheme = audioManager.GetAudio("Game");
     }
 
     void Update()
@@ -193,6 +197,9 @@ public class GameManager : MonoBehaviour
         foreach (PlayerMovement player in playerControllers) {
             player.GetComponent<PlayerMovement>().enabled = true;
         }
+
+        stadiumCrowd.Play();
+        gameTheme.Play();
     }
 
     public void ShowControlsPanel(bool value)
@@ -249,6 +256,9 @@ public class GameManager : MonoBehaviour
         {
             player.GetComponent<PlayerMovement>().enabled = false;
         }
+
+        stadiumCrowd.Stop();
+        gameTheme.Stop();
     }
 
     public void ResumeGame()
@@ -260,10 +270,16 @@ public class GameManager : MonoBehaviour
         {
             player.GetComponent<PlayerMovement>().enabled = true;
         }
+
+        stadiumCrowd.Play();
+        gameTheme.Play();
     }
 
     public void EndGame()
     {
+        stadiumCrowd.Stop();
+        gameTheme.Stop();
+
         gameStarted = false;
         gameEnded = true;
         gamePaused = true;
