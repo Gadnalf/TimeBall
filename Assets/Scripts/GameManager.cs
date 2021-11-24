@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI timer;
+    private bool increaseSize;
 
     [SerializeField]
     private Transform[] spawnPoints;
@@ -149,6 +150,7 @@ public class GameManager : MonoBehaviour
         runningWithouBall = audioManager.GetAudio("Running");
         stadiumCrowd = audioManager.GetAudio("Crowd");
         gameTheme = audioManager.GetAudio("Game");
+        increaseSize = true;
     }
 
     void Update()
@@ -213,6 +215,19 @@ public class GameManager : MonoBehaviour
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
 
         timer.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+        if (timeRemaining < 6 && timeRemaining > 0) {
+            timer.color = Color.red;
+            float factor = Time.deltaTime;
+            if (increaseSize)
+                timer.transform.localScale *= (1 + factor);
+            else
+                timer.transform.localScale /= (1 + factor);
+            if (timer.transform.localScale.x >= 2 || timer.transform.localScale.x <= 1)
+                increaseSize = !increaseSize;
+        }  
+        else
+            timer.color = Color.white;
     }
 
     private void doNextRoundStuff()
