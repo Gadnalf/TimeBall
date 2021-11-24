@@ -33,10 +33,12 @@ public class ScoringManager : MonoBehaviour
         currentPlayer = player;
     }
 
-    private int GetPlayerNumber(PlayerData.PlayerNumber player) {
+    private int GetPlayerNumber(PlayerData.PlayerNumber player)
+    {
         int playerNum;
 
-        switch (player) {
+        switch (player)
+        {
             case (PlayerData.PlayerNumber.PlayerOne):
                 playerNum = 0;
                 break;
@@ -52,20 +54,23 @@ public class ScoringManager : MonoBehaviour
         return playerNum;
     }
 
-    public int GetPlayerScore(PlayerData.PlayerNumber player) {
+    public int GetPlayerScore(PlayerData.PlayerNumber player)
+    {
         int playerNum = GetPlayerNumber(player);
 
         return playerScores[playerNum];
     }
 
-    public void AddPlayerScore(PlayerData.PlayerNumber player, int playerNum) {
+    public void AddPlayerScore(PlayerData.PlayerNumber player, int playerNum, int score)
+    {
         //int playerNum = GetPlayerNumber(player);
 
-        playerScores[playerNum]++;
+        playerScores[playerNum] += score;
     }
 
-    public void PlayerGoal(int player) {
-        AddPlayerScore(currentPlayer, player - 1);
+    public void PlayerGoal(int player, int score)
+    {
+        AddPlayerScore(currentPlayer, player - 1, score);
     }
 
     public int GetWinner()
