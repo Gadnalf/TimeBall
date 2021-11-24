@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector]
     public AudioManager audioManager;
     private AudioSource runningWithoutBall;
-
+    private AudioSource dashingSound;
     private void Awake()
     {
         controls = new PlayerControls();
@@ -104,6 +104,7 @@ public class PlayerMovement : MonoBehaviour
         if (context.action.triggered && ifCanDash())
         {
             dashingFrame = GameConfigurations.dashingFrame;
+            dashingSound.Play();
         }
     }
 
@@ -146,6 +147,7 @@ public class PlayerMovement : MonoBehaviour
 
         audioManager = FindObjectOfType<AudioManager>();
         runningWithoutBall = audioManager.GetAudio("Running");
+        dashingSound = audioManager.GetAudio("Dashing");
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;

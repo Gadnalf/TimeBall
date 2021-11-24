@@ -1,19 +1,23 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ChargeLevelDisplayer : MonoBehaviour
 {
     private PlayerData.PlayerNumber playerNumber;
 
-    private TextMeshProUGUI chargeLevel;
+    private Image chargeLevel;
     private Camera playerCamera;
 
     [SerializeField]
     private BallScript ballScript;
 
+    [SerializeField]
+    private Sprite[] batteries;
+
     private void Start()
     {
-        chargeLevel = GetComponent<TextMeshProUGUI>();
+        chargeLevel = GetComponent<Image>();
 
         // var canvasHeight = FindObjectOfType<Canvas>().GetComponent<RectTransform>().rect.height;
 
@@ -27,7 +31,7 @@ public class ChargeLevelDisplayer : MonoBehaviour
                 var player = camera.transform.parent;
                 var playerPos = player.GetComponent<Rigidbody>().position;
                 var height = player.GetComponent<Collider>().bounds.size.y;
-                var y = playerPos.y + height / 2 + 1;
+                var y = playerPos.y + height / 2 + 1.1f;
                 transform.position = playerCamera.WorldToScreenPoint(new Vector3(playerPos.x, y, playerPos.z));
                 playerNumber = (PlayerData.PlayerNumber)1;
             }
@@ -37,7 +41,7 @@ public class ChargeLevelDisplayer : MonoBehaviour
                 var player = camera.transform.parent;
                 var playerPos = player.GetComponent<Rigidbody>().position;
                 var height = player.GetComponent<Collider>().bounds.size.y;
-                var y = playerPos.y + height / 2 + 1.1f;
+                var y = playerPos.y + height / 2 + 1.2f;
                 transform.position = playerCamera.WorldToScreenPoint(new Vector3(playerPos.x, y, playerPos.z));
                 playerNumber = (PlayerData.PlayerNumber)2;
             }
@@ -48,13 +52,17 @@ public class ChargeLevelDisplayer : MonoBehaviour
     {
         if (ballScript.GetPlayerNumber() == playerNumber)
         {
+            Color c = chargeLevel.color;
+            c.a = 1f;
+            chargeLevel.color = c;
             int chargeNum = ballScript.GetCharge();
-            chargeLevel.color = GameConfigurations.FromChargeToColor(chargeNum);
-            chargeLevel.text = chargeNum.ToString();
+            chargeLevel.sprite = batteries[chargeNum];
         }
         else
         {
-            chargeLevel.color = new Color(0, 0, 0, 0f);
+            Color c = chargeLevel.color;
+            c.a = 0;
+            chargeLevel.color = c;
         }
     }
 }
