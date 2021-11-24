@@ -17,8 +17,6 @@ public class CloneHitByBall : MonoBehaviour
     private float holdThrow;
     private float chargeTime;
 
-    private bool baseChargeOnCooldown;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -37,17 +35,18 @@ public class CloneHitByBall : MonoBehaviour
             Debug.LogError("Player discovery failed. It's probably an issue with either the player numbers or tags.");
         }
 
-        baseChargeOnCooldown = false;
         chargeTime = 0;
     }
 
     private void FixedUpdate()
     {
-        if (ball != null) {
+        if (ball != null)
+        {
             chargeTime += Time.deltaTime;
 
-            if (chargeTime > GameConfigurations.ballChargeTime) {
-                ball.GetComponent<BallScript>().AddCharge(1, GameConfigurations.maxBallCharge);
+            if (chargeTime > GameConfigurations.ballChargeTime)
+            {
+                ball.GetComponent<BallScript>().AddCharge(1, GameConfigurations.maxCloneAutoCharge);
                 chargeTime = 0;
             }
         }
@@ -57,7 +56,7 @@ public class CloneHitByBall : MonoBehaviour
             playerToNotify.SetCloneWithBall(null);
 
             // Debug.Log("Throwing");
-            
+
             ball.transform.parent = null;
             ball.GetComponent<Rigidbody>().isKinematic = false;
             ball.GetComponent<Rigidbody>().AddForce((transform.forward * GameConfigurations.horizontalThrowingForce * GameConfigurations.speedBoostFactor * (1 + ball.GetComponent<BallScript>().GetCharge()))
@@ -116,7 +115,7 @@ public class CloneHitByBall : MonoBehaviour
             if (ball)
             {
                 playerToNotify.SetCloneWithBall(this);
-                
+
                 // When throw input is released, if the ball is held and charged, throw the ball.
                 if (!throwInput && holdThrow > 0)
                 {
@@ -134,21 +133,26 @@ public class CloneHitByBall : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision) {
-        if (!ball && collision.transform.tag == "Ball") {
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!ball && collision.transform.tag == "Ball")
+        {
             ball = collision.gameObject;
             PlayerData ballData = ball.GetComponent<PlayerData>();
 
             // if ball is of player's color
-            if (ballData.playerNumber == GetComponent<PlayerData>().playerNumber) {
-                if (!ball.transform.parent) {
-                    ClaimBall(collision);
+            if (ballData.playerNumber == GetComponent<PlayerData>().playerNumber)
+            {
+                if (!ball.transform.parent)
+                {
+                    ClaimBall(ball);
 
-                    if (baseChargeOnCooldown == false)
+                    var uniqueCloneCharges = ball.GetComponent<BallScript>().uniqueClones;
+                    int cloneNum = controller.cloneData.RoundNumber;
+                    if (!uniqueCloneCharges.Contains(cloneNum))
                     {
-                        ball.GetComponent<BallScript>().AddCharge(GameConfigurations.cloneBaseCharge);
-                        baseChargeOnCooldown = true;
-                        StartBaseChargeCD();
+                        uniqueCloneCharges.Add(cloneNum);
+                        ball.GetComponent<BallScript>().AddCharge(GameConfigurations.cloneBaseCharge, GameConfigurations.maxBallCharge);
                     }
 
                     BallScript ballScript = ball.GetComponent<BallScript>();
@@ -165,18 +169,27 @@ public class CloneHitByBall : MonoBehaviour
             }
 
             // if ball is of no player's color
-            else if (ballData.playerNumber == PlayerData.PlayerNumber.NoPlayer) {
-                ClaimBall(collision);
+            else if (ballData.playerNumber == PlayerData.PlayerNumber.NoPlayer)
+            {
+                ClaimBall(ball);
+                var uniqueCloneCharges = ball.GetComponent<BallScript>().uniqueClones;
+                int cloneNum = controller.cloneData.RoundNumber;
+                uniqueCloneCharges.Add(cloneNum);
+                ball.GetComponent<BallScript>().AddCharge(GameConfigurations.cloneBaseCharge, GameConfigurations.maxBallCharge);
             }
 
             // if ball is of opponent's color
-            else {
-                if (ball.transform.parent == null && ball.GetComponent<BallScript>().GetCharge() > 0) {
+            else
+            {
+                if (ball.transform.parent == null && ball.GetComponent<BallScript>().GetCharge() > GameConfigurations.goalShieldBreakableCharge)
+                {
                     cloneKnockdown = true;
+                    ball.GetComponent<BallScript>().ClearCharge();
                 }
                 else
                 {
-                    ClaimBall(collision);
+                    ClaimBall(ball);
+                    ball.GetComponent<BallScript>().ClearCharge();
                 }
             }
         }
@@ -193,13 +206,13 @@ public class CloneHitByBall : MonoBehaviour
         // If the clone is not currently throwing the ball, set target
         if (!throwBall)
         {
-            this.lockTarget = target;
+            lockTarget = target;
         }
     }
 
-    private void ClaimBall(Collision collision)
+    public void ClaimBall(GameObject ball)
     {
-        ball = collision.gameObject;
+        this.ball = ball;
         ball.transform.parent = transform;
         ball.GetComponent<PlayerData>().playerNumber = GetComponent<PlayerData>().playerNumber;
         ball.transform.localPosition = new Vector3(0, GameConfigurations.ballHeight, GameConfigurations.ballDistance);
@@ -209,15 +222,13 @@ public class CloneHitByBall : MonoBehaviour
         chargeTime = 0;
     }
 
-    public void StartBaseChargeCD()
+    public bool HasBall()
     {
-        IEnumerator coroutine = coolDownCoroutine(GameConfigurations.cloneBaseChargeCDInSeconds);
-        StartCoroutine(coroutine);
+        return ball != null;
     }
 
-    private IEnumerator coolDownCoroutine(float seconds)
+    public void KnockDownClone()
     {
-        yield return new WaitForSeconds(seconds);
-        baseChargeOnCooldown = false;
+        cloneKnockdown = true;
     }
 }

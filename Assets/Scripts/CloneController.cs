@@ -4,20 +4,26 @@ using static CloneManager;
 
 public class CloneController : MonoBehaviour
 {
+    public CloneData cloneData;
 
     [SerializeField]
     private GameObject linePrefab;
     [SerializeField]
     private GameObject trailPrefab;
-    public CloneData cloneData;
 
     // State data
     private Rigidbody rb;
     private int frame;
     private Vector3 nextPos;
     private int paused;
+
+    private CloneHitByBall ballScript;
     public bool throwInput { get; private set; }
-    private int nextThrowInputChange;
+    private int nextThrowInputChangeIndex;
+
+    private CloneGuard guardScript;
+    public bool guardInput { get; private set; }
+    private int nextGuardInputChangeIndex;
 
     private GameObject lr;
     private GameObject tr;
@@ -26,14 +32,17 @@ public class CloneController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        guardScript = GetComponentInChildren<CloneGuard>();
+        ballScript = GetComponent<CloneHitByBall>();
         frame = 0;
         throwInput = false;
-        nextThrowInputChange = 0;
+        guardInput = false;
+        nextThrowInputChangeIndex = 0;
     }
 
     void FixedUpdate()
     {
-        if (frame/(cloneData.PositionSkipFrames + 1) < cloneData.Positions.Length)
+        if (frame / (cloneData.PositionSkipFrames + 1) < cloneData.Positions.Length)
         {
             if (frame % cloneData.PositionSkipFrames == 0)
             {
@@ -41,17 +50,27 @@ public class CloneController : MonoBehaviour
                 nextPos = cloneData.Positions[nextIndex];
             }
 
-            if (cloneData.ThrowInputs.Length > nextThrowInputChange)
+            if (cloneData.ThrowInputs.Length > nextThrowInputChangeIndex)
             {
-                if (frame == cloneData.ThrowInputs[nextThrowInputChange])
+                if (frame == cloneData.ThrowInputs[nextThrowInputChangeIndex])
                 {
                     throwInput = !throwInput;
-                    nextThrowInputChange++;
+                    nextThrowInputChangeIndex++;
                 }
             }
 
+            if (cloneData.GuardInputs.Length > nextGuardInputChangeIndex)
+            {
+                if (frame == cloneData.GuardInputs[nextGuardInputChangeIndex])
+                {
+                    guardInput = !guardInput;
+                    nextGuardInputChangeIndex++;
+                }
+            }
+            guardScript.UpdateGuard(guardInput && !ballScript.HasBall());
+
             // move whatever fraction of the way to the target is necessary
-            Vector3 partialMove = transform.position + (nextPos - transform.position)/(cloneData.PositionSkipFrames + 1);
+            Vector3 partialMove = transform.position + (nextPos - transform.position) / (cloneData.PositionSkipFrames + 1);
             //Debug.Log(partialMove);
             rb.MovePosition(partialMove);
             if (paused <= 0)
@@ -86,25 +105,25 @@ public class CloneController : MonoBehaviour
         }
         tr.GetComponent<TrailRenderer>().time = 5;
         tr.GetComponent<TrailRenderer>().AddPositions(positions);
-        //if (lr != null)
-        //{
-        //    Destroy(lr);
-        //}
-        //lr = Instantiate(linePrefab, Vector3.zero, Quaternion.identity);
-        //lr.transform.parent = null;
-        //if (cloneData.Number == PlayerData.PlayerNumber.PlayerOne)
-        //{
-        //    lr.GetComponent<LineRenderer>().material.color = Color.blue;
-        //}
-        //else
-        //{
-        //    lr.GetComponent<LineRenderer>().material.color = Color.red;
-        //}
-        //lr.GetComponent<LineRenderer>().useWorldSpace = true;
-        //lr.GetComponent<LineRenderer>().positionCount = positions.Length;
-        //lr.GetComponent<LineRenderer>().startWidth = 0.3f;
-        //lr.GetComponent<LineRenderer>().endWidth = 0.3f;
-        //lr.GetComponent<LineRenderer>().SetPositions(positions);
+        /* if (lr != null)
+        {
+            Destroy(lr);
+        }
+        lr = Instantiate(linePrefab, Vector3.zero, Quaternion.identity);
+        lr.transform.parent = null;
+        if (cloneData.Number == PlayerData.PlayerNumber.PlayerOne)
+        {
+            lr.GetComponent<LineRenderer>().material.color = Color.blue;
+        }
+        else
+        {
+            lr.GetComponent<LineRenderer>().material.color = Color.red;
+        }
+        lr.GetComponent<LineRenderer>().useWorldSpace = true;
+        lr.GetComponent<LineRenderer>().positionCount = positions.Length;
+        lr.GetComponent<LineRenderer>().startWidth = 0.3f;
+        lr.GetComponent<LineRenderer>().endWidth = 0.3f;
+        lr.GetComponent<LineRenderer>().SetPositions(positions); */
 
     }
 
@@ -140,3 +159,4 @@ public class CloneController : MonoBehaviour
         Destroy(gameObject);
     }
 }
+

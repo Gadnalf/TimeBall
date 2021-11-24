@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         */
-        
+
 
         foreach (Sound s in sounds)
         {
@@ -36,7 +36,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public AudioSource GetAudio (string name)
+    public AudioSource GetAudio(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         return s.source;
