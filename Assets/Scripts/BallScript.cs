@@ -40,7 +40,6 @@ public class BallScript : MonoBehaviour
             Vector3 direction = (1f - turnRate) * (rb.velocity) + turnRate * (target.transform.position - transform.position);
             Vector2 scaledDirection = new Vector2(direction.x, direction.z).normalized * magnitude;
             rb.velocity = new Vector3(scaledDirection.x, rb.velocity.y, scaledDirection.y);
-            Debug.Log("Homing: " + homing.ToString() + ", Target: " + target.ToString() + " " + target.transform.position.ToString());
         }
         else
         {
@@ -84,7 +83,6 @@ public class BallScript : MonoBehaviour
     {
         this.target = target;
         homing = (target != null);
-        Debug.Log("SetHoming: " + homing + this.target);
     }
 
     public Rigidbody GetHomingTarget()
