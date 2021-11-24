@@ -41,11 +41,17 @@ public class CloneHitByBall : MonoBehaviour
     private void FixedUpdate()
     {
         if (ball != null) {
-            chargeTime += Time.deltaTime;
+            var uniqueCharges = ball.GetComponent<BallScript>().uniqueHoldCharges;
+            int cloneNum = controller.cloneData.RoundNumber;
 
-            if (chargeTime > GameConfigurations.ballChargeTime) {
-                ball.GetComponent<BallScript>().AddCharge(1, GameConfigurations.maxCloneAutoCharge);
-                chargeTime = 0;
+            if (!uniqueCharges.Contains(cloneNum)) {
+                chargeTime += Time.deltaTime;
+
+                if (chargeTime > GameConfigurations.ballChargeTime) {
+                    uniqueCharges.Add(cloneNum);
+                    ball.GetComponent<BallScript>().AddCharge();
+                    chargeTime = 0;
+                }
             }
         }
 

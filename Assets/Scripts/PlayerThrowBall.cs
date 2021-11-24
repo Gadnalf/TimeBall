@@ -128,11 +128,16 @@ public class PlayerThrowBall : MonoBehaviour
         //int? passTargetId = lockedTarget?.GetComponent<CloneController>().cloneData.RoundNumber;
 
         if (ball != null) {
-            chargeTime += Time.deltaTime;
+            HashSet<int> uniqueCharges = ball.GetComponent<BallScript>().uniqueHoldCharges;
 
-            if (chargeTime > GameConfigurations.ballChargeTime) {
-                ball.GetComponent<BallScript>().AddCharge(1, GameConfigurations.goalShieldBreakableCharge);
-                chargeTime = 0;
+            if (!uniqueCharges.Contains(0)) {
+                chargeTime += Time.deltaTime;
+
+                if (chargeTime > GameConfigurations.ballChargeTime) {
+                    uniqueCharges.Add(0);
+                    ball.GetComponent<BallScript>().AddCharge();
+                    chargeTime = 0;
+                }
             }
         }
 
