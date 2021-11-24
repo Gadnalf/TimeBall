@@ -176,6 +176,9 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
+        if (!ball.enabled)
+            ball.enabled = true;
     }
 
     private void FixedUpdate()
@@ -225,7 +228,7 @@ public class GameManager : MonoBehaviour
                 timer.transform.localScale /= (1 + factor);
             if (timer.transform.localScale.x >= 2 || timer.transform.localScale.x <= 1)
                 increaseSize = !increaseSize;
-        }  
+        }
         else
             timer.color = Color.white;
     }
