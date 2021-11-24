@@ -232,6 +232,8 @@ public class GameManager : MonoBehaviour
 
     private void doNextRoundStuff()
     {
+        timer.transform.localScale = Vector3.one;
+
         CloneManager.KillClones();
         //Debug.Log("started round " + roundNumber.ToString());
 
