@@ -16,6 +16,8 @@ public class BallScript : MonoBehaviour
     public HashSet<int> uniqueClones = new HashSet<int>();
 
     private AudioManager audioManager;
+    private AudioSource chargeSound;
+    public bool fromClone;
 
     // Start is called before the first frame update
     private void Start()
@@ -24,6 +26,8 @@ public class BallScript : MonoBehaviour
         playerData = GetComponent<PlayerData>();
         audioManager = FindObjectOfType<AudioManager>();
         uniqueClones = new HashSet<int>();
+
+        chargeSound = audioManager.GetAudio("AddCharge");
     }
 
     private void FixedUpdate()
@@ -63,6 +67,7 @@ public class BallScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        fromClone = homing;
         homing = false;
         var collide = collision.gameObject;
 
@@ -96,6 +101,9 @@ public class BallScript : MonoBehaviour
         else {
             max = (int)cap;
         }
+        if (charge < max)
+            chargeSound.Play();
+
         charge = Mathf.Max(Mathf.Min(max, charge + chargeToAdd), charge);
 
         if (charge >= GameConfigurations.goalShieldBreakableCharge)

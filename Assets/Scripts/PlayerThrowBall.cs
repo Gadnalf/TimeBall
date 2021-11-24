@@ -43,7 +43,8 @@ public class PlayerThrowBall : MonoBehaviour
     [HideInInspector]
     public AudioManager audioManager;
     private AudioSource throwBallSound;
-    private AudioSource stunSound;
+    private AudioSource tagSound;
+    private AudioSource receiveSound;
 
     private void Awake()
     {
@@ -119,7 +120,8 @@ public class PlayerThrowBall : MonoBehaviour
 
         audioManager = FindObjectOfType<AudioManager>();
         throwBallSound = audioManager.GetAudio("ThrowBall");
-        stunSound = audioManager.GetAudio("Stunning");
+        tagSound = audioManager.GetAudio("TagBall");
+        receiveSound = audioManager.GetAudio("ReceivePass");
     }
 
     private void FixedUpdate() {
@@ -296,7 +298,6 @@ public class PlayerThrowBall : MonoBehaviour
             // if ball is of opponent's color
             else if (collision.gameObject.GetComponent<PlayerData>().playerNumber != playerNumber)
             {
-
                 if (!collision.transform.parent) {
                     ballData.playerNumber = playerNumber;
                     scoringManager.SetCurrentPlayer(playerNumber);
@@ -313,8 +314,8 @@ public class PlayerThrowBall : MonoBehaviour
                                 opponent.GetComponent<PlayerThrowBall>().ReleaseBall();
                         }
                         ClaimBall(ball);
+                        tagSound.Play();
                         ball.GetComponent<BallScript>().ClearCharge();
-                        
                     }
                 }
             }
@@ -323,6 +324,10 @@ public class PlayerThrowBall : MonoBehaviour
             else {
                 if (GetComponent<PlayerMovement>().GetStunStatus() == false) {
                     ClaimBall(ball);
+                    if (ball.GetComponent<BallScript>().fromClone) {
+                        ball.GetComponent<BallScript>().fromClone = false;
+                        receiveSound.Play();
+                    }
                 }
             }
         }
@@ -348,7 +353,7 @@ public class PlayerThrowBall : MonoBehaviour
             }
 
             collision.gameObject.GetComponent<PlayerMovement>().SetStunStatus(true);
-            stunSound.Play();
+            tagSound.Play();
             collision.gameObject.GetComponent<PlayerMovement>().StartExplosion(GameConfigurations.stunningSpeed, GameConfigurations.stunningFrame, transform.position);
         }
     }
