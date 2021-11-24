@@ -51,15 +51,22 @@ MonoBehaviour:
     loop: 1
     playOnAwake: 0
     source: {fileID: 0}
+  - name: Game
+    clip: {fileID: 8300000, guid: b7273b8cfc328c548a136fb0665af6f0, type: 3}
+    volume: 0.15
+    pitch: 1
+    loop: 1
+    playOnAwake: 0
+    source: {fileID: 0}
   - name: Running
     clip: {fileID: 8300000, guid: 9fe5c3728aa00a84282031cab26b29f1, type: 3}
-    volume: 0.2
+    volume: 0.1
     pitch: 1
     loop: 1
     playOnAwake: 0
     source: {fileID: 0}
   - name: ThrowBall
-    clip: {fileID: 8300000, guid: 0bbc12f3f82226a4ab26ccf0403c92a9, type: 3}
+    clip: {fileID: 8300000, guid: 8f9ed968d8791e242bf6fd487f3bacee, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
@@ -72,16 +79,37 @@ MonoBehaviour:
     loop: 0
     playOnAwake: 0
     source: {fileID: 0}
-  - name: Stunning
-    clip: {fileID: 8300000, guid: a44b402b631ddc042addb169dabfffa5, type: 3}
-    volume: 0.5
+  - name: Goal
+    clip: {fileID: 8300000, guid: 0cb9e3cce91e6ca44aa4e448e1348cf2, type: 3}
+    volume: 0.2
     pitch: 1
     loop: 0
     playOnAwake: 0
     source: {fileID: 0}
-  - name: Goal
-    clip: {fileID: 8300000, guid: e490be3d66b33f74e9c794545229ef74, type: 3}
-    volume: 0.2
+  - name: Crowd
+    clip: {fileID: 8300000, guid: aecb1ae9ac78e0d47913451d9edb5ab8, type: 3}
+    volume: 0.08
+    pitch: 1
+    loop: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: AddCharge
+    clip: {fileID: 8300000, guid: ba63c78116cee0149b89f88f6270ff3a, type: 3}
+    volume: 0.7
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: TagBall
+    clip: {fileID: 8300000, guid: d98c0db887a1af44096ba327d0a57c88, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: ReceivePass
+    clip: {fileID: 8300000, guid: 25ac40d1a1d0c0346ad2cf4ece86af4c, type: 3}
+    volume: 0.7
     pitch: 1
     loop: 0
     playOnAwake: 0
