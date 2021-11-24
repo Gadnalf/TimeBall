@@ -93,7 +93,7 @@ public class CloneController : MonoBehaviour
         }
         tr = Instantiate(trailPrefab, Vector3.zero, Quaternion.identity);
         tr.transform.parent = null;
-        if (cloneData.Number == PlayerData.PlayerNumber.PlayerOne)
+        if (cloneData.PlayerNumber == PlayerData.PlayerNumber.PlayerOne)
         {
             tr.GetComponent<TrailRenderer>().startColor = Color.blue;
             tr.GetComponent<TrailRenderer>().endColor = Color.blue;

@@ -41,7 +41,7 @@ public static class CloneManager
         foreach (CloneData clone in clones)
         {
             GameObject newClone;
-            if (clone.Number == PlayerData.PlayerNumber.PlayerOne)
+            if (clone.PlayerNumber == PlayerData.PlayerNumber.PlayerOne)
             {
                 newClone = Object.Instantiate(clonePrefabs[0], clone.Positions[0], clone.Rotations[0]);
             }
@@ -62,7 +62,7 @@ public static class CloneManager
 
     public class CloneData
     {
-        public PlayerData.PlayerNumber Number { get; set; }
+        public PlayerData.PlayerNumber PlayerNumber { get; set; }
         public int RoundNumber { get; set; }
         public int PositionSkipFrames { get; set; }
         public int RotationSkipFrames { get; set; }
