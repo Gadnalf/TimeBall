@@ -76,7 +76,7 @@ public class UICloneNumberScript : MonoBehaviour
                 cloneNumberIndicator.transform.localPosition = boundedPosition;
                 TextMeshProUGUI textMesh = cloneNumberIndicator.GetComponent<TextMeshProUGUI>();
                 if (ballScript.GetPlayerNumber() != playerNumber || 
-                    (ballScript.GetPlayerNumber() == playerNumber && !ballScript.IsChargedClone(cloneController.cloneData.RoundNumber)))
+                    (ballScript.GetPlayerNumber() == playerNumber && ballScript.IsChargedClone(cloneController.cloneData.RoundNumber)))
                 {
                     textMesh.color = activeColor;
                 }
@@ -124,7 +124,7 @@ public class UICloneNumberScript : MonoBehaviour
         if (screenPoint.z < 0)
         {
             screenPoint.x = -screenPoint.x;
-            screenPoint.y = -verticalBound;
+            screenPoint.y += screenPoint.z * 100;
         }
         Vector3 shiftedScreenPoint = new Vector3(screenPoint.x - horizontalBound, screenPoint.y - verticalBound, screenPoint.z);
         return shiftedScreenPoint;
