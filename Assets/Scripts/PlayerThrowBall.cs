@@ -134,12 +134,18 @@ public class PlayerThrowBall : MonoBehaviour
 
         if (ball != null)
         {
-            chargeTime += Time.deltaTime;
+            HashSet<int> uniqueCharges = ball.GetComponent<BallScript>().uniqueHoldCharges;
 
-            if (chargeTime > GameConfigurations.ballChargeTime)
+            if (!uniqueCharges.Contains(0))
             {
-                ball.GetComponent<BallScript>().AddCharge(1, GameConfigurations.goalShieldBreakableCharge);
-                chargeTime = 0;
+                chargeTime += Time.deltaTime;
+
+                if (chargeTime > GameConfigurations.ballChargeTime)
+                {
+                    uniqueCharges.Add(0);
+                    ball.GetComponent<BallScript>().AddCharge();
+                    chargeTime = 0;
+                }
             }
         }
 

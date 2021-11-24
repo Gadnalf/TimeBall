@@ -13,7 +13,8 @@ public class BallScript : MonoBehaviour
     private bool homing;
     private int charge;
 
-    public HashSet<int> uniqueClones = new HashSet<int>();
+    public HashSet<int> uniqueClones;
+    public HashSet<int> uniqueHoldCharges;
 
     private AudioManager audioManager;
     private AudioSource chargeSound;
@@ -26,6 +27,7 @@ public class BallScript : MonoBehaviour
         playerData = GetComponent<PlayerData>();
         audioManager = FindObjectOfType<AudioManager>();
         uniqueClones = new HashSet<int>();
+        uniqueHoldCharges = new HashSet<int>();
 
         chargeSound = audioManager.GetAudio("AddCharge");
     }
@@ -126,6 +128,7 @@ public class BallScript : MonoBehaviour
         charge = 0;
         gameObject.layer = 0;
         uniqueClones.Clear();
+        uniqueHoldCharges.Clear();
     }
 
     public int GetCharge()
