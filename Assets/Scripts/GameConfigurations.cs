@@ -26,7 +26,7 @@ public static class GameConfigurations
 
     public static float speedBoostFactor = 1.25f;
 
-    public static float dashSpeed = 50f;
+    public static float dashSpeed = 75f;
     public static int dashingFrame = 10;
     public static int dashCDinFrames = 50;
     public static float dashCDinSeconds = dashCDinFrames / 50;

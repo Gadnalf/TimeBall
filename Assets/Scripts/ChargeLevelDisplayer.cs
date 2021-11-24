@@ -1,18 +1,22 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ChargeLevelDisplayer : MonoBehaviour
 {
     private PlayerData.PlayerNumber playerNumber;
 
-    private TextMeshProUGUI chargeLevel;
+    private Image chargeLevel;
     private Camera playerCamera;
 
     [SerializeField]
     private BallScript ballScript;
 
+    [SerializeField]
+    private Sprite[] batteries;
+
     private void Start() {
-        chargeLevel = GetComponent<TextMeshProUGUI>();
+        chargeLevel = GetComponent<Image>();
 
         // var canvasHeight = FindObjectOfType<Canvas>().GetComponent<RectTransform>().rect.height;
 
@@ -42,12 +46,16 @@ public class ChargeLevelDisplayer : MonoBehaviour
 
     void Update() {
         if (ballScript.GetPlayerNumber() == playerNumber) {
+            Color c = chargeLevel.color;
+            c.a = 1f;
+            chargeLevel.color = c;
             int chargeNum = ballScript.GetCharge();
-            chargeLevel.color = GameConfigurations.FromChargeToColor(chargeNum);
-            chargeLevel.text = chargeNum.ToString();
+            chargeLevel.sprite = batteries[chargeNum];
         }
         else {
-            chargeLevel.color = new Color(0, 0, 0, 0f);
+            Color c = chargeLevel.color;
+            c.a = 0;
+            chargeLevel.color = c;
         }
     }
 }
