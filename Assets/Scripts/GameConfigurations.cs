@@ -13,7 +13,7 @@ public static class GameConfigurations
     public static int numberOfRounds = 5;
 
     public static float ballDistance = 2f;
-    public static float ballHeight = 2f;
+    public static float ballHeight = 1.3f;
     public static float ballChargeTime = 1.5f;
     public static int goalShieldBreakableCharge = 1;
     public static int maxCloneAutoCharge = 3;
