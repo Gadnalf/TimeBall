@@ -233,10 +233,10 @@ public class GameManager : MonoBehaviour
             player.Reset();
         }
 
-        //foreach (CrosshairScript crosshair in FindObjectsOfType<CrosshairScript>())
-        //{
-        //    crosshair.Reset();
-        //}
+        foreach (UICloneNumberScript playerOverlayScript in FindObjectsOfType<UICloneNumberScript>())
+        {
+            playerOverlayScript.Reset();
+        }
         ball.Reset();
     }
 
