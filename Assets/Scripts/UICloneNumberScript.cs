@@ -13,13 +13,14 @@ public class UICloneNumberScript : MonoBehaviour
     private GameObject indicatorPrefab;
     [SerializeField]
     private float indicatorVerticalOffset = 3f;
+
     [SerializeField]
-    private float indicatorScale = 10;
+    [ColorUsage(true, true)]
+    private Color activeColor;
     [SerializeField]
-    private float minIndicatorScaleFactor = 1;
-    [SerializeField]
-    private float maxIndicatorScaleFactor = 5;
-    [SerializeField]
+    [ColorUsage(true, true)]
+    private Color inactiveColor;
+
     private float padding = 10f;
 
     private float verticalBound;
@@ -73,6 +74,16 @@ public class UICloneNumberScript : MonoBehaviour
                 Vector3 targetPosition = GetTargetPosition(cloneController.transform.position);
                 Vector3 boundedPosition = GetBoundedPosition(targetPosition);
                 cloneNumberIndicator.transform.localPosition = boundedPosition;
+                TextMeshProUGUI textMesh = cloneNumberIndicator.GetComponent<TextMeshProUGUI>();
+                if (ballScript.GetPlayerNumber() != playerNumber || 
+                    (ballScript.GetPlayerNumber() == playerNumber && !ballScript.IsChargedClone(cloneController.cloneData.RoundNumber)))
+                {
+                    textMesh.color = activeColor;
+                }
+                else
+                {
+                    textMesh.color = inactiveColor;
+                }
             }
             else
             {
@@ -100,7 +111,9 @@ public class UICloneNumberScript : MonoBehaviour
             Vector3 targetPosition = GetTargetPosition(cloneController.transform.position);
             Vector3 boundedPosition = GetBoundedPosition(targetPosition);
             newIndicator.transform.localPosition = boundedPosition;
-            newIndicator.GetComponent<TextMeshProUGUI>().text = cloneController.cloneData.RoundNumber.ToString();
+            TextMeshProUGUI textMesh = newIndicator.GetComponent<TextMeshProUGUI>();
+            textMesh.text = cloneController.cloneData.RoundNumber.ToString();
+            textMesh.color = activeColor;
             cloneNumberIndicators.Add(newIndicator);
         }
     }
@@ -121,6 +134,12 @@ public class UICloneNumberScript : MonoBehaviour
     {
         float paddedHorizontalBound = horizontalBound - padding;
         float paddedVerticalBound = verticalBound - padding;
-        return new Vector3(Mathf.Clamp(targetPosition.x, -paddedHorizontalBound, paddedHorizontalBound), Mathf.Clamp(targetPosition.y, -paddedVerticalBound, paddedVerticalBound), targetPosition.z);
+        float verticalBoundOffset = 0;
+        if (playerNumber == PlayerData.PlayerNumber.PlayerTwo)
+        {
+            // One screen width
+            verticalBoundOffset = verticalBound;
+        }
+        return new Vector3(Mathf.Clamp(targetPosition.x, -paddedHorizontalBound, paddedHorizontalBound), Mathf.Clamp(targetPosition.y, -paddedVerticalBound + verticalBoundOffset, paddedVerticalBound + verticalBoundOffset), targetPosition.z);
     }
 }
