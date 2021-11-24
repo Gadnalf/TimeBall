@@ -226,7 +226,7 @@ public class GameManager : MonoBehaviour
                 timer.transform.localScale *= (1 + factor);
             else
                 timer.transform.localScale /= (1 + factor);
-            if (timer.transform.localScale.x >= 2 || timer.transform.localScale.x <= 1)
+            if (timer.transform.localScale.x >= 3 || timer.transform.localScale.x <= 1)
                 increaseSize = !increaseSize;
         }
         else
@@ -299,6 +299,7 @@ public class GameManager : MonoBehaviour
     {
         stadiumCrowd.Stop();
         gameTheme.Stop();
+        runningWithouBall.volume = 0f;
 
         gameStarted = false;
         gameEnded = true;

@@ -20,7 +20,7 @@ public static class GameConfigurations
     // public static int maxCloneAutoCharge = 3;
     public static int maxBallCharge = 5;
     public static int cloneBaseCharge = 1;
-    public static float cloneBaseChargeCDInSeconds = 10;
+    // public static float cloneBaseChargeCDInSeconds = 10;
 
     public static float horizontalThrowingForce = 2000f;
     public static float verticalThrowingForce = 250f;
