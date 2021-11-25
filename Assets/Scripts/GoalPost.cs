@@ -27,7 +27,9 @@ public class GoalPost : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Ball") {
+        if (other.tag == "Ball")
+        {
+            Debug.Log("goal scored");
             int score = ball.GetComponent<BallScript>().GetCharge();
             if (playerGoal == 1)
             {
@@ -43,14 +45,16 @@ public class GoalPost : MonoBehaviour
 
             ball.SetActive(false);
             Invoke("ResetBall", 1);
-            
-            foreach (PlayerMovement playerMovement in playerMovements) {
+
+            foreach (PlayerMovement playerMovement in playerMovements)
+            {
                 playerMovement.ResetOnGoal();
             }
         }
     }
 
-    private void ResetBall() {
+    private void ResetBall()
+    {
         ball.SetActive(true);
         ball.GetComponent<BallScript>().Reset();
     }

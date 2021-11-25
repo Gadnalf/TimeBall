@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class SpawnPlayerSetupMenu : MonoBehaviour
 {
 
-    [SerializeField] 
+    [SerializeField]
     private GameObject playerSetupMenuPrefab;
 
     [SerializeField]

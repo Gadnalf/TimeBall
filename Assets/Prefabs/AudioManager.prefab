@@ -66,7 +66,7 @@ MonoBehaviour:
     playOnAwake: 0
     source: {fileID: 0}
   - name: ThrowBall
-    clip: {fileID: 8300000, guid: 0bbc12f3f82226a4ab26ccf0403c92a9, type: 3}
+    clip: {fileID: 8300000, guid: 8f9ed968d8791e242bf6fd487f3bacee, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0

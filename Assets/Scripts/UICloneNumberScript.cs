@@ -54,8 +54,8 @@ public class UICloneNumberScript : MonoBehaviour
         }
 
         Rect canvasRect = canvas.GetComponent<RectTransform>().rect;
-        verticalBound = canvasRect.height/2;
-        horizontalBound = canvasRect.width/2;
+        verticalBound = canvasRect.height / 2;
+        horizontalBound = canvasRect.width / 2;
 
         cloneNumberIndicators = new List<GameObject>();
         cloneControllers = new List<CloneController>();
@@ -75,7 +75,7 @@ public class UICloneNumberScript : MonoBehaviour
                 Vector3 boundedPosition = GetBoundedPosition(targetPosition);
                 cloneNumberIndicator.transform.localPosition = boundedPosition;
                 TextMeshProUGUI textMesh = cloneNumberIndicator.GetComponent<TextMeshProUGUI>();
-                if (ballScript.GetPlayerNumber() != playerNumber || 
+                if (ballScript.GetPlayerNumber() != playerNumber ||
                     (ballScript.GetPlayerNumber() == playerNumber && ballScript.IsChargedClone(cloneController.cloneData.RoundNumber)))
                 {
                     textMesh.color = activeColor;

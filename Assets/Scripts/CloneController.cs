@@ -6,6 +6,11 @@ public class CloneController : MonoBehaviour
 {
     public CloneData cloneData;
 
+    [SerializeField]
+    private GameObject linePrefab;
+    [SerializeField]
+    private GameObject trailPrefab;
+
     // State data
     private Rigidbody rb;
     private int frame;
@@ -19,6 +24,9 @@ public class CloneController : MonoBehaviour
     private CloneGuard guardScript;
     public bool guardInput { get; private set; }
     private int nextGuardInputChangeIndex;
+
+    private GameObject lr;
+    private GameObject tr;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +42,7 @@ public class CloneController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (frame/(cloneData.PositionSkipFrames + 1) < cloneData.Positions.Length)
+        if (frame / (cloneData.PositionSkipFrames + 1) < cloneData.Positions.Length)
         {
             if (frame % cloneData.PositionSkipFrames == 0)
             {
@@ -62,7 +70,7 @@ public class CloneController : MonoBehaviour
             guardScript.UpdateGuard(guardInput && !ballScript.HasBall());
 
             // move whatever fraction of the way to the target is necessary
-            Vector3 partialMove = transform.position + (nextPos - transform.position)/(cloneData.PositionSkipFrames + 1);
+            Vector3 partialMove = transform.position + (nextPos - transform.position) / (cloneData.PositionSkipFrames + 1);
             //Debug.Log(partialMove);
             rb.MovePosition(partialMove);
             if (paused <= 0)
@@ -74,6 +82,49 @@ public class CloneController : MonoBehaviour
                 paused -= 1;
             }
         }
+    }
+
+    public void SetupLines()
+    {
+        Vector3[] positions = cloneData.Positions;
+        if (tr != null)
+        {
+            Destroy(tr);
+        }
+        tr = Instantiate(trailPrefab, Vector3.zero, Quaternion.identity);
+        tr.transform.parent = null;
+        if (cloneData.PlayerNumber == PlayerData.PlayerNumber.PlayerOne)
+        {
+            tr.GetComponent<TrailRenderer>().startColor = Color.blue;
+            tr.GetComponent<TrailRenderer>().endColor = Color.blue;
+        }
+        else
+        {
+            tr.GetComponent<TrailRenderer>().startColor = Color.red;
+            tr.GetComponent<TrailRenderer>().endColor = Color.red;
+        }
+        tr.GetComponent<TrailRenderer>().time = 5;
+        tr.GetComponent<TrailRenderer>().AddPositions(positions);
+        /* if (lr != null)
+        {
+            Destroy(lr);
+        }
+        lr = Instantiate(linePrefab, Vector3.zero, Quaternion.identity);
+        lr.transform.parent = null;
+        if (cloneData.Number == PlayerData.PlayerNumber.PlayerOne)
+        {
+            lr.GetComponent<LineRenderer>().material.color = Color.blue;
+        }
+        else
+        {
+            lr.GetComponent<LineRenderer>().material.color = Color.red;
+        }
+        lr.GetComponent<LineRenderer>().useWorldSpace = true;
+        lr.GetComponent<LineRenderer>().positionCount = positions.Length;
+        lr.GetComponent<LineRenderer>().startWidth = 0.3f;
+        lr.GetComponent<LineRenderer>().endWidth = 0.3f;
+        lr.GetComponent<LineRenderer>().SetPositions(positions); */
+
     }
 
     public Quaternion GetNextRotation(float timeSinceLastUpdate)
@@ -101,6 +152,11 @@ public class CloneController : MonoBehaviour
 
     public void Kill()
     {
+        if (lr != null)
+            Destroy(lr.gameObject);
+        if (tr != null)
+            Destroy(tr.gameObject);
         Destroy(gameObject);
     }
 }
+
