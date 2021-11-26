@@ -99,11 +99,14 @@ public class PlayerThrowBall : MonoBehaviour
         scoringManager = FindObjectOfType<ScoringManager>();
 
         CooldownTimer[] dashCooldowns = FindObjectsOfType<CooldownTimer>();
-        foreach (CooldownTimer dashCooldown in dashCooldowns) {
-            if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerOne && dashCooldown.name.StartsWith("P1")) {
+        foreach (CooldownTimer dashCooldown in dashCooldowns)
+        {
+            if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerOne && dashCooldown.name.StartsWith("P1"))
+            {
                 this.dashCooldown = dashCooldown;
             }
-            else if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerTwo && dashCooldown.name.StartsWith("P2")) {
+            else if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerTwo && dashCooldown.name.StartsWith("P2"))
+            {
                 this.dashCooldown = dashCooldown;
             }
         }
@@ -112,7 +115,8 @@ public class PlayerThrowBall : MonoBehaviour
         foreach (ChargeBorderScript border in borders)
         {
             if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerOne && border.name.StartsWith("P1")
-                || GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerTwo && border.name.StartsWith("P2")) {
+                || GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerTwo && border.name.StartsWith("P2"))
+            {
                 border.playerBallScript = this;
                 border.enabled = true;
             }
@@ -124,16 +128,20 @@ public class PlayerThrowBall : MonoBehaviour
         receiveSound = audioManager.GetAudio("ReceivePass");
     }
 
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         //int? passTargetId = lockedTarget?.GetComponent<CloneController>().cloneData.RoundNumber;
 
-        if (ball != null) {
+        if (ball != null)
+        {
             HashSet<int> uniqueCharges = ball.GetComponent<BallScript>().uniqueHoldCharges;
 
-            if (!uniqueCharges.Contains(0)) {
+            if (!uniqueCharges.Contains(0))
+            {
                 chargeTime += Time.deltaTime;
 
-                if (chargeTime > GameConfigurations.ballChargeTime) {
+                if (chargeTime > GameConfigurations.ballChargeTime)
+                {
                     uniqueCharges.Add(0);
                     ball.GetComponent<BallScript>().AddCharge();
                     chargeTime = 0;
@@ -141,7 +149,8 @@ public class PlayerThrowBall : MonoBehaviour
             }
         }
 
-        if (throwBall || passBall) {
+        if (throwBall || passBall)
+        {
             throwBall = false;
             passBall = false;
             ball.transform.parent = null;
@@ -190,7 +199,8 @@ public class PlayerThrowBall : MonoBehaviour
             if (throwHeldDown > 0)
             {
                 // If ball, charge and throw it
-                if (ball) {
+                if (ball)
+                {
                     throwHeldDown = 0;
                     throwBall = true;
                 }
@@ -259,7 +269,7 @@ public class PlayerThrowBall : MonoBehaviour
     private Rigidbody GetClosestClone()
     {
         lockedTarget = null;
-        float angle = GameConfigurations.passAngle/2;
+        float angle = GameConfigurations.passAngle / 2;
 
         foreach (GameObject clone in playerClones)
         {
@@ -274,7 +284,8 @@ public class PlayerThrowBall : MonoBehaviour
             }
         }
 
-        if (lockedTarget == null) {
+        if (lockedTarget == null)
+        {
             Debug.Log("No clones located.");
         }
         return lockedTarget;
@@ -294,7 +305,8 @@ public class PlayerThrowBall : MonoBehaviour
             PlayerData ballData = ball.GetComponent<PlayerData>();
 
             // if ball is not of player's color
-            if (collision.gameObject.GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.NoPlayer) {
+            if (collision.gameObject.GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.NoPlayer)
+            {
                 ///Debug.Log("Claiming un-owned ball");
                 ClaimBall(ball);
                 ball.GetComponent<BallScript>().ClearCharge();
@@ -303,17 +315,21 @@ public class PlayerThrowBall : MonoBehaviour
             // if ball is of opponent's color
             else if (collision.gameObject.GetComponent<PlayerData>().playerNumber != playerNumber)
             {
-                if (!collision.transform.parent) {
+                if (!collision.transform.parent)
+                {
                     ballData.playerNumber = playerNumber;
                     scoringManager.SetCurrentPlayer(playerNumber);
                     ClaimBall(ball);
                     ball.GetComponent<BallScript>().ClearCharge();
                 }
-                else {
+                else
+                {
                     // tag ball
-                    if (GetComponent<PlayerMovement>().GetDashStatus() == true) {
+                    if (GetComponent<PlayerMovement>().GetDashStatus() == true)
+                    {
                         var opponent = collision.transform.parent;
-                        if (opponent.tag == "Player") {
+                        if (opponent.tag == "Player")
+                        {
                             opponent.GetComponent<PlayerThrowBall>().dashCooldown.AbilityEnabled();
                             if (opponent.GetComponent<PlayerThrowBall>().CheckIfHasBall())
                                 opponent.GetComponent<PlayerThrowBall>().ReleaseBall();
@@ -326,10 +342,13 @@ public class PlayerThrowBall : MonoBehaviour
             }
 
             // if ball is of player's color
-            else {
-                if (GetComponent<PlayerMovement>().GetStunStatus() == false) {
+            else
+            {
+                if (GetComponent<PlayerMovement>().GetStunStatus() == false)
+                {
                     ClaimBall(ball);
-                    if (ball.GetComponent<BallScript>().fromClone) {
+                    if (ball.GetComponent<BallScript>().fromClone)
+                    {
                         ball.GetComponent<BallScript>().fromClone = false;
                         receiveSound.Play();
                     }
@@ -338,12 +357,14 @@ public class PlayerThrowBall : MonoBehaviour
         }
 
         // Stun code
-        else if (collision.transform.tag == "Player" && GetComponent<PlayerMovement>().GetDashStatus() == true) {
+        else if (collision.transform.tag == "Player" && GetComponent<PlayerMovement>().GetDashStatus() == true)
+        {
             var opponentBall = collision.gameObject.GetComponent<PlayerThrowBall>().ball;
-            
+
             Debug.Log("Stunning opponent player.");
 
-            if (opponentBall != null) {
+            if (opponentBall != null)
+            {
                 opponentBall.transform.parent = null;
                 collision.gameObject.GetComponent<PlayerThrowBall>().dashCooldown.AbilityEnabled();
                 collision.gameObject.GetComponent<PlayerThrowBall>().ReleaseBall();
@@ -368,7 +389,8 @@ public class PlayerThrowBall : MonoBehaviour
         cloneWithBall = clone;
     }
 
-    public void ClaimBall(GameObject ball) {
+    public void ClaimBall(GameObject ball)
+    {
         // Set ball attributes to current player
         this.ball = ball;
         ball.GetComponent<PlayerData>().playerNumber = playerNumber;
@@ -391,7 +413,8 @@ public class PlayerThrowBall : MonoBehaviour
         clones = GameObject.FindGameObjectsWithTag("Clone");
     }
 
-    public void ResetOnGoal() {
+    public void ResetOnGoal()
+    {
         ball = null;
         throwHeldDown = 0;
         lockedTarget = null;
@@ -408,11 +431,13 @@ public class PlayerThrowBall : MonoBehaviour
         controls.Gameplay.Disable();
     }
 
-    public void ReleaseBall() {
+    public void ReleaseBall()
+    {
         ball = null;
     }
 
-    public bool CheckIfHasBall() {
+    public bool CheckIfHasBall()
+    {
         return (ball != null);
     }
 
@@ -431,7 +456,8 @@ public class PlayerThrowBall : MonoBehaviour
         return (int)(throwHeldDown / GameConfigurations.ballChargeTime);
     }
 
-    public int GetCurrentCharge() {
+    public int GetCurrentCharge()
+    {
         return ball.GetComponent<BallScript>().GetCharge();
     }
 }

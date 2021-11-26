@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         {
             movement = Vector2.zero;
         };
-        
+
 
         controls.Gameplay.Rotate.canceled += ctx =>
         {
@@ -101,7 +101,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (context.action.triggered && ifCanDash()) {
+        if (context.action.triggered && ifCanDash())
+        {
             dashingFrame = GameConfigurations.dashingFrame;
             dashingSound.Play();
         }
@@ -132,11 +133,14 @@ public class PlayerMovement : MonoBehaviour
         playerNumber = GetComponent<PlayerData>().playerNumber;
 
         CooldownTimer[] cooldownTimers = FindObjectsOfType<CooldownTimer>();
-        foreach (CooldownTimer cooldownTimer in cooldownTimers) {
-            if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerOne && cooldownTimer.name.StartsWith("P1")) {
+        foreach (CooldownTimer cooldownTimer in cooldownTimers)
+        {
+            if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerOne && cooldownTimer.name.StartsWith("P1"))
+            {
                 this.cooldownTimer = cooldownTimer;
             }
-            else if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerTwo && cooldownTimer.name.StartsWith("P2")) {
+            else if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerTwo && cooldownTimer.name.StartsWith("P2"))
+            {
                 this.cooldownTimer = cooldownTimer;
             }
         }
@@ -153,10 +157,12 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 movementVector;
-        if (currentExplosionFrame != 0 || (Math.Abs(movement.x) < 0.05f && Math.Abs(movement.y) < 0.05f)) {
+        if (currentExplosionFrame != 0 || (Math.Abs(movement.x) < 0.05f && Math.Abs(movement.y) < 0.05f))
+        {
             movementVector = Vector3.zero;
         }
-        else {
+        else
+        {
             PlayerThrowBall playerBall = GetComponent<PlayerThrowBall>();
             movementVector = new Vector3(movement.x, 0, movement.y).normalized;
             if (playerBall.CheckIfGuarding())
@@ -164,10 +170,12 @@ public class PlayerMovement : MonoBehaviour
                 float adjustedSpeed = currentVelocity.magnitude * GameConfigurations.haltRate;
                 movementVector *= adjustedSpeed;
             }
-            else if (playerBall.CheckIfHasBall()) {
+            else if (playerBall.CheckIfHasBall())
+            {
                 movementVector = new Vector3(movement.x, 0, movement.y).normalized * withBallMovementSpeed;
             }
-            else {
+            else
+            {
                 movementVector *= baseMovementSpeed;
                 if (runningWithoutBall.isPlaying == false)
                 {
@@ -175,9 +183,10 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-        
 
-        if (currentExplosionFrame > 0) {
+
+        if (currentExplosionFrame > 0)
+        {
             float explosionFactor = explosionSpeed / explosionFrameDuration;
             float explosionBonus = explosionSpeed - explosionFactor * (explosionFrameDuration - currentExplosionFrame);
 
@@ -185,28 +194,34 @@ public class PlayerMovement : MonoBehaviour
 
             rb.AddForce(explosionDirection * explosionBonus, ForceMode.Impulse);
 
-            if (currentExplosionFrame == 0) {
+            if (currentExplosionFrame == 0)
+            {
                 SetStunStatus(false);
             }
         }
 
-        if (dashingFrame > 0) {
+        if (dashingFrame > 0)
+        {
             float dashFactor = GameConfigurations.dashSpeed / GameConfigurations.dashingFrame;
             float dashBonus = GameConfigurations.dashSpeed - dashFactor * (GameConfigurations.dashingFrame - dashingFrame);
 
-            dashingFrame --;
-            if (dashingFrame == 0) {
+            dashingFrame--;
+            if (dashingFrame == 0)
+            {
                 dashCD = GameConfigurations.dashCDinFrames;
-                if (cooldownTimer.gameObject.activeInHierarchy) {
+                if (cooldownTimer.gameObject.activeInHierarchy)
+                {
                     cooldownTimer.StartCooldown(GameConfigurations.dashCDinSeconds);
                 }
             }
 
             Vector3 dashVector;
-            if (movement == Vector2.zero) {
+            if (movement == Vector2.zero)
+            {
                 dashVector = Vector3.forward * dashBonus;
             }
-            else {
+            else
+            {
                 dashVector = movementVector.normalized * dashBonus;
             }
             movementVector += dashVector;
@@ -218,8 +233,9 @@ public class PlayerMovement : MonoBehaviour
 
         rb.velocity = transform.TransformDirection(currentVelocity);
 
-        if (dashCD != 0) {
-            dashCD --;
+        if (dashCD != 0)
+        {
+            dashCD--;
         }
 
         records.RecordLocation(frame);
@@ -254,7 +270,8 @@ public class PlayerMovement : MonoBehaviour
         runningWithoutBall.Stop();
     }
 
-    public void ResetOnGoal() {
+    public void ResetOnGoal()
+    {
         rb.transform.position = spawnLocation;
         rb.transform.eulerAngles = spawnRotation;
         lastRotation = spawnRotation;
@@ -281,25 +298,29 @@ public class PlayerMovement : MonoBehaviour
         controls.Gameplay.Disable();
     }
 
-    public bool GetDashStatus() {
+    public bool GetDashStatus()
+    {
         return dashingFrame > 0;
     }
 
-    public bool GetStunStatus() {
+    public bool GetStunStatus()
+    {
         return stunned;
     }
 
-    public void SetStunStatus(bool ifStun) {
+    public void SetStunStatus(bool ifStun)
+    {
         stunned = ifStun;
         // stunText.SetActive(ifStun);
     }
 
-    public bool ShouldStopRunningSound ()
+    public bool ShouldStopRunningSound()
     {
         return (currentExplosionFrame != 0 || (Math.Abs(movement.x) < 0.05f && Math.Abs(movement.y) < 0.05f));
     }
 
-    public void StartExplosion(float explosionSpeed, int explosionFrameDuration, Vector3 from) {
+    public void StartExplosion(float explosionSpeed, int explosionFrameDuration, Vector3 from)
+    {
         this.explosionSpeed = explosionSpeed;
         this.explosionFrameDuration = explosionFrameDuration;
 
@@ -310,11 +331,14 @@ public class PlayerMovement : MonoBehaviour
         this.currentExplosionFrame = explosionFrameDuration;
     }
 
-    private bool ifCanDash() {
-        if (GetComponent<PlayerThrowBall>()) {
+    private bool ifCanDash()
+    {
+        if (GetComponent<PlayerThrowBall>())
+        {
             return dashingFrame == 0 && dashCD == 0 && GetComponent<PlayerThrowBall>().CheckIfHasBall() == false;
         }
-        else {
+        else
+        {
             return true;
         }
     }

@@ -61,7 +61,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": ""Guard"",
                     ""type"": ""Button"",
-                    ""id"": ""bc758130-d58c-4b03-89aa-51b8e2592ddc"",
+                    ""id"": ""d917a3fc-3dcd-4e94-9891-3844815a83f3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -224,22 +224,22 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c8aebfb7-8a29-42f0-86ab-e378cae86f2d"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""id"": ""e18a25a7-ef55-4585-a204-c4282ce65698"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Guard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f5e350d3-2e65-421e-861d-bc11b7dad982"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""id"": ""5723cd68-7aab-4e8f-91a5-2a9595c9c128"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""Guard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

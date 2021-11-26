@@ -40,14 +40,17 @@ public class CloneHitByBall : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (ball != null) {
+        if (ball != null)
+        {
             var uniqueCharges = ball.GetComponent<BallScript>().uniqueHoldCharges;
             int cloneNum = controller.cloneData.RoundNumber;
 
-            if (!uniqueCharges.Contains(cloneNum)) {
+            if (!uniqueCharges.Contains(cloneNum))
+            {
                 chargeTime += Time.deltaTime;
 
-                if (chargeTime > GameConfigurations.ballChargeTime) {
+                if (chargeTime > GameConfigurations.ballChargeTime)
+                {
                     uniqueCharges.Add(cloneNum);
                     ball.GetComponent<BallScript>().AddCharge();
                     chargeTime = 0;
@@ -60,7 +63,7 @@ public class CloneHitByBall : MonoBehaviour
             playerToNotify.SetCloneWithBall(null);
 
             // Debug.Log("Throwing");
-            
+
             ball.transform.parent = null;
             ball.GetComponent<Rigidbody>().isKinematic = false;
             ball.GetComponent<Rigidbody>().AddForce((transform.forward * GameConfigurations.horizontalThrowingForce * GameConfigurations.speedBoostFactor * (1 + ball.GetComponent<BallScript>().GetCharge()))
@@ -119,7 +122,7 @@ public class CloneHitByBall : MonoBehaviour
             if (ball)
             {
                 playerToNotify.SetCloneWithBall(this);
-                
+
                 // When throw input is released, if the ball is held and charged, throw the ball.
                 if (!throwInput && holdThrow > 0)
                 {
@@ -137,19 +140,24 @@ public class CloneHitByBall : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision) {
-        if (!ball && collision.transform.tag == "Ball") {
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!ball && collision.transform.tag == "Ball")
+        {
             ball = collision.gameObject;
             PlayerData ballData = ball.GetComponent<PlayerData>();
 
             // if ball is of player's color
-            if (ballData.playerNumber == GetComponent<PlayerData>().playerNumber) {
-                if (!ball.transform.parent) {
+            if (ballData.playerNumber == GetComponent<PlayerData>().playerNumber)
+            {
+                if (!ball.transform.parent)
+                {
                     ClaimBall(ball);
 
                     var uniqueCloneCharges = ball.GetComponent<BallScript>().uniqueClones;
                     int cloneNum = controller.cloneData.RoundNumber;
-                    if (!uniqueCloneCharges.Contains(cloneNum)) {
+                    if (!uniqueCloneCharges.Contains(cloneNum))
+                    {
                         uniqueCloneCharges.Add(cloneNum);
                         ball.GetComponent<BallScript>().AddCharge(GameConfigurations.cloneBaseCharge, GameConfigurations.maxBallCharge);
                     }
@@ -168,7 +176,8 @@ public class CloneHitByBall : MonoBehaviour
             }
 
             // if ball is of no player's color
-            else if (ballData.playerNumber == PlayerData.PlayerNumber.NoPlayer) {
+            else if (ballData.playerNumber == PlayerData.PlayerNumber.NoPlayer)
+            {
                 ClaimBall(ball);
                 var uniqueCloneCharges = ball.GetComponent<BallScript>().uniqueClones;
                 int cloneNum = controller.cloneData.RoundNumber;
@@ -177,8 +186,10 @@ public class CloneHitByBall : MonoBehaviour
             }
 
             // if ball is of opponent's color
-            else {
-                if (ball.transform.parent == null && ball.GetComponent<BallScript>().GetCharge() > GameConfigurations.goalShieldBreakableCharge) {
+            else
+            {
+                if (ball.transform.parent == null && ball.GetComponent<BallScript>().GetCharge() > GameConfigurations.goalShieldBreakableCharge)
+                {
                     cloneKnockdown = true;
                     ball.GetComponent<BallScript>().ClearCharge();
                 }

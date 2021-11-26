@@ -67,13 +67,14 @@ public class PlayerRecording : MonoBehaviour
 
     public CloneData GetPlayerData()
     {
-        return new CloneData() {
+        return new CloneData()
+        {
             PlayerNumber = GetComponent<PlayerData>().playerNumber,
             RoundNumber = FindObjectOfType<GameManager>().GetRoundNumber(),
-            PositionSkipFrames = postionFramesToSkip, 
-            RotationSkipFrames = rotationFramesToSkip, 
-            Positions = lastPositions.ToArray(), 
-            Rotations = lastRotations.ToArray(), 
+            PositionSkipFrames = postionFramesToSkip,
+            RotationSkipFrames = rotationFramesToSkip,
+            Positions = lastPositions.ToArray(),
+            Rotations = lastRotations.ToArray(),
             ThrowInputs = throwInputChangeFrames.ToArray(),
             GuardInputs = guardInputChangeFrames.ToArray()
         };

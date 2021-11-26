@@ -37,11 +37,12 @@ public class BallScript : MonoBehaviour
         if (target && homing)
         {
             float magnitude = Mathf.Pow(Mathf.Pow(rb.velocity.x, 2) + Mathf.Pow(rb.velocity.z, 2), 0.5f);
-            Vector3 direction = (1f-turnRate)*(rb.velocity) + turnRate*(target.transform.position - transform.position);
+            Vector3 direction = (1f - turnRate) * (rb.velocity) + turnRate * (target.transform.position - transform.position);
             Vector2 scaledDirection = new Vector2(direction.x, direction.z).normalized * magnitude;
             rb.velocity = new Vector3(scaledDirection.x, rb.velocity.y, scaledDirection.y);
         }
-        else {
+        else
+        {
             // Debug.Log("@*$(&@^#@*&Garbage Homing: " + homing + ", Target: " + target);
         }
     }
@@ -49,14 +50,16 @@ public class BallScript : MonoBehaviour
     private void Update()
     {
         UpdateShield();
-        if (transform.position.y >= 30) {
+        if (transform.position.y >= 30)
+        {
             Reset();
         }
     }
 
     private void UpdateShield()
     {
-        switch (charge >= GameConfigurations.goalShieldBreakableCharge) {
+        switch (charge >= GameConfigurations.goalShieldBreakableCharge)
+        {
             case true:
                 shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.one * 0.3f);
                 break;
@@ -95,10 +98,12 @@ public class BallScript : MonoBehaviour
     public void AddCharge(int chargeToAdd = 1, int? cap = null)
     {
         int max;
-        if (cap == null) {
+        if (cap == null)
+        {
             max = GameConfigurations.maxBallCharge;
         }
-        else {
+        else
+        {
             max = (int)cap;
         }
         if (charge < max)
@@ -110,7 +115,8 @@ public class BallScript : MonoBehaviour
             gameObject.layer = 8;
     }
 
-    public void SetMaxCharge() {
+    public void SetMaxCharge()
+    {
         charge = GameConfigurations.maxBallCharge;
         gameObject.layer = 8;
     }
@@ -123,11 +129,13 @@ public class BallScript : MonoBehaviour
         uniqueHoldCharges.Clear();
     }
 
-    public int GetCharge() {
+    public int GetCharge()
+    {
         return charge;
     }
 
-    public PlayerData.PlayerNumber GetPlayerNumber () {
+    public PlayerData.PlayerNumber GetPlayerNumber()
+    {
         return playerData.playerNumber;
     }
 

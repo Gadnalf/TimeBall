@@ -35,10 +35,11 @@ public class CrosshairScript : MonoBehaviour
     {
         this.target = target;
 
-        if (crosshair) {
+        if (crosshair)
+        {
             crosshair.enabled = target;
         }
-        
+
         if (target)
         {
             UpdatePosition();
