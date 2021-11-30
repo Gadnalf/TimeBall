@@ -1,8 +1,8 @@
 using UnityEngine;
 public static class GameConfigurations
 {
-    public static float baseMovementSpeed = 25f;
-    public static float withBallMovementSpeed = 15f;
+    public static float baseMovementSpeed = 20f;
+    public static float withBallMovementSpeed = 12.5f;
     public static float guardMovementSpeed = 5f;
     public static float rotationSpeed = 400f;
     public static float passAngle = 90f;

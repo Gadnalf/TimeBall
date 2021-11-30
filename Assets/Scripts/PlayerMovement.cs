@@ -9,8 +9,6 @@ public class PlayerMovement : MonoBehaviour
     // Config
     private PlayerConfig playerConfig;
 
-    private float baseMovementSpeed;
-    private float withBallMovementSpeed;
     public Vector3 spawnLocation;
     public Vector3 spawnRotation;
 
@@ -116,8 +114,6 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         movement = Vector2.zero;
-        baseMovementSpeed = GameConfigurations.baseMovementSpeed;
-        withBallMovementSpeed = GameConfigurations.withBallMovementSpeed;
         dashingFrame = 0;
         dashCD = 0;
 
@@ -167,16 +163,17 @@ public class PlayerMovement : MonoBehaviour
             movementVector = new Vector3(movement.x, 0, movement.y).normalized;
             if (playerBall.CheckIfGuarding())
             {
-                float adjustedSpeed = currentVelocity.magnitude * GameConfigurations.haltRate;
-                movementVector *= adjustedSpeed;
+                /*float adjustedSpeed = currentVelocity.magnitude * GameConfigurations.haltRate;
+                movementVector *= adjustedSpeed;*/
+                movementVector *= GameConfigurations.guardMovementSpeed;
             }
             else if (playerBall.CheckIfHasBall())
             {
-                movementVector = new Vector3(movement.x, 0, movement.y).normalized * withBallMovementSpeed;
+                movementVector *= GameConfigurations.withBallMovementSpeed;
             }
             else
             {
-                movementVector *= baseMovementSpeed;
+                movementVector *= GameConfigurations.baseMovementSpeed;
                 if (runningWithoutBall.isPlaying == false)
                 {
                     runningWithoutBall.Play();
