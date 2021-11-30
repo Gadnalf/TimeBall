@@ -413,13 +413,13 @@ public class PlayerThrowBall : MonoBehaviour
         clones = GameObject.FindGameObjectsWithTag("Clone");
     }
 
-    public void ResetOnGoal()
+    /*public void ResetOnGoal()
     {
         ball = null;
         throwHeldDown = 0;
         lockedTarget = null;
         chargeTime = 0;
-    }
+    }*/
 
     private void OnEnable()
     {

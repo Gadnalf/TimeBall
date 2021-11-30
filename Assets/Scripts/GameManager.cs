@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
     private float timeRemaining = GameConfigurations.roundDuration;
     private int roundNumber = 1;
 
+    private bool roundEndTimeSlowdown = false;
+
     private bool timerIsRunning = false;
 
     private bool gameStarted = false;
@@ -164,6 +166,11 @@ public class GameManager : MonoBehaviour
             {
                 if (timeRemaining > 0)
                 {
+                    if (timeRemaining <= GameConfigurations.nearEndingTime) {
+                        roundEndTimeSlowdown = true;
+                        Time.timeScale = GameConfigurations.slowTimeScale;
+                    }
+                        
                     timeRemaining -= Time.deltaTime;
                     DisplayTime(timeRemaining);
                 }
@@ -174,6 +181,9 @@ public class GameManager : MonoBehaviour
                     timerIsRunning = false;
                     CloneManager.AddClones();
                     doNextRoundStuff();
+
+                    Time.timeScale = GameConfigurations.normalTimeScale;
+                    roundEndTimeSlowdown = false;
                 }
             }
         }
@@ -196,7 +206,8 @@ public class GameManager : MonoBehaviour
         //Debug.Log("button work");
         gameStarted = true;
         gamePaused = false;
-        Time.timeScale = 0.75f;
+        Time.timeScale = GameConfigurations.normalTimeScale;
+        roundEndTimeSlowdown = false;
         timerIsRunning = true;
         timeRemaining = GameConfigurations.roundDuration;
         mainMenuPanel.SetActive(false);
@@ -221,15 +232,15 @@ public class GameManager : MonoBehaviour
 
         timer.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-        if (timeRemaining < 6 && timeRemaining > 0)
+        if (timeRemaining < GameConfigurations.nearEndingTime && timeRemaining > 0)
         {
             timer.color = Color.red;
             float factor = Time.deltaTime;
             if (increaseSize)
-                timer.transform.localScale *= (1 + factor);
+                timer.transform.localScale *= (1 + factor * 2);
             else
-                timer.transform.localScale /= (1 + factor);
-            if (timer.transform.localScale.x >= 2 || timer.transform.localScale.x <= 1)
+                timer.transform.localScale /= (1 + factor * 2);
+            if (timer.transform.localScale.x >= 4 || timer.transform.localScale.x <= 1)
                 increaseSize = !increaseSize;
         }
         else
@@ -287,7 +298,10 @@ public class GameManager : MonoBehaviour
     public void ResumeGame()
     {
         gamePaused = false;
-        Time.timeScale = 1f;
+        if (!roundEndTimeSlowdown)
+            Time.timeScale = GameConfigurations.normalTimeScale;
+        else
+            Time.timeScale = GameConfigurations.slowTimeScale;
         pauseMenuPanel.SetActive(false);
         foreach (PlayerMovement player in playerControllers)
         {
@@ -318,6 +332,7 @@ public class GameManager : MonoBehaviour
         }
 
         Time.timeScale = 0f;
+        roundEndTimeSlowdown = false;
         foreach (PlayerMovement player in playerControllers)
         {
             player.GetComponent<PlayerMovement>().enabled = false;

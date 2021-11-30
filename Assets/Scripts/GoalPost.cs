@@ -44,11 +44,12 @@ public class GoalPost : MonoBehaviour
                 PlayGoalSound();
 
             ball.SetActive(false);
-            Invoke("ResetBall", 1);
+            Invoke("ResetBall", 1.5f);
 
             foreach (PlayerMovement playerMovement in playerMovements)
             {
-                playerMovement.ResetOnGoal();
+                float distance = (playerMovement.transform.position - transform.position).magnitude;
+                playerMovement.StartExplosion(GameConfigurations.goalExplosionSpeed * 10f / distance, GameConfigurations.goalExplosionFrame, transform.position);
             }
         }
     }

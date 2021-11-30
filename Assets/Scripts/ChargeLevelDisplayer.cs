@@ -31,7 +31,7 @@ public class ChargeLevelDisplayer : MonoBehaviour
                 var player = camera.transform.parent;
                 var playerPos = player.GetComponent<Rigidbody>().position;
                 var height = player.GetComponent<Collider>().bounds.size.y;
-                var y = playerPos.y + height / 2 + 1.1f;
+                var y = playerPos.y + height / 2 + 1.15f;
                 transform.position = playerCamera.WorldToScreenPoint(new Vector3(playerPos.x, y, playerPos.z));
                 playerNumber = (PlayerData.PlayerNumber)1;
             }
@@ -41,7 +41,7 @@ public class ChargeLevelDisplayer : MonoBehaviour
                 var player = camera.transform.parent;
                 var playerPos = player.GetComponent<Rigidbody>().position;
                 var height = player.GetComponent<Collider>().bounds.size.y;
-                var y = playerPos.y + height / 2 + 1.2f;
+                var y = playerPos.y + height / 2 + 1.25f;
                 transform.position = playerCamera.WorldToScreenPoint(new Vector3(playerPos.x, y, playerPos.z));
                 playerNumber = (PlayerData.PlayerNumber)2;
             }

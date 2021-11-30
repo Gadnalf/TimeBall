@@ -267,7 +267,7 @@ public class PlayerMovement : MonoBehaviour
         runningWithoutBall.Stop();
     }
 
-    public void ResetOnGoal()
+    /*public void ResetOnGoal()
     {
         rb.transform.position = spawnLocation;
         rb.transform.eulerAngles = spawnRotation;
@@ -283,7 +283,7 @@ public class PlayerMovement : MonoBehaviour
         GetComponentInChildren<PlayerGuard>().ResetOnGoal();
 
         runningWithoutBall.Stop();
-    }
+    }*/
 
     private void OnEnable()
     {

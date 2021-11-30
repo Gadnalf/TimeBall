@@ -7,7 +7,7 @@ public static class GameConfigurations
     public static float rotationSpeed = 400f;
     public static float passAngle = 90f;
 
-    public static float roundDuration = 25f;
+    public static float roundDuration = 10f;
     public static float roundLengthIncrease = 0f;
     public static float maxRoundLength = 25f;
     public static int numberOfRounds = 5;
@@ -32,7 +32,7 @@ public static class GameConfigurations
     public static float dashCDinSeconds = dashCDinFrames / 50;
 
     public static float goalExplosionSpeed = 50f;
-    public static int goalExplosionFrame = 50;
+    public static int goalExplosionFrame = 35;
 
     public static float stunningSpeed = 1f;
     public static int stunningFrame = 10;
@@ -42,6 +42,10 @@ public static class GameConfigurations
     public static float haltRate = 0.8f;
 
     public static int cloneMaxPauseFrames = 100;
+
+    public static float nearEndingTime = 3f;
+    public static float normalTimeScale = 0.8f;
+    public static float slowTimeScale = 0.5f;
 
     public static Color FromChargeToColor(int chargeLevel)
     {
