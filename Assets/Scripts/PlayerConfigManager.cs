@@ -16,6 +16,12 @@ public class PlayerConfigManager : MonoBehaviour
     [SerializeField]
     private AudioManager audioManager;
 
+    [SerializeField]
+    private GameObject videoScreen;
+
+    [SerializeField]
+    private GameObject mainPanel;
+
     private void Awake()
     {
         if (Instance != null)
@@ -72,6 +78,8 @@ public class PlayerConfigManager : MonoBehaviour
     public void HandlePlayerJoin(PlayerInput pi)
     {
 
+        videoScreen.SetActive(false);
+        mainPanel.SetActive(true);
         if (playerConfigs.Count >= MaxPlayers) return;
 
         Debug.Log("Player " + pi.playerIndex.ToString() + " joined.");

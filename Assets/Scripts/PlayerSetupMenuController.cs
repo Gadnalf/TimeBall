@@ -11,10 +11,10 @@ public class PlayerSetupMenuController : MonoBehaviour
     private int PlayerIndex;
 
     [SerializeField]
-    private TextMeshProUGUI titleText;
+    private Sprite[] titleImages;
 
     [SerializeField]
-    private Button readyBtn;
+    private Image titleImage;
 
     [SerializeField]
     private Sprite[] deviceImages;
@@ -22,19 +22,29 @@ public class PlayerSetupMenuController : MonoBehaviour
     [SerializeField]
     private Image deviceImage;
 
+    [SerializeField]
+    private Sprite[] buttonImages;
+
+    [SerializeField]
+    private Image readyBtn;
+
+    [SerializeField]
+    private TextMeshProUGUI readyText;
+
     public void SetPlayerIndex(PlayerInput pi)
     {
         PlayerIndex = pi.playerIndex;
 
+        titleImage.sprite = titleImages[PlayerIndex];
+
+        readyBtn.sprite = buttonImages[PlayerIndex];
+
         if (PlayerIndex == 0)
         {
-            titleText.SetText("Player 1");
-            titleText.color = new Color(0, 78, 251);
-        }
-        else
+            readyText.color = new Color(0, 224, 255, 255);
+        } else
         {
-            titleText.SetText("Player 2");
-            titleText.color = new Color(219, 8, 0);
+            readyText.color = new Color(255, 0, 110, 255);
         }
 
         if (pi.currentControlScheme == "Gamepad")
@@ -49,12 +59,6 @@ public class PlayerSetupMenuController : MonoBehaviour
         //readyBtn.Select();
 
     }
-
-    //public void SetPrefab(GameObject prefab)
-    //{
-
-    //    PlayerConfigManager.Instance.SetPlayerPrefab(PlayerIndex, prefab);
-    //}
 
     public void ReadyPlayerUp()
     {
