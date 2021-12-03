@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UICloneNumberScript : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class UICloneNumberScript : MonoBehaviour
     private GameObject indicatorPrefab;
     [SerializeField]
     private float indicatorVerticalOffset = 3f;
+    [SerializeField]
+    private int framesToAlert = 30;
 
     [SerializeField]
     [ColorUsage(true, true)]
@@ -74,15 +77,26 @@ public class UICloneNumberScript : MonoBehaviour
                 Vector3 targetPosition = GetTargetPosition(cloneController.transform.position);
                 Vector3 boundedPosition = GetBoundedPosition(targetPosition);
                 cloneNumberIndicator.transform.localPosition = boundedPosition;
-                TextMeshProUGUI textMesh = cloneNumberIndicator.GetComponent<TextMeshProUGUI>();
-                if (ballScript.GetPlayerNumber() != playerNumber ||
-                    (ballScript.GetPlayerNumber() == playerNumber && ballScript.IsChargedClone(cloneController.cloneData.RoundNumber)))
+                TextMeshProUGUI textMesh = cloneNumberIndicator.GetComponentInChildren<TextMeshProUGUI>();
+                if (cloneController.GetNextThrowInputFrame() < framesToAlert && cloneController.GetNextThrowInputFrame() >= 0)
                 {
                     textMesh.color = activeColor;
+                    textMesh.text = "!";
+                    cloneNumberIndicator.transform.Find("Emphasis").GetComponent<Image>().enabled = true;
                 }
                 else
                 {
-                    textMesh.color = inactiveColor;
+                    if (ballScript.GetPlayerNumber() != playerNumber ||
+                        (ballScript.GetPlayerNumber() == playerNumber && ballScript.IsChargedClone(cloneController.cloneData.RoundNumber)))
+                    {
+                        textMesh.color = activeColor;
+                    }
+                    else
+                    {
+                        textMesh.color = inactiveColor;
+                    }
+                    textMesh.text = cloneController.cloneData.RoundNumber.ToString();
+                    cloneNumberIndicator.transform.Find("Emphasis").GetComponent<Image>().enabled = false;
                 }
             }
             else
@@ -111,8 +125,8 @@ public class UICloneNumberScript : MonoBehaviour
             Vector3 targetPosition = GetTargetPosition(cloneController.transform.position);
             Vector3 boundedPosition = GetBoundedPosition(targetPosition);
             newIndicator.transform.localPosition = boundedPosition;
-            TextMeshProUGUI textMesh = newIndicator.GetComponent<TextMeshProUGUI>();
-            textMesh.text = cloneController.cloneData.RoundNumber.ToString();
+            TextMeshProUGUI textMesh = newIndicator.GetComponentInChildren<TextMeshProUGUI>();
+            textMesh.text = roundNumber.ToString();
             textMesh.color = activeColor;
             cloneNumberIndicators.Add(newIndicator);
         }
@@ -124,7 +138,7 @@ public class UICloneNumberScript : MonoBehaviour
         if (screenPoint.z < 0)
         {
             screenPoint.x = -screenPoint.x;
-            screenPoint.y += screenPoint.z * 100;
+            screenPoint.y += screenPoint.z * 75;
         }
         Vector3 shiftedScreenPoint = new Vector3(screenPoint.x - horizontalBound, screenPoint.y - verticalBound, screenPoint.z);
         return shiftedScreenPoint;
@@ -140,6 +154,6 @@ public class UICloneNumberScript : MonoBehaviour
             // One screen width
             verticalBoundOffset = verticalBound;
         }
-        return new Vector3(Mathf.Clamp(targetPosition.x, -paddedHorizontalBound, paddedHorizontalBound), Mathf.Clamp(targetPosition.y, -paddedVerticalBound + verticalBoundOffset, paddedVerticalBound + verticalBoundOffset), targetPosition.z);
+        return new Vector3(Mathf.Clamp(targetPosition.x, -paddedHorizontalBound, paddedHorizontalBound), Mathf.Clamp(targetPosition.y, -paddedVerticalBound + verticalBoundOffset, paddedVerticalBound - verticalBound + verticalBoundOffset), targetPosition.z);
     }
 }
