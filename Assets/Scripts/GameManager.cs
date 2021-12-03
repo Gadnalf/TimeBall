@@ -49,6 +49,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject[] playerPrefabs;
 
+    [SerializeField]
+    private GameObject mainPanel;
+
     private float timeRemaining = GameConfigurations.roundDuration;
     private int roundNumber = 1;
 
@@ -211,6 +214,7 @@ public class GameManager : MonoBehaviour
         timerIsRunning = true;
         timeRemaining = GameConfigurations.roundDuration;
         mainMenuPanel.SetActive(false);
+        mainPanel.SetActive(true);
         foreach (PlayerMovement player in playerControllers)
         {
             player.GetComponent<PlayerMovement>().enabled = true;
