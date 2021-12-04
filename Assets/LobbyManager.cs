@@ -28,10 +28,9 @@ public class LobbyManager : MonoBehaviour
         videoPlayer.GetComponent<VideoPlayer>().loopPointReached += CheckOver;
     }
 
-    void CheckOver(UnityEngine.Video.VideoPlayer vp)
+    void CheckOver(VideoPlayer vp)
     {
         playerManager.SetActive(true);
-        //videoScreen.SetActive(false);
         instructions.SetActive(true);
     }
 
