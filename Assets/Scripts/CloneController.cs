@@ -105,24 +105,6 @@ public class CloneController : MonoBehaviour
             positions[0] = cloneData.Positions[index];
         }
 
-        //if (tr != null)
-        //{
-        //    Destroy(tr);
-        //}
-        //tr = Instantiate(trailPrefab, positions[0], Quaternion.identity);
-        //tr.transform.parent = null;
-        //if (cloneData.PlayerNumber == PlayerData.PlayerNumber.PlayerOne)
-        //{
-        //    tr.GetComponent<TrailRenderer>().startColor = Color.blue;
-        //    tr.GetComponent<TrailRenderer>().endColor = Color.blue;
-        //}
-        //else
-        //{
-        //    tr.GetComponent<TrailRenderer>().startColor = Color.red;
-        //    tr.GetComponent<TrailRenderer>().endColor = Color.red;
-        //}
-        //tr.GetComponent<TrailRenderer>().time = 2;
-        //tr.GetComponent<TrailRenderer>().AddPositions(positions);
         if (lr != null)
         {
             Destroy(lr);
@@ -142,7 +124,6 @@ public class CloneController : MonoBehaviour
         lr.GetComponent<LineRenderer>().startWidth = 1.0f;
         lr.GetComponent<LineRenderer>().endWidth = 1.0f;
         lr.GetComponent<LineRenderer>().SetPositions(positions);
-
     }
 
     public Quaternion GetNextRotation(float timeSinceLastUpdate)
@@ -151,6 +132,18 @@ public class CloneController : MonoBehaviour
         int currentRot = Math.Min(frame / (cloneData.RotationSkipFrames + 1), cloneData.Rotations.Length - 1);
         int nextRot = Math.Min(currentRot + 1, cloneData.Rotations.Length - 1);
         return Quaternion.Slerp(cloneData.Rotations[currentRot], cloneData.Rotations[nextRot], howFarToSlerp);
+    }
+
+    public int GetNextThrowInputFrame()
+    {
+        if (cloneData.ThrowInputs.Length > nextThrowInputChangeIndex)
+        {
+            return cloneData.ThrowInputs[nextThrowInputChangeIndex] - frame;
+        }
+        else
+        {
+            return -1;
+        }
     }
 
     public void SetData(CloneData cloneData)
