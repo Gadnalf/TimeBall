@@ -5292,7 +5292,7 @@ MonoBehaviour:
   - {fileID: 1583858271}
   - {fileID: 1741767433}
   ball: {fileID: 253741008}
-  mainMenuPanel: {fileID: 507076865}
+  preparePanel: {fileID: 507076865}
   pauseMenuPanel: {fileID: 1408822611}
   endMenuPanel: {fileID: 1393363319}
   winnerText: {fileID: 1525812595}

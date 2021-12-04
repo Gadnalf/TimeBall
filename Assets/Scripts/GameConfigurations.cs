@@ -22,7 +22,7 @@ public static class GameConfigurations
     public static float cloneBaseChargeCDInSeconds = 10;
 
     public static float horizontalThrowingForce = 1000f;
-    public static float verticalThrowingForce = 200f;
+    public static float verticalThrowingForce = 150f;
 
     public static float speedBoostFactor = 1.25f;
 

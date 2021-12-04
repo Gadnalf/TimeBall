@@ -31,8 +31,6 @@ public class PlayerMovement : MonoBehaviour
 
     private bool stunned;
 
-    private int frame;
-
     // Input
     PlayerControls controls;
     private float rotationInput = 0;
