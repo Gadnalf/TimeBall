@@ -13,8 +13,8 @@ public class PlayerRecording : MonoBehaviour
     public Queue<int> throwInputChangeFrames = new Queue<int>();
     private bool lastThrowInput;
 
-    public Queue<(int, int?)> passTargetChangeFrames = new Queue<(int, int?)>();
-    private int? lastPassTarget;
+    public Queue<int> passInputChangeFrames = new Queue<int>();
+    private bool lastPassInput;
 
     public Queue<int> guardInputChangeFrames = new Queue<int>();
     private bool lastGuardInput;
@@ -56,17 +56,23 @@ public class PlayerRecording : MonoBehaviour
     {
         if (throwInput != lastThrowInput)
         {
-            throwInputChangeFrames.Enqueue(frame);
-            lastThrowInput = throwInput;
+            if (throwInputChangeFrames.Peek() != frame)
+            {
+                throwInputChangeFrames.Enqueue(frame);
+                lastThrowInput = throwInput;
+            }
         }
     }
 
-    public void RecordPassInput(int? passTargetId)
+    public void RecordPassInput(bool passInput)
     {
-        if (passTargetId != lastPassTarget)
+        if (passInput != lastPassInput)
         {
-            passTargetChangeFrames.Enqueue((frame, passTargetId));
-            lastPassTarget = passTargetId;
+            if (passInputChangeFrames.Peek() != frame)
+            {
+                passInputChangeFrames.Enqueue(frame);
+                lastPassInput = passInput;
+            }
         }
     }
 
@@ -74,8 +80,11 @@ public class PlayerRecording : MonoBehaviour
     {
         if (guardInput != lastGuardInput)
         {
-            guardInputChangeFrames.Enqueue(frame);
-            lastGuardInput = guardInput;
+            if (guardInputChangeFrames.Peek() != frame)
+            {
+                guardInputChangeFrames.Enqueue(frame);
+                lastGuardInput = guardInput;
+            }
         }
     }
 
@@ -103,7 +112,7 @@ public class PlayerRecording : MonoBehaviour
         lastRotations.Clear();
         throwInputChangeFrames.Clear();
         lastThrowInput = false;
-        lastPassTarget = null;
+        lastPassInput = false;
         lastGuardInput = false;
     }
 }

@@ -31,8 +31,6 @@ public class PlayerMovement : MonoBehaviour
 
     private bool stunned;
 
-    private int frame;
-
     // Input
     PlayerControls controls;
     private float rotationInput = 0;
@@ -256,8 +254,6 @@ public class PlayerMovement : MonoBehaviour
         cooldownTimer.AbilityEnabled();
         SetStunStatus(false);
         currentExplosionFrame = 0;
-
-        frame = 0;
 
         GetComponent<PlayerThrowBall>().Reset();
         GetComponent<PlayerRecording>().Reset();
