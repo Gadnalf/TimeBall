@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class PlayerConfigManager : MonoBehaviour
 {
@@ -17,10 +18,10 @@ public class PlayerConfigManager : MonoBehaviour
     private AudioManager audioManager;
 
     [SerializeField]
-    private GameObject videoScreen;
+    private GameObject mainPanel;
 
     [SerializeField]
-    private GameObject mainPanel;
+    private GameObject instructions;
 
     private void Awake()
     {
@@ -34,11 +35,6 @@ public class PlayerConfigManager : MonoBehaviour
             DontDestroyOnLoad(Instance);
             playerConfigs = new List<PlayerConfig>();
         }
-    }
-
-    private void Start()
-    {
-        audioManager.GetAudio("Lobby").Play();
     }
 
     //public void SetPlayerPrefab(int index, GameObject prefab)
@@ -77,8 +73,7 @@ public class PlayerConfigManager : MonoBehaviour
 
     public void HandlePlayerJoin(PlayerInput pi)
     {
-
-        videoScreen.SetActive(false);
+        instructions.SetActive(false);
         mainPanel.SetActive(true);
         if (playerConfigs.Count >= MaxPlayers) return;
 
