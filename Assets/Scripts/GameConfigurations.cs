@@ -41,7 +41,7 @@ public static class GameConfigurations
     public static float guardMaxSize = 5f;
     public static float haltRate = 0.8f;
 
-    public static int cloneMaxPauseFrames = 100;
+    public static float cloneMaxPauseSeconds = 2;
 
     public static float nearEndingTime = 3f;
     public static float normalTimeScale = 0.8f;

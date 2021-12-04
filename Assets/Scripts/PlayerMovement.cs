@@ -235,8 +235,7 @@ public class PlayerMovement : MonoBehaviour
             dashCD--;
         }
 
-        records.RecordLocation(frame);
-        frame++;
+        records.RecordLocation();
     }
 
     // Update is called once per frame
