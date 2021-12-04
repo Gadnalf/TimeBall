@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class PlayerConfigManager : MonoBehaviour
 {
@@ -16,6 +17,12 @@ public class PlayerConfigManager : MonoBehaviour
     [SerializeField]
     private AudioManager audioManager;
 
+    [SerializeField]
+    private GameObject mainPanel;
+
+    [SerializeField]
+    private GameObject instructions;
+
     private void Awake()
     {
         if (Instance != null)
@@ -28,11 +35,6 @@ public class PlayerConfigManager : MonoBehaviour
             DontDestroyOnLoad(Instance);
             playerConfigs = new List<PlayerConfig>();
         }
-    }
-
-    private void Start()
-    {
-        audioManager.GetAudio("Lobby").Play();
     }
 
     //public void SetPlayerPrefab(int index, GameObject prefab)
@@ -71,7 +73,8 @@ public class PlayerConfigManager : MonoBehaviour
 
     public void HandlePlayerJoin(PlayerInput pi)
     {
-
+        instructions.SetActive(false);
+        mainPanel.SetActive(true);
         if (playerConfigs.Count >= MaxPlayers) return;
 
         Debug.Log("Player " + pi.playerIndex.ToString() + " joined.");

@@ -21,8 +21,8 @@ public static class GameConfigurations
     public static int cloneBaseCharge = 1;
     public static float cloneBaseChargeCDInSeconds = 10;
 
-    public static float horizontalThrowingForce = 2000f;
-    public static float verticalThrowingForce = 250f;
+    public static float horizontalThrowingForce = 1000f;
+    public static float verticalThrowingForce = 200f;
 
     public static float speedBoostFactor = 1.25f;
 
@@ -31,8 +31,8 @@ public static class GameConfigurations
     public static int dashCDinFrames = 50;
     public static float dashCDinSeconds = dashCDinFrames / 50;
 
-    public static float goalExplosionSpeed = 50f;
-    public static int goalExplosionFrame = 35;
+    public static float goalExplosionSpeed = 65f;
+    public static int goalExplosionFrame = 25;
 
     public static float stunningSpeed = 1f;
     public static int stunningFrame = 10;
@@ -45,7 +45,7 @@ public static class GameConfigurations
 
     public static float nearEndingTime = 3f;
     public static float normalTimeScale = 0.8f;
-    public static float slowTimeScale = 0.5f;
+    public static float slowTimeScale = 0.6f;
 
     public static Color FromChargeToColor(int chargeLevel)
     {

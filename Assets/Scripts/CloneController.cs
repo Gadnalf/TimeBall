@@ -47,6 +47,7 @@ public class CloneController : MonoBehaviour
             if (frame % cloneData.PositionSkipFrames == 0)
             {
                 int nextIndex = frame / (cloneData.PositionSkipFrames + 1);
+                SetupLines(nextIndex);
                 nextPos = cloneData.Positions[nextIndex];
             }
 
@@ -84,34 +85,33 @@ public class CloneController : MonoBehaviour
         }
     }
 
-    public void SetupLines()
+    public void SetupLines(int index)
     {
-        Vector3[] positions = cloneData.Positions;
-        if (tr != null)
+
+        Vector3[] positions = new Vector3[3];
+        if (index + 2 < cloneData.Positions.Length)
         {
-            Destroy(tr);
+            positions[0] = cloneData.Positions[index];
+            positions[1] = cloneData.Positions[index + 1];
+            positions[2] = cloneData.Positions[index + 2];
         }
-        tr = Instantiate(trailPrefab, Vector3.zero, Quaternion.identity);
-        tr.transform.parent = null;
-        if (cloneData.PlayerNumber == PlayerData.PlayerNumber.PlayerOne)
+        else if (index + 1 < cloneData.Positions.Length)
         {
-            tr.GetComponent<TrailRenderer>().startColor = Color.blue;
-            tr.GetComponent<TrailRenderer>().endColor = Color.blue;
+            positions[0] = cloneData.Positions[index];
+            positions[1] = cloneData.Positions[index + 1];
         }
         else
         {
-            tr.GetComponent<TrailRenderer>().startColor = Color.red;
-            tr.GetComponent<TrailRenderer>().endColor = Color.red;
+            positions[0] = cloneData.Positions[index];
         }
-        tr.GetComponent<TrailRenderer>().time = 5;
-        tr.GetComponent<TrailRenderer>().AddPositions(positions);
-        /* if (lr != null)
+
+        if (lr != null)
         {
             Destroy(lr);
         }
-        lr = Instantiate(linePrefab, Vector3.zero, Quaternion.identity);
+        lr = Instantiate(linePrefab, positions[0], Quaternion.identity);
         lr.transform.parent = null;
-        if (cloneData.Number == PlayerData.PlayerNumber.PlayerOne)
+        if (cloneData.PlayerNumber == PlayerData.PlayerNumber.PlayerOne)
         {
             lr.GetComponent<LineRenderer>().material.color = Color.blue;
         }
@@ -121,10 +121,9 @@ public class CloneController : MonoBehaviour
         }
         lr.GetComponent<LineRenderer>().useWorldSpace = true;
         lr.GetComponent<LineRenderer>().positionCount = positions.Length;
-        lr.GetComponent<LineRenderer>().startWidth = 0.3f;
-        lr.GetComponent<LineRenderer>().endWidth = 0.3f;
-        lr.GetComponent<LineRenderer>().SetPositions(positions); */
-
+        lr.GetComponent<LineRenderer>().startWidth = 1.0f;
+        lr.GetComponent<LineRenderer>().endWidth = 1.0f;
+        lr.GetComponent<LineRenderer>().SetPositions(positions);
     }
 
     public Quaternion GetNextRotation(float timeSinceLastUpdate)
@@ -133,6 +132,18 @@ public class CloneController : MonoBehaviour
         int currentRot = Math.Min(frame / (cloneData.RotationSkipFrames + 1), cloneData.Rotations.Length - 1);
         int nextRot = Math.Min(currentRot + 1, cloneData.Rotations.Length - 1);
         return Quaternion.Slerp(cloneData.Rotations[currentRot], cloneData.Rotations[nextRot], howFarToSlerp);
+    }
+
+    public int GetNextThrowInputFrame()
+    {
+        if (cloneData.ThrowInputs.Length > nextThrowInputChangeIndex)
+        {
+            return cloneData.ThrowInputs[nextThrowInputChangeIndex] - frame;
+        }
+        else
+        {
+            return -1;
+        }
     }
 
     public void SetData(CloneData cloneData)

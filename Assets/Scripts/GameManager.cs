@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     private BallScript ball;
 
     [SerializeField]
-    private GameObject mainMenuPanel;
+    private GameObject preparePanel;
 
     [SerializeField]
     private GameObject pauseMenuPanel;
@@ -49,6 +49,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject[] playerPrefabs;
 
+    [SerializeField]
+    private GameObject mainPanel;
+
     private float timeRemaining = GameConfigurations.roundDuration;
     private int roundNumber = 1;
 
@@ -56,6 +59,7 @@ public class GameManager : MonoBehaviour
 
     private bool timerIsRunning = false;
 
+    private bool gamePrepare = false;
     private bool gameStarted = false;
     private bool gamePaused = false;
     private bool gameEnded = false;
@@ -90,12 +94,11 @@ public class GameManager : MonoBehaviour
         controls = new PlayerControls();
         controls.MainMenu.StartGame.performed += ctx =>
         {
-            if (!gameStarted && !gameEnded)
-            {
-                StartGame();
+            if (!gameStarted && !gameEnded) {
+                PrepareStartGame();
             }
 
-            else if (!gameStarted && gameEnded)
+            if (!gameStarted && gameEnded)
             {
                 Debug.Log("game ended");
                 CloneManager.DeleteClones();
@@ -142,6 +145,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 0f;
+        ball.gameObject.SetActive(false);
 
         CloneManager.Configure(clonePrefabs, playerRecordings);
         foreach (PlayerMovement player in playerControllers)
@@ -158,64 +162,77 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        roundText.text = roundNumber.ToString();
-
-        if (!gamePaused && gameStarted)
-        {
-            if (timerIsRunning)
-            {
-                if (timeRemaining > 0)
-                {
-                    if (timeRemaining <= GameConfigurations.nearEndingTime) {
-                        roundEndTimeSlowdown = true;
-                        Time.timeScale = GameConfigurations.slowTimeScale;
-                    }
-                        
-                    timeRemaining -= Time.deltaTime;
-                    DisplayTime(timeRemaining);
-                }
-                else
-                {
-                    timeRemaining = 0;
-                    DisplayTime(timeRemaining);
-                    timerIsRunning = false;
-                    CloneManager.AddClones();
-                    doNextRoundStuff();
-
-                    Time.timeScale = GameConfigurations.normalTimeScale;
-                    roundEndTimeSlowdown = false;
-                }
+        if (gamePrepare) {
+            if (timeRemaining > 0) {
+                timeRemaining -= Time.unscaledDeltaTime;
+                DisplaySecondsOnly(timeRemaining);
+            }
+            
+            else {
+                timeRemaining = 0;
+                DisplaySecondsOnly(timeRemaining);
+                gamePrepare = false;
+                timer.transform.localScale /= 2;
+                StartGame();
             }
         }
 
-        if (!ball.enabled)
-            ball.enabled = true;
-    }
+        else {
+            roundText.text = roundNumber.ToString();
 
-    private void FixedUpdate()
-    {
-        if (playerControllers[0].ShouldStopRunningSound() && playerControllers[1].ShouldStopRunningSound())
-        {
-            if (runningWithouBall.isPlaying)
-                runningWithouBall.Stop();
+            if (!gamePaused && gameStarted) {
+                if (timerIsRunning) {
+                    if (timeRemaining > 0) {
+                        if (timeRemaining <= GameConfigurations.nearEndingTime) {
+                            roundEndTimeSlowdown = true;
+                            Time.timeScale = GameConfigurations.slowTimeScale;
+                        }
+
+                        timeRemaining -= Time.deltaTime;
+                        DisplayTime(timeRemaining);
+                    }
+                    else {
+                        timeRemaining = 0;
+                        DisplayTime(timeRemaining);
+                        timerIsRunning = false;
+                        CloneManager.AddClones();
+                        doNextRoundStuff();
+
+                        Time.timeScale = GameConfigurations.normalTimeScale;
+                        roundEndTimeSlowdown = false;
+                    }
+                }
+            }
+
+            if (!ball.enabled)
+                ball.enabled = true;
+
+            if (playerControllers[0].ShouldStopRunningSound() && playerControllers[1].ShouldStopRunningSound()) {
+                if (runningWithouBall.isPlaying)
+                    runningWithouBall.Stop();
+            }
         }
     }
 
-    public void StartGame()
-    {
-        //Debug.Log("button work");
+    public void PrepareStartGame() {
+        timeRemaining = GameConfigurations.nearEndingTime;
+        timer.transform.localScale *= 2;
+        gamePrepare = true;
+        mainPanel.SetActive(true);
+        preparePanel.SetActive(false);
+    }
+
+    private void StartGame() {
+        Time.timeScale = GameConfigurations.normalTimeScale;
         gameStarted = true;
         gamePaused = false;
-        Time.timeScale = GameConfigurations.normalTimeScale;
         roundEndTimeSlowdown = false;
         timerIsRunning = true;
         timeRemaining = GameConfigurations.roundDuration;
-        mainMenuPanel.SetActive(false);
-        foreach (PlayerMovement player in playerControllers)
-        {
+        foreach (PlayerMovement player in playerControllers) {
             player.GetComponent<PlayerMovement>().enabled = true;
         }
-
+        ball.gameObject.SetActive(true);
         stadiumCrowd.Play();
         gameTheme.Play();
     }
@@ -247,6 +264,13 @@ public class GameManager : MonoBehaviour
             timer.color = Color.white;
     }
 
+    private void DisplaySecondsOnly(float timeToDisplay) {
+        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+
+        timer.color = Color.red;
+        timer.text = string.Format("{0}", seconds);
+    }
+
     private void doNextRoundStuff()
     {
         timer.transform.localScale = Vector3.one;
@@ -261,12 +285,7 @@ public class GameManager : MonoBehaviour
         }
         roundNumber++;
         timerIsRunning = true;
-        //GameConfigurations.roundDuration = GameConfigurations.roundDuration * roundNumber;
-        //timeRemaining = GameConfigurations.roundDuration;
-        //if (timeRemaining > 30f)
-        //{
-        //    timeRemaining = 30f;
-        //}
+        
         timeRemaining = GameConfigurations.roundDuration + Math.Min((roundNumber - 1) * GameConfigurations.roundLengthIncrease, GameConfigurations.maxRoundLength);
         CloneManager.SpawnClones();
         foreach (PlayerMovement player in playerControllers)
