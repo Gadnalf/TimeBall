@@ -6,7 +6,6 @@ public class PlayerGuard : MonoBehaviour
     private PlayerThrowBall playerBallScript;
     private Collider col;
 
-    private int frame;
     PlayerControls controls;
     private PlayerConfig playerConfig;
     private PlayerRecording records;
@@ -46,13 +45,12 @@ public class PlayerGuard : MonoBehaviour
     {
         playerBallScript = GetComponentInParent<PlayerThrowBall>();
         col = GetComponent<Collider>();
-        frame = 0;
         records = GetComponentInParent<PlayerRecording>();
     }
 
     private void FixedUpdate()
     {
-        records.RecordGuardInput(guardInput, frame);
+        records.RecordGuardInput(guardInput);
 
         if (guardInput && !playerBallScript.CheckIfHasBall())
         {
@@ -66,8 +64,6 @@ public class PlayerGuard : MonoBehaviour
             col.enabled = false;
             transform.localScale = Vector3.zero;
         }
-
-        frame++;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -101,7 +97,6 @@ public class PlayerGuard : MonoBehaviour
     public void Reset()
     {
         guardInput = false;
-        frame = 0;
     }
 
     /*public void ResetOnGoal() { guardInput = false; }*/

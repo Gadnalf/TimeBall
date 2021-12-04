@@ -170,7 +170,7 @@ public class PlayerThrowBall : MonoBehaviour
             throwBallSound.Play();
         }
 
-        records.RecordThrowInput(throwInput, frame);
+        records.RecordThrowInput(throwInput);
         //records.RecordPassInput(passTargetId, frame);
         frame++;
 

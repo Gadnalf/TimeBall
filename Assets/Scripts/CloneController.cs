@@ -13,9 +13,12 @@ public class CloneController : MonoBehaviour
 
     // State data
     private Rigidbody rb;
+    private float roundStartTime;
+    private float lastFrameTime;
+    private float pauseOffset;
     private int frame;
     private Vector3 nextPos;
-    private int paused;
+    private float paused;
 
     private CloneHitByBall ballScript;
     public bool throwInput { get; private set; }
@@ -31,6 +34,7 @@ public class CloneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        roundStartTime = Time.time;
         rb = GetComponent<Rigidbody>();
         guardScript = GetComponentInChildren<CloneGuard>();
         ballScript = GetComponent<CloneHitByBall>();
@@ -74,13 +78,17 @@ public class CloneController : MonoBehaviour
             Vector3 partialMove = transform.position + (nextPos - transform.position) / (cloneData.PositionSkipFrames + 1);
             //Debug.Log(partialMove);
             rb.MovePosition(partialMove);
+
+            lastFrameTime = Time.time;
             if (paused <= 0)
             {
-                frame++;
+                frame = Mathf.FloorToInt((Time.time - roundStartTime - pauseOffset) / Time.fixedDeltaTime);
             }
             else
             {
-                paused -= 1;
+                float timeDelta = Time.time - lastFrameTime;
+                pauseOffset += timeDelta;
+                paused -= timeDelta;
             }
         }
     }
@@ -153,7 +161,7 @@ public class CloneController : MonoBehaviour
 
     public void Pause()
     {
-        paused = GameConfigurations.cloneMaxPauseFrames;
+        paused = GameConfigurations.cloneMaxPauseSeconds;
     }
 
     public void Unpause()

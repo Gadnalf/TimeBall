@@ -20,8 +20,22 @@ public class PlayerRecording : MonoBehaviour
     private bool lastGuardInput;
 
     private float timeLeftToRecord = GameConfigurations.roundDuration;
+    private float roundStartTime = 0;
 
-    public void RecordLocation(int frame)
+    private int frame;
+
+    private void Start()
+    {
+        roundStartTime = Time.time;
+        frame = 0;
+    }
+
+    private void FixedUpdate()
+    {
+        frame = Mathf.FloorToInt((Time.time - roundStartTime) / Time.fixedDeltaTime);
+    }
+
+    public void RecordLocation()
     {
         if (timeLeftToRecord > 0)
         {
@@ -38,7 +52,7 @@ public class PlayerRecording : MonoBehaviour
         }
     }
 
-    public void RecordThrowInput(bool throwInput, int frame)
+    public void RecordThrowInput(bool throwInput)
     {
         if (throwInput != lastThrowInput)
         {
@@ -47,7 +61,7 @@ public class PlayerRecording : MonoBehaviour
         }
     }
 
-    public void RecordPassInput(int? passTargetId, int frame)
+    public void RecordPassInput(int? passTargetId)
     {
         if (passTargetId != lastPassTarget)
         {
@@ -56,7 +70,7 @@ public class PlayerRecording : MonoBehaviour
         }
     }
 
-    public void RecordGuardInput(bool guardInput, int frame)
+    public void RecordGuardInput(bool guardInput)
     {
         if (guardInput != lastGuardInput)
         {
@@ -82,6 +96,8 @@ public class PlayerRecording : MonoBehaviour
 
     public void Reset()
     {
+        roundStartTime = Time.time;
+        frame = 0;
         timeLeftToRecord = FindObjectOfType<GameManager>().GetTimeLeft();
         lastPositions.Clear();
         lastRotations.Clear();
