@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,7 +17,7 @@ public class PlayerThrowBall : MonoBehaviour
     // State info
     private bool throwBall = false;
     private bool passBall = false;
-    private float throwHeldDown;
+    private bool throwHeldDown;
     private float chargeTime;
     private bool passHeldDown;
     private GameObject ball;
@@ -32,12 +33,8 @@ public class PlayerThrowBall : MonoBehaviour
 
     private CooldownTimer dashCooldown;
 
-    private int frame;
     private PlayerConfig playerConfig;
     private PlayerRecording records;
-
-    private GameObject[] clones;
-    private List<GameObject> playerClones = new List<GameObject>();
 
     // sound effects
     [HideInInspector]
@@ -98,7 +95,7 @@ public class PlayerThrowBall : MonoBehaviour
         guardScript = GetComponentInChildren<PlayerGuard>();
         scoringManager = FindObjectOfType<ScoringManager>();
 
-        CooldownTimer[] dashCooldowns = FindObjectsOfType<CooldownTimer>();
+        CooldownTimer[] dashCooldowns = FindObjectsOfType<CooldownTimer>(true);
         foreach (CooldownTimer dashCooldown in dashCooldowns)
         {
             if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerOne && dashCooldown.name.StartsWith("P1"))
@@ -109,6 +106,10 @@ public class PlayerThrowBall : MonoBehaviour
             {
                 this.dashCooldown = dashCooldown;
             }
+        }
+        if (dashCooldown == null)
+        {
+            Debug.LogError("DashCD discovery failed");
         }
 
         ChargeBorderScript[] borders = FindObjectsOfType<ChargeBorderScript>();
@@ -164,16 +165,13 @@ public class PlayerThrowBall : MonoBehaviour
             lockedTarget?.GetComponent<CloneController>().Pause();
             ball = null;
             lockedTarget = null;
-            throwHeldDown = 0;
             chargeTime = 0;
             dashCooldown.AbilityEnabled();
             throwBallSound.Play();
         }
 
         records.RecordThrowInput(throwInput);
-        //records.RecordPassInput(passTargetId, frame);
-        frame++;
-
+        records.RecordPassInput(passInput);
     }
 
     // Update is called once per frame
@@ -183,58 +181,42 @@ public class PlayerThrowBall : MonoBehaviour
         if (ball && ball.transform.parent != transform)
         {
             ball = null;
-            throwHeldDown = 0;
             lockedTarget = null;
             return;
         }
 
-        // Increment hold time if throwInput is held
         if (throwInput)
         {
-            throwHeldDown += Time.deltaTime;
-        }
-        // If throw input was released
-        else
-        {
-            if (throwHeldDown > 0)
+            if (!throwHeldDown) // One throw per input down
             {
-                // If ball, charge and throw it
+                throwHeldDown = true;
                 if (ball)
                 {
-                    throwHeldDown = 0;
                     throwBall = true;
                 }
-                // If no ball
                 else
                 {
-                    // Send input to clone if exists
+                    // Send input to clone
                     if (cloneWithBall)
                     {
                         cloneWithBall.Fire();
                     }
                 }
-                throwHeldDown = 0;
             }
         }
+        else
+        {
+            throwHeldDown = false;
+        }
 
-        // Pass input is held
         if (passInput)
         {
-            // If passHeldDown hasn't cleared, passInput has not been released or the pass hasn't happened yet.
-            if (!passHeldDown)
+            if (!passHeldDown) // One pass per input down
             {
                 passHeldDown = true;
                 if (ball)
                 {
-                    playerClones.Clear();
-                    clones = GameObject.FindGameObjectsWithTag("Clone");
-                    foreach (GameObject clone in clones)
-                    {
-                        if (clone.GetComponent<PlayerData>().playerNumber == playerNumber)
-                            playerClones.Add(clone);
-                    }
-
-                    lockedTarget = GetClosestClone();
+                    LockOnClosestClone();
                     if (lockedTarget != null)
                     {
                         passBall = true;
@@ -242,7 +224,7 @@ public class PlayerThrowBall : MonoBehaviour
                 }
                 else
                 {
-                    // If the clone has the ball instead
+                    // Send input to clone
                     if (cloneWithBall)
                     {
                         cloneWithBall.SetTarget(GetComponent<Rigidbody>());
@@ -251,49 +233,10 @@ public class PlayerThrowBall : MonoBehaviour
                 }
             }
         }
-        // Pass input is released
         else
         {
-            // Wait for pass to resolve before clearing locked target
-            if (!passBall)
-            {
-                passHeldDown = false;
-                if (cloneWithBall)
-                {
-                    cloneWithBall.SetTarget(null);
-                }
-            }
+            passHeldDown = false;
         }
-    }
-
-    private Rigidbody GetClosestClone()
-    {
-        lockedTarget = null;
-        float angle = GameConfigurations.passAngle / 2;
-
-        foreach (GameObject clone in playerClones)
-        {
-            Vector3 cloneDirection = DirectionTo(clone);
-
-            float cloneAngle = Mathf.Abs(Vector3.Angle(transform.forward, cloneDirection));
-
-            if (cloneAngle < angle)
-            {
-                lockedTarget = clone.GetComponent<Rigidbody>();
-                angle = cloneAngle;
-            }
-        }
-
-        if (lockedTarget == null)
-        {
-            Debug.Log("No clones located.");
-        }
-        return lockedTarget;
-    }
-
-    private Vector3 DirectionTo(GameObject clone)
-    {
-        return Vector3.Normalize(clone.transform.position - ball.transform.position);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -384,6 +327,34 @@ public class PlayerThrowBall : MonoBehaviour
         }
     }
 
+    private void LockOnClosestClone()
+    {
+        // Rediscover clones
+        GameObject[] clones = GameObject.FindGameObjectsWithTag("Clone");
+        GameObject[] playerClones = clones.Where((GameObject clone) => clone.GetComponent<PlayerData>().playerNumber == playerNumber).ToArray();
+        lockedTarget = null;
+        float angle = GameConfigurations.passAngle / 2;
+
+        // Find closest based on angle
+        foreach (GameObject clone in playerClones)
+        {
+            Vector3 cloneDirection = DirectionTo(clone);
+
+            float cloneAngle = Mathf.Abs(Vector3.Angle(transform.forward, cloneDirection));
+
+            if (cloneAngle < angle)
+            {
+                lockedTarget = clone.GetComponent<Rigidbody>();
+                angle = cloneAngle;
+            }
+        }
+    }
+
+    private Vector3 DirectionTo(GameObject clone)
+    {
+        return Vector3.Normalize(clone.transform.position - ball.transform.position);
+    }
+
     public void SetCloneWithBall(CloneHitByBall clone)
     {
         cloneWithBall = clone;
@@ -406,11 +377,8 @@ public class PlayerThrowBall : MonoBehaviour
     public void Reset()
     {
         ball = null;
-        throwHeldDown = 0;
         lockedTarget = null;
-        frame = 0;
         chargeTime = 0;
-        clones = GameObject.FindGameObjectsWithTag("Clone");
     }
 
     /*public void ResetOnGoal()
@@ -449,11 +417,6 @@ public class PlayerThrowBall : MonoBehaviour
     public bool CheckIfGuarding()
     {
         return guardScript.IsGuarding();
-    }
-
-    public int GetPotentialCharge()
-    {
-        return (int)(throwHeldDown / GameConfigurations.ballChargeTime);
     }
 
     public int GetCurrentCharge()

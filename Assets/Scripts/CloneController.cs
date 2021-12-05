@@ -24,6 +24,9 @@ public class CloneController : MonoBehaviour
     public bool throwInput { get; private set; }
     private int nextThrowInputChangeIndex;
 
+    public bool passInput { get; private set; }
+    private int nextPassInputChangeIndex;
+
     private CloneGuard guardScript;
     public bool guardInput { get; private set; }
     private int nextGuardInputChangeIndex;
@@ -40,6 +43,7 @@ public class CloneController : MonoBehaviour
         ballScript = GetComponent<CloneHitByBall>();
         frame = 0;
         throwInput = false;
+        passInput = false;
         guardInput = false;
         nextThrowInputChangeIndex = 0;
     }
@@ -61,6 +65,15 @@ public class CloneController : MonoBehaviour
                 {
                     throwInput = !throwInput;
                     nextThrowInputChangeIndex++;
+                }
+            }
+
+            if (cloneData.PassInputs.Length > nextPassInputChangeIndex)
+            {
+                if (frame == cloneData.PassInputs[nextPassInputChangeIndex])
+                {
+                    passInput = !passInput;
+                    nextPassInputChangeIndex++;
                 }
             }
 
@@ -142,11 +155,25 @@ public class CloneController : MonoBehaviour
         return Quaternion.Slerp(cloneData.Rotations[currentRot], cloneData.Rotations[nextRot], howFarToSlerp);
     }
 
-    public int GetNextThrowInputFrame()
+    public int FramesToNextThrow()
     {
-        if (cloneData.ThrowInputs.Length > nextThrowInputChangeIndex)
+        int nextInputDownIndex = !throwInput ? nextThrowInputChangeIndex : nextThrowInputChangeIndex + 1;
+        if (cloneData.ThrowInputs.Length > nextInputDownIndex)
         {
-            return cloneData.ThrowInputs[nextThrowInputChangeIndex] - frame;
+            return cloneData.ThrowInputs[nextInputDownIndex] - frame;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    public int FramesToNextPass()
+    {
+        int nextInputDownIndex = !passInput ? nextPassInputChangeIndex : nextPassInputChangeIndex + 1;
+        if (cloneData.PassInputs.Length > nextInputDownIndex)
+        {
+            return cloneData.PassInputs[nextInputDownIndex] - frame;
         }
         else
         {

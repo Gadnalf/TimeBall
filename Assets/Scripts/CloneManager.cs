@@ -69,6 +69,7 @@ public static class CloneManager
         public Vector3[] Positions { get; set; }
         public Quaternion[] Rotations { get; set; }
         public int[] ThrowInputs { get; set; }
+        public int[] PassInputs { get; set; }
         public int[] GuardInputs { get; set; }
     }
 }

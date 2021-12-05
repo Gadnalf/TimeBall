@@ -31,8 +31,6 @@ public class PlayerMovement : MonoBehaviour
 
     private bool stunned;
 
-    private int frame;
-
     // Input
     PlayerControls controls;
     private float rotationInput = 0;
@@ -99,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (context.action.triggered && ifCanDash())
+        if (context.action.triggered && CanDash())
         {
             dashingFrame = GameConfigurations.dashingFrame;
             dashingSound.Play();
@@ -257,8 +255,6 @@ public class PlayerMovement : MonoBehaviour
         SetStunStatus(false);
         currentExplosionFrame = 0;
 
-        frame = 0;
-
         GetComponent<PlayerThrowBall>().Reset();
         GetComponent<PlayerRecording>().Reset();
         GetComponentInChildren<PlayerGuard>().Reset();
@@ -327,7 +323,7 @@ public class PlayerMovement : MonoBehaviour
         this.currentExplosionFrame = explosionFrameDuration;
     }
 
-    private bool ifCanDash()
+    private bool CanDash()
     {
         if (GetComponent<PlayerThrowBall>())
         {
