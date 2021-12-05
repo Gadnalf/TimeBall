@@ -41,10 +41,6 @@ public class BallScript : MonoBehaviour
             Vector2 scaledDirection = new Vector2(direction.x, direction.z).normalized * magnitude;
             rb.velocity = new Vector3(scaledDirection.x, rb.velocity.y, scaledDirection.y);
         }
-        else
-        {
-            // Debug.Log("@*$(&@^#@*&Garbage Homing: " + homing + ", Target: " + target);
-        }
     }
 
     private void Update()

@@ -16,7 +16,8 @@ public class GoalShield : MonoBehaviour
         material = gameObject.GetComponent<Renderer>().material;
         material.color = new Color(0, 0, 0, 0.5f);
         alphaIncrease = 1f;
-        // StartAlphaChange();
+
+        ball = FindObjectOfType<BallScript>(true).GetComponent<BallScript>();
 
         text = transform.GetChild(0).gameObject;
     }

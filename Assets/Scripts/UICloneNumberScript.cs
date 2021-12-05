@@ -78,7 +78,7 @@ public class UICloneNumberScript : MonoBehaviour
                 Vector3 boundedPosition = GetBoundedPosition(targetPosition);
                 cloneNumberIndicator.transform.localPosition = boundedPosition;
                 TextMeshProUGUI textMesh = cloneNumberIndicator.GetComponentInChildren<TextMeshProUGUI>();
-                if (cloneController.GetNextThrowInputFrame() < framesToAlert && cloneController.GetNextThrowInputFrame() >= 0)
+                if (cloneController.FramesToNextThrow() < framesToAlert && cloneController.FramesToNextThrow() >= 0)
                 {
                     textMesh.color = activeColor;
                     textMesh.text = "!";
