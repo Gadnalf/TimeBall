@@ -229,6 +229,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (dashSecondsLeft > 0)
         {
+            dashSecondsLeft -= Time.deltaTime;
             if (dashSecondsLeft <= 0)
             {
                 dashCD = GameConfigurations.dashCDSeconds;
