@@ -20,9 +20,9 @@ public class PlayerMovement : MonoBehaviour
     // State info
     private Vector2 movement;
     private Vector3 currentVelocity;
-    private int dashingFrame;
     private Vector3 lastRotation;
-    private int dashCD;
+    private float dashSecondsLeft;
+    private float dashCD;
 
     private int currentExplosionFrame;
     private int explosionFrameDuration;
@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.action.triggered && CanDash())
         {
-            dashingFrame = GameConfigurations.dashingFrame;
+            dashSecondsLeft = GameConfigurations.dashSeconds;
             dashingSound.Play();
         }
     }
@@ -112,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         movement = Vector2.zero;
-        dashingFrame = 0;
+        dashSecondsLeft = 0;
         dashCD = 0;
 
         currentExplosionFrame = 0;
@@ -195,20 +195,10 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (dashingFrame > 0)
+        if (dashSecondsLeft > 0)
         {
-            float dashFactor = GameConfigurations.dashSpeed / GameConfigurations.dashingFrame;
-            float dashBonus = GameConfigurations.dashSpeed - dashFactor * (GameConfigurations.dashingFrame - dashingFrame);
-
-            dashingFrame--;
-            if (dashingFrame == 0)
-            {
-                dashCD = GameConfigurations.dashCDinFrames;
-                if (cooldownTimer.gameObject.activeInHierarchy)
-                {
-                    cooldownTimer.StartCooldown(GameConfigurations.dashCDinSeconds);
-                }
-            }
+            float dashFactor = GameConfigurations.dashSpeed / GameConfigurations.dashSeconds;
+            float dashBonus = GameConfigurations.dashSpeed - dashFactor * (GameConfigurations.dashSeconds - dashSecondsLeft);
 
             Vector3 dashVector;
             if (movement == Vector2.zero)
@@ -228,11 +218,6 @@ public class PlayerMovement : MonoBehaviour
 
         rb.velocity = transform.TransformDirection(currentVelocity);
 
-        if (dashCD != 0)
-        {
-            dashCD--;
-        }
-
         records.RecordLocation();
     }
 
@@ -241,6 +226,22 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.eulerAngles = new Vector3(lastRotation.x, lastRotation.y + rotationInput * Time.deltaTime * GameConfigurations.rotationSpeed, lastRotation.z);
         lastRotation = transform.eulerAngles;
+
+        if (dashSecondsLeft > 0)
+        {
+            if (dashSecondsLeft <= 0)
+            {
+                dashCD = GameConfigurations.dashCDSeconds;
+                if (cooldownTimer.gameObject.activeInHierarchy)
+                {
+                    cooldownTimer.StartCooldown(GameConfigurations.dashCDSeconds);
+                }
+            }
+        }
+        if (dashCD > 0)
+        {
+            dashCD -= Time.deltaTime;
+        }
     }
 
 
@@ -292,7 +293,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool GetDashStatus()
     {
-        return dashingFrame > 0;
+        return dashSecondsLeft > 0;
     }
 
     public bool GetStunStatus()
@@ -327,7 +328,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (GetComponent<PlayerThrowBall>())
         {
-            return dashingFrame == 0 && dashCD == 0 && GetComponent<PlayerThrowBall>().CheckIfHasBall() == false;
+            return dashSecondsLeft <= 0 && dashCD <= 0 && GetComponent<PlayerThrowBall>().CheckIfHasBall() == false;
         }
         else
         {
