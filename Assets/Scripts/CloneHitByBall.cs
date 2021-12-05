@@ -64,7 +64,7 @@ public class CloneHitByBall : MonoBehaviour
             }
         }
 
-        if ((throwBall || passBall && ball) || (throwBall || passBall && ball && lockedTarget))
+        if ((throwBall || passBall) && ball)
         {
             playerToNotify.SetCloneWithBall(null);
 
