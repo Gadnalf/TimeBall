@@ -231,10 +231,10 @@ public class PlayerMovement : MonoBehaviour
         {
             if (dashSecondsLeft <= 0)
             {
-                dashCD = GameConfigurations.dashCDinFrames;
+                dashCD = GameConfigurations.dashCDSeconds;
                 if (cooldownTimer.gameObject.activeInHierarchy)
                 {
-                    cooldownTimer.StartCooldown(GameConfigurations.dashCDinSeconds);
+                    cooldownTimer.StartCooldown(GameConfigurations.dashCDSeconds);
                 }
             }
         }
