@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,9 +35,6 @@ public class PlayerThrowBall : MonoBehaviour
 
     private PlayerConfig playerConfig;
     private PlayerRecording records;
-
-    private GameObject[] clones;
-    private List<GameObject> playerClones = new List<GameObject>();
 
     // sound effects
     [HideInInspector]
@@ -97,7 +95,7 @@ public class PlayerThrowBall : MonoBehaviour
         guardScript = GetComponentInChildren<PlayerGuard>();
         scoringManager = FindObjectOfType<ScoringManager>();
 
-        CooldownTimer[] dashCooldowns = FindObjectsOfType<CooldownTimer>();
+        CooldownTimer[] dashCooldowns = FindObjectsOfType<CooldownTimer>(true);
         foreach (CooldownTimer dashCooldown in dashCooldowns)
         {
             if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerOne && dashCooldown.name.StartsWith("P1"))
@@ -108,6 +106,10 @@ public class PlayerThrowBall : MonoBehaviour
             {
                 this.dashCooldown = dashCooldown;
             }
+        }
+        if (dashCooldown == null)
+        {
+            Debug.LogError("DashCD discovery failed");
         }
 
         ChargeBorderScript[] borders = FindObjectsOfType<ChargeBorderScript>();
@@ -237,39 +239,6 @@ public class PlayerThrowBall : MonoBehaviour
         }
     }
 
-    private void LockOnClosestClone()
-    {
-        // Rediscover clones
-        playerClones.Clear();
-        clones = GameObject.FindGameObjectsWithTag("Clone");
-        foreach (GameObject clone in clones)
-        {
-            if (clone.GetComponent<PlayerData>().playerNumber == playerNumber)
-                playerClones.Add(clone);
-        }
-        lockedTarget = null;
-        float angle = GameConfigurations.passAngle / 2;
-
-        // Find closest based on angle
-        foreach (GameObject clone in playerClones)
-        {
-            Vector3 cloneDirection = DirectionTo(clone);
-
-            float cloneAngle = Mathf.Abs(Vector3.Angle(transform.forward, cloneDirection));
-
-            if (cloneAngle < angle)
-            {
-                lockedTarget = clone.GetComponent<Rigidbody>();
-                angle = cloneAngle;
-            }
-        }
-    }
-
-    private Vector3 DirectionTo(GameObject clone)
-    {
-        return Vector3.Normalize(clone.transform.position - ball.transform.position);
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         // if not holding ball and object is ball
@@ -358,6 +327,34 @@ public class PlayerThrowBall : MonoBehaviour
         }
     }
 
+    private void LockOnClosestClone()
+    {
+        // Rediscover clones
+        GameObject[] clones = GameObject.FindGameObjectsWithTag("Clone");
+        GameObject[] playerClones = clones.Where((GameObject clone) => clone.GetComponent<PlayerData>().playerNumber == playerNumber).ToArray();
+        lockedTarget = null;
+        float angle = GameConfigurations.passAngle / 2;
+
+        // Find closest based on angle
+        foreach (GameObject clone in playerClones)
+        {
+            Vector3 cloneDirection = DirectionTo(clone);
+
+            float cloneAngle = Mathf.Abs(Vector3.Angle(transform.forward, cloneDirection));
+
+            if (cloneAngle < angle)
+            {
+                lockedTarget = clone.GetComponent<Rigidbody>();
+                angle = cloneAngle;
+            }
+        }
+    }
+
+    private Vector3 DirectionTo(GameObject clone)
+    {
+        return Vector3.Normalize(clone.transform.position - ball.transform.position);
+    }
+
     public void SetCloneWithBall(CloneHitByBall clone)
     {
         cloneWithBall = clone;
@@ -382,7 +379,6 @@ public class PlayerThrowBall : MonoBehaviour
         ball = null;
         lockedTarget = null;
         chargeTime = 0;
-        clones = GameObject.FindGameObjectsWithTag("Clone");
     }
 
     /*public void ResetOnGoal()

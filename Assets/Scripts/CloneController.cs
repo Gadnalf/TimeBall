@@ -68,6 +68,15 @@ public class CloneController : MonoBehaviour
                 }
             }
 
+            if (cloneData.PassInputs.Length > nextPassInputChangeIndex)
+            {
+                if (frame == cloneData.PassInputs[nextPassInputChangeIndex])
+                {
+                    passInput = !passInput;
+                    nextPassInputChangeIndex++;
+                }
+            }
+
             if (cloneData.GuardInputs.Length > nextGuardInputChangeIndex)
             {
                 if (frame == cloneData.GuardInputs[nextGuardInputChangeIndex])

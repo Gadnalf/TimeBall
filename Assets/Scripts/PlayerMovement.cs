@@ -97,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (context.action.triggered && ifCanDash())
+        if (context.action.triggered && CanDash())
         {
             dashingFrame = GameConfigurations.dashingFrame;
             dashingSound.Play();
@@ -323,7 +323,7 @@ public class PlayerMovement : MonoBehaviour
         this.currentExplosionFrame = explosionFrameDuration;
     }
 
-    private bool ifCanDash()
+    private bool CanDash()
     {
         if (GetComponent<PlayerThrowBall>())
         {

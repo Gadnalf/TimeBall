@@ -56,7 +56,7 @@ public class PlayerRecording : MonoBehaviour
     {
         if (throwInput != lastThrowInput)
         {
-            if (throwInputChangeFrames.Peek() != frame)
+            if (throwInputChangeFrames.Count == 0 || throwInputChangeFrames.Peek() != frame)
             {
                 throwInputChangeFrames.Enqueue(frame);
                 lastThrowInput = throwInput;
@@ -68,7 +68,7 @@ public class PlayerRecording : MonoBehaviour
     {
         if (passInput != lastPassInput)
         {
-            if (passInputChangeFrames.Peek() != frame)
+            if (passInputChangeFrames.Count == 0 || passInputChangeFrames.Peek() != frame)
             {
                 passInputChangeFrames.Enqueue(frame);
                 lastPassInput = passInput;
@@ -80,7 +80,7 @@ public class PlayerRecording : MonoBehaviour
     {
         if (guardInput != lastGuardInput)
         {
-            if (guardInputChangeFrames.Peek() != frame)
+            if (guardInputChangeFrames.Count == 0 || guardInputChangeFrames.Peek() != frame)
             {
                 guardInputChangeFrames.Enqueue(frame);
                 lastGuardInput = guardInput;
@@ -99,6 +99,7 @@ public class PlayerRecording : MonoBehaviour
             Positions = lastPositions.ToArray(),
             Rotations = lastRotations.ToArray(),
             ThrowInputs = throwInputChangeFrames.ToArray(),
+            PassInputs = passInputChangeFrames.ToArray(),
             GuardInputs = guardInputChangeFrames.ToArray()
         };
     }

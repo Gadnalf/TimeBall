@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
 
 public class CloneHitByBall : MonoBehaviour
 {
@@ -10,11 +12,15 @@ public class CloneHitByBall : MonoBehaviour
 
     // state info
     private bool cloneKnockdown;
+
     private bool throwBall;
+    private bool throwHeldDown;
+    private bool passBall;
+    private bool passHeldDown;
+
     private float timeSinceLastUpdate;
-    private Rigidbody lockTarget;
+    private Rigidbody lockedTarget;
     private PlayerThrowBall playerToNotify;
-    private float holdThrow;
     private float chargeTime;
 
     // Start is called before the first frame update
@@ -58,23 +64,20 @@ public class CloneHitByBall : MonoBehaviour
             }
         }
 
-        if ((throwBall && ball && ball.GetComponent<BallScript>().GetCharge() >= GameConfigurations.goalShieldBreakableCharge) || (throwBall && ball && lockTarget))
+        if ((throwBall || passBall && ball) || (throwBall || passBall && ball && lockedTarget))
         {
             playerToNotify.SetCloneWithBall(null);
-
-            // Debug.Log("Throwing");
 
             ball.transform.parent = null;
             ball.GetComponent<Rigidbody>().isKinematic = false;
             ball.GetComponent<Rigidbody>().AddForce((transform.forward * GameConfigurations.horizontalThrowingForce * GameConfigurations.speedBoostFactor * (1 + ball.GetComponent<BallScript>().GetCharge()))
                 + Vector3.up * GameConfigurations.verticalThrowingForce);
-            if (lockTarget)
+            if (lockedTarget)
             {
-                ball.GetComponent<BallScript>().SetHomingTarget(lockTarget);
-                lockTarget = null;
+                ball.GetComponent<BallScript>().SetHomingTarget(lockedTarget);
+                lockedTarget = null;
             }
             ball = null;
-            holdThrow = 0;
         }
         throwBall = false;
         timeSinceLastUpdate = 0;
@@ -100,6 +103,7 @@ public class CloneHitByBall : MonoBehaviour
             // Start by fetching controller data
             Quaternion targetRotation = controller.GetNextRotation(timeSinceLastUpdate);
             bool throwInput = controller.throwInput;
+            bool passInput = controller.passInput;
 
             // Check if ball gone
             if (ball && ball.transform.parent != transform)
@@ -109,33 +113,54 @@ public class CloneHitByBall : MonoBehaviour
                 return;
             }
 
-            // Charge the ball while input is held. When throw input is released, release the charge if the ball isn't held.
-            if (throwInput)
-            {
-                holdThrow += Time.deltaTime;
-            }
-            else if (!ball)
-            {
-                holdThrow = 0;
-            }
-
+            // Notify player, handle player input
             if (ball)
             {
                 playerToNotify.SetCloneWithBall(this);
 
-                // When throw input is released, if the ball is held and charged, throw the ball.
-                if (!throwInput && holdThrow > 0)
+                if (lockedTarget)
                 {
-                    throwBall = true;
-                    holdThrow = 0;
-                }
-
-                if (lockTarget)
-                {
-                    Vector3 vectorTowardsTarget = new Vector3(lockTarget.transform.position.x, transform.position.y, lockTarget.transform.position.z) - transform.position;
+                    Vector3 vectorTowardsTarget = new Vector3(lockedTarget.transform.position.x, transform.position.y, lockedTarget.transform.position.z) - transform.position;
                     targetRotation = Quaternion.LookRotation(vectorTowardsTarget, Vector3.up);
                 }
             }
+
+            if (throwInput)
+            {
+                if (!throwHeldDown) // One throw per input down
+                {
+                    throwHeldDown = true;
+                    if (ball)
+                    {
+                        throwBall = true;
+                    }
+                }
+            }
+            else
+            {
+                throwHeldDown = false;
+            }
+
+            if (passInput)
+            {
+                if (!passHeldDown) // One pass per input down
+                {
+                    passHeldDown = true;
+                    if (ball)
+                    {
+                        LockOnClosestCloneOrPlayer();
+                        if (lockedTarget != null)
+                        {
+                            passBall = true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                passHeldDown = false;
+            }
+
             transform.rotation = targetRotation;
         }
     }
@@ -170,7 +195,7 @@ public class CloneHitByBall : MonoBehaviour
                     else if (ballScript.GetHomingTarget() != null && ballScript.GetHomingTarget().GetComponent<PlayerData>().playerNumber == GetComponent<PlayerData>().playerNumber)
                     {
                         throwBall = true;
-                        lockTarget = ballScript.GetHomingTarget();
+                        lockedTarget = ballScript.GetHomingTarget();
                     }
                 }
             }
@@ -213,7 +238,7 @@ public class CloneHitByBall : MonoBehaviour
         // If the clone is not currently throwing the ball, set target
         if (!throwBall)
         {
-            lockTarget = target;
+            lockedTarget = target;
         }
     }
 
@@ -227,6 +252,35 @@ public class CloneHitByBall : MonoBehaviour
         playerToNotify.SetCloneWithBall(this);
         controller.Unpause();
         chargeTime = 0;
+    }
+
+    private void LockOnClosestCloneOrPlayer()
+    {
+        // Rediscover clones/player
+        GameObject[] clones = GameObject.FindGameObjectsWithTag("Clone");
+        List<GameObject> playerClones = clones.Where((GameObject clone) => clone.GetComponent<PlayerData>().playerNumber == controller.cloneData.PlayerNumber).ToList();
+        playerClones.Add(playerToNotify.gameObject);
+        lockedTarget = null;
+        float angle = GameConfigurations.passAngle / 2;
+
+        // Find closest based on angle
+        foreach (GameObject clone in playerClones)
+        {
+            Vector3 cloneDirection = DirectionTo(clone);
+
+            float cloneAngle = Mathf.Abs(Vector3.Angle(transform.forward, cloneDirection));
+
+            if (cloneAngle < angle)
+            {
+                lockedTarget = clone.GetComponent<Rigidbody>();
+                angle = cloneAngle;
+            }
+        }
+    }
+
+    private Vector3 DirectionTo(GameObject clone)
+    {
+        return Vector3.Normalize(clone.transform.position - ball.transform.position);
     }
 
     public bool HasBall()
