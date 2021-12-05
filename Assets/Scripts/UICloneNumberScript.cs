@@ -156,4 +156,9 @@ public class UICloneNumberScript : MonoBehaviour
         }
         return new Vector3(Mathf.Clamp(targetPosition.x, -paddedHorizontalBound, paddedHorizontalBound), Mathf.Clamp(targetPosition.y, -paddedVerticalBound + verticalBoundOffset, paddedVerticalBound - verticalBound + verticalBoundOffset), targetPosition.z);
     }
+
+    public void HideCloneNumbers(bool ifHide) {
+        foreach (var cloneNum in cloneNumberIndicators)
+            cloneNum.SetActive(!ifHide);
+    }
 }

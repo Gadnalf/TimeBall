@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool stunned;
 
-    private int frame;
+    // private int frame;
 
     // Input
     PlayerControls controls;
@@ -257,7 +257,7 @@ public class PlayerMovement : MonoBehaviour
         SetStunStatus(false);
         currentExplosionFrame = 0;
 
-        frame = 0;
+        // frame = 0;
 
         GetComponent<PlayerThrowBall>().Reset();
         GetComponent<PlayerRecording>().Reset();

@@ -29,7 +29,6 @@ public class GoalPost : MonoBehaviour
     {
         if (other.tag == "Ball")
         {
-            Debug.Log("goal scored");
             int score = ball.GetComponent<BallScript>().GetCharge();
             if (playerGoal == 1)
             {
@@ -41,13 +40,17 @@ public class GoalPost : MonoBehaviour
             }
 
             if (goalSound.isPlaying == false)
-                PlayGoalSound();
+                goalSound.Play();
 
             ball.SetActive(false);
             Invoke("ResetBall", 1f);
 
-            foreach (PlayerMovement playerMovement in playerMovements)
-            {
+            foreach (PlayerMovement playerMovement in playerMovements) {
+                var playerNum = playerMovement.playerNumber;
+                if ((gameObject.name.StartsWith("TutP1") && playerNum != PlayerData.PlayerNumber.PlayerOne) || (gameObject.name.StartsWith("TutP2") && playerNum != PlayerData.PlayerNumber.PlayerTwo))
+                    continue;
+                    
+
                 float distance = (playerMovement.transform.position - transform.position).magnitude;
                 playerMovement.StartExplosion(GameConfigurations.goalExplosionSpeed * 10f / distance, GameConfigurations.goalExplosionFrame, transform.position);
             }

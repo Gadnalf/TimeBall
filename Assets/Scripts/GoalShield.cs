@@ -6,6 +6,7 @@ public class GoalShield : MonoBehaviour
     private Material material;
     private float alphaIncrease;
 
+    [SerializeField]
     private BallScript ball;
     private GameObject text;
 
@@ -17,7 +18,6 @@ public class GoalShield : MonoBehaviour
         alphaIncrease = 1f;
         // StartAlphaChange();
 
-        ball = FindObjectOfType<BallScript>().GetComponent<BallScript>();
         text = transform.GetChild(0).gameObject;
     }
 

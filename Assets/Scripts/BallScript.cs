@@ -50,8 +50,7 @@ public class BallScript : MonoBehaviour
     private void Update()
     {
         UpdateShield();
-        if (transform.position.y >= 30)
-        {
+        if ((transform.position.y >= 30 && transform.position.y < 40) || (transform.position.y >= 80)) {
             Reset();
         }
     }

@@ -30,8 +30,7 @@ public class PlayerRecording : MonoBehaviour
         frame = 0;
     }
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         frame = Mathf.FloorToInt((Time.time - roundStartTime) / Time.fixedDeltaTime);
     }
 
@@ -81,10 +80,11 @@ public class PlayerRecording : MonoBehaviour
 
     public CloneData GetPlayerData()
     {
-        return new CloneData()
-        {
+        bool inTutorial = FindObjectOfType<GameManager>() == null;
+
+        return new CloneData() {
             PlayerNumber = GetComponent<PlayerData>().playerNumber,
-            RoundNumber = FindObjectOfType<GameManager>().GetRoundNumber(),
+            RoundNumber = inTutorial ? FindObjectOfType<TutorialManager>().GetRoundNumber() : FindObjectOfType<GameManager>().GetRoundNumber(),
             PositionSkipFrames = postionFramesToSkip,
             RotationSkipFrames = rotationFramesToSkip,
             Positions = lastPositions.ToArray(),
@@ -96,9 +96,11 @@ public class PlayerRecording : MonoBehaviour
 
     public void Reset()
     {
+        bool inTutorial = FindObjectOfType<GameManager>() == null;
+
         roundStartTime = Time.time;
         frame = 0;
-        timeLeftToRecord = FindObjectOfType<GameManager>().GetTimeLeft();
+        timeLeftToRecord = inTutorial ? FindObjectOfType<TutorialManager>().GetTimeLeft() : FindObjectOfType<GameManager>().GetTimeLeft();
         lastPositions.Clear();
         lastRotations.Clear();
         throwInputChangeFrames.Clear();

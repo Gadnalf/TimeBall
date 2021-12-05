@@ -6,8 +6,7 @@ public class PlayerData : MonoBehaviour
 {
     public PlayerNumber playerNumber;
 
-    public enum PlayerNumber
-    {
+    public enum PlayerNumber {
         NoPlayer,
         PlayerOne,
         PlayerTwo

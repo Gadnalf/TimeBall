@@ -1136,8 +1136,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294918144
+  m_fontColor: {r: 0, g: 0.2509804, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1160,7 +1160,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1491,6 +1491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5fdd50d2b4d17448b6d0ed98717ac6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ball: {fileID: 253741008}
 --- !u!65 &623331289
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2624,7 +2625,7 @@ RectTransform:
   m_Children:
   - {fileID: 1785154756}
   m_Father: {fileID: 1624314814}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3055,8 +3056,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -55.3, y: -6}
-  m_SizeDelta: {x: 35.086, y: 55}
+  m_AnchoredPosition: {x: -22, y: -4}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1113168603
 MonoBehaviour:
@@ -3105,14 +3106,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23
-  m_fontSizeBase: 23
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -3221,8 +3222,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190335
+  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3245,7 +3246,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3373,7 +3374,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.4
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3571,7 +3572,7 @@ RectTransform:
   - {fileID: 1844250454}
   - {fileID: 840815527}
   m_Father: {fileID: 1624314814}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4570,8 +4571,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 1345517238}
   - {fileID: 979365667}
+  - {fileID: 1345517238}
   - {fileID: 1393363320}
   - {fileID: 1408822612}
   - {fileID: 1112428135}
@@ -5580,7 +5581,7 @@ GameObject:
   - component: {fileID: 552614029760516136}
   m_Layer: 0
   m_Name: SouthWall3_Upper
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5738,7 +5739,7 @@ GameObject:
   - component: {fileID: 1802860768321946412}
   m_Layer: 0
   m_Name: NorthWall3_Upper
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6271,7 +6272,7 @@ GameObject:
   - component: {fileID: 1754766734687320899}
   m_Layer: 0
   m_Name: WestWall
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6943,7 +6944,7 @@ GameObject:
   - component: {fileID: 8651380340526381792}
   m_Layer: 0
   m_Name: NorthWall1
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6979,7 +6980,7 @@ GameObject:
   - component: {fileID: 1160196430404595206}
   m_Layer: 0
   m_Name: NorthWall2
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7030,7 +7031,7 @@ GameObject:
   - component: {fileID: 8242859999238642574}
   m_Layer: 0
   m_Name: EastWall
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7076,6 +7077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5fdd50d2b4d17448b6d0ed98717ac6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ball: {fileID: 253741008}
 --- !u!4 &5891429701814442181
 Transform:
   m_ObjectHideFlags: 0
@@ -7310,7 +7312,7 @@ GameObject:
   - component: {fileID: 2682794936674308673}
   m_Layer: 0
   m_Name: NorthWall3_Lower
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7487,7 +7489,7 @@ GameObject:
   - component: {fileID: 6816974030978814052}
   m_Layer: 0
   m_Name: SouthWall2
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7506,7 +7508,7 @@ GameObject:
   - component: {fileID: 6240083406020643853}
   m_Layer: 0
   m_Name: SouthWall1
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7574,7 +7576,7 @@ GameObject:
   - component: {fileID: 7077407586156420102}
   m_Layer: 0
   m_Name: SouthWall3_Lower
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
