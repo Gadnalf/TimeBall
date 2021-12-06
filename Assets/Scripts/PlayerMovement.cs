@@ -96,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
         {
             OnRotate(obj);
         }
-        else if (obj.action.name == controls.Gameplay.Ready.name)
+        else if (inTutorial && obj.action.name == controls.Gameplay.Ready.name)
         {
             OnReady(obj);
         }
@@ -167,6 +167,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetTutorial (bool value)
     {
+        Debug.Log(value);
         inTutorial = value;
         if (!inTutorial)
             controls.Gameplay.Ready.Disable();
