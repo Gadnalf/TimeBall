@@ -68,10 +68,10 @@ public class PlayerMovement : MonoBehaviour
             rotationInput = 0f;
         };
 
-        controls.Tutorial.Ready.performed += ctx => {
-            Debug.Log("Player " + playerConfig.PlayerIndex.ToString() + " is ready for next tutorial");
-            FindObjectOfType<TutorialManager>().ReadyPlayer(playerConfig.PlayerIndex);
-        };
+        //controls.Tutorial.Ready.performed += ctx => {
+        //    Debug.Log("Player " + playerConfig.PlayerIndex.ToString() + " is ready for next tutorial");
+        //    FindObjectOfType<TutorialManager>().ReadyPlayer(playerConfig.PlayerIndex);
+        //};
     }
 
     public void InitializePlayer(PlayerConfig pc)
@@ -96,6 +96,10 @@ public class PlayerMovement : MonoBehaviour
         {
             OnRotate(obj);
         }
+        else if (obj.action.name == controls.Gameplay.Ready.name)
+        {
+            OnReady(obj);
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -115,6 +119,11 @@ public class PlayerMovement : MonoBehaviour
     public void OnRotate(InputAction.CallbackContext context)
     {
         rotationInput = context.ReadValue<Vector2>().x;
+    }
+
+    public void OnReady(InputAction.CallbackContext context)
+    {
+        FindObjectOfType<TutorialManager>().ReadyPlayer(playerConfig.PlayerIndex);
     }
 
     private void Start()
@@ -154,6 +163,13 @@ public class PlayerMovement : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         Reset();
+    }
+
+    public void SetTutorial (bool value)
+    {
+        inTutorial = value;
+        if (!inTutorial)
+            controls.Gameplay.Ready.Disable();
     }
 
     private void FixedUpdate()
@@ -292,18 +308,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        controls.Gameplay.Enable();
-        if (inTutorial) {
-            controls.Tutorial.Enable();
-        }
+        controls.Enable();
+        //controls.Gameplay.Enable();
+        //if (inTutorial) {
+        //    controls.Tutorial.Enable();
+        //}
     }
 
     private void OnDisable()
     {
-        controls.Gameplay.Disable();
-        if (inTutorial) {
-            controls.Tutorial.Disable();
-        }
+        controls.Disable();
+        //controls.Gameplay.Disable();
+        //if (inTutorial) {
+        //    controls.Tutorial.Disable();
+        //}
     }
 
     public bool GetDashStatus()

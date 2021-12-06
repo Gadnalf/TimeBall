@@ -65,6 +65,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Ready"",
+                    ""type"": ""Button"",
+                    ""id"": ""6181fdf4-25bb-45f0-822e-dd65d195816a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -241,6 +249,28 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
                     ""action"": ""Guard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""42af23d0-68aa-44f0-9f32-0cfc9c8a64a2"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Ready"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fec202c6-41e6-487d-a866-615cbab508c0"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Ready"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -447,44 +477,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
-        },
-        {
-            ""name"": ""Tutorial"",
-            ""id"": ""eb9089df-8305-4166-a12e-04590bc34786"",
-            ""actions"": [
-                {
-                    ""name"": ""Ready"",
-                    ""type"": ""Button"",
-                    ""id"": ""3d89ed92-68b3-41b5-bc7a-527f85391e9b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""a0fb95af-a6f7-4b29-a905-5ad738d80f50"",
-                    ""path"": ""<Gamepad>/select"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Ready"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""38247e6a-c48e-4c3e-93ce-e22466d8e7a2"",
-                    ""path"": ""<Keyboard>/tab"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
-                    ""action"": ""Ready"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
         }
     ],
     ""controlSchemes"": [
@@ -525,6 +517,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Throw = m_Gameplay.FindAction("Throw", throwIfNotFound: true);
         m_Gameplay_Lockon = m_Gameplay.FindAction("Lockon", throwIfNotFound: true);
         m_Gameplay_Guard = m_Gameplay.FindAction("Guard", throwIfNotFound: true);
+        m_Gameplay_Ready = m_Gameplay.FindAction("Ready", throwIfNotFound: true);
         // MainMenu
         m_MainMenu = asset.FindActionMap("MainMenu", throwIfNotFound: true);
         m_MainMenu_StartGame = m_MainMenu.FindAction("StartGame", throwIfNotFound: true);
@@ -532,9 +525,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_MainMenu_ShowControls = m_MainMenu.FindAction("ShowControls", throwIfNotFound: true);
         m_MainMenu_Select = m_MainMenu.FindAction("Select", throwIfNotFound: true);
         m_MainMenu_MenuMove = m_MainMenu.FindAction("MenuMove", throwIfNotFound: true);
-        // Tutorial
-        m_Tutorial = asset.FindActionMap("Tutorial", throwIfNotFound: true);
-        m_Tutorial_Ready = m_Tutorial.FindAction("Ready", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -590,6 +580,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Throw;
     private readonly InputAction m_Gameplay_Lockon;
     private readonly InputAction m_Gameplay_Guard;
+    private readonly InputAction m_Gameplay_Ready;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -600,6 +591,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Throw => m_Wrapper.m_Gameplay_Throw;
         public InputAction @Lockon => m_Wrapper.m_Gameplay_Lockon;
         public InputAction @Guard => m_Wrapper.m_Gameplay_Guard;
+        public InputAction @Ready => m_Wrapper.m_Gameplay_Ready;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -627,6 +619,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Guard.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGuard;
                 @Guard.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGuard;
                 @Guard.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGuard;
+                @Ready.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnReady;
+                @Ready.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnReady;
+                @Ready.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnReady;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -649,6 +644,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Guard.started += instance.OnGuard;
                 @Guard.performed += instance.OnGuard;
                 @Guard.canceled += instance.OnGuard;
+                @Ready.started += instance.OnReady;
+                @Ready.performed += instance.OnReady;
+                @Ready.canceled += instance.OnReady;
             }
         }
     }
@@ -718,39 +716,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         }
     }
     public MainMenuActions @MainMenu => new MainMenuActions(this);
-
-    // Tutorial
-    private readonly InputActionMap m_Tutorial;
-    private ITutorialActions m_TutorialActionsCallbackInterface;
-    private readonly InputAction m_Tutorial_Ready;
-    public struct TutorialActions
-    {
-        private @PlayerControls m_Wrapper;
-        public TutorialActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Ready => m_Wrapper.m_Tutorial_Ready;
-        public InputActionMap Get() { return m_Wrapper.m_Tutorial; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(TutorialActions set) { return set.Get(); }
-        public void SetCallbacks(ITutorialActions instance)
-        {
-            if (m_Wrapper.m_TutorialActionsCallbackInterface != null)
-            {
-                @Ready.started -= m_Wrapper.m_TutorialActionsCallbackInterface.OnReady;
-                @Ready.performed -= m_Wrapper.m_TutorialActionsCallbackInterface.OnReady;
-                @Ready.canceled -= m_Wrapper.m_TutorialActionsCallbackInterface.OnReady;
-            }
-            m_Wrapper.m_TutorialActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Ready.started += instance.OnReady;
-                @Ready.performed += instance.OnReady;
-                @Ready.canceled += instance.OnReady;
-            }
-        }
-    }
-    public TutorialActions @Tutorial => new TutorialActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -777,6 +742,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnThrow(InputAction.CallbackContext context);
         void OnLockon(InputAction.CallbackContext context);
         void OnGuard(InputAction.CallbackContext context);
+        void OnReady(InputAction.CallbackContext context);
     }
     public interface IMainMenuActions
     {
@@ -785,9 +751,5 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnShowControls(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
         void OnMenuMove(InputAction.CallbackContext context);
-    }
-    public interface ITutorialActions
-    {
-        void OnReady(InputAction.CallbackContext context);
     }
 }

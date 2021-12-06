@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().InitializePlayer(playerConfigs[i]);
             playerRecordings[i] = player.GetComponent<PlayerRecording>();
             playerControllers[i] = player.GetComponent<PlayerMovement>();
-            playerControllers[i].inTutorial = false;
+            playerControllers[i].SetTutorial(false);
 
             foreach (GameObject goal in goals)
             {
@@ -147,7 +147,6 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         ball.gameObject.SetActive(false);
-        controls.Tutorial.Disable();
 
         CloneManager.Configure(clonePrefabs, playerRecordings);
         foreach (PlayerMovement player in playerControllers)

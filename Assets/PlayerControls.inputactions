@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Ready",
+                    "type": "Button",
+                    "id": "6181fdf4-25bb-45f0-822e-dd65d195816a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -228,6 +236,28 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Guard",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "42af23d0-68aa-44f0-9f32-0cfc9c8a64a2",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Ready",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fec202c6-41e6-487d-a866-615cbab508c0",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Ready",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -430,44 +460,6 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "MenuMove",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Tutorial",
-            "id": "eb9089df-8305-4166-a12e-04590bc34786",
-            "actions": [
-                {
-                    "name": "Ready",
-                    "type": "Button",
-                    "id": "3d89ed92-68b3-41b5-bc7a-527f85391e9b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "a0fb95af-a6f7-4b29-a905-5ad738d80f50",
-                    "path": "<Gamepad>/select",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Ready",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "38247e6a-c48e-4c3e-93ce-e22466d8e7a2",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "Ready",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

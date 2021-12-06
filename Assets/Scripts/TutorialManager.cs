@@ -84,7 +84,7 @@ public class TutorialManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().InitializePlayer(playerConfigs[i]);
             playerRecordings[i] = player.GetComponent<PlayerRecording>();
             playerControllers[i] = player.GetComponent<PlayerMovement>();
-            playerControllers[i].inTutorial = true;
+            playerControllers[i].SetTutorial(true);
 
             foreach (GameObject goal in goals) {
                 goal.GetComponent<GoalPost>().playerMovements[i] = player.GetComponent<PlayerMovement>();
@@ -267,8 +267,12 @@ public class TutorialManager : MonoBehaviour
 
         preparePanel.SetActive(true);
         helpPanel.SetActive(false);
-        playerNextRoundReady[0].SetActive(false);
-        playerNextRoundReady[1].SetActive(false);
+        foreach (GameObject x in playerNextRoundReady)
+        {
+            x.SetActive(false);
+        }
+        //playerNextRoundReady[0].SetActive(false);
+        //playerNextRoundReady[1].SetActive(false);
 
         prepareText.text = "Well Done!";
 
