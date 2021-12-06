@@ -5200,7 +5200,7 @@ MonoBehaviour:
   - {fileID: 1527515247663946147, guid: 707bd45bece4e9046ba15211270ee551, type: 3}
   mainPanel: {fileID: 1345517237}
   winnerSprites:
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 7cd027088cbf8a04da7a0eadcd85ec4c, type: 3}
   - {fileID: 21300000, guid: 15641113a54d5f842bf643eed11ab00d, type: 3}
   - {fileID: 21300000, guid: 0c3ebb5cf98b7194bb72ba90b111d4a5, type: 3}
 --- !u!4 &1995729810
