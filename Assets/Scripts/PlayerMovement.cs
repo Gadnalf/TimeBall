@@ -137,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (dashing)
         {
-            animator.CrossFade(dashAnimation, 0.15f);
+            animator.CrossFade(dashAnimation, 0f);
         }
     }
 

@@ -97,6 +97,7 @@ public class CloneController : MonoBehaviour
 
             // move whatever fraction of the way to the target is necessary
             Vector3 partialMove = transform.position + (nextPos - transform.position) / (cloneData.PositionSkipFrames + 1);
+
             HandleAnimation(partialMove, true, false);
             rb.MovePosition(partialMove);
 
@@ -116,7 +117,11 @@ public class CloneController : MonoBehaviour
 
     void HandleAnimation(Vector3 move, bool moving, bool dashing)
     {
-        if (dashing || moving)
+        if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerTwo)
+        {
+            Debug.Log(move.normalized.magnitude);
+        }
+        if ((dashing || moving) && move.normalized.magnitude > 0.01)
         {
             VelocityZ = Vector3.Dot(move.normalized, transform.forward);
             VelocityX = Vector3.Dot(move.normalized, transform.right);
