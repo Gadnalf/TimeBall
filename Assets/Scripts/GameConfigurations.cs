@@ -7,10 +7,11 @@ public static class GameConfigurations
     public static float rotationSpeed = 400f;
     public static float passAngle = 90f;
 
-    public static float roundDuration = 5f;
+    public static float roundDuration = 30f;
     public static float roundLengthIncrease = 0f;
     public static float maxRoundLength = 25f;
     public static int numberOfRounds = 5;
+    public static int numberOfTutorials = 5;
 
     public static float ballDistance = 2f;
     public static float ballHeight = 1.3f;
@@ -64,6 +65,23 @@ public static class GameConfigurations
                 return Color.green;
             default:
                 return Color.black;
+        }
+    }
+
+    public static string TutorialHelpText(int roundNumber) {
+        switch (roundNumber) {
+            case 1:
+                return "Try to move around and pick up the ball.";
+            case 2:
+                return "";
+            case 3:
+                return "";
+            case 4:
+                return "";
+            case 5:
+                return "";
+            default:
+                return "";
         }
     }
 }

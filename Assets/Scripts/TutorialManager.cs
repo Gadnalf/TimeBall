@@ -28,6 +28,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     private GameObject helpPanel;
     [SerializeField]
+    private TextMeshProUGUI[] helpTexts;
+    [SerializeField]
     private GameObject preparePanel;
     private TextMeshProUGUI prepareText;
 
@@ -171,6 +173,7 @@ public class TutorialManager : MonoBehaviour
         if (gamePrepare) {
             if (timeRemaining > 0) {
                 timeRemaining -= Time.unscaledDeltaTime;
+                timeRemaining = Math.Max(timeRemaining, 0);
                 DisplaySecondsOnly(timeRemaining);
             }
             
@@ -232,7 +235,9 @@ public class TutorialManager : MonoBehaviour
 
         preparePanel.SetActive(false);
         helpPanel.SetActive(true);
-        
+        foreach (var ht in helpTexts)
+            ht.text = GameConfigurations.TutorialHelpText(roundNumber);
+
         timer.gameObject.SetActive(true);
         timeRemaining = GameConfigurations.nearEndingTime;
         timer.transform.localScale *= 2;
@@ -280,6 +285,8 @@ public class TutorialManager : MonoBehaviour
         mainPanel.SetActive(true);
         preparePanel.SetActive(false);
         helpPanel.SetActive(true);
+        foreach (var ht in helpTexts)
+            ht.text = GameConfigurations.TutorialHelpText(1);
 
         timer.gameObject.SetActive(true);
         timeRemaining = GameConfigurations.nearEndingTime;
@@ -328,7 +335,7 @@ public class TutorialManager : MonoBehaviour
         CloneManager.KillClones();
         //Debug.Log("started round " + roundNumber.ToString());
 
-        if (roundNumber == GameConfigurations.numberOfRounds) {
+        if (roundNumber == GameConfigurations.numberOfTutorials) {
             EndGame();
             return;
         }
