@@ -185,7 +185,7 @@ public class PlayerThrowBall : MonoBehaviour
 
     void HandleThrowAnimation()
     {
-        animator.CrossFade(throwAnimation, 0.001f);
+        animator.CrossFade(throwAnimation, 0f);
     }
 
     // Update is called once per frame
@@ -246,6 +246,7 @@ public class PlayerThrowBall : MonoBehaviour
                     if (lockedTarget != null)
                     {
                         passBall = true;
+                        HandleThrowAnimation();
                     }
                 }
                 else

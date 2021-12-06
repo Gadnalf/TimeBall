@@ -290,7 +290,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Throw
-  m_Speed: 1
+  m_Speed: 3
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -5767171480214992791}
@@ -303,7 +303,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1827226128182048838, guid: ddc4e236b94277b4892848d134bd6049, type: 3}
+  m_Motion: {fileID: 1827226128182048838, guid: b015edb626345ec4ab5788b34a7e380f, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
