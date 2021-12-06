@@ -58,6 +58,7 @@ public class PlayerConfigManager : MonoBehaviour
                 GetComponent<PlayerInputManager>().DisableJoining();
                 audioManager.GetAudio("Lobby").Stop();
                 SceneManager.LoadScene("TutorialScene");
+                //SceneManager.LoadScene("MainScene");
             }
         }
     }
