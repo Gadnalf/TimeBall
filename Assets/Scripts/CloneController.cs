@@ -96,9 +96,10 @@ public class CloneController : MonoBehaviour
             guardScript.UpdateGuard(guardInput && !ballScript.HasBall());
 
             // move whatever fraction of the way to the target is necessary
-            Vector3 partialMove = transform.position + (nextPos - transform.position) / (cloneData.PositionSkipFrames + 1);
+            Vector3 move = (nextPos - transform.position) / (cloneData.PositionSkipFrames + 1);
+            Vector3 partialMove = transform.position + move;
 
-            HandleAnimation(partialMove, true, false);
+            HandleAnimation(move, true, false);
             rb.MovePosition(partialMove);
 
             lastFrameTime = Time.time;
@@ -119,9 +120,9 @@ public class CloneController : MonoBehaviour
     {
         if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerTwo)
         {
-            Debug.Log(move.normalized.magnitude);
+            Debug.Log(move.magnitude);
         }
-        if ((dashing || moving) && move.normalized.magnitude > 0.01)
+        if ((dashing || moving) && move.magnitude > 0.01)
         {
             VelocityZ = Vector3.Dot(move.normalized, transform.forward);
             VelocityX = Vector3.Dot(move.normalized, transform.right);
