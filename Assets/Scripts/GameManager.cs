@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class GameManager : MonoBehaviour
     private GameObject endMenuPanel;
 
     [SerializeField]
-    private TextMeshProUGUI winnerText;
+    private Image winnerImage;
 
     [SerializeField]
     private TextMeshProUGUI roundText;
@@ -51,6 +52,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private GameObject mainPanel;
+
+    [SerializeField]
+    private Sprite[] winnerSprites;
 
     private float timeRemaining = GameConfigurations.roundDuration;
     private int roundNumber = 1;
@@ -345,11 +349,11 @@ public class GameManager : MonoBehaviour
         int winner = scoringManager.GetWinner();
         if (winner == 0)
         {
-            winnerText.text = "IT'S A DRAW!";
+            winnerImage.sprite = winnerSprites[0];
         }
         else
         {
-            winnerText.text = "PLAYER " + winner.ToString() + " WINS!";
+            winnerImage.sprite = winnerSprites[winner];
         }
 
         Time.timeScale = 0f;
