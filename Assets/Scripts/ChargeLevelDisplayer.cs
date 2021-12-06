@@ -50,6 +50,12 @@ public class ChargeLevelDisplayer : MonoBehaviour
 
     void Update()
     {
+
+        if (!ballScript.isActiveAndEnabled || !ballScript.gameObject.activeInHierarchy)
+        {
+            return;
+        }
+        
         if (ballScript.GetPlayerNumber() == playerNumber) {
             Color c = chargeLevel.color;
             c.a = 1f;

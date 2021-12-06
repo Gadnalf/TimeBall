@@ -204,7 +204,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetTutorial (bool value)
     {
-        Debug.Log(value);
         inTutorial = value;
         if (!inTutorial)
             controls.Gameplay.Ready.Disable();
