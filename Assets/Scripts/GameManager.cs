@@ -360,6 +360,7 @@ public class GameManager : MonoBehaviour
         roundEndTimeSlowdown = false;
         foreach (PlayerMovement player in playerControllers)
         {
+            player.GetComponent<PlayerMovement>().SetIdle();
             player.GetComponent<PlayerMovement>().enabled = false;
         }
     }

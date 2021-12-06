@@ -160,6 +160,11 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    public void SetIdle()
+    {
+        HandleAnimation(Vector3.zero, false, false);
+    }
+
     private void Start()
     {
         movement = Vector2.zero;
