@@ -43,7 +43,7 @@ public class GoalPost : MonoBehaviour
                 goalSound.Play();
 
             ball.SetActive(false);
-            Invoke("ResetBall", 1f);
+            Invoke("ResetBall", 2f);
 
             foreach (PlayerMovement playerMovement in playerMovements) {
                 var playerNum = playerMovement.playerNumber;
@@ -52,7 +52,7 @@ public class GoalPost : MonoBehaviour
                     
 
                 float distance = (playerMovement.transform.position - transform.position).magnitude;
-                playerMovement.StartExplosion(GameConfigurations.goalExplosionSpeed * 10f / distance, GameConfigurations.goalExplosionFrame, transform.position);
+                playerMovement.StartExplosion(GameConfigurations.goalExplosionSpeed * 12f / distance, GameConfigurations.goalExplosionFrame, transform.position);
             }
         }
     }
