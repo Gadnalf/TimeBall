@@ -46,13 +46,12 @@ public class PlayerMovement : MonoBehaviour
     private AudioSource runningWithoutBall;
     private AudioSource dashingSound;
 
-
     public bool inTutorial;
+    public bool canMove;
 
     private Animator animator;
     private float VelocityZ, VelocityX;
     private int dashAnimation;
-
 
     private void Awake()
     {
@@ -212,7 +211,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 movementVector;
-        if (currentExplosionFrame != 0 || (Math.Abs(movement.x) < 0.05f && Math.Abs(movement.y) < 0.05f))
+        if (currentExplosionFrame != 0 || (Math.Abs(movement.x) < 0.05f && Math.Abs(movement.y) < 0.05f) || (inTutorial && !canMove))
         {
             movementVector = Vector3.zero;
             HandleAnimation(movementVector, false, false);
@@ -407,6 +406,10 @@ public class PlayerMovement : MonoBehaviour
         {
             return true;
         }
+    }
+
+    public void SetCanMove(bool ifCanMove) {
+        canMove = ifCanMove;
     }
 
     public PlayerConfig GetPlayerConfig() {
