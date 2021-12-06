@@ -48,8 +48,7 @@ public class PlayerConfigManager : MonoBehaviour
 
         if (playerConfigs.Count == MaxPlayers) {
             bool b = true;
-            foreach (PlayerConfig pc in playerConfigs)
-            {
+            foreach (PlayerConfig pc in playerConfigs) {
                 if (!pc.IsReady)
                     b = false;
             }
@@ -57,8 +56,8 @@ public class PlayerConfigManager : MonoBehaviour
             if (b) {
                 GetComponent<PlayerInputManager>().DisableJoining();
                 audioManager.GetAudio("Lobby").Stop();
-                SceneManager.LoadScene("TutorialScene");
-                //SceneManager.LoadScene("MainScene");
+                // SceneManager.LoadScene("TutorialScene");
+                SceneManager.LoadScene("MainScene");
             }
         }
     }
