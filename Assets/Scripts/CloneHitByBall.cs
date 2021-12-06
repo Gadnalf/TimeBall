@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -20,6 +19,7 @@ public class CloneHitByBall : MonoBehaviour
 
     private float timeSinceLastUpdate;
     private Rigidbody lockedTarget;
+    private Rigidbody priorityLockedTarget;
     private PlayerThrowBall playerToNotify;
     private float chargeTime;
 
@@ -72,10 +72,15 @@ public class CloneHitByBall : MonoBehaviour
             ball.GetComponent<Rigidbody>().isKinematic = false;
             ball.GetComponent<Rigidbody>().AddForce((transform.forward * GameConfigurations.horizontalThrowingForce * GameConfigurations.speedBoostFactor * (1 + ball.GetComponent<BallScript>().GetCharge()))
                 + Vector3.up * GameConfigurations.verticalThrowingForce);
-            if (lockedTarget)
+            if (priorityLockedTarget || lockedTarget)
             {
-                ball.GetComponent<BallScript>().SetHomingTarget(lockedTarget);
+                Rigidbody target = priorityLockedTarget ?? lockedTarget;
+                Debug.Log("Clone throwing to target: " + target);
+                ball.GetComponent<BallScript>().SetHomingTarget(target);
+                target.GetComponent<CloneController>()?.Pause();
                 lockedTarget = null;
+                priorityLockedTarget = null;
+
             }
             ball = null;
         }
@@ -235,11 +240,7 @@ public class CloneHitByBall : MonoBehaviour
 
     public void SetTarget(Rigidbody target)
     {
-        // If the clone is not currently throwing the ball, set target
-        if (!throwBall)
-        {
-            lockedTarget = target;
-        }
+        priorityLockedTarget = target;
     }
 
     public void ClaimBall(GameObject ball)
