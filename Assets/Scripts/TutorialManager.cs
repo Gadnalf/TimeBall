@@ -215,6 +215,9 @@ public class TutorialManager : MonoBehaviour
     }
 
     public void PrepareNextRound() {
+        foreach (GameObject x in playerNextRoundReady)
+            x.SetActive(false);
+
         foreach (PlayerMovement player in playerControllers) {
             player.GetComponent<PlayerMovement>().enabled = true;
         }
@@ -267,12 +270,6 @@ public class TutorialManager : MonoBehaviour
 
         preparePanel.SetActive(true);
         helpPanel.SetActive(false);
-        foreach (GameObject x in playerNextRoundReady)
-        {
-            x.SetActive(false);
-        }
-        //playerNextRoundReady[0].SetActive(false);
-        //playerNextRoundReady[1].SetActive(false);
 
         prepareText.text = "Well Done!";
 
