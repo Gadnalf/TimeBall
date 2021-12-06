@@ -46,11 +46,20 @@ public class PlayerMovement : MonoBehaviour
     private AudioSource runningWithoutBall;
     private AudioSource dashingSound;
 
+
     public bool inTutorial;
+
+    private Animator animator;
+    private float VelocityZ, VelocityX;
+    private int dashAnimation;
+
 
     private void Awake()
     {
         controls = new PlayerControls();
+        animator = GetComponent<Animator>();
+
+        dashAnimation = Animator.StringToHash("Dash");
 
         controls.Gameplay.Dash.canceled += ctx =>
         {
@@ -60,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
         controls.Gameplay.Move.canceled += ctx =>
         {
             movement = Vector2.zero;
+            VelocityZ = 0;
+            VelocityX = 0;
         };
 
 
@@ -121,14 +132,40 @@ public class PlayerMovement : MonoBehaviour
         rotationInput = context.ReadValue<Vector2>().x;
     }
 
+
     public void OnReady(InputAction.CallbackContext context)
     {
         FindObjectOfType<TutorialManager>().ReadyPlayer(playerConfig.PlayerIndex);
     }
 
+    void HandleAnimation(Vector3 move, bool moving, bool dashing)
+    {
+        if (dashing || moving)
+        {
+            VelocityZ = Vector3.Dot(move.normalized, transform.forward);
+            VelocityX = Vector3.Dot(move.normalized, transform.right);
+        }
+        else
+        {
+            VelocityX = 0;
+            VelocityZ = 0;
+        }
+
+        animator.SetFloat("VelocityZ", VelocityZ, 0.1f, Time.deltaTime);
+        animator.SetFloat("VelocityX", VelocityX, 0.1f, Time.deltaTime);
+
+        if (dashing)
+        {
+            animator.CrossFade(dashAnimation, 0f);
+        }
+
+    }
+
     private void Start()
     {
         movement = Vector2.zero;
+        VelocityZ = 0;
+        VelocityX = 0;
         dashSecondsLeft = 0;
         dashCD = 0;
 
@@ -179,11 +216,13 @@ public class PlayerMovement : MonoBehaviour
         if (currentExplosionFrame != 0 || (Math.Abs(movement.x) < 0.05f && Math.Abs(movement.y) < 0.05f))
         {
             movementVector = Vector3.zero;
+            HandleAnimation(movementVector, false, false);
         }
         else
         {
             PlayerThrowBall playerBall = GetComponent<PlayerThrowBall>();
             movementVector = new Vector3(movement.x, 0, movement.y).normalized;
+            HandleAnimation(movementVector, true, false);
             if (playerBall.CheckIfGuarding())
             {
                 /*float adjustedSpeed = currentVelocity.magnitude * GameConfigurations.haltRate;
@@ -235,6 +274,7 @@ public class PlayerMovement : MonoBehaviour
                 dashVector = movementVector.normalized * dashBonus;
             }
             movementVector += dashVector;
+            HandleAnimation(movementVector, true, true);
         }
 
         currentVelocity.x = movementVector.x;

@@ -34,6 +34,14 @@ public class CloneController : MonoBehaviour
     private GameObject lr;
     private GameObject tr;
 
+    private Animator animator;
+    private float VelocityX, VelocityZ;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -88,8 +96,10 @@ public class CloneController : MonoBehaviour
             guardScript.UpdateGuard(guardInput && !ballScript.HasBall());
 
             // move whatever fraction of the way to the target is necessary
-            Vector3 partialMove = transform.position + (nextPos - transform.position) / (cloneData.PositionSkipFrames + 1);
-            //Debug.Log(partialMove);
+            Vector3 move = (nextPos - transform.position) / (cloneData.PositionSkipFrames + 1);
+            Vector3 partialMove = transform.position + move;
+
+            HandleAnimation(move, true, false);
             rb.MovePosition(partialMove);
 
             lastFrameTime = Time.time;
@@ -104,6 +114,27 @@ public class CloneController : MonoBehaviour
                 paused -= timeDelta;
             }
         }
+    }
+
+    void HandleAnimation(Vector3 move, bool moving, bool dashing)
+    {
+        if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerTwo)
+        {
+            Debug.Log(move.magnitude);
+        }
+        if ((dashing || moving) && move.magnitude > 0.01)
+        {
+            VelocityZ = Vector3.Dot(move.normalized, transform.forward);
+            VelocityX = Vector3.Dot(move.normalized, transform.right);
+        }
+        else
+        {
+            VelocityX = 0;
+            VelocityZ = 0;
+        }
+
+        animator.SetFloat("VelocityZ", VelocityZ, 0.1f, Time.deltaTime);
+        animator.SetFloat("VelocityX", VelocityX, 0.1f, Time.deltaTime);
     }
 
     public void SetupLines(int index)

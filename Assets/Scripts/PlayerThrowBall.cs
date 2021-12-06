@@ -36,6 +36,10 @@ public class PlayerThrowBall : MonoBehaviour
     private PlayerConfig playerConfig;
     private PlayerRecording records;
 
+    private Animator animator;
+    private bool holdingBall;
+    private int throwAnimation;
+
     // sound effects
     [HideInInspector]
     public AudioManager audioManager;
@@ -43,9 +47,13 @@ public class PlayerThrowBall : MonoBehaviour
     private AudioSource tagSound;
     private AudioSource receiveSound;
 
+
     private void Awake()
     {
         controls = new PlayerControls();
+        animator = GetComponent<Animator>();
+
+        throwAnimation = Animator.StringToHash("Throw");
 
         controls.Gameplay.Throw.canceled += ctx =>
         {
@@ -90,6 +98,7 @@ public class PlayerThrowBall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        holdingBall = false;
         records = GetComponent<PlayerRecording>();
         playerNumber = GetComponent<PlayerData>().playerNumber;
         guardScript = GetComponentInChildren<PlayerGuard>();
@@ -174,9 +183,25 @@ public class PlayerThrowBall : MonoBehaviour
         records.RecordPassInput(passInput);
     }
 
+    void HandleThrowAnimation()
+    {
+        animator.CrossFade(throwAnimation, 0f);
+    }
+
     // Update is called once per frame
     void Update()
     {
+
+        if (CheckIfHasBall())
+        {
+            holdingBall = true;
+        } else
+        {
+            holdingBall = false;
+        }
+
+        animator.SetBool("holdingBall", holdingBall);
+
         // Check if ball gone
         if (ball && ball.transform.parent != transform)
         {
@@ -193,6 +218,7 @@ public class PlayerThrowBall : MonoBehaviour
                 if (ball)
                 {
                     throwBall = true;
+                    HandleThrowAnimation();
                 }
                 else
                 {
@@ -220,6 +246,7 @@ public class PlayerThrowBall : MonoBehaviour
                     if (lockedTarget != null)
                     {
                         passBall = true;
+                        HandleThrowAnimation();
                     }
                 }
                 else

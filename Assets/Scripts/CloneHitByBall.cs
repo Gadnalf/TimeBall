@@ -23,10 +23,16 @@ public class CloneHitByBall : MonoBehaviour
     private PlayerThrowBall playerToNotify;
     private float chargeTime;
 
+    private Animator animator;
+    private int throwAnimation;
+
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CloneController>();
+        animator = GetComponent<Animator>();
+        throwAnimation = Animator.StringToHash("Throw");
+
         throwBall = false;
         cloneKnockdown = false;
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
@@ -235,7 +241,15 @@ public class CloneHitByBall : MonoBehaviour
     public void Fire()
     {
         if (ball)
+        {
             throwBall = true;
+            HandleThrowAnimation();
+        }
+    }
+
+    void HandleThrowAnimation()
+    {
+        animator.CrossFade(throwAnimation, 0f);
     }
 
     public void SetTarget(Rigidbody target)

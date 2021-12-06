@@ -1,9 +1,12 @@
 using UnityEngine;
 public static class GameConfigurations
 {
-    public static float baseMovementSpeed = 20f;
-    public static float withBallMovementSpeed = 12.5f;
-    public static float guardMovementSpeed = 5f;
+    public static float baseMovementSpeed = 12.5f;
+    public static float withBallMovementSpeed = 7f;
+    public static float guardMovementSpeed = 4f;
+    //public static float baseMovementSpeed = 20f;
+    //public static float withBallMovementSpeed = 12.5f;
+    //public static float guardMovementSpeed = 5f;
     public static float rotationSpeed = 400f;
     public static float passAngle = 90f;
 
@@ -13,8 +16,8 @@ public static class GameConfigurations
     public static int numberOfRounds = 5;
     public static int numberOfTutorials = 5;
 
-    public static float ballDistance = 2f;
-    public static float ballHeight = 1.3f;
+    public static float ballDistance = 1.1f;
+    public static float ballHeight = 1.65f;
     public static float ballChargeTime = 1.5f;
     public static int goalShieldBreakableCharge = 1;
     //public static int maxCloneAutoCharge = 3;
