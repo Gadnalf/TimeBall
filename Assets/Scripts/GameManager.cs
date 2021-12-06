@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-
+        
         var playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs().ToArray();
         var goals = GameObject.FindGameObjectsWithTag("Goals");
 
@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().InitializePlayer(playerConfigs[i]);
             playerRecordings[i] = player.GetComponent<PlayerRecording>();
             playerControllers[i] = player.GetComponent<PlayerMovement>();
+            playerControllers[i].inTutorial = false;
 
             foreach (GameObject goal in goals)
             {
@@ -146,6 +147,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         ball.gameObject.SetActive(false);
+        controls.Tutorial.Disable();
 
         CloneManager.Configure(clonePrefabs, playerRecordings);
         foreach (PlayerMovement player in playerControllers)
@@ -189,6 +191,7 @@ public class GameManager : MonoBehaviour
                         }
 
                         timeRemaining -= Time.deltaTime;
+                        timeRemaining = Math.Max(timeRemaining, 0f);
                         DisplayTime(timeRemaining);
                     }
                     else {

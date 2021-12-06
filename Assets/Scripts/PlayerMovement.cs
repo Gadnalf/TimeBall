@@ -45,6 +45,9 @@ public class PlayerMovement : MonoBehaviour
     public AudioManager audioManager;
     private AudioSource runningWithoutBall;
     private AudioSource dashingSound;
+
+    public bool inTutorial;
+
     private void Awake()
     {
         controls = new PlayerControls();
@@ -63,6 +66,11 @@ public class PlayerMovement : MonoBehaviour
         controls.Gameplay.Rotate.canceled += ctx =>
         {
             rotationInput = 0f;
+        };
+
+        controls.Tutorial.Ready.performed += ctx => {
+            Debug.Log("Player " + playerConfig.PlayerIndex.ToString() + " is ready for next tutorial");
+            FindObjectOfType<TutorialManager>().ReadyPlayer(playerConfig.PlayerIndex);
         };
     }
 
@@ -285,11 +293,17 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         controls.Gameplay.Enable();
+        if (inTutorial) {
+            controls.Tutorial.Enable();
+        }
     }
 
     private void OnDisable()
     {
         controls.Gameplay.Disable();
+        if (inTutorial) {
+            controls.Tutorial.Disable();
+        }
     }
 
     public bool GetDashStatus()
@@ -335,5 +349,9 @@ public class PlayerMovement : MonoBehaviour
         {
             return true;
         }
+    }
+
+    public PlayerConfig GetPlayerConfig() {
+        return playerConfig;
     }
 }

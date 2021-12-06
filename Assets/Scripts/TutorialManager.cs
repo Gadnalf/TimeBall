@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -58,7 +59,7 @@ public class TutorialManager : MonoBehaviour
     private bool gamePaused = false;
     private bool gameEnded = false;
 
-    private bool roundEnd = false;
+    private bool roundEnd = true;
 
     PlayerControls controls;
 
@@ -66,6 +67,10 @@ public class TutorialManager : MonoBehaviour
     private AudioSource runningWithouBall;
     private AudioSource stadiumCrowd;
     private AudioSource gameTheme;
+
+    private HashSet<int> playerTutorialFinished = new HashSet<int>();
+    [SerializeField]
+    private GameObject[] playerNextRoundReady;
 
     private void Awake()
     {
@@ -79,6 +84,7 @@ public class TutorialManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().InitializePlayer(playerConfigs[i]);
             playerRecordings[i] = player.GetComponent<PlayerRecording>();
             playerControllers[i] = player.GetComponent<PlayerMovement>();
+            playerControllers[i].inTutorial = true;
 
             foreach (GameObject goal in goals) {
                 goal.GetComponent<GoalPost>().playerMovements[i] = player.GetComponent<PlayerMovement>();
@@ -89,11 +95,11 @@ public class TutorialManager : MonoBehaviour
         controls = new PlayerControls();
         controls.MainMenu.StartGame.performed += ctx =>
         {
-            if (!gameStarted && !gameEnded && !gamePrepare) {
+            if (!gameStarted && !gameEnded && !gamePrepare && roundEnd) {
                 PrepareStartGame();
             }
 
-            else if (gameStarted && !gameEnded && !gamePrepare) {
+            else if (gameStarted && !gameEnded && !gamePrepare && roundEnd) {
                 PrepareNextRound();
             }
 
@@ -131,7 +137,6 @@ public class TutorialManager : MonoBehaviour
                     ResumeGame();       
             }
         };
-
     }
 
     // Start is called before the first frame update
@@ -184,15 +189,12 @@ public class TutorialManager : MonoBehaviour
         else {
             if (!gamePaused && gameStarted) {
                 if (timerIsRunning) {
-                    if (timeRemaining > 0) {
-                        timeRemaining -= Time.deltaTime;
-                        timeRemaining = Math.Max(timeRemaining, 0f);
-                        DisplaySecondsOnly(timeRemaining);
+                    if (playerTutorialFinished.Count < 2) {
+
                     }
 
                     else {
                         timeRemaining = 0;
-                        DisplaySecondsOnly(timeRemaining);
                         timerIsRunning = false;
                         CloneManager.AddClones();
                         FinishRound();
@@ -230,9 +232,12 @@ public class TutorialManager : MonoBehaviour
         
         timer.gameObject.SetActive(true);
         timeRemaining = GameConfigurations.nearEndingTime;
+        timer.transform.localScale *= 2;
 
         roundEnd = false;
         gamePrepare = true;
+
+        playerTutorialFinished.Clear();
     }
 
     public void StartRound() {
@@ -262,6 +267,8 @@ public class TutorialManager : MonoBehaviour
 
         preparePanel.SetActive(true);
         helpPanel.SetActive(false);
+        playerNextRoundReady[0].SetActive(false);
+        playerNextRoundReady[1].SetActive(false);
 
         prepareText.text = "Well Done!";
 
@@ -275,16 +282,15 @@ public class TutorialManager : MonoBehaviour
 
         timer.gameObject.SetActive(true);
         timeRemaining = GameConfigurations.nearEndingTime;
-
-        roundEnd = false;
-
         timer.transform.localScale *= 2;
+
         gamePrepare = true;
     }
 
     private void StartGame() {
         gameStarted = true;
         gamePaused = false;
+        roundEnd = false;
 
         Time.timeScale = GameConfigurations.normalTimeScale;
         timerIsRunning = true;
@@ -409,4 +415,9 @@ public class TutorialManager : MonoBehaviour
         controls.MainMenu.Disable();
     }
 
+    public void ReadyPlayer(int index) {
+        playerTutorialFinished.Add(index);
+        playerNextRoundReady[index].SetActive(true);
+        Debug.Log("Player ready in tutorial");
+    }
 }
