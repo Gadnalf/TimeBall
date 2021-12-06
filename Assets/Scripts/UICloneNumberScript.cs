@@ -84,6 +84,12 @@ public class UICloneNumberScript : MonoBehaviour
                     textMesh.text = "!";
                     cloneNumberIndicator.transform.Find("Emphasis").GetComponent<Image>().enabled = true;
                 }
+                else if (cloneController.FramesToNextPass() < framesToAlert && cloneController.FramesToNextPass() >= 0)
+                {
+                    textMesh.color = activeColor;
+                    textMesh.text = "?";
+                    cloneNumberIndicator.transform.Find("Emphasis").GetComponent<Image>().enabled = true;
+                }
                 else
                 {
                     if (ballScript.GetPlayerNumber() != playerNumber ||
@@ -134,11 +140,10 @@ public class UICloneNumberScript : MonoBehaviour
 
     private Vector3 GetTargetPosition(Vector3 clonePosition)
     {
-        Vector3 screenPoint = playerCamera.WorldToScreenPoint(clonePosition += Vector3.up * indicatorVerticalOffset);
+        Vector3 screenPoint = playerCamera.WorldToScreenPoint(clonePosition + Vector3.up * indicatorVerticalOffset);
         if (screenPoint.z < 0)
         {
-            screenPoint.x = -screenPoint.x;
-            screenPoint.y += screenPoint.z * 75;
+            screenPoint *= -1;
         }
         Vector3 shiftedScreenPoint = new Vector3(screenPoint.x - horizontalBound, screenPoint.y - verticalBound, screenPoint.z);
         return shiftedScreenPoint;
