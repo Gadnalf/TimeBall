@@ -25,6 +25,7 @@ public class CloneHitByBall : MonoBehaviour
 
     private Animator animator;
     private int throwAnimation;
+    private bool holdingBall;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +49,7 @@ public class CloneHitByBall : MonoBehaviour
         }
 
         chargeTime = 0;
+        holdingBall = false;
     }
 
     private void FixedUpdate()
@@ -97,6 +99,17 @@ public class CloneHitByBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (HasBall())
+        {
+            holdingBall = true;
+        }
+        else
+        {
+            holdingBall = false;
+        }
+
+        animator.SetBool("holdingBall", holdingBall);
+
         timeSinceLastUpdate += Time.deltaTime;
 
         if (cloneKnockdown)
