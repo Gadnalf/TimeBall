@@ -2302,7 +2302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &357997018
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7461,7 +7461,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1393363320
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10543,26 +10543,42 @@ MonoBehaviour:
   balls:
   - {fileID: 253741008}
   - {fileID: 572490532}
+  opponentGoalPosts:
+  - {fileID: 3595554829790553720}
+  - {fileID: 359667759}
   helpPanel: {fileID: 1437748330}
   helpTexts:
   - {fileID: 1523750393}
   - {fileID: 1469157033}
   roundOneHelps:
   - Pick up the ball and hold it to charge.
-  - Shoot the ball when you have charge.
-  - Press SELECT to proceed to next  level.
+  - Press B/RT to shoot when you have charge level.
+  - Press SELECT to proceed to next  round.
   roundTwoHelps:
-  - Clones copy last round's movement and throw input.
+  - Clones copy your last round's movement and shoot actions.
+  - Clones provide charge level. Press X/LT to pass or pass back.
+  - Clones provide charge level. Press X/LT to pass or pass back.
+  - Press X/LT to pass or pass back.
+  - Press B/RT to order clone to shoot if clone has the ball.
+  - Charge level is the score you get. Press SELECT for next round.
   roundThreeHelps:
-  - 
+  - Move close to opponent goal post. You can set up a shot even if not having the
+    ball.
+  - Aim at the goal post and press B/RT to set up a shot.
+  - Aim at the goal post and press B/RT to set up a shot. Press SELECT when done.
   roundFourHelps:
-  - 
+  - Clones record last round's shoot action.
+  - Clones record last round's shoot action. Pass the ball to clone.
+  - Press SELECT to proceed to next  round.
   roundFiveHelps:
-  - 
+  - Press A/RB to dash.
+  - Press A/RB to dash. Dash into opponent will tag the ball.
+  - Hold Y/LB to guard if you don't have the ball.
+  - Hold Y/LB to guard. Ball in your guard radius will be claimed.
+  - Each unique clone provides one charge level. Remember charge level = score.
   preparePanel: {fileID: 1033698627}
   pauseMenuPanel: {fileID: 1408822611}
   endMenuPanel: {fileID: 1393363319}
-  endText: {fileID: 0}
   controlsPanel: {fileID: 1112428134}
   playerPrefabs:
   - {fileID: 7115374961518105058, guid: 01ccfdea8cab4b74bb2dddb584cdff0c, type: 3}

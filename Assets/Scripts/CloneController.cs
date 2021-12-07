@@ -120,7 +120,7 @@ public class CloneController : MonoBehaviour
     {
         if (GetComponent<PlayerData>().playerNumber == PlayerData.PlayerNumber.PlayerTwo)
         {
-            Debug.Log(move.magnitude);
+            // Debug.Log(move.magnitude);
         }
         if ((dashing || moving) && move.magnitude > 0.01)
         {

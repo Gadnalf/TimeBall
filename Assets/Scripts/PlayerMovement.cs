@@ -389,7 +389,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool ShouldStopRunningSound()
     {
-        return (currentExplosionFrame != 0 || (Math.Abs(movement.x) < 0.05f && Math.Abs(movement.y) < 0.05f));
+        return (currentExplosionFrame != 0 || (Math.Abs(movement.x) < 0.05f && Math.Abs(movement.y) < 0.05f) || (inTutorial && !canMove));
     }
 
     public void StartExplosion(float explosionSpeed, int explosionFrameDuration, Vector3 from)
@@ -404,17 +404,12 @@ public class PlayerMovement : MonoBehaviour
         this.currentExplosionFrame = explosionFrameDuration;
     }
 
-    private bool CanDash()
-    {
+    private bool CanDash() {
         if (GetComponent<PlayerThrowBall>()) {
             return dashSecondsLeft <= 0 && dashCD <= 0 && GetComponent<PlayerThrowBall>().CheckIfHasBall() == false;
         }
         else
             return true;
-    }
-
-    public void SetCanMove(bool ifCanMove) {
-        canMove = ifCanMove;
     }
 
     public bool hasBall() {

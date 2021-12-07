@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        
+        GameConfigurations.roundDuration = 30f;
         var playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs().ToArray();
         var goals = GameObject.FindGameObjectsWithTag("Goals");
 
@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
         controls.MainMenu.PauseGame.started += ctx =>
         {
 
-            if (gameStarted && !gameEnded)
+            if (gameStarted && !gameEnded && !gamePrepare)
             {
                 if (!gamePaused)
                 {

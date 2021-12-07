@@ -2,11 +2,11 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 using System.Collections.Generic;
 
 public class TutorialManager : MonoBehaviour
 {
-
     [SerializeField]
     private GameObject[] clonePrefabs;
 
@@ -24,6 +24,9 @@ public class TutorialManager : MonoBehaviour
 
     [SerializeField]
     private BallScript[] balls;
+
+    [SerializeField]
+    private GoalPost[] opponentGoalPosts;
 
     [SerializeField]
     private GameObject helpPanel;
@@ -44,9 +47,6 @@ public class TutorialManager : MonoBehaviour
 
     [SerializeField]
     private GameObject endMenuPanel;
-
-    [SerializeField]
-    private TextMeshProUGUI endText;
 
     [SerializeField]
     private GameObject controlsPanel;
@@ -136,8 +136,7 @@ public class TutorialManager : MonoBehaviour
 
         controls.MainMenu.PauseGame.started += ctx =>
         {
-
-            if (gameStarted && !gameEnded && !roundEnd)
+            if (gameStarted && !gameEnded && !roundEnd && !gamePrepare)
             {
                 if (!gamePaused)
                     PauseGame();
@@ -176,6 +175,8 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
+        // Debug.Log("Player distance to opponent goal post: " + (playerControllers[0].transform.position - opponentGoalPosts[0].transform.position).magnitude.ToString());
+
         if (gamePrepare) {
             if (timeRemaining > 0) {
                 timeRemaining -= Time.unscaledDeltaTime;
@@ -238,6 +239,11 @@ public class TutorialManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().enabled = true;
         }
 
+        if (roundNumber == 2) {
+            CloneManager.KillClones();
+            CloneManager.DeleteClones();
+        }
+
         doNextRoundStuff();
         foreach (PlayerMovement player in playerControllers) {
             player.GetComponent<PlayerMovement>().enabled = false;
@@ -246,18 +252,45 @@ public class TutorialManager : MonoBehaviour
             playerOverlayScript.HideCloneNumbers(true);
         }
 
+        if (roundNumber == 3) {
+            foreach (BallScript ball in balls)
+                ball.gameObject.SetActive(false);
+        }
+        else if (roundNumber == 4) {
+            for (int i = 0; i <= 1; i++)
+                waitAndSetBall(i, 1.5f);
+        }
+        else if (roundNumber == 3) {
+            foreach (BallScript ball in balls)
+                ball.gameObject.SetActive(false);
+        }
+
         preparePanel.SetActive(false);
-        helpPanel.SetActive(true);
-        showStartHelp();
+        if (!gameEnded) {
+            helpPanel.SetActive(true);
+            showStartHelp();
 
-        timer.gameObject.SetActive(true);
-        timeRemaining = GameConfigurations.nearEndingTime;
-        timer.transform.localScale *= 2;
+            timer.gameObject.SetActive(true);
+            timeRemaining = GameConfigurations.nearEndingTime;
+            timer.transform.localScale *= 2;
 
-        roundEnd = false;
-        gamePrepare = true;
+            roundEnd = false;
+            gamePrepare = true;
+        }
 
         playerTutorialFinished.Clear();
+    }
+
+    private void waitAndSetBall(int player, float seconds) {
+        IEnumerator coroutine = setBallCoroutine(player, seconds);
+        StartCoroutine(coroutine);
+    }
+
+    private IEnumerator setBallCoroutine(int player, float seconds) {
+        balls[player].gameObject.SetActive(false);
+        yield return new WaitForSeconds(seconds);
+        balls[player].gameObject.SetActive(true);
+        playerControllers[player].GetComponent<PlayerThrowBall>().ClaimBall(balls[player].gameObject);
     }
 
     public void StartRound() {
@@ -274,6 +307,37 @@ public class TutorialManager : MonoBehaviour
         }
 
         gamePrepare = false;
+
+        if (roundNumber == 2) {
+            foreach (PlayerMovement player in playerControllers) {
+                setMovement(player, 10f);
+            }
+        }
+        else if (roundNumber == 3) {
+            foreach (BallScript ball in balls)
+                ball.gameObject.SetActive(false);
+        }
+        else if (roundNumber == 4) {
+            foreach (PlayerMovement player in playerControllers) {
+                setMovement(player, 1.5f);
+            }
+        }
+        else if (roundNumber == 5) {
+            prepareNext = true;
+            foreach (BallScript ball in balls)
+                ball.gameObject.SetActive(false);
+        }
+    }
+
+    private void setMovement (PlayerMovement player, float seconds) {
+        IEnumerator coroutine = allowMovementCoroutine(player, seconds);
+        StartCoroutine(coroutine);
+    }
+
+    private IEnumerator allowMovementCoroutine (PlayerMovement player, float seconds) {
+        player.canMove = false;
+        yield return new WaitForSeconds(seconds);
+        player.canMove = true;
     }
 
     public void FinishRound() {
@@ -364,6 +428,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         foreach (var ball in balls) {
+            ball.gameObject.SetActive(true);
             ball.Reset();
         }
     }
@@ -404,7 +469,6 @@ public class TutorialManager : MonoBehaviour
         gameEnded = true;
         gamePaused = true;
         endMenuPanel.SetActive(true);
-        endText.text = "Tutorial End!";
 
         timeRemaining = 0f;
         timerIsRunning = false;
@@ -500,22 +564,91 @@ public class TutorialManager : MonoBehaviour
             else if (playerCurrentHelp[i] == 1 && !balls[i].gameObject.activeInHierarchy) {
                 showNextHelp(i);
             }
+            else if (playerCurrentHelp[i] == 2 && balls[i].gameObject.activeInHierarchy) {
+                balls[i].gameObject.SetActive(false);
+            }
         }
     }
 
     private void tutorialRoundTwo() {
-
+        for (int i = 0; i <= 1; i++) {
+            if (playerCurrentHelp[i] == 0 && (!balls[i].gameObject.activeInHierarchy || playerControllers[i].hasBall())) {
+                showNextHelp(i);
+                playerControllers[i].canMove = true;
+            }
+            else if (playerCurrentHelp[i] == 1 && balls[i].gameObject.activeInHierarchy) {
+                showNextHelp(i);
+            }
+            else if (playerCurrentHelp[i] == 2 && playerControllers[i].hasBall()) {
+                showNextHelp(i);
+            }
+            else if (playerCurrentHelp[i] == 3 && !playerControllers[i].hasBall()) {
+                showNextHelp(i);
+                waitAndShowNextHelp(i, 5f);
+            }
+        }
     }
 
     private void tutorialRoundThree() {
-
+        for (int i = 0; i <= 1; i++) {
+            if (playerCurrentHelp[i] == 0 && (playerControllers[i].transform.position - opponentGoalPosts[i].transform.position).magnitude <= 15f) {
+                showNextHelp(i);
+                waitAndShowNextHelp(i);
+            }
+        }
     }
 
     private void tutorialRoundFour() {
-
+        for (int i = 0; i <= 1; i++) {
+            if (playerCurrentHelp[i] == 0 && playerControllers[i].hasBall()) {
+                showNextHelp(i);
+            }
+            else if (playerCurrentHelp[i] == 1 && !balls[i].gameObject.activeInHierarchy) {
+                showNextHelp(i);
+            }
+        }
     }
 
-    private void tutorialRoundFive() {
+    private bool prepareNext;
 
+    private void tutorialRoundFive() {
+        for (int i = 0; i <= 1; i++) {
+            if (playerCurrentHelp[i] == 0) {
+                if (prepareNext) {
+                    prepareNext = false;
+                    waitAndShowNextHelp(i);
+                }
+            }
+            else if (playerCurrentHelp[i] == 1) {
+                if (prepareNext) {
+                    prepareNext = false;
+                    waitAndShowNextHelp(i, 5f);
+                }
+            }
+            else if (playerCurrentHelp[i] == 2) {
+                if (prepareNext) {
+                    prepareNext = false;
+                    waitAndShowNextHelp(i);
+                }
+            }
+            else if (playerCurrentHelp[i] == 3) {
+                if (prepareNext) {
+                    prepareNext = false;
+                    balls[i].gameObject.SetActive(true);
+                    waitAndShowNextHelp(i, 5f);
+                }
+            }
+        }
+    }
+
+    private void waitAndShowNextHelp(int player, float seconds=3f) {
+        IEnumerator coroutine = nextStepCoroutine(player, seconds);
+        StartCoroutine(coroutine);
+    }
+
+    private IEnumerator nextStepCoroutine(int player, float seconds) {
+        yield return new WaitForSeconds(seconds);
+        showNextHelp(player);
+        prepareNext = true;
     }
 }
