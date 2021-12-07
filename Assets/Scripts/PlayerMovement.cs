@@ -46,8 +46,10 @@ public class PlayerMovement : MonoBehaviour
     private AudioSource runningWithoutBall;
     private AudioSource dashingSound;
 
+    [HideInInspector]
     public bool inTutorial;
-    public bool canMove;
+    [HideInInspector]
+    public bool canMove = true;
 
     private Animator animator;
     private float VelocityZ, VelocityX;
@@ -201,6 +203,7 @@ public class PlayerMovement : MonoBehaviour
         runningWithoutBall = audioManager.GetAudio("Running");
         dashingSound = audioManager.GetAudio("Dashing");
 
+        canMove = true;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         Reset();
@@ -403,18 +406,19 @@ public class PlayerMovement : MonoBehaviour
 
     private bool CanDash()
     {
-        if (GetComponent<PlayerThrowBall>())
-        {
+        if (GetComponent<PlayerThrowBall>()) {
             return dashSecondsLeft <= 0 && dashCD <= 0 && GetComponent<PlayerThrowBall>().CheckIfHasBall() == false;
         }
         else
-        {
             return true;
-        }
     }
 
     public void SetCanMove(bool ifCanMove) {
         canMove = ifCanMove;
+    }
+
+    public bool hasBall() {
+        return GetComponent<PlayerThrowBall>().CheckIfHasBall();
     }
 
     public PlayerConfig GetPlayerConfig() {

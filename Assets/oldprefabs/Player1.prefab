@@ -459,6 +459,8 @@ MonoBehaviour:
   playerNumber: 1
   stunText: {fileID: 4572244094758065422}
   audioManager: {fileID: 0}
+  inTutorial: 0
+  canMove: 0
 --- !u!114 &2895117463742061351
 MonoBehaviour:
   m_ObjectHideFlags: 0
