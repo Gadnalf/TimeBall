@@ -224,7 +224,7 @@ public class CloneHitByBall : MonoBehaviour
             // if ball is of opponent's color
             else
             {
-                if (ball.transform.parent == null && ball.GetComponent<BallScript>().GetCharge() > GameConfigurations.goalShieldBreakableCharge)
+                if (ball.transform.parent == null && ball.GetComponent<BallScript>().GetCharge() > GameConfigurations.goalShieldBreakableCharge + 1)
                 {
                     cloneKnockdown = true;
                     ball.GetComponent<BallScript>().ClearCharge();

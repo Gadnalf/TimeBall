@@ -29,6 +29,12 @@ public class TutorialManager : MonoBehaviour
     private GameObject helpPanel;
     [SerializeField]
     private TextMeshProUGUI[] helpTexts;
+    private int[] playerCurrentHelp = new int[2];
+    public string[] roundOneHelps;
+    public string[] roundTwoHelps;
+    public string[] roundThreeHelps;
+    public string[] roundFourHelps;
+    public string[] roundFiveHelps;
     [SerializeField]
     private GameObject preparePanel;
     private TextMeshProUGUI prepareText;
@@ -76,7 +82,7 @@ public class TutorialManager : MonoBehaviour
 
     private void Awake()
     {
-
+        GameConfigurations.roundDuration = 3600f;
         var playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs().ToArray();
         var goals = GameObject.FindGameObjectsWithTag("Goals");
 
@@ -170,6 +176,7 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(playerControllers[0].canMove);
         if (gamePrepare) {
             if (timeRemaining > 0) {
                 timeRemaining -= Time.unscaledDeltaTime;
@@ -193,7 +200,7 @@ public class TutorialManager : MonoBehaviour
             if (!gamePaused && gameStarted) {
                 if (timerIsRunning) {
                     if (playerTutorialFinished.Count < 2) {
-
+                        runTutorial();
                     }
 
                     else {
@@ -235,8 +242,7 @@ public class TutorialManager : MonoBehaviour
 
         preparePanel.SetActive(false);
         helpPanel.SetActive(true);
-        foreach (var ht in helpTexts)
-            ht.text = GameConfigurations.TutorialHelpText(roundNumber);
+        showStartHelp();
 
         timer.gameObject.SetActive(true);
         timeRemaining = GameConfigurations.nearEndingTime;
@@ -285,8 +291,7 @@ public class TutorialManager : MonoBehaviour
         mainPanel.SetActive(true);
         preparePanel.SetActive(false);
         helpPanel.SetActive(true);
-        foreach (var ht in helpTexts)
-            ht.text = GameConfigurations.TutorialHelpText(1);
+        showStartHelp();
 
         timer.gameObject.SetActive(true);
         timeRemaining = GameConfigurations.nearEndingTime;
@@ -427,5 +432,84 @@ public class TutorialManager : MonoBehaviour
         playerTutorialFinished.Add(index);
         playerNextRoundReady[index].SetActive(true);
         Debug.Log("Player ready in tutorial");
+    }
+
+    private string[] getHelpText() {
+        switch (roundNumber) {
+            case 1:
+                return roundOneHelps;
+            case 2:
+                return roundTwoHelps;
+            case 3:
+                return roundThreeHelps;
+            case 4:
+                return roundFourHelps;
+            case 5:
+                return roundFiveHelps;
+            default:
+                return new string[] {""};
+        }  
+    }
+
+    private void showStartHelp() {
+        foreach (var ht in helpTexts) {
+            ht.text = getHelpText()[0];
+        }
+        playerCurrentHelp[0] = 0;
+        playerCurrentHelp[1] = 0;
+    }
+
+    private void showNextHelp(int player) {
+        playerCurrentHelp[player]++;
+        helpTexts[player].text = getHelpText()[playerCurrentHelp[player]];
+    }
+
+    private void runTutorial() {
+        switch (roundNumber) {
+            case 1:
+                tutorialRoundOne();
+                return;
+            case 2:
+                tutorialRoundTwo();
+                return;
+            case 3:
+                tutorialRoundThree();
+                return;
+            case 4:
+                tutorialRoundFour();
+                return;
+            case 5:
+                tutorialRoundFive();
+                return;
+            default:
+                return;
+        }
+    }
+
+    private void tutorialRoundOne() {
+        for (int i = 0; i <= 1; i++) {
+            if (playerCurrentHelp[i] == 0 && playerControllers[i].hasBall()) {
+                showNextHelp(i);
+            }
+            else if (playerCurrentHelp[i] == 1 && !balls[i].gameObject.activeInHierarchy) {
+                showNextHelp(i);
+            }
+        }
+    }
+
+    private void tutorialRoundTwo() {
+
+    }
+
+    private void tutorialRoundThree() {
+
+    }
+
+    private void tutorialRoundFour() {
+
+    }
+
+    private void tutorialRoundFive() {
+
     }
 }
