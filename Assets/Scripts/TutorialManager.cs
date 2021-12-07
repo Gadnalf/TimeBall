@@ -176,7 +176,6 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(playerControllers[0].canMove);
         if (gamePrepare) {
             if (timeRemaining > 0) {
                 timeRemaining -= Time.unscaledDeltaTime;
@@ -220,6 +219,13 @@ public class TutorialManager : MonoBehaviour
             if (playerControllers[0].ShouldStopRunningSound() && playerControllers[1].ShouldStopRunningSound()) {
                 if (runningWithouBall.isPlaying)
                     runningWithouBall.Stop();
+            }
+        }
+
+        if (gameEnded) {
+            Time.timeScale = 0;
+            foreach (PlayerMovement player in playerControllers) {
+                player.GetComponent<PlayerMovement>().enabled = false;
             }
         }
     }
@@ -401,9 +407,10 @@ public class TutorialManager : MonoBehaviour
         endMenuPanel.SetActive(true);
         winnerText.text = "Tutorial End!";
 
+        timeRemaining = 0f;
+        timerIsRunning = false;
         Time.timeScale = 0f;
-        foreach (PlayerMovement player in playerControllers)
-        {
+        foreach (PlayerMovement player in playerControllers) {
             player.GetComponent<PlayerMovement>().enabled = false;
         }
     }

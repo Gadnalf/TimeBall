@@ -218,6 +218,13 @@ public class GameManager : MonoBehaviour
                     runningWithouBall.Stop();
             }
         }
+
+        if (gameEnded) {
+            Time.timeScale = 0;
+            foreach (PlayerMovement player in playerControllers) {
+                player.GetComponent<PlayerMovement>().enabled = false;
+            }
+        }
     }
 
     public void PrepareStartGame() {

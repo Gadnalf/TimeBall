@@ -8533,7 +8533,7 @@ GameObject:
   - component: {fileID: 1525812596}
   - component: {fileID: 1525812595}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: EndText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10531,7 +10531,7 @@ MonoBehaviour:
   - {fileID: 1523750393}
   - {fileID: 1469157033}
   roundOneHelps:
-  - 'Pick up the ball and hold it to charge. '
+  - Pick up the ball and hold it to charge.
   - Shoot the ball when you have charge.
   - Press SELECT to proceed to next  level.
   roundTwoHelps:
