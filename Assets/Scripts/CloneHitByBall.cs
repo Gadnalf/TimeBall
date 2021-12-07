@@ -74,6 +74,7 @@ public class CloneHitByBall : MonoBehaviour
 
         if ((throwBall || passBall) && ball)
         {
+            HandleThrowAnimation();
             playerToNotify.SetCloneWithBall(null);
 
             ball.transform.parent = null;
@@ -256,7 +257,7 @@ public class CloneHitByBall : MonoBehaviour
         if (ball)
         {
             throwBall = true;
-            HandleThrowAnimation();
+            //HandleThrowAnimation();
         }
     }
 
