@@ -46,7 +46,7 @@ public class TutorialManager : MonoBehaviour
     private GameObject endMenuPanel;
 
     [SerializeField]
-    private TextMeshProUGUI winnerText;
+    private TextMeshProUGUI endText;
 
     [SerializeField]
     private GameObject controlsPanel;
@@ -373,8 +373,7 @@ public class TutorialManager : MonoBehaviour
         gamePaused = true;
         Time.timeScale = 0f;
         pauseMenuPanel.SetActive(true);
-        foreach (PlayerMovement player in playerControllers)
-        {
+        foreach (PlayerMovement player in playerControllers) {
             player.GetComponent<PlayerMovement>().enabled = false;
         }
 
@@ -405,7 +404,7 @@ public class TutorialManager : MonoBehaviour
         gameEnded = true;
         gamePaused = true;
         endMenuPanel.SetActive(true);
-        winnerText.text = "Tutorial End!";
+        endText.text = "Tutorial End!";
 
         timeRemaining = 0f;
         timerIsRunning = false;

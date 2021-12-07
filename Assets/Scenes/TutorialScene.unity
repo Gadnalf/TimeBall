@@ -8083,8 +8083,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8471,8 +8471,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10535,7 +10535,7 @@ MonoBehaviour:
   - Shoot the ball when you have charge.
   - Press SELECT to proceed to next  level.
   roundTwoHelps:
-  - 
+  - Clones copy last round's movement and throw input.
   roundThreeHelps:
   - 
   roundFourHelps:
@@ -10545,7 +10545,7 @@ MonoBehaviour:
   preparePanel: {fileID: 1033698627}
   pauseMenuPanel: {fileID: 1408822611}
   endMenuPanel: {fileID: 1393363319}
-  winnerText: {fileID: 1525812595}
+  endText: {fileID: 0}
   controlsPanel: {fileID: 1112428134}
   playerPrefabs:
   - {fileID: 7115374961518105058, guid: 01ccfdea8cab4b74bb2dddb584cdff0c, type: 3}
