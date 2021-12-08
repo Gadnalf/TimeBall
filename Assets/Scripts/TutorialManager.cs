@@ -43,6 +43,8 @@ public class TutorialManager : MonoBehaviour
     private TextMeshProUGUI prepareText;
     [SerializeField]
     private Transform[] tutorialControlHelps;
+    [SerializeField]
+    private GameObject tutorialEnd;
 
     [SerializeField]
     private GameObject pauseMenuPanel;
@@ -69,7 +71,7 @@ public class TutorialManager : MonoBehaviour
     private bool gamePaused = false;
     private bool gameEnded = false;
 
-    [SerializeField]
+    [HideInInspector]
     public bool roundEnd = true;
 
     PlayerControls controls;
@@ -330,7 +332,8 @@ public class TutorialManager : MonoBehaviour
             foreach (PlayerMovement player in playerControllers) {
                 player.canDashIntutorial = true;
             }
-            prepareNext = true;
+            prepareNext[0] = true;
+            prepareNext[1] = true;
             foreach (BallScript ball in balls)
                 ball.gameObject.SetActive(false);
         }
@@ -623,33 +626,39 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    private bool prepareNext;
+    private bool[] prepareNext = new bool[2];
 
     private void tutorialRoundFive() {
         for (int i = 0; i <= 1; i++) {
             if (playerCurrentHelp[i] == 0) {
-                if (prepareNext) {
-                    prepareNext = false;
+                if (prepareNext[i]) {
+                    prepareNext[i] = false;
                     waitAndShowNextHelp(i);
                 }
             }
             else if (playerCurrentHelp[i] == 1) {
-                if (prepareNext) {
-                    prepareNext = false;
+                if (prepareNext[i]) {
+                    prepareNext[i] = false;
                     waitAndShowNextHelp(i, 5f);
                 }
             }
             else if (playerCurrentHelp[i] == 2) {
-                if (prepareNext) {
-                    prepareNext = false;
+                if (prepareNext[i]) {
+                    prepareNext[i] = false;
                     waitAndShowNextHelp(i);
                 }
             }
             else if (playerCurrentHelp[i] == 3) {
-                if (prepareNext) {
-                    prepareNext = false;
+                if (prepareNext[i]) {
+                    prepareNext[i] = false;
                     balls[i].gameObject.SetActive(true);
                     waitAndShowNextHelp(i, 5f);
+                }
+            }
+            else if (playerCurrentHelp[i] == 4) {
+                if (prepareNext[i]) {
+                    prepareNext[i] = false;
+                    waitAndShowEnd(5f);
                 }
             }
         }
@@ -663,6 +672,16 @@ public class TutorialManager : MonoBehaviour
     private IEnumerator nextStepCoroutine(int player, float seconds) {
         yield return new WaitForSeconds(seconds);
         showNextHelp(player);
-        prepareNext = true;
+        prepareNext[player] = true;
+    }
+
+    private void waitAndShowEnd(float seconds = 3f) {
+        IEnumerator coroutine = showEndCoroutine(seconds);
+        StartCoroutine(coroutine);
+    }
+
+    private IEnumerator showEndCoroutine(float seconds) {
+        yield return new WaitForSeconds(seconds);
+        tutorialEnd.SetActive(true);
     }
 }
