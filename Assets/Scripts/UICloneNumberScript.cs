@@ -13,6 +13,8 @@ public class UICloneNumberScript : MonoBehaviour
     [SerializeField]
     private GameObject indicatorPrefab;
     [SerializeField]
+    private float worldSpaceVerticalOffset = 2f;
+    [SerializeField]
     private float indicatorVerticalOffset = 3f;
     [SerializeField]
     private int framesToAlert = 30;
@@ -74,7 +76,7 @@ public class UICloneNumberScript : MonoBehaviour
             GameObject cloneNumberIndicator = cloneNumberIndicators[i];
             if (cloneController != null)
             {
-                Vector3 targetPosition = GetTargetPosition(cloneController.transform.position);
+                Vector3 targetPosition = GetTargetPosition(new Vector3(cloneController.transform.position.x, cloneController.GetComponent<Collider>().bounds.max.y, cloneController.transform.position.z));
                 Vector3 boundedPosition = GetBoundedPosition(targetPosition);
                 cloneNumberIndicator.transform.localPosition = boundedPosition;
                 TextMeshProUGUI textMesh = cloneNumberIndicator.GetComponentInChildren<TextMeshProUGUI>();
@@ -140,7 +142,7 @@ public class UICloneNumberScript : MonoBehaviour
 
     private Vector3 GetTargetPosition(Vector3 clonePosition)
     {
-        Vector3 screenPoint = playerCamera.WorldToScreenPoint(clonePosition + Vector3.up * indicatorVerticalOffset);
+        Vector3 screenPoint = playerCamera.WorldToScreenPoint(clonePosition) + Vector3.up * indicatorVerticalOffset;
         if (screenPoint.z < 0)
         {
             screenPoint *= -1;

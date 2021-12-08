@@ -4646,7 +4646,8 @@ MonoBehaviour:
   ballScript: {fileID: 253741008}
   playerNumber: 1
   indicatorPrefab: {fileID: 6156185086882142738, guid: 2bf6b232b0879bb40877991a09f54e88, type: 3}
-  indicatorVerticalOffset: 4
+  worldSpaceVerticalOffset: 2
+  indicatorVerticalOffset: 50
   framesToAlert: 60
   activeColor: {r: 0, g: 1.0052352, b: 3.9999986, a: 1}
   inactiveColor: {r: 0, g: 0.015686275, b: 0.078431375, a: 1}
@@ -4665,7 +4666,8 @@ MonoBehaviour:
   ballScript: {fileID: 253741008}
   playerNumber: 2
   indicatorPrefab: {fileID: 6156185086882142738, guid: 2bf6b232b0879bb40877991a09f54e88, type: 3}
-  indicatorVerticalOffset: 4
+  worldSpaceVerticalOffset: 2
+  indicatorVerticalOffset: 50
   framesToAlert: 60
   activeColor: {r: 3.9999986, g: 0, b: 0, a: 1}
   inactiveColor: {r: 0.078431375, g: 0, b: 0, a: 1}
