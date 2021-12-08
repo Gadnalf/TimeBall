@@ -53,12 +53,22 @@ public class MainMenuManager : MonoBehaviour
     private void StartGame()
     {
         LobbySceneVariables.SetNextScene("MainScene");
+        PlayerConfigManager playerConfigManager = FindObjectOfType<PlayerConfigManager>();
+        if (playerConfigManager)
+        {
+            Destroy(playerConfigManager.gameObject);
+        }
         SceneManager.LoadScene("LobbyScene");
     }
 
     private void StartTutorial()
     {
         LobbySceneVariables.SetNextScene("TutorialScene");
+        PlayerConfigManager playerConfigManager = FindObjectOfType<PlayerConfigManager>();
+        if (playerConfigManager)
+        {
+            Destroy(playerConfigManager.gameObject);
+        }
         SceneManager.LoadScene("LobbyScene");
     }
 
