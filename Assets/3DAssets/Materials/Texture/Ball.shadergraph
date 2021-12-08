@@ -857,7 +857,7 @@
     "m_Guid": {
         "m_GuidSerialized": "ecc8c952-19a2-42fc-be08-53f69d6704b5"
     },
-    "m_Name": "_Pulse_Offset",
+    "m_Name": "_PulseOffset",
     "m_DefaultReferenceName": "Vector1_0af0cac525344eacac5a22c7ed8f580b",
     "m_OverrideReferenceName": "_PulseOffset",
     "m_GeneratePropertyBlock": true,
@@ -2479,7 +2479,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "6faec80ff8054894883ef8015754d60d",
     "m_Id": 0,
-    "m_DisplayName": "_Pulse_Offset",
+    "m_DisplayName": "_PulseOffset",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",

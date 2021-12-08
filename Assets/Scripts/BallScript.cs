@@ -56,10 +56,10 @@ public class BallScript : MonoBehaviour
         switch (charge >= GameConfigurations.goalShieldBreakableCharge)
         {
             case true:
-                shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.one * 0.3f);
+                shield.GetComponent<Renderer>().sharedMaterial.SetFloat("_PulseOffset", 12);
                 break;
             default:
-                shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.zero);
+                shield.GetComponent<Renderer>().sharedMaterial.SetFloat("_PulseOffset", 1);
                 break;
         }
     }
@@ -149,6 +149,6 @@ public class BallScript : MonoBehaviour
         playerData.playerNumber = PlayerData.PlayerNumber.NoPlayer;
         SetHomingTarget(null);
         ClearCharge();
-        shield.GetComponent<Renderer>().sharedMaterial.SetVector("_PulseOffset", Vector3.zero);
+        shield.GetComponent<Renderer>().sharedMaterial.SetFloat("_PulseOffset", 1);
     }
 }
