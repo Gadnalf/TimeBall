@@ -94,6 +94,7 @@ public class CloneHitByBall : MonoBehaviour
             ball = null;
         }
         throwBall = false;
+        passBall = false;
         timeSinceLastUpdate = 0;
     }
 
