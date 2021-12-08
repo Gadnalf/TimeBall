@@ -37,11 +37,6 @@ public class PlayerConfigManager : MonoBehaviour
         }
     }
 
-    //public void SetPlayerPrefab(int index, GameObject prefab)
-    //{
-    //    playerConfigs[index].PlayerPrefab = prefab;
-    //}
-
     public void ReadyPlayer(int index)
     {
         playerConfigs[index].IsReady = true;
@@ -56,9 +51,7 @@ public class PlayerConfigManager : MonoBehaviour
             if (b) {
                 GetComponent<PlayerInputManager>().DisableJoining();
                 audioManager.GetAudio("Lobby").Stop();
-
-                SceneManager.LoadScene("TutorialScene");
-                // SceneManager.LoadScene("MainScene");
+                SceneManager.LoadScene(LobbySceneVariables.NextScene);
             }
         }
     }
@@ -94,7 +87,6 @@ public class PlayerConfig
     public PlayerInput Input { get; set; }
     public int PlayerIndex { get; set; }
     public bool IsReady { get; set; }
-    //public GameObject PlayerPrefab { get; set; }
 
     public PlayerConfig(PlayerInput pi)
     {
