@@ -10826,11 +10826,11 @@ MonoBehaviour:
   - Press SELECT to proceed to next  round.
   roundTwoHelps:
   - Clones copy your last round's movement and shoot actions.
-  - Clones provide charge level. Press X/LT to pass or pass back.
-  - Clones provide charge level. Press X/LT to pass or pass back.
+  - Press X/LT to pass or pass back.
+  - Press X/LT to pass or pass back.
   - Press X/LT to pass or pass back.
   - Press B/RT to order clone to shoot if clone has the ball.
-  - Charge level is the score you get. Press SELECT for next round.
+  - Charge level = score you get. Press SELECT for next round.
   roundThreeHelps:
   - Move close to opponent goal post. You can set up a shot even if not having the
     ball.
@@ -10838,14 +10838,15 @@ MonoBehaviour:
   - Aim at the goal post and press B/RT to set up a shot. Press SELECT when done.
   roundFourHelps:
   - Clones record last round's shoot action.
-  - Clones record last round's shoot action. Pass the ball to clone.
+  - Pass the ball to clone.
   - Press SELECT to proceed to next  round.
   roundFiveHelps:
   - Press A/RB to dash.
   - Press A/RB to dash. Dash into opponent will tag the ball.
   - Hold Y/LB to guard if you don't have the ball.
   - Hold Y/LB to guard. Ball in your guard radius will be claimed.
-  - Each unique clone provides one charge level. Remember\nCharge Level = Score.
+  - Each unique clone provides one charge level. Remember                   Charge
+    Level = Score.
   preparePanel: {fileID: 1033698627}
   tutorialControlHelps:
   - {fileID: 1072772878}

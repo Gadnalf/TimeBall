@@ -366,6 +366,8 @@ public class TutorialManager : MonoBehaviour
         helpPanel.SetActive(false);
 
         prepareText.text = "Well Done!";
+
+        tutorialEnd.SetActive(false);
     }
 
     private void PrepareStartGame() {
@@ -608,6 +610,7 @@ public class TutorialManager : MonoBehaviour
 
     private void tutorialRoundThree() {
         for (int i = 0; i <= 1; i++) {
+            balls[i].gameObject.SetActive(false);
             if (playerCurrentHelp[i] == 0 && (playerControllers[i].transform.position - opponentGoalPosts[i].transform.position).magnitude <= 15f) {
                 showNextHelp(i);
                 waitAndShowNextHelp(i);
