@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -9,8 +10,9 @@ public class MainMenuManager : MonoBehaviour
     private GameObject menuPanel;
     private GameObject videoPanel;
     private GameObject controlPanel;
-    private PlayerControls controls;
     private VideoPlayer videoPlayer;
+
+    public PlayerInput input;
 
     private bool videoActive;
     private bool controlsActive;
@@ -27,20 +29,19 @@ public class MainMenuManager : MonoBehaviour
         controlPanel = canvas.transform.Find("ControlPanel").gameObject;
 
         videoPlayer.loopPointReached += OnVideoOver;
+    }
 
-        controls = new PlayerControls();
-        controls.MainMenu.StartGame.performed += ctx =>
+    public void OnStartInput()
+    {
+        Debug.Log("Start registered");
+        if (videoActive)
         {
-            Debug.Log("Start registered");
-            if (videoActive)
-            {
-                CloseVideo();
-            }
-            if (controlsActive)
-            {
-                CloseControls();
-            }
-        };
+            CloseVideo();
+        }
+        if (controlsActive)
+        {
+            CloseControls();
+        }
     }
 
     private void StartGame()
@@ -61,7 +62,7 @@ public class MainMenuManager : MonoBehaviour
         controlPanel.SetActive(true);
     }
 
-    public void CloseControls()
+    private void CloseControls()
     {
         controlsActive = false;
         controlPanel.SetActive(false);
