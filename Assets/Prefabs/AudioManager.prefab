@@ -116,7 +116,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Dashing
     clip: {fileID: 8300000, guid: 9e8ec8b5c82abf642800fb1d2f1b7ca8, type: 3}
-    volume: 0
+    volume: 0.1
     pitch: 1
     loop: 0
     playOnAwake: 0

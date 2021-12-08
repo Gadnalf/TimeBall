@@ -106,7 +106,6 @@ public class GameManager : MonoBehaviour
                 CloneManager.DeleteClones();
                 SceneManager.LoadScene("MainScene");
             }
-
         };
 
         controls.MainMenu.ShowControls.performed += ctx =>
@@ -126,19 +125,15 @@ public class GameManager : MonoBehaviour
 
         controls.MainMenu.PauseGame.started += ctx =>
         {
-
             if (gameStarted && !gameEnded && !gamePrepare)
             {
-                if (!gamePaused)
-                {
+                if (!gamePaused) {
                     PauseGame();
                 }
-                else
-                {
+                else {
                     ResumeGame();
                 }
             }
-
         };
 
     }
