@@ -361,6 +361,9 @@ MonoBehaviour:
   playerNumber: 2
   stunText: {fileID: 7793076871534506687}
   audioManager: {fileID: 0}
+  inTutorial: 0
+  canMove: 1
+  canDashIntutorial: 1
 --- !u!114 &5256312344729528318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,8 +376,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b912e44dfe54c41ad1e1ab24a9a8ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  postionFramesToSkip: 3
-  rotationFramesToSkip: 3
+  postionFramesToSkip: 1
+  rotationFramesToSkip: 1
 --- !u!65 &7964845582460899081
 BoxCollider:
   m_ObjectHideFlags: 0

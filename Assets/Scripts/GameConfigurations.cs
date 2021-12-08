@@ -4,9 +4,6 @@ public static class GameConfigurations
     public static float baseMovementSpeed = 12.5f;
     public static float withBallMovementSpeed = 7f;
     public static float guardMovementSpeed = 4f;
-    //public static float baseMovementSpeed = 20f;
-    //public static float withBallMovementSpeed = 12.5f;
-    //public static float guardMovementSpeed = 5f;
     public static float rotationSpeed = 400f;
     public static float passAngle = 90f;
 
@@ -20,7 +17,6 @@ public static class GameConfigurations
     public static float ballHeight = 1.65f;
     public static float ballChargeTime = 1.5f;
     public static int goalShieldBreakableCharge = 1;
-    //public static int maxCloneAutoCharge = 3;
     public static int maxBallCharge = 5;
     public static int cloneBaseCharge = 1;
     public static float cloneBaseChargeCDInSeconds = 10;
