@@ -229,6 +229,10 @@ public class CloneController : MonoBehaviour
 
     public void Kill()
     {
+        if (ballScript.HasBall())
+        {
+            ballScript.DropBall();
+        }
         if (lr != null)
             Destroy(lr.gameObject);
         if (tr != null)

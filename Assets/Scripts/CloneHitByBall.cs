@@ -317,6 +317,14 @@ public class CloneHitByBall : MonoBehaviour
         return ball != null;
     }
 
+    public void DropBall()
+    {
+        ball.transform.parent = null;
+        ball.GetComponent<Rigidbody>().isKinematic = false;
+        ball.GetComponent<Rigidbody>().AddForce(transform.forward * 100f + Vector3.up * GameConfigurations.verticalThrowingForce);
+        ball = null;
+    }
+
     public void KnockDownClone()
     {
         cloneKnockdown = true;
