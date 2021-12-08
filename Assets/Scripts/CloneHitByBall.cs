@@ -213,8 +213,7 @@ public class CloneHitByBall : MonoBehaviour
                     }
 
                     BallScript ballScript = ball.GetComponent<BallScript>();
-                    if (ballScript.IsHomingTarget(GetComponent<Rigidbody>()))
-                    {
+                    if (ballScript.IsHomingTarget(GetComponent<Rigidbody>())) {
                         throwBall = false;
                     }
                     else if (ballScript.GetHomingTarget() != null && ballScript.GetHomingTarget().GetComponent<PlayerData>().playerNumber == GetComponent<PlayerData>().playerNumber)

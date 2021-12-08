@@ -41,6 +41,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     private GameObject preparePanel;
     private TextMeshProUGUI prepareText;
+    [SerializeField]
+    private Transform[] tutorialControlHelps;
 
     [SerializeField]
     private GameObject pauseMenuPanel;
@@ -67,7 +69,8 @@ public class TutorialManager : MonoBehaviour
     private bool gamePaused = false;
     private bool gameEnded = false;
 
-    private bool roundEnd = true;
+    [SerializeField]
+    public bool roundEnd = true;
 
     PlayerControls controls;
 
@@ -176,7 +179,6 @@ public class TutorialManager : MonoBehaviour
     void Update()
     {
         // Debug.Log("Player distance to opponent goal post: " + (playerControllers[0].transform.position - opponentGoalPosts[0].transform.position).magnitude.ToString());
-
         if (gamePrepare) {
             if (timeRemaining > 0) {
                 timeRemaining -= Time.unscaledDeltaTime;
@@ -251,18 +253,21 @@ public class TutorialManager : MonoBehaviour
         foreach (UICloneNumberScript playerOverlayScript in FindObjectsOfType<UICloneNumberScript>()) {
             playerOverlayScript.HideCloneNumbers(true);
         }
-
-        if (roundNumber == 3) {
-            foreach (BallScript ball in balls)
-                ball.gameObject.SetActive(false);
-        }
-        else if (roundNumber == 4) {
-            for (int i = 0; i <= 1; i++)
-                waitAndSetBall(i, 1.5f);
+        
+        if (roundNumber == 2) {
+            foreach (var help in tutorialControlHelps) {
+                help.GetChild(2).gameObject.SetActive(true);
+            }
         }
         else if (roundNumber == 3) {
             foreach (BallScript ball in balls)
                 ball.gameObject.SetActive(false);
+        }
+        else if (roundNumber == 5) {
+            foreach (var help in tutorialControlHelps) {
+                help.GetChild(4).gameObject.SetActive(true);
+                help.GetChild(5).gameObject.SetActive(true);
+            }
         }
 
         preparePanel.SetActive(false);
@@ -277,8 +282,6 @@ public class TutorialManager : MonoBehaviour
             roundEnd = false;
             gamePrepare = true;
         }
-
-        playerTutorialFinished.Clear();
     }
 
     private void waitAndSetBall(int player, float seconds) {
@@ -318,11 +321,15 @@ public class TutorialManager : MonoBehaviour
                 ball.gameObject.SetActive(false);
         }
         else if (roundNumber == 4) {
-            foreach (PlayerMovement player in playerControllers) {
-                setMovement(player, 1.5f);
+            for (int i = 0; i <= 1; i++) {
+                waitAndSetBall(i, 2f);
+                setMovement(playerControllers[i], 2f);
             }
         }
         else if (roundNumber == 5) {
+            foreach (PlayerMovement player in playerControllers) {
+                player.canDashIntutorial = true;
+            }
             prepareNext = true;
             foreach (BallScript ball in balls)
                 ball.gameObject.SetActive(false);
@@ -341,6 +348,9 @@ public class TutorialManager : MonoBehaviour
     }
 
     public void FinishRound() {
+        roundEnd = true;
+        playerTutorialFinished.Clear();
+
         Time.timeScale = 0f;
         timerIsRunning = false;
 
@@ -353,8 +363,6 @@ public class TutorialManager : MonoBehaviour
         helpPanel.SetActive(false);
 
         prepareText.text = "Well Done!";
-
-        roundEnd = true;
     }
 
     private void PrepareStartGame() {
@@ -499,9 +507,10 @@ public class TutorialManager : MonoBehaviour
     }
 
     public void ReadyPlayer(int index) {
-        playerTutorialFinished.Add(index);
-        playerNextRoundReady[index].SetActive(true);
-        Debug.Log("Player ready in tutorial");
+        if (!roundEnd && !playerTutorialFinished.Contains(index)) {
+            playerTutorialFinished.Add(index);
+            playerNextRoundReady[index].SetActive(true);
+        }
     }
 
     private string[] getHelpText() {
@@ -560,6 +569,11 @@ public class TutorialManager : MonoBehaviour
         for (int i = 0; i <= 1; i++) {
             if (playerCurrentHelp[i] == 0 && playerControllers[i].hasBall()) {
                 showNextHelp(i);
+            }
+            else if (playerCurrentHelp[i] == 0) {
+                foreach (PlayerMovement player in playerControllers) {
+                    player.canDashIntutorial = false;
+                }
             }
             else if (playerCurrentHelp[i] == 1 && !balls[i].gameObject.activeInHierarchy) {
                 showNextHelp(i);

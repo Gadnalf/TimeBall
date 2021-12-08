@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        GameConfigurations.roundDuration = 30f;
+        GameConfigurations.roundDuration = 3600f;
         var playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs().ToArray();
         var goals = GameObject.FindGameObjectsWithTag("Goals");
 

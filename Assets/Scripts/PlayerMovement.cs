@@ -50,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
     public bool inTutorial;
     [HideInInspector]
     public bool canMove = true;
+    [HideInInspector]
+    public bool canDashIntutorial = true;
 
     private Animator animator;
     private float VelocityZ, VelocityX;
@@ -204,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
         dashingSound = audioManager.GetAudio("Dashing");
 
         canMove = true;
+        canDashIntutorial = true;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         Reset();
@@ -242,10 +245,10 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 movementVector *= GameConfigurations.baseMovementSpeed;
-                if (runningWithoutBall.isPlaying == false)
-                {
-                    runningWithoutBall.Play();
-                }
+            }
+
+            if (runningWithoutBall.isPlaying == false) {
+                runningWithoutBall.Play();
             }
         }
 
@@ -271,14 +274,16 @@ public class PlayerMovement : MonoBehaviour
             float dashBonus = GameConfigurations.dashSpeed - dashFactor * (GameConfigurations.dashSeconds - dashSecondsLeft);
 
             Vector3 dashVector;
-            if (movement == Vector2.zero)
-            {
+            if (movement == Vector2.zero) {
                 dashVector = Vector3.forward * dashBonus;
             }
-            else
-            {
+            else {
                 dashVector = movementVector.normalized * dashBonus;
             }
+
+            if (GetComponent<PlayerThrowBall>().CheckIfGuarding())
+                dashVector /= 2f;
+
             movementVector += dashVector;
             HandleAnimation(movementVector, true, true);
         }
@@ -405,6 +410,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private bool CanDash() {
+        if (inTutorial && !canDashIntutorial) {
+            return false;
+        }
+
         if (GetComponent<PlayerThrowBall>()) {
             return dashSecondsLeft <= 0 && dashCD <= 0 && GetComponent<PlayerThrowBall>().CheckIfHasBall() == false;
         }
