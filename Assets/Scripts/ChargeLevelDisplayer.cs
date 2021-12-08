@@ -25,8 +25,7 @@ public class ChargeLevelDisplayer : MonoBehaviour
 
         foreach (Camera camera in playerCameras)
         {
-            if (camera.name.StartsWith("P1") && gameObject.name == "P1ChargeLevel")
-            {
+            if (camera.name.StartsWith("P1") && gameObject.name == "P1ChargeLevel") {
                 playerCamera = camera;
                 var player = camera.transform.parent;
                 var playerPos = player.GetComponent<Rigidbody>().position;
@@ -50,9 +49,7 @@ public class ChargeLevelDisplayer : MonoBehaviour
 
     void Update()
     {
-
-        if (!ballScript.isActiveAndEnabled || !ballScript.gameObject.activeInHierarchy)
-        {
+        if (!ballScript.isActiveAndEnabled || !ballScript.gameObject.activeInHierarchy) {
             return;
         }
         

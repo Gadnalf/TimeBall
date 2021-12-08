@@ -27,7 +27,7 @@ public class PlayerConfigManager : MonoBehaviour
     {
         if (Instance != null)
         {
-            Debug.Log("trying to create another playerconfigmanager.");
+            Debug.Log("trying to create another playerconfig manager.");
         }
         else
         {
@@ -57,8 +57,8 @@ public class PlayerConfigManager : MonoBehaviour
                 GetComponent<PlayerInputManager>().DisableJoining();
                 audioManager.GetAudio("Lobby").Stop();
 
-                SceneManager.LoadScene("TutorialScene");
-                // SceneManager.LoadScene("MainScene");
+                // SceneManager.LoadScene("TutorialScene");
+                SceneManager.LoadScene("MainScene");
             }
         }
     }

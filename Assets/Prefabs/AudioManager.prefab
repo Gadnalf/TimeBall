@@ -81,7 +81,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Goal
     clip: {fileID: 8300000, guid: 0cb9e3cce91e6ca44aa4e448e1348cf2, type: 3}
-    volume: 0.1
+    volume: 0.3
     pitch: 1
     loop: 0
     playOnAwake: 0

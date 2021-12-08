@@ -77,23 +77,20 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        GameConfigurations.roundDuration = 3600f;
+        GameConfigurations.roundDuration = 30f;
         var playerConfigs = PlayerConfigManager.Instance.GetPlayerConfigs().ToArray();
         var goals = GameObject.FindGameObjectsWithTag("Goals");
 
-        for (int i = 0; i < playerConfigs.Length; i++)
-        {
+        for (int i = 0; i < playerConfigs.Length; i++) {
             var player = Instantiate(playerPrefabs[i], spawnPoints[i].position, spawnPoints[i].rotation, gameObject.transform);
             player.GetComponent<PlayerMovement>().InitializePlayer(playerConfigs[i]);
             playerRecordings[i] = player.GetComponent<PlayerRecording>();
             playerControllers[i] = player.GetComponent<PlayerMovement>();
             playerControllers[i].SetTutorial(false);
 
-            foreach (GameObject goal in goals)
-            {
+            foreach (GameObject goal in goals) {
                 goal.GetComponent<GoalPost>().playerMovements[i] = player.GetComponent<PlayerMovement>();
             }
-
         }
 
         controls = new PlayerControls();
