@@ -15,8 +15,6 @@ public class LobbyManager : MonoBehaviour
     [SerializeField]
     private GameObject instructions;
 
-    [SerializeField]
-    private AudioManager audioManager;
 
     [SerializeField]
     private GameObject playerManager;
@@ -24,7 +22,6 @@ public class LobbyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        audioManager.GetAudio("Lobby").Play();
         videoPlayer.GetComponent<VideoPlayer>().loopPointReached += CheckOver;
     }
 

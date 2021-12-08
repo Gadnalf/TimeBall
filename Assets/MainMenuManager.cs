@@ -17,6 +17,8 @@ public class MainMenuManager : MonoBehaviour
     private bool videoActive;
     private bool controlsActive;
 
+    private AudioManager audioManager;
+
     private void Awake()
     {
         videoActive = true;
@@ -29,6 +31,11 @@ public class MainMenuManager : MonoBehaviour
         controlPanel = canvas.transform.Find("ControlPanel").gameObject;
 
         videoPlayer.loopPointReached += OnVideoOver;
+    }
+
+    private void Start() {
+        audioManager = FindObjectOfType<AudioManager>();
+        audioManager.GetAudio("Lobby").Play();
     }
 
     public void OnStartInput()

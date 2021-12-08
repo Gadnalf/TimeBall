@@ -120,7 +120,7 @@ public class TutorialManager : MonoBehaviour
             {
                 Debug.Log("game ended");
                 CloneManager.DeleteClones();
-                SceneManager.LoadScene("LobbyScene");
+                SceneManager.LoadScene("MainMenuScene");
             }
         };
 
