@@ -33,7 +33,6 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnStartInput()
     {
-        Debug.Log("Start registered");
         if (videoActive)
         {
             CloseVideo();
