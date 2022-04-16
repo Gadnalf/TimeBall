@@ -4,7 +4,7 @@
 
 2-player competitive handball, only with time-travelling self-replication.
 
-Score goals, support your past and future selves, and outsmart your opponents to be crowned Champion of All Timeball.
+Score goals, support your past and future selves, and outsmart your opponents to be crowned Greatest of All Timeball.
 
 Check out the trailer and more on our itch:
 https://haotian-luo.itch.io/dodge-time
