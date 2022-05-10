@@ -2,7 +2,7 @@
 
 # TimeBall
 
-2-player competitive handball, only with time-travelling self-replication.
+2-player competitive handball, with a twist of time-travelling self-replication.
 
 Score goals, support your past and future selves, and outsmart your opponents to be crowned Greatest of All Timeball.
 
